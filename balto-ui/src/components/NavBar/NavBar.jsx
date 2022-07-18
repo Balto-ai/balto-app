@@ -8,7 +8,7 @@ export default function NavBar() {
   return (
     <div className='navbar'>
       <div className='header'>
-        <div className='logo'>Balto</div>
+        <div className='logo'><Link to="/" className='logo'>Balto</Link></div>
         <div className='navlinks-div'>
           <NavLinks className="nav-link"/>
         </div>

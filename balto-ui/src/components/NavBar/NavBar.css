@@ -11,7 +11,9 @@
 }
 .logo{
     font-weight: 800;
-    font-size: 30px;
+    font-size: 36px;
+    color: #5d74bb;
+    text-decoration: none;
 }
 .navbar .header {
     width: 100%;
@@ -55,13 +57,18 @@
     width: 20%;
 }
 .navbar-btns{
+    font-size: 16px;
     font-weight: 600;
     background-color: white;
     margin-left: 30px;
+    border: none;
     border-radius: 7%;
     padding: 10px 16px 10px 16px;
+    cursor: pointer;
 }
+
 #login{
-    background-color: black;
+    background-color: #908af8;
+    border: none;
     color: white;
 }
