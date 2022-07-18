@@ -1,0 +1,68 @@
+
+CREATE TABLE shelters (
+    id          SERIAL PRIMARY KEY,
+    name        TEXT NOT NULL UNIQUE,
+    url         TEXT NOT NULL,
+    email       TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
+    address     TEXT NOT NULL,
+    city        TEXT NOT NULL,
+    state       TEXT NOT NULL,
+    zipcode     TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE dogs (
+    id              SERIAL PRIMARY KEY,
+    name            TEXT NOT NULL,
+    dob             DATE NOT NULL,
+    size            TEXT NOT NULL,
+    breed           TEXT NOT NULL,
+    sex             TEXT NOT NULL,
+    color           TEXT NOT NULL,
+    desc_1          TEXT NOT NULL,
+    desc_2          TEXT NOT NULL,
+    date_entered    DATE NOT NULL,
+    image_url       TEXT NOT NULL,
+    kid_friendly    BOOLEAN NOT NULL,
+    pet_friendly    BOOLEAN NOT NULL,
+    elderly_friendly BOOLEAN NOT NULL,
+    created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    shelter_id      INTEGER NOT NULL,
+    FOREIGN KEY (shelter_id) REFERENCES shelters(id)
+);
+
+CREATE TABLE milestones (
+    id          SERIAL PRIMARY KEY,
+    name        TEXT NOT NULL,
+    status      BOOLEAN NOT NULL DEFAULT FALSE,
+    minutes     INTEGER NOT NULL DEFAULT 0,
+    notes       TEXT NOT NULL DEFAULT NULL,
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+    dog_id      INTEGER NOT NULL,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id)
+);
+
+CREATE TABLE users (
+    id          SERIAL PRIMARY KEY,
+    first_name  TEXT NOT NULL,
+    last_name   TEXT NOT NULL,
+    email       TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
+    password    TEXT NOT NULL,
+    zipcode     TEXT NOT NULL,
+    is_admin    BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+    shelter_id  INTEGER NOT NULL,
+    FOREIGN KEY (shelter_id) REFERENCES shelters(id)
+);
+
+CREATE TABLE user_dog_pairings (
+    id          SERIAL PRIMARY KEY,
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+    user_id     INTEGER NOT NULL,
+    dog_id      INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
+);
