@@ -1,13 +1,44 @@
-import logo from './logo.svg';
+import * as React from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import NavBar from "./components/NavBar/NavBar.jsx"
+import LandingPage from "./components/LandingPage/LandingPage"
+import LoginPage from "./components/LoginPage/LoginPage"
+import RegistrationPage from "./components/RegistrationPage/RegistrationPage"
+import DogSearchPage from "./components/DogSearchPage/DogSearchPage"
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
+import NotFound from "./components/NotFound/NotFound"
+import Footer from "./components/Footer/Footer"
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header">
         <h1>Welcome to Balto</h1>
-      </header>
+      </header> */}
+
+      <React.Fragment>{
+        <BrowserRouter>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={
+                <LandingPage />} />
+              <Route path="/login" element={
+                <LoginPage />} />
+              <Route path="/register" element={
+                <RegistrationPage />} />
+              <Route path="/search" element={
+                <DogSearchPage />} />
+              <Route path="/admin-dashboard" element={
+                <AdminDashboard />} />
+              <Route path="*" element={
+                <NotFound />} />
+            </Routes>
+            <Footer />
+        </BrowserRouter>
+      }</React.Fragment>
+
+
     </div>
   );
 }
