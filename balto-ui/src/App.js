@@ -8,7 +8,9 @@ import DogSearchPage from "./components/DogSearchPage/DogSearchPage"
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
+import StarredPage from "./components/StarredPage/StarredPage.jsx"
 import './App.css';
+
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
                 <RegistrationPage />} />
               <Route path="/search" element={
                 <DogSearchPage />} />
+              <Route path="/star" element={
+                <StarredPage />} />
               <Route path="/admin-dashboard" element={
                 <AdminDashboard />} />
               <Route path="*" element={
