@@ -6,3 +6,4 @@ CREATE DATABASE balto;
 \connect balto;
 
 \i balto-schema.sql
+\i balto-seed.sql

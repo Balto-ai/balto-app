@@ -24,9 +24,14 @@ CREATE TABLE dogs (
     desc_2          TEXT NOT NULL,
     date_entered    DATE NOT NULL,
     image_url       TEXT NOT NULL,
-    kid_friendly    BOOLEAN NOT NULL,
-    pet_friendly    BOOLEAN NOT NULL,
-    elderly_friendly BOOLEAN NOT NULL,
+    novice_friendly INTEGER,
+    kid_friendly    INTEGER,
+    dog_friendly    INTEGER,
+    stranger_friendly INTEGER,
+    easy_to_groom   INTEGER,
+    trainability    INTEGER,
+    energy_level    INTEGER,
+    exercise_needs  INTEGER,
     created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     shelter_id      INTEGER NOT NULL,
@@ -54,7 +59,7 @@ CREATE TABLE users (
     zipcode     TEXT NOT NULL,
     is_admin    BOOLEAN NOT NULL DEFAULT FALSE,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-    shelter_id  INTEGER NOT NULL,
+    shelter_id  INTEGER,
     FOREIGN KEY (shelter_id) REFERENCES shelters(id)
 );
 
