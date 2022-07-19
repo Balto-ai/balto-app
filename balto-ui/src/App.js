@@ -1,5 +1,6 @@
 import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { AuthContextProvider } from "./contexts/auth"
 import NavBar from "./components/NavBar/NavBar.jsx"
 import LandingPage from "./components/LandingPage/LandingPage"
 import LoginPage from "./components/LoginPage/LoginPage"
@@ -11,6 +12,13 @@ import Footer from "./components/Footer/Footer"
 import StarredPage from "./components/StarredPage/StarredPage.jsx"
 import './App.css';
 
+function AppContainer() {
+  return (
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  )
+}
 
 function App() {
   return (
@@ -47,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppContainer;
