@@ -17,17 +17,17 @@
     display: flex;
     flex-direction: column;
     background-color: aliceblue;
-    width: 50vw;
+    width: 55vw;
 }
 
 .profile-pane .profile-header {
     background-color: rgb(241, 241, 241);
     display: flex;
-    width: 50vw;
+    width: 55vw;
 
 }
 
-.profile-header .profile-img {
+.profile-pane .profile-header .profile-img {
     width: 200px;
     height: 200px;
     background-color: blanchedalmond;
@@ -38,7 +38,7 @@
     border: 1px solid black;
 }
 
-.profile-header .profile-title {
+.profile-pane .profile-header .profile-title {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -46,16 +46,16 @@
     padding: 10px;
 }
 
-.profile-header .profile-title h1 {
+.profile-pane .profile-header .profile-title h1 {
     font-size: 42px;
 }
 
-.profile-header .profile-title .tags {
+.profile-pane .profile-header .profile-title .tags {
     display: flex;
     justify-content: space-evenly;
 }
 
-.profile-header .profile-title .tags .tag {
+.profile-pane .profile-header .profile-title .tags .tag {
     background-color: grey;
     margin-right: 10px;
     border-radius: 5px;
@@ -70,9 +70,48 @@
     padding: 5%;
 }
 
-
-
 .training-pane {
-    width: 50vw;
+    width: 45vw;
     background-color: rgb(234, 254, 255);
+    display: flex;
+    flex-direction: column;
 }
+
+.training-pane .action-btns {
+    display: flex;
+    justify-content: right;
+    padding: 5%;
+}
+
+.training-pane .action-btns .btn {
+    background-color: #869DEC;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.training-pane .action-btns .btn {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.training-pane .progress-bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.training-pane .progress-bar div {
+    background-color: gray;
+    width: 80%;
+    height: 30px;
+    margin-top: 3%;
+    align-self: center;
+    border-radius: 10px;
+}
+
+
+

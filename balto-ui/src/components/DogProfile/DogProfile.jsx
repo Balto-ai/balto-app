@@ -1,5 +1,7 @@
 import React from 'react'
 import './DogProfile.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
 
 export default function DogProfile() {
   return (
@@ -38,7 +40,20 @@ export default function DogProfile() {
           </div>
         </div>
         <div className='training-pane'>
-
+          <section className='action-btns'>
+            <div className='btn'>
+              <Link to="/favorites">
+                <BsStar />Favorite</Link>
+            </div>
+            <div className='btn'>
+              <Link className='btn-txt' to="/adopt">
+                <BsFillHouseDoorFill /> Adopt Me</Link>
+            </div>
+          </section>
+          <section className='progress-bar'>
+            <b>Progress in the shelter's training milestones</b>
+            <div></div>
+          </section>
         </div>
       </div>
     </div>
