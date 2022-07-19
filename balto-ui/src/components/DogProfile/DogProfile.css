@@ -1,0 +1,78 @@
+.profile-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.split-pane {
+    display: flex;
+}
+
+.banner {
+    width: 100vw;
+    height: 20vh;
+    background-color: #869DEC;
+}
+
+.profile-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    width: 50vw;
+}
+
+.profile-pane .profile-header {
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    width: 50vw;
+
+}
+
+.profile-header .profile-img {
+    width: 200px;
+    height: 200px;
+    background-color: blanchedalmond;
+    align-self: center;
+    border-radius: 100%;
+    margin: 20px;
+    margin-top: -10%;
+    border: 1px solid black;
+}
+
+.profile-header .profile-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.profile-header .profile-title h1 {
+    font-size: 42px;
+}
+
+.profile-header .profile-title .tags {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile-header .profile-title .tags .tag {
+    background-color: grey;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+
+.profile-pane .about-section {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 5%;
+}
+
+
+
+.training-pane {
+    width: 50vw;
+    background-color: rgb(234, 254, 255);
+}
