@@ -6,6 +6,8 @@ import LandingPage from "./components/LandingPage/LandingPage"
 import LoginPage from "./components/LoginPage/LoginPage"
 import RegistrationPage from "./components/RegistrationPage/RegistrationPage"
 import DogSearchPage from "./components/DogSearchPage/DogSearchPage"
+import DogCard from "./components/DogCard/DogCard"
+import DogProfile from "./components/DogProfile/DogProfile"
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
@@ -43,6 +45,8 @@ function App() {
                 <StarredPage />} />
               <Route path="/admin-dashboard" element={
                 <AdminDashboard />} />
+              <Route path="/dog-profile" element={
+                <DogProfile />} />
               <Route path="*" element={
                 <NotFound />} />
             </Routes>

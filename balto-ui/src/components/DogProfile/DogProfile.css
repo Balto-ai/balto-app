@@ -1,0 +1,135 @@
+.profile-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.split-pane {
+    display: flex;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.banner {
+    width: 100vw;
+    height: 20vh;
+    background-color: #869DEC;
+}
+
+.profile-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 55vw;
+}
+
+.profile-pane .profile-header {
+    background-color: white;
+    display: flex;
+    width: 50%;
+
+}
+
+.profile-pane .profile-header .profile-img {
+    width: 200px;
+    height: 200px;
+    background-color: blanchedalmond;
+    align-self: center;
+    border-radius: 100%;
+    margin: 20px;
+    margin-top: -10%;
+    border: 1px solid black;
+}
+
+.profile-pane .profile-header .profile-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.profile-pane .profile-header .profile-title h1 {
+    font-size: 42px;
+}
+
+.profile-pane .profile-header .profile-title .tags {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile-pane .profile-header .profile-title .tags .tag {
+    background-color: grey;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    white-space: nowrap; /*prevents the texts from wrapping*/
+
+}
+
+.profile-pane .about-section {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 5%;
+}
+
+.training-pane {
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.training-pane .action-btns {
+    display: flex;
+    justify-content: right;
+    padding: 5%;
+}
+
+.training-pane .action-btns .btn {
+    background-color: #869DEC;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 7px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.training-pane .action-btns .btn:hover {
+    background-color: #FEC272;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 7px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.training-pane .progress-bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.training-pane .progress-bar div {
+    background-color: gray;
+    width: 80%;
+    height: 30px;
+    margin-top: 3%;
+    align-self: center;
+    border-radius: 10px;
+}
+
+
+
+
+
