@@ -7,18 +7,20 @@ const security = require("../middleware/security")
 router.get("/", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
-        const dogs = await DogRecords.listDogRecordsForShelter(shelterId) 
-        return res.status(201).json( dogs )
+        const dogRecords = await DogRecords.listDogRecordsForShelter(shelterId)
+        return res.status(201).json( dogRecords )
     } catch(err) {
         next(err)
     }
 })
 
 // create a dog record
-router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
+router.post("/", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
     try {
-        const { userId } = res.locals.user
-        return res.status(201).json( "hello post" )
+        const { shelterId } = res.locals.user
+        const newDogRecordForm = req?.body
+        const dogRecord = await DogRecords.createDogRecord( newDogRecordForm, shelterId )
+        return res.status(201).json( { dogRecord } )
     } catch(err) {
         next(err)
     }
