@@ -1,0 +1,31 @@
+.landing-page{
+    width: 100%;
+    padding-bottom: 15px;
+}
+.landing-container{
+    align-items: center;
+    margin-left: 10%;
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: left;
+    gap: 10px;
+}
+
+.quiz-btn{
+    padding: 10px 15px 10px 20px;
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+    border-radius:5px;
+    border-style: solid;
+    border-color: #869DEC;
+    color: #869DEC;
+    font-weight: 550;
+    font-size: 14px;
+}
+.quiz-btn .quiz-icon{
+    margin-left: 2px;
+    padding: 5px 5px 5px 5px;
+    vertical-align:middle;
+}
