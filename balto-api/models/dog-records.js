@@ -78,14 +78,14 @@ class DogRecords {
             throw new BadRequestError("No shelterId provided")
         }
 
-        // get all the rows in nutrition where the shelter_id column matches the shelterId parameter
+        // get dog record with requested id that matches the shelterId of the user
         const query = `
             SELECT * FROM dogs
             WHERE id = $1 AND shelter_id = $2;
             `
         const result = await db.query(query, [dogId, shelterId])
 
-        console.log(3465, result.rows)
+        // checking if there is there the requested dog record belongs to the shelter
         if (result.rows.length === 0) {
             throw new UnauthorizedError("The requested dog record is not at this shelter")
         } 
