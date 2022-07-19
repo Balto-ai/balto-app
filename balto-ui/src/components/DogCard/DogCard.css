@@ -1,0 +1,39 @@
+.dog-card:hover{
+    cursor: pointer;
+}
+.dog-card{
+    white-space: nowrap;
+    height: 380px;
+    width: 230px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+}
+.dog-img{
+    margin-top: 27.5px;
+}
+#dog-card-img{
+    border-width: 1px;
+    height: 230px;
+    width: 170px;
+    border-style: solid;
+}
+.dog-info{
+    max-height: 92.5px;
+    margin-top: -10px;
+    width: 100%;
+    text-align: left;
+    justify-self: center;
+ 
+}
+.dog-name{
+    padding-left: 25px;
+}
+.dog-breed{
+    margin-top: -15px;
+    padding-left: 25px;
+}
+.dog-age-group{
+    margin-top: -12px;
+    padding-left: 25px;
+}

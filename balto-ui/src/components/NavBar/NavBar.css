@@ -10,9 +10,11 @@
     padding: 20px;
     overflow-x: hidden;
     overflow-y: hidden;
+    /* background-color: blue; */
 }
 
 .logo{
+    /* background-color: aqua; */
     font-weight: 800;
     font-size: 36px;
     color: #5d74bb;
@@ -20,17 +22,18 @@
 }
 .navbar .header {
     
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+    /* background-color: red; */
     
 }
 .navbar .header .logo{
     width: 100px;
-    margin-right: 100px;
-    margin-left:65px;
+    /* margin-right: 100px;
+    margin-left:65px; */
 }
 .navlinks-div{
     display: flex;
@@ -39,7 +42,7 @@
 .navlinks{
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
-    margin-right: 600px;
+    margin-right: 650px
 }
 .navlinks .nav-header{
     display: inline;
@@ -55,18 +58,25 @@
     margin: 6px;
     color: black;
     text-decoration:none;
+    /* background-color: yellow; */
 }
 .nav-btns{
     justify-content: space-evenly;
     width: 20%;
+    /* align-items: flex-end; */
+    /* right: 0; */
+    /* background-color: green; */
+
 }
 .navbar-btns{
+    /* right: 0; */
+    align-items: flex-end;
     font-size: 16px;
     font-weight: 600;
     background-color: white;
-    margin-left: 30px;
+    margin-left: 25px;
     border: none;
-    border-radius: 7%;
+    border-radius: 7px;
     padding: 10px 16px 10px 16px;
     cursor: pointer;
 }
