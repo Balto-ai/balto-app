@@ -6,8 +6,7 @@ const generateToken = (data) => jwt.sign(data, SECRET_KEY, { algorithm:"HS256", 
 const createUserJwt = (user) => {
     const payload = {
         email: user.email,
-        username: user.username,
-        userId: user.id
+        userId: user.id,
     }
     return generateToken(payload)
 }
