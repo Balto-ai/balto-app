@@ -1,4 +1,6 @@
 .navbar {
+    white-space: nowrap; /*prevents the texts from wrapping*/
+    margin: 0 auto;
     width: 100%;
     max-width: 100vw;
     height: 65px;
@@ -17,6 +19,7 @@
     text-decoration: none;
 }
 .navbar .header {
+    
     width: 100%;
     margin: 0 auto;
     display: flex;

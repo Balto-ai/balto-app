@@ -1,5 +1,5 @@
 import React from 'react'
-import Dog from "./image/Error Naughty Dog.png"
+import Dog from './image/Error Naughty Dog.png'
 import "./NotFound.css"
 export default function NotFound() {
   return (
