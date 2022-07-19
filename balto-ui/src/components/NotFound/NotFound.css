@@ -1,0 +1,16 @@
+.not-found{
+    width: 100%;
+    overflow-x: hidden;
+    margin-top: 5%;
+
+}
+.not-found-pic{
+    height: 280px;
+}
+.not-found-title{
+    margin-bottom: 50px;
+}
+.nf-title{
+    font-size: 50px;
+    vertical-align: top;
+}
