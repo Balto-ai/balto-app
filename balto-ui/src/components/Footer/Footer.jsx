@@ -46,7 +46,7 @@ export default function Footer() {
         <div className='col'>
           <h4 id="company-info" className='footer-title'>COMPANY</h4>
           <ul className='list-unstyled'>
-              <li className='footer-content'>About</li>
+              <li className='footer-content'>About Us</li>
               <li className='footer-content'>Privacy Policy</li>
               <li className='footer-content'>Terms of Service</li>
             </ul>
