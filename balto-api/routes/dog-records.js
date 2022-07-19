@@ -8,7 +8,7 @@ router.get("/", security.requireAuthenticatedUser, security.requireShelterAdminU
     try {
         const { shelterId } = res.locals.user
         const dogRecords = await DogRecords.listDogRecordsForShelter(shelterId)
-        return res.status(201).json( dogRecords )
+        return res.status(200).json({ dogRecords })
     } catch(err) {
         next(err)
     }
@@ -29,29 +29,32 @@ router.post("/", security.requireAuthenticatedUser, security.requireShelterAdmin
 // view a dog record
 router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
-        const { userId } = res.locals.user
+        const { shelterId } = res.locals.user
         const dogId = req.params.dogId
-        return res.status(201).json( { dogId } )
+        const dogRecord = await DogRecords.fetchDogRecordById( dogId, shelterId )
+        return res.status(200).json( { dogRecord } )
     } catch (err) {
         next(err)
     }
   })
 
   // edit a dog record
+  // TODO: incomplete
   router.put("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const dogId = req.params.dogId
-        return res.status(201).json( { dogId } )
+        return res.status(200).json( { dogId } )
     } catch (err) {
         next(err)
     }
   })
 
   // delete a dog record
+  // TODO: incomplete
   router.delete("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const dogId = req.params.dogId
-        return res.status(201).json( { dogId } )
+        return res.status(200).json( { dogId } )
     } catch (err) {
         next(err)
     }

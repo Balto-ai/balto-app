@@ -21,6 +21,7 @@ class DogRecords {
     }
 
     // called in POST request to /dog-records/
+    // TODO: incomplete
     static async createDogRecord(dogRecordForm, shelterId) {
         if (!shelterId) {
             throw new BadRequestError("No shelterId provided")
@@ -67,6 +68,29 @@ class DogRecords {
                                               shelterId
                                              ])
         return result.rows[0]
+    }
+
+    static async fetchDogRecordById( dogId, shelterId ) {
+        if (!dogId) {
+            throw new BadRequestError("No dogId provided")
+        }
+        if (!shelterId) {
+            throw new BadRequestError("No shelterId provided")
+        }
+
+        // get all the rows in nutrition where the shelter_id column matches the shelterId parameter
+        const query = `
+            SELECT * FROM dogs
+            WHERE id = $1 AND shelter_id = $2;
+            `
+        const result = await db.query(query, [dogId, shelterId])
+
+        console.log(3465, result.rows)
+        if (result.rows.length === 0) {
+            throw new UnauthorizedError("The requested dog record is not at this shelter")
+        } 
+
+        return result.rows
     }
 
 }
