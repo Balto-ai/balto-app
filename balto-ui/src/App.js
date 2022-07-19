@@ -8,7 +8,7 @@ import DogSearchPage from "./components/DogSearchPage/DogSearchPage"
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
-import StarredPage from "./components/StarredPage/StarredPage.jsx"
+import StarredPage from "./components/StarredPage/StarredPage"
 import './App.css';
 
 
