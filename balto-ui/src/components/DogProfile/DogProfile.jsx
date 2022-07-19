@@ -2,8 +2,31 @@ import React from 'react'
 import './DogProfile.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
+import TrainingFeed from '../TrainingFeed/TrainingFeed';
 
 export default function DogProfile() {
+  let trainingArr = {
+    data:
+      [
+        {
+          "dog": "Sparky",
+          "time": "2022-07-19",
+          "name": "roll"
+        },
+        {
+          "dog": "Sparky",
+          "time": "2022-07-19",
+          "name": "roll"
+        },
+        {
+          "dog": "Sparky",
+          "time": "2022-07-19",
+          "name": "roll"
+        }
+      ]
+  }
+
+
   return (
     <div className='profile-page'>
       <div className='banner'>
@@ -54,6 +77,16 @@ export default function DogProfile() {
             <b>Progress in the shelter's training milestones</b>
             <div></div>
           </section>
+          <div className='training-feed'>
+            <h2>Training Feed</h2>
+            <div className='feed'>
+              {trainingArr.map((milestone) => {
+                return (
+                  <TrainingFeed />
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

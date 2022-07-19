@@ -5,6 +5,8 @@
 
 .split-pane {
     display: flex;
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
 .banner {
@@ -16,14 +18,14 @@
 .profile-pane {
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: white;
     width: 55vw;
 }
 
 .profile-pane .profile-header {
-    background-color: rgb(241, 241, 241);
+    background-color: white;
     display: flex;
-    width: 55vw;
+    width: 50%;
 
 }
 
@@ -61,6 +63,8 @@
     border-radius: 5px;
     padding: 5px;
     color: white;
+    white-space: nowrap; /*prevents the texts from wrapping*/
+
 }
 
 .profile-pane .about-section {
@@ -71,8 +75,8 @@
 }
 
 .training-pane {
-    width: 45vw;
-    background-color: rgb(234, 254, 255);
+    width: 50%;
+    background-color: white;
     display: flex;
     flex-direction: column;
 }
@@ -87,16 +91,28 @@
     background-color: #869DEC;
     margin-right: 10px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 7px;
     padding-right: 10px;
     padding-left: 10px;
-}
-
-.training-pane .action-btns .btn {
     color: black;
     font-weight: bold;
     text-decoration: none;
     font-size: 20px;
+    white-space: nowrap;
+}
+
+.training-pane .action-btns .btn:hover {
+    background-color: #FEC272;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 7px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+    white-space: nowrap;
 }
 
 .training-pane .progress-bar {
@@ -112,6 +128,8 @@
     align-self: center;
     border-radius: 10px;
 }
+
+
 
 
 
