@@ -39,7 +39,20 @@ const requireAuthenticatedUser = (req, res, next) => {
     }
 }
 
+const requireShelterAdminUser = (req, res, next) => {
+    try {
+        const { user } = res.locals
+        if (!user?.shelterId) {
+            throw new UnauthorizedError("Must be an shelter employee")
+        }
+        return next()
+    } catch(err) {
+        return next(err)
+    }
+}
+
 module.exports = {
     extractUserFromJwt,
-    requireAuthenticatedUser
+    requireAuthenticatedUser,
+    requireShelterAdminUser
 }
