@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
+import { useAuthContext } from '../../contexts/auth'
 import "./LoginForm.css"
 
 export default function LoginForm() {
@@ -9,6 +10,8 @@ export default function LoginForm() {
   const [form, setForm] = React.useState( { email: "",
                                             password: ""
                                           })
+  
+  const { user, loginUser } = useAuthContext()
   
   const handleOnInputChange = (evt) => {
     // check if email is valid
@@ -23,12 +26,16 @@ export default function LoginForm() {
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
   }
 
-  const handleOnFormSubmit = (evt) => {
+  const handleOnFormSubmit = async (evt) => {
     evt.preventDefault()
     setErrors((existingErrors) => ({ ...existingErrors, form: null }))
 
     // TODO: attempt to login user (using auth context function OR ApiClient)
     // TODO: check for user type and navigate to appropriate page for the user type
+
+    await loginUser(form)
+    if (user?.email) navigate("/")
+  
   }
 
   return (

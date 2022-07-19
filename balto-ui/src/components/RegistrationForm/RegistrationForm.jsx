@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate, Link } from "react-router-dom"
+import { useAuthContext } from '../../contexts/auth'
 import "./RegistrationForm.css"
 
 export default function RegistrationForm() {
@@ -13,6 +14,8 @@ export default function RegistrationForm() {
                                             password: "",
                                             passwordConfirm: ""
                                           })
+  
+  const { user, signupUser } = useAuthContext()
                                     
   const handleOnInputChange = (evt) => {
 
@@ -45,7 +48,7 @@ export default function RegistrationForm() {
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
   }
 
-  const handleOnFormSubmit = (evt) => {
+  const handleOnFormSubmit = async (evt) => {
     evt.preventDefault()
     setErrors((existingErrors) => ({ ...existingErrors, form: null }))
 
@@ -60,8 +63,11 @@ export default function RegistrationForm() {
     }
     
     // TODO: check for valid zip code using third-party API
-    // TODO: attempt to register user (using auth context function OR ApiClient)
+
+    await signupUser(form)
+    if (user?.email) navigate("/")
     // TODO: check for user type and navigate to appropriate page for the user type
+
   }
 
   return (
