@@ -27,8 +27,6 @@ export default function FavoritesPage() {
     }
   }
 
-
-
   return (
     <div className='main-div'>
       <h1 className='title'>Favorited Dogs {user_dog_pairings.length}</h1>
