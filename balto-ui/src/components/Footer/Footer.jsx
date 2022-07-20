@@ -36,11 +36,11 @@ export default function Footer() {
         {/* column1 */}
         <div className='col'>
           <h4 className='footer-title'>BALTO</h4>
-          <u1 className="list-unstyled">
+          <ul className="list-unstyled">
             <li className='footer-content'><BsFillHouseDoorFill/> New York, NY 10012, US</li>
             <li className='footer-content'><BsFillEnvelopeFill/> info@example.com</li>
             <li className='footer-content'><BsFillTelephoneFill/> + 01 234 567 89</li>
-          </u1>
+          </ul>
         </div>
         {/* comlumn2 */}
         <div className='col'>
