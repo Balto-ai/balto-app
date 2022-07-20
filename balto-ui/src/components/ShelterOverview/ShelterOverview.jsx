@@ -5,7 +5,7 @@ import './ShelterOverview.css'
 export default function ShelterOverview() {
 
     const { dogRecords, error, isLoading  } = useDogRecordsContext()
-    
+    console.log(dogRecords)
     return (
         <div className="shelter-overview">
           <div className="dog-record-feed">
@@ -17,6 +17,11 @@ export default function ShelterOverview() {
                           dogRecordId={dogRecord.id}
                           imageUrl={dogRecord.image_url}
                           name={dogRecord.name}
+                          sex={dogRecord.sex}
+                          breed={dogRecord.breed}
+                          dob={dogRecord.dob}
+                          dateEntered={dogRecord.dateEntered}
+                          createdAt={dogRecord.created_at}
                         /> } )
             }
           </div>
@@ -24,11 +29,12 @@ export default function ShelterOverview() {
     )
 }
 
-export function DogRecordRow( {dogRecordId, imageUrl='', name=''} ) {
+export function DogRecordRow( props ) {
     return (
         <div className="dog-record-row">
-            <img className="dog-record-image" src={imageUrl} alt={`Image of ${name}`} />
-            <p>{name}</p>
+            <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} />
+            <p>{props.name}</p>
+            <p>{props.breed}</p>
         </div>
     )
 }

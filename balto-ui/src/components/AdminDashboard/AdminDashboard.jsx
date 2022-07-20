@@ -18,16 +18,18 @@ export default function AdminDashboardContainer() {
 export function AdminDashboard() {
   return (
     <div className="admin-dashboard">
-      <Routes>
-        <Route path="/" element={
-          <ShelterOverview />} />
-        <Route path="/add-record" element={
-          <AddDogRecord />} />
-        <Route path="/id/:dogId" element={
-          <DogRecordDetail />} />
-        <Route path="/*" element={
-          <NotFound />} />
-      </Routes>
+      <div className="admin-dashboard-container">
+        <Routes>
+          <Route path="/" element={
+            <ShelterOverview />} />
+          <Route path="/add-record" element={
+            <AddDogRecord />} />
+          <Route path="/id/:dogId" element={
+            <DogRecordDetail />} />
+          <Route path="/*" element={
+            <NotFound />} />
+        </Routes>
+      </div>
     </div>
   )
 }
