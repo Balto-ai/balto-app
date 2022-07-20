@@ -4,6 +4,7 @@ const morgan = require("morgan")
 const { PORT } = require("./config")
 const security = require("./middleware/security")
 const authRoutes = require("./routes/auth")
+const dogRecordsRoutes = require("./routes/dog-records")
 
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 
@@ -16,6 +17,7 @@ app.use(morgan("tiny"))
 app.use(security.extractUserFromJwt)
 
 app.use("/auth", authRoutes)
+app.use("/dog-records", dogRecordsRoutes)
 
 
 // 404 error handler

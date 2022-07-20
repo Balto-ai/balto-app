@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    /* padding: 20px; */
     overflow-x: hidden;
     overflow-y: hidden;
     /* background-color: pink; */
@@ -20,8 +20,9 @@
     text-decoration: none;
 }
 .navbar .header {
+    white-space:nowrap;
     /* background-color: green; */
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -38,7 +39,7 @@
 .navlinks{
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
-    margin-right: 555px
+    margin-right: 600px
 }
 .navlinks .nav-header{
     display: inline;
@@ -70,6 +71,7 @@
     border-radius: 7px;
     padding: 10px 16px 10px 16px;
     cursor: pointer;
+   
 }
 
 #login{
