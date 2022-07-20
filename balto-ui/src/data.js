@@ -45,7 +45,7 @@ export const dogs = [
     },
     {
         name: "Bella",
-        dob: "2019-05-11",
+        dob: "2021-09-15",
         size: "large",
         breed: "Italian Greyhound",
         sex: 'f',
@@ -133,7 +133,7 @@ export const dogs = [
     },
     {
         name: "Toto",
-        dob: "2020-03-14",
+        dob: "2022-01-01",
         size: "small",
         breed: "Cairn Terrier",
         sex: 'm',
