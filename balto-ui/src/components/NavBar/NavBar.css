@@ -21,7 +21,6 @@
 }
 .navbar .header {
     white-space:nowrap;
-    /* background-color: green; */
     width: 80%;
     margin: 0 auto;
     display: flex;
