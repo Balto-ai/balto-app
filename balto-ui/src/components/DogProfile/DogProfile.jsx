@@ -3,29 +3,11 @@ import './DogProfile.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
 import TrainingFeed from '../TrainingFeed/TrainingFeed';
+import {dogs, milestones} from '../../data'
 
 export default function DogProfile() {
-  let trainingArr = {
-    data:
-      [
-        {
-          "dog": "Sparky",
-          "time": "2022-07-19",
-          "name": "roll"
-        },
-        {
-          "dog": "Sparky",
-          "time": "2022-07-19",
-          "name": "roll"
-        },
-        {
-          "dog": "Sparky",
-          "time": "2022-07-19",
-          "name": "roll"
-        }
-      ]
-  }
 
+  const dog = dogs[0] // sample dog info
 
   return (
     <div className='profile-page'>
@@ -37,23 +19,23 @@ export default function DogProfile() {
           <div className='profile-header'>
             <img src="#" className='profile-img'></img>
             <div className='profile-title'>
-              <span>Hi, I'm <h1>Sparky</h1></span>
+              <span>Hi, I'm <h1>{dog.name}</h1></span>
               <section className='tags'>
-                <span className='tag'>Labrador Retriever</span>
-                <span className='tag'>6-12 months</span>
-                <span className='tag'>Large</span>
-                <span className='tag'>Male</span>
+                <span className='tag'>{dog.breed}</span>
+                <span className='tag'>{dog.dob}</span>
+                <span className='tag'>{dog.size}</span>
+                <span className='tag'>{dog.sex === 'm' ? 'male' : 'female'}</span>
               </section>
             </div>
           </div>
           <div className='about-section'>
             <section className='desc-1'>
               <h2>I'm known for being...</h2>
-              <p>energetic and always ready for a game of frisbee or find the TV remote. </p>
+              <p>{dog.desc_1}</p>
             </section>
             <section className='desc-2'>
               <h2>I'm looking for someone who...</h2>
-              <p>is active everyday and can take me on walks in the mornings and sometimes at night</p>
+              <p>{dog.desc_2}</p>
             </section>
             <section className='shelter-loc'>
               <h2>You can meet me at...</h2>
@@ -80,11 +62,7 @@ export default function DogProfile() {
           <div className='training-feed'>
             <h2>Training Feed</h2>
             <div className='feed'>
-              {trainingArr.map((milestone) => {
-                return (
-                  <TrainingFeed />
-                )
-              })}
+                  <TrainingFeed milestones={milestones}/>
             </div>
           </div>
         </div>
