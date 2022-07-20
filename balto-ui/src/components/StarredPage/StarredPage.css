@@ -1,0 +1,48 @@
+.main-div {
+    display: flex;
+    margin-right: 10%;
+    margin-left: 10%;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+}
+
+.filter-section .search-bar {
+    width: 60%;
+    font-size: 20px;
+    border: solid black 1px;
+    border-radius: 10px;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 2%;
+}
+
+.filter-section .sort-menu {
+    margin: 2%;
+}
+
+.filter-section .sort-menu select {
+    border: solid black 1px;
+    font-size: 20px;
+    padding: 4%;
+    color: gray;
+    margin: 2%;
+}
+
+.starred-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cards {
+    margin-top: 20px;
+}
+

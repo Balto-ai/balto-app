@@ -3,7 +3,7 @@ import './TrainingFeed.css'
 
 export default function TrainingFeed(props) {
     return (
-
+        <div></div>
     )
 }
 
