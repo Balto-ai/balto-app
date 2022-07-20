@@ -37,7 +37,8 @@
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-right: 50%;
+    margin-right: 47%;
+    margin-left: 3%;
 }
 .navlinks{
     display: inline;
