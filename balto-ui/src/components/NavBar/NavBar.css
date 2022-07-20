@@ -10,6 +10,7 @@
     padding: 20px;
     overflow-x: hidden;
     overflow-y: hidden;
+    /* background-color: pink; */
 }
 
 .logo{
@@ -19,18 +20,16 @@
     text-decoration: none;
 }
 .navbar .header {
-    
-    width: 100%;
+    /* background-color: green; */
+    width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    
+    align-items: center; 
 }
 .navbar .header .logo{
     width: 100px;
-    margin-right: 100px;
-    margin-left:65px;
+
 }
 .navlinks-div{
     display: flex;
@@ -39,7 +38,7 @@
 .navlinks{
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
-    margin-right: 600px;
+    margin-right: 550px
 }
 .navlinks .nav-header{
     display: inline;
@@ -61,12 +60,13 @@
     width: 20%;
 }
 .navbar-btns{
+    align-items: flex-end;
     font-size: 16px;
     font-weight: 600;
     background-color: white;
-    margin-left: 30px;
+    margin-left: 25px;
     border: none;
-    border-radius: 7%;
+    border-radius: 7px;
     padding: 10px 16px 10px 16px;
     cursor: pointer;
 }
