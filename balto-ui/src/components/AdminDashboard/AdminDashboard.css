@@ -1,0 +1,9 @@
+.admin-dashboard {
+    align-items: center;
+    margin-left: 10%;
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: left;
+    gap: 10px;
+}
