@@ -4,3 +4,43 @@
     background-color: aliceblue;
     margin: 5%;
 }
+
+.training-cell {
+    background-color: lightgray;
+    margin: 2%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.training-cell .cell-header {
+    display: flex;
+    border-radius: 20px;
+    text-align: left;
+    justify-content: space-between;
+}
+
+.training-cell .cell-header .profile-pic {
+    width: 20%;
+    clip-path: circle();
+    background-color: blueviolet;
+    border: solid black 1px;
+}
+
+.training-cell .cell-header .header-text {
+    margin-left: 5%;
+}
+
+.training-cell .cell-header .congrats-btn {
+    align-self: right;
+    height: 20%;
+    
+}
+
+.training-cell .details-section {
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: left;
+}
+
