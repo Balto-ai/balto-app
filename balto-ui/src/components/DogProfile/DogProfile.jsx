@@ -47,7 +47,7 @@ export default function DogProfile() {
         <div className='training-pane'>
           <section className='action-btns'>
             <div className='btn'>
-              <Link to="/favorites">
+              <Link to="/star">
                 <BsStar />Favorite</Link>
             </div>
             <div className='btn'>

@@ -17,6 +17,7 @@
     height: 230px;
     width: 170px;
     border-style: solid;
+    object-fit: cover;
 }
 .dog-info{
     max-height: 92.5px;
