@@ -24,7 +24,7 @@ export function AdminDashboard() {
             <ShelterOverview />} />
           <Route path="/add-record" element={
             <AddDogRecord />} />
-          <Route path="/id/:dogId" element={
+          <Route path="dog-record/id/:dogId" element={
             <DogRecordDetail />} />
           <Route path="/*" element={
             <NotFound />} />

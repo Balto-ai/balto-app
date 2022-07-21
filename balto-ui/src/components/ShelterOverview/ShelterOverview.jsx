@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from "moment"
 import { useDogRecordsContext } from '../../contexts/dog-records'
+import { Link } from 'react-router-dom' 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button } from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -137,6 +138,10 @@ export function DogRecordRow( props ) {
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {props.ageGroup}</Card.Subtitle>
                 <Card.Text>Entered {moment(new Date(props.dateEntered)).format("MM/DD/YYYY")}</Card.Text>
+                
+                {/* TODO: figure out if we want to keep it as a link/button or have the person click the dog name to view details */}
+                <Link to={"/admin-dashboard/dog-record/id/" + props.dogRecordId}>View Details</Link>
+
             </Card.Body>
         </Card>
     )
