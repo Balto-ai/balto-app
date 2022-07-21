@@ -6,7 +6,7 @@ import './ShelterOverview.css'
 export default function ShelterOverview() {
 
     const { dogRecords, error, isLoading, getAgeGroup  } = useDogRecordsContext()
-    const [sort, setSort] = React.useState("CREATED_ASC")
+    const [sort, setSort] = React.useState("")
 
     // sorting functions
     function sortByNameAsc(a, b) {
@@ -15,19 +15,42 @@ export default function ShelterOverview() {
         return 0
     }
 
-    function sortNameDesc(a, b) {
+    function sortByNameDesc(a, b) {
         if ( a.name.toLowerCase() < b.name.toLowerCase() ) return 1
         if ( a.name.toLowerCase() > b.name.toLowerCase() ) return -1
         return 0
     }
 
-    if (sort == "NAME_ASC") {
-          dogRecords.sort( sortByNameAsc )
-    } else if (sort == "NAME_DESC") {
-        dogRecords.sort( compare )
-
+    function sortByDateEnteredAsc(a, b) {
+        return new Date(b.date_entered) - new Date(a.date_entered)
     }
-        
+
+    function sortByDateEnteredDesc(a, b) {
+        return new Date(a.date_entered) - new Date(b.date_entered)
+    }
+
+    function sortByCreatedAtAsc(a, b) {
+        return new Date(a.created_at) - new Date(b.created_at)
+    }
+
+    function sortByCreatedAtDesc(a, b) {
+        return new Date(b.created_at) - new Date(a.created_at)
+    }
+
+    // sort dogRecords based on sort criteria
+    if (sort == "NAME_ASC") {
+        dogRecords.sort( sortByNameAsc )
+    } else if (sort == "NAME_DESC") {
+        dogRecords.sort( sortByNameDesc )
+    } else if (sort == "DATE_ENTERED_ASC") {
+        dogRecords.sort( sortByDateEnteredAsc )
+    } else if (sort == "DATE_ENTERED_DESC") {
+        dogRecords.sort( sortByDateEnteredDesc )
+    } else if (sort == "CREATED_AT_ASC") {
+        dogRecords.sort( sortByCreatedAtAsc )
+    } else if (sort == "CREATED_AT_DESC") {
+        dogRecords.sort( sortByCreatedAtDesc )
+    }
 
     return (
         <div className="shelter-overview">
@@ -41,6 +64,12 @@ export default function ShelterOverview() {
 
                 <button className="dropdown-item" type="button" onClick={()=>{setSort("NAME_ASC")}}>Name (A-Z)</button>
                 <button className="dropdown-item" type="button" onClick={()=>{setSort("NAME_DESC")}}>Name (Z-A)</button>
+                
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("DATE_ENTERED_ASC")}}>Date Entered (Newest)</button>
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("DATE_ENTERED_DESC")}}>Date Entered (Oldest)</button>
+
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("CREATED_AT_ASC")}}>Date Created (Newest)</button>
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("CREATED_AT_DESC")}}>Date Created (Oldest)</button>
 
             </div>
             </div>
