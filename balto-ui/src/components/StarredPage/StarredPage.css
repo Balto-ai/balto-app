@@ -14,24 +14,19 @@
     justify-content: center;
 }
 
-.filter-section .search-bar {
+.filter-section #search-bar {
     width: 60%;
-    font-size: 20px;
-    border: solid black 1px;
-    border-radius: 10px;
+    /* font-size: 20px; */
+    /* border: solid black 1px;
+    border-radius: 10px; */
     padding-left: 2%;
     padding-right: 2%;
     margin: 2%;
 }
 
-.filter-section .sort-menu {
-    margin: 2%;
-}
 
-.filter-section .sort-menu select {
-    border: solid black 1px;
+.filter-section #sort-dropdown {
     font-size: 20px;
-    padding: 4%;
     color: gray;
     margin: 2%;
 }
@@ -42,4 +37,6 @@
     grid-gap: 20px;
     align-items: stretch;
 }
+
+
 

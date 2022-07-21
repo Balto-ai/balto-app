@@ -12,6 +12,7 @@ import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
 import StarredPage from "./components/StarredPage/StarredPage"
 import './App.css';
+import './custom.scss';
 
 function AppContainer() {
   return (
