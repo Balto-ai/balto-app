@@ -32,12 +32,35 @@ export function DogRecordsContextProvider( {children} ) {
         setInitialized(true)
         }, [user])
     
+        function getAgeGroup(dob) {
+            const birthDate = new Date(dob)
+            const currentDate = new Date()
+            let ageTime = currentDate - birthDate
+            let ageDays = Math.floor(ageTime / (1000 * 3600 * 24))
+            // following this source for age groupings:
+            // https://www.frontiersin.org/articles/10.3389/fvets.2021.643085/full#:~:text=An%20option%20here%20would%20be,11%20years%20as%20Late%2DSenior.
+            if (ageDays <= 180) {
+                return "Puppy"
+            } else if (ageDays > 180 && ageDays <=365) {
+                return "Junior"
+            } else if (ageDays > 365 && ageDays <= 730) {
+                return "Young Adult"
+            } else if (ageDays > 730 && ageDays <= 2555) {
+                return "Mature Adult"
+            } else if (ageDays > 2555 && ageDays <= 4380) {
+                return "Senior"
+            } else {
+                return "Geriatric"
+            }
+        }
+    
     return (
     <DogRecordsContext.Provider value={ {
                                     dogRecords, setDogRecords,
                                     initialized, setInitialized,
                                     isLoading, setIsLoading,
-                                    error, setError
+                                    error, setError,
+                                    getAgeGroup
                                    } } >
         {children}
     </DogRecordsContext.Provider>
