@@ -11,6 +11,7 @@ export default function DogRecordDetail() {
 
   const { dogId } = useParams()
 
+  // useEffect to get the row in the dog table
   React.useEffect(() => {
     const getDogRecord = async () => {
       setIsLoading(true)
@@ -24,6 +25,8 @@ export default function DogRecordDetail() {
     getDogRecord();
   }, []);
 
+  // gets the data, only showing a string of the dog record object at this point
+  // TODO: finish up what gets returned: training feed, modal to update training, ability to edit record
   return (
     <div>{JSON.stringify(dogRecord)}</div>
   )
