@@ -53,19 +53,19 @@ export default function FavoritesPage() {
       </div>
       <div className='starred-grid'>
         {dogs.map((dog, idx) => {
-          return (<DogCard className="cards" key={idx} imgUrl={dog.image_url} name={dog.name} breed={dog.breed} ageGroup={getAgeGroup(dog.dob)} />)
-          // return (
-          //   <Card>
-          //   <Card.Img variant="top" src={dog.image_url} id="card-img" />
-          //   <Card.Body>
-          //     <Card.Title>{dog.name}</Card.Title>
-          //     <Card.Text>
-          //       <p>{dog.breed}</p>
-          //       <p>{getAgeGroup(dog.dob)}</p>
-          //     </Card.Text>
-          //   </Card.Body>
-          // </Card>
-          // )
+          // return (<DogCard className="cards" key={idx} imgUrl={dog.image_url} name={dog.name} breed={dog.breed} ageGroup={getAgeGroup(dog.dob)} />)
+          return (
+            <Card className='cards' bg='light'>
+            <img src={dog.image_url} />
+            <Card.Body>
+              <Card.Title>{dog.name}</Card.Title>
+              <Card.Text>
+                <p>{dog.breed}<br></br>
+                {getAgeGroup(dog.dob)}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          )
         })}
       </div>
     </div>
