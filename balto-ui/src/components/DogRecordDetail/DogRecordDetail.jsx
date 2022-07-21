@@ -11,6 +11,9 @@ export default function DogRecordDetail() {
 
   const { dogId } = useParams()
 
+  // TODO: redirect to anauthorized page if the user isn't a shelter admin user
+  // TODO: handle what happens on the frontend when a user doesn't have access to the record
+
   // useEffect to get the row in the dog table
   React.useEffect(() => {
     const getDogRecord = async () => {
