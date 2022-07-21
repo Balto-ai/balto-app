@@ -12,6 +12,8 @@ import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
 import StarredPage from "./components/StarredPage/StarredPage"
 import './App.css';
+import './custom.scss';
+import Container from "react-bootstrap/esm/Container"
 
 function AppContainer() {
   return (
@@ -23,13 +25,13 @@ function AppContainer() {
 
 function App() {
   return (
-    <div className="App">
-      {/* <header className="App-header">
+      <div className="App">
+        {/* <header className="App-header">
         <h1>Welcome to Balto</h1>
       </header> */}
 
-      <React.Fragment>{
-        <BrowserRouter>
+        <React.Fragment>{
+          <BrowserRouter>
             <NavBar />
             <Routes>
               <Route path="/" element={
@@ -50,11 +52,11 @@ function App() {
                 <NotFound />} />
             </Routes>
             <Footer />
-        </BrowserRouter>
-      }</React.Fragment>
+          </BrowserRouter>
+        }</React.Fragment>
 
 
-    </div>
+      </div>
   );
 }
 
