@@ -2,6 +2,17 @@
     width: 100%;
 }
 
+.filter-sort-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.dog-record-search {
+    width: 100%;
+}
+
 .dog-record-feed {
     display: flex;
     flex-direction: column;
@@ -10,52 +21,10 @@
     width: 100%;
 }
 
-.dog-record-row {
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 21px 24px;
-
-    width: 100%;
-    min-width: 900px;
-
-    background-color: white;
-    border-radius: 10px;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-.dog-record-row .col-1 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 21px;
-
-    height: 50px;
-
-}
-
-.dog-record-row .col-1 .dog-image {
+.dog-record-image {
     height: 50px;
     width: 50px;
     border-radius: 50px;
     object-fit: cover;
-    background-color: grey;
-}
-
-.dog-record-row .col-1 .basic-info .dog-name {
-    font-weight: 500;
-    font-size: 1.1em;
-    margin-left: 0;
-}
-
-.dog-record-row .col-1 .basic-info {
-    display: flex;
-    flex-direction: column;
+    background-color: lightgrey;
 }
