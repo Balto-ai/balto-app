@@ -1,68 +1,87 @@
 import React from 'react'
+import moment from "moment"
 import { useDogRecordsContext } from '../../contexts/dog-records'
 import './ShelterOverview.css'
 
 export default function ShelterOverview() {
 
-    const { dogRecords, error, isLoading  } = useDogRecordsContext()
-    console.log(dogRecords)
+    const { dogRecords, error, isLoading, getAgeGroup  } = useDogRecordsContext()
+    const [sort, setSort] = React.useState("CREATED_ASC")
+
+    // sorting functions
+    function sortByNameAsc(a, b) {
+        if ( a.name.toLowerCase() < b.name.toLowerCase() ) return -1
+        if ( a.name.toLowerCase() > b.name.toLowerCase() ) return 1
+        return 0
+    }
+
+    function sortNameDesc(a, b) {
+        if ( a.name.toLowerCase() < b.name.toLowerCase() ) return 1
+        if ( a.name.toLowerCase() > b.name.toLowerCase() ) return -1
+        return 0
+    }
+
+    if (sort == "NAME_ASC") {
+          dogRecords.sort( sortByNameAsc )
+    } else if (sort == "NAME_DESC") {
+        dogRecords.sort( compare )
+
+    }
+        
+
     return (
         <div className="shelter-overview">
-          <div className="dog-record-feed">
-            {dogRecords.length <= 0 && !isLoading
-            ? <h2 className="empty-message">No dogs added yet.</h2>
-            : dogRecords.map(dogRecord => {
-                return <DogRecordRow
-                          key={dogRecord.id}
-                          dogRecordId={dogRecord.id}
-                          imageUrl={dogRecord.image_url}
-                          name={dogRecord.name}
-                          sex={dogRecord.sex}
-                          breed={dogRecord.breed}
-                          dob={dogRecord.dob}
-                          dateEntered={dogRecord.dateEntered}
-                          createdAt={dogRecord.created_at}
-                        /> } )
-            }
-          </div>
+
+            {/* dropdown used to sort dogs in the shelter */}
+            <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By: Name
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("NAME_ASC")}}>Name (A-Z)</button>
+                <button className="dropdown-item" type="button" onClick={()=>{setSort("NAME_DESC")}}>Name (Z-A)</button>
+
+            </div>
+            </div>
+
+            {/* list of all the dogs in the shelter */}
+            <div className="dog-record-feed">
+                {dogRecords.length <= 0 && !isLoading
+                ? <h2 className="empty-message">No dogs added yet.</h2>
+                : dogRecords.map((dogRecord, idx) => {
+                    return <DogRecordRow
+                            key={dogRecord.id}
+                            rowNumber={idx + 1}
+                            dogRecordId={dogRecord.id}
+                            imageUrl={dogRecord.image_url}
+                            name={dogRecord.name}
+                            sex={dogRecord.sex}
+                            breed={dogRecord.breed}
+                            ageGroup={getAgeGroup(dogRecord.dob)}
+                            dateEntered={dogRecord.date_entered}
+                            /> } )
+                }
+            </div>
         </div>
     )
 }
 
 export function DogRecordRow( props ) {
-
-    function getAgeGroup(dob) {
-        const birthDate = new Date(dob)
-        const currentDate = new Date()
-        let age_time = currentDate - birthDate
-        let age_days = Math.floor(age_time / (1000 * 3600 * 24))
-        // following this source for age groupings:
-        // https://www.frontiersin.org/articles/10.3389/fvets.2021.643085/full#:~:text=An%20option%20here%20would%20be,11%20years%20as%20Late%2DSenior.
-        if (age_days <= 180) {
-            return "Puppy"
-        } else if (age_days > 180 && age_days <=365) {
-            return "Junior"
-        } else if (age_days > 365 && age_days <= 730) {
-            return "Young Adult"
-        } else if (age_days > 730 && age_days <= 2555) {
-            return "Mature Adult"
-        } else if (age_days > 2555 && age_days <= 4380) {
-            return "Senior"
-        } else {
-            return "Geriatric"
-        }
-    }
-
     return (
         <div className="dog-record-row">
+            {/* col-1 includes the row number, dog image, name, breed, sex, and age group */}
             <div className="col-1">
-                <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} />
+                <p className="dog-record-number">{props.rowNumber}</p>
+                <img className="dog-image" src={props.imageUrl} alt={`Image of ${props.name}`} />
                 <div className="basic-info">
                     <p className="dog-name">{props.name}</p>
-                    <p className="dog-info">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {getAgeGroup(props.dob)}</p>
+                    <p className="dog-info">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {props.ageGroup}</p>
                 </div>
             </div>
-            <p>{props.dateEntered}</p>
+            <div className="col-2">
+                <p className="date-entered">Entered on {moment(new Date(props.dateEntered)).format("MM/DD/YYYY")}</p>
+            </div>
         </div>
     )
 }
