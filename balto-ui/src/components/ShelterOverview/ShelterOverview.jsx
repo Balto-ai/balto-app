@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from "moment"
 import { useDogRecordsContext } from '../../contexts/dog-records'
 import { Link } from 'react-router-dom' 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -60,6 +59,7 @@ export default function ShelterOverview() {
         dogRecords.sort( sortByCreatedAtDesc )
     }
 
+    // filter dogs based on search query
     let dogRecordsToRender = [...dogRecords]
     if (searchQuery !== "") {
         dogRecordsToRender = dogRecordsToRender.filter(dogRecord => dogRecord.name.toLowerCase().includes(searchQuery))
@@ -72,7 +72,6 @@ export default function ShelterOverview() {
             <div className="filter-sort-bar">
                 {/* search bar */}
                 <DogRecordSearch setSearchQuery={setSearchQuery} />
-
                 {/* sort by dropdown menu */}
                 <DogRecordDropdown sort={sort} setSort={setSort} className="dog-record-sort" />
             </div>
@@ -137,8 +136,8 @@ export function DogRecordRow( props ) {
                 <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} />                    
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {props.ageGroup}</Card.Subtitle>
-                <Card.Text>Entered {moment(new Date(props.dateEntered)).format("MM/DD/YYYY")}</Card.Text>
-                
+                <Card.Text>Entered {(new Date(props.dateEntered)).toLocaleDateString()}</Card.Text>
+
                 {/* TODO: figure out if we want to keep it as a link/button or have the person click the dog name to view details */}
                 <Link to={"/admin-dashboard/dog-record/id/" + props.dogRecordId}>View Details</Link>
 
