@@ -44,7 +44,7 @@ function App() {
                 <DogSearchPage />} />
               <Route path="/star" element={
                 <StarredPage />} />
-              <Route path="/admin-dashboard" element={
+              <Route path="/admin-dashboard/*" element={
                 <AdminDashboard />} />
               <Route path="/dog-profile" element={
                 <DogProfile />} />

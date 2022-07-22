@@ -14,7 +14,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 export default function NavBar() {
   const navigate = useNavigate();
   return (
-    <Navbar bg="light" collapseOnSelect expand="md" fixed='top' >
+    <Navbar bg="light" collapseOnSelect expand="md" >
       <Container className='main'>
         <Navbar.Brand><Link to="/" className='logo'>Balto</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
