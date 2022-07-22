@@ -76,6 +76,27 @@ class Starred {
         return result.rows[0]
     }
 
+    // fetch each individual dog from a dog id
+    static async fetchStarredDogById( dogId ) {
+        if (!dogId) {
+            throw new BadRequestError("No dogId provided")
+        }
+
+        // get dog record with requested id that matches the shelterId of the user
+        const query = `
+            SELECT * FROM dogs
+            WHERE id = $1;
+            `
+        const result = await db.query(query, [dogId])
+
+        // checking if there is there the requested dog record belongs to the shelter
+        if (result.rows.length === 0) {
+            throw new UnauthorizedError("The starred dog does not exist")
+        } 
+
+        return result.rows
+    }
+
 }
 
 module.exports = Starred
