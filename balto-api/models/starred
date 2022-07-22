@@ -50,6 +50,8 @@ class Starred {
             RETURNING id
             `
         const result = await db.query(query, [userId, dogId])
+
+        // checking if the query actually deleted anything (if the pairing exists)
         if (result.rowCount == 0) {
             throw new BadRequestError("Pairing does not exist")
         }
