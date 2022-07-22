@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/auth'
 import { BsLightningCharge, BsStar } from "react-icons/bs"
 import Container from 'react-bootstrap/Container'
@@ -25,7 +24,8 @@ export default function NavBar() {
         <UserLinks
           isLoggedIn={isLoggedIn}
           isShelterAdmin={isShelterAdmin}
-          logoutUser={logoutUser} />
+          logoutUser={logoutUser}
+          userFirstName={user?.firstName} />
       </Container>
     </Navbar >
   )
@@ -56,21 +56,20 @@ export function NavLinks({ isShelterAdmin }) {
 }
 
 // 
-export function UserLinks({ isLoggedIn, isShelterAdmin, logoutUser }) {
-  const navigate = useNavigate()
+export function UserLinks({ isLoggedIn, isShelterAdmin, logoutUser, userFirstName }) {
 
   // if no one is logged in, display the signup/registration buttons
   if (!isLoggedIn) {
     return (
     <Form className="d-flex">
-      <Button variant="outline-success" onClick={() => navigate("/register")}>Register</Button>
-      <Button variant="outline-success" onClick={() => navigate("/login")}>Login</Button>
+      <Button variant="outline-success" href="/register">Register</Button>
+      <Button variant="outline-success" href="/login">Login</Button>
     </Form>
     )
   }
 
   return (
-    <NavDropdown title="Hi," id="basic-nav-dropdown" align="end">
+    <NavDropdown title={"Hi, " + userFirstName} id="basic-nav-dropdown" align="end">
       <NavDropdown.Item href="/" onClick={logoutUser}>Logout</NavDropdown.Item>
     </NavDropdown>
   )
