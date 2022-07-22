@@ -15,7 +15,7 @@ import Card from 'react-bootstrap/Card';
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { user_dog_pairings, dogs } from "../../data"
+// import { user_dog_pairings, dogs } from "../../data"
 
 export default function StarredPageContainer() {
   return (
@@ -57,15 +57,14 @@ export function StarredPage() {
 
   return (
     <div className='main-div'>
-      <h1 className='title'>Favorited Dogs ({user_dog_pairings.length})</h1>
+      <h1 className='title'>Favorited Dogs ({starredDogs.length})</h1>
       <div className='filter-section'>
         <Form.Control id="search-bar" placeholder="Search for a life-long friend" />
-        {/* <input className="search-bar" type="text" placeholder="Search for a dog"></input> */}
         <DropDownSortMenu />
       </div>
       <div className='starred-grid'>
-        {dogs.map((dog, idx) => {
-          // return (<DogCard className="cards" key={idx} imgUrl={dog.image_url} name={dog.name} breed={dog.breed} ageGroup={getAgeGroup(dog.dob)} />)
+        { console.log(starredDogs) }
+        {starredDogs.map((dog, idx) => {
           return (
             <StarredCard dog={dog} key={idx} getAgeGroup={getAgeGroup()} navigate={navigate} />
           )
@@ -91,7 +90,7 @@ export function DropDownSortMenu() {
   )
 }
 
-export function StarredCard(dog, idx, getAgeGroup=()=>{}, navigate) {
+export function StarredCard(dog, idx, getAgeGroup = () => { }, navigate) {
   <Card key={idx} className='cards' bg='light' onClick={() => navigate("/dog-profile")}>
     <img src={dog.image_url} />
     <Card.Body>
