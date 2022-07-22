@@ -1,59 +1,77 @@
 import React from 'react'
-import "./NavBar.css"
 import { Link, useNavigate } from 'react-router-dom'
-import { BsLightningCharge, BsStar } from "react-icons/bs";
-
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { useAuthContext } from '../../contexts/auth'
+import { BsLightningCharge, BsStar } from "react-icons/bs"
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import "./NavBar.css"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function NavBar() {
-  const navigate = useNavigate();
+
+  const { user, logoutUser } = useAuthContext()
+  const isLoggedIn = user?.email
+  const isShelterAdmin = user?.shelterId
+
   return (
-    <Navbar bg="light" collapseOnSelect expand="md" >
-      <Container className='main'>
-        <Navbar.Brand><Link to="/" className='logo'>Balto</Link></Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <NavLinks className="" />
-          </Nav>
-          <Container>
-            <Button variant="light" className='navbar-btns' onClick={() => navigate("/register")}>Sign Up</Button>
-            <Button variant="primary" className='navbar-btns' onClick={() => navigate("/login")}>Login</Button>
-          </Container>
-        </Navbar.Collapse>
+    <Navbar bg="light">
+      <Container>
+        <Logo isShelterAdmin={isShelterAdmin}/>
+        <NavLinks isShelterAdmin={isShelterAdmin} />
+        <UserLinks
+          isLoggedIn={isLoggedIn}
+          isShelterAdmin={isShelterAdmin}
+          logoutUser={logoutUser} />
       </Container>
     </Navbar >
-
-
-    // <div className='navbar'>
-    //   <div className='header'>
-    //     <div className='logo'><Link to="/" className='logo'>Balto</Link></div>
-    //     <div className='navlinks-div'>
-    //       <NavLinks className="nav-link"/>
-    //     </div>
-    //     <div className='nav-btns'>
-    //       <button className='navbar-btns' onClick={() => navigate("/register")}>Sign Up</button>
-    //       <button id='login' className='navbar-btns' onClick={() => navigate("/login")}>Login</button>
-    //     </div>
-    //   </div>
-    // </div>
   )
 }
 
-export function NavLinks() {
+export function Logo({ isShelterAdmin=false }) {
+  // if the user is signed in and a shelter admin user, logo goes to the admin-dashboard
+  // else, the logo goes to the landing page
+  const logoPath = isShelterAdmin ? "/admin-dashboard" : "/"
+  return (
+    <Navbar.Brand href={logoPath}>Balto</Navbar.Brand>
+  )
+}
+
+// find a dog, starred page
+export function NavLinks({ isShelterAdmin }) {
+  // if the user is a shelter admin, do not display any navigation links
+  if (isShelterAdmin) {
+    return null
+  }
+  // else, show the find a dog and favorites links
+  return (
+    <Nav className="me-auto">
+      <Nav.Link href="/search" id="search-navlink"><BsLightningCharge /> Find A Dog</Nav.Link>
+      <Nav.Link href="/star" id="favorites-navlink"><BsStar /> Favorites</Nav.Link>
+    </Nav>
+  )
+}
+
+// 
+export function UserLinks({ isLoggedIn, isShelterAdmin, logoutUser }) {
+  const navigate = useNavigate()
+
+  // if no one is logged in, display the signup/registration buttons
+  if (!isLoggedIn) {
+    return (
+    <Form className="d-flex">
+      <Button variant="outline-success" onClick={() => navigate("/register")}>Register</Button>
+      <Button variant="outline-success" onClick={() => navigate("/login")}>Login</Button>
+    </Form>
+    )
+  }
 
   return (
-    <div className='navlinks'>
-      <span className='nav-header'>
-        <Link className='links' to="/search"><BsLightningCharge /> Find A Dog</Link>
-        <Link className='links' to="/star"><BsStar /> Favorites</Link>
-      </span>
-    </div>
+    <NavDropdown title="Hi," id="basic-nav-dropdown" align="end">
+      <NavDropdown.Item href="/" onClick={logoutUser}>Logout</NavDropdown.Item>
+    </NavDropdown>
   )
 }
