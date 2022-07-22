@@ -9,12 +9,12 @@ class Starred {
             throw new BadRequestError("No userId")
         }
 
+        // CHANGE BACK TO USER PARAMETER
         const query = `
             SELECT * FROM user_dog_pairings
-            WHERE user_id = $1
             ORDER BY created_at ASC
             `
-        const result = await db.query(query, [userId])
+        const result = await db.query(query)
         return result.rows
     }
 

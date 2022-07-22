@@ -54,6 +54,7 @@ export function StarredPage() {
   }
 
   const navigate = useNavigate();
+  {console.log(starredDogs)}
 
   return (
     <div className='main-div'>
@@ -63,7 +64,6 @@ export function StarredPage() {
         <DropDownSortMenu />
       </div>
       <div className='starred-grid'>
-        { console.log(starredDogs) }
         {starredDogs.map((dog, idx) => {
           return (
             <StarredCard dog={dog} key={idx} getAgeGroup={getAgeGroup()} navigate={navigate} />
