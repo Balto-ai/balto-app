@@ -17,9 +17,9 @@ export default function NavBar() {
   const isShelterAdmin = user?.shelterId
 
   return (
-    <Navbar bg="light">
+    <Navbar bg="light" id="navbar">
       <Container>
-        <Logo isShelterAdmin={isShelterAdmin}/>
+        <Logo ShelterAdmin={isShelterAdmin}/>
         <NavLinks isShelterAdmin={isShelterAdmin} />
         <UserLinks
           isLoggedIn={isLoggedIn}
@@ -36,7 +36,7 @@ export function Logo({ isShelterAdmin=false }) {
   // else, the logo goes to the landing page
   const logoPath = isShelterAdmin ? "/admin-dashboard" : "/"
   return (
-    <Navbar.Brand href={logoPath}>Balto</Navbar.Brand>
+    <Navbar.Brand href={logoPath} id="navbar-logo">Balto</Navbar.Brand>
   )
 }
 
