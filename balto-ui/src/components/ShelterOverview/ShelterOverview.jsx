@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
+import BreedSearchbar from '../BreedSearchbar/BreedSearchbar'
 import './ShelterOverview.css'
 
 export default function ShelterOverview() {
@@ -67,6 +68,8 @@ export default function ShelterOverview() {
 
     return (
         <div className="shelter-overview">
+
+            <BreedSearchbar />
             
             {/* the top bar where the user can search by name or sort */}
             <div className="filter-sort-bar">

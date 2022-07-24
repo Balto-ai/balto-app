@@ -143,6 +143,28 @@ class ApiClient {
         return await this.request({ endpoint:`user/starred/${dogId}`, method:'DELETE' })
     }
 
+
+    // SEARCH ===============================================================================
+
+    async fetchDogBreeds() {
+        try {
+            const res = await axios.get('https://dog.ceo/api/breeds/list/all')
+            return { data: res.data, error: null}
+        } catch(error) {
+            const message = error?.response?.data?.error?.message
+            return { data: null, error: message || String(error) }
+        }
+
+        axios.get('https://dog.ceo/api/breeds/list/all')
+        .then((res) => {
+          return res?.data
+        })
+        .catch((err) => {
+          console.log(err)
+          return null
+        })
+    }
+
 }
 
 export default new ApiClient(API_BASE_URL || "http://localhost:3001")
