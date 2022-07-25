@@ -1,9 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import TrieSearch from 'trie-search'
 import ApiClient from '../../services/ApiClient'
-import Form from 'react-bootstrap/Form'
-import Dropdown from 'react-bootstrap/Dropdown'
 import './BreedSearchbar.css'
 
 export default function BreedSearchbar() {
