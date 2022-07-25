@@ -11,12 +11,12 @@ export default function LoginForm() {
                                             password: ""
                                           })
   
-  const { user, loginUser } = useAuthContext()
+  const { user, loginUser, validateEmail } = useAuthContext()
   
   const handleOnInputChange = (evt) => {
     // check if email is valid
     if (evt.target.name === "email") {
-      if (evt.target.value.indexOf("@") === -1) {
+      if (!validateEmail(evt.target.value)) {
         setErrors((existingErrors) => ({ ...existingErrors, email: "Please enter a valid email"}))
       } else {
         setErrors((existingErrors) => ({ ...existingErrors, email: null }))
@@ -34,7 +34,14 @@ export default function LoginForm() {
     // TODO: check for user type and navigate to appropriate page for the user type
 
     await loginUser(form)
-    if (user?.email) navigate("/")
+    if (user?.email) {
+      if (user?.shelterId) {
+        navigate("/admin-dashboard")
+      } else {
+        navigate("/")
+      }
+      return null
+    }
   
   }
 

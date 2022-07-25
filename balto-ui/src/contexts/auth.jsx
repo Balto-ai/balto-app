@@ -30,6 +30,11 @@ export function AuthContextProvider( {children} ) {
         setInitialized(true)
         }, [])
 
+    const validateEmail = (email) => {
+        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return regex.test(String(email).toLowerCase())
+    }
+
     const loginUser = async (credentials) => {
         const { data, error } = await ApiClient.login(credentials)
         if (error) setError(error)
@@ -66,6 +71,7 @@ export function AuthContextProvider( {children} ) {
                                     initialized, setInitialized,
                                     isProcessing, setIsProcessing,
                                     error, setError,
+                                    validateEmail,
                                     loginUser,
                                     signupUser,
                                     logoutUser,
