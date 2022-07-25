@@ -2,16 +2,14 @@ import React from 'react'
 import { useDogRecordsContext } from '../../contexts/dog-records'
 import { Link } from 'react-router-dom' 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
-import BreedSearchbar from '../BreedSearchbar/BreedSearchbar'
 import './ShelterOverview.css'
 
 export default function ShelterOverview() {
 
-    const { dogRecords, error, isLoading, getAgeGroup  } = useDogRecordsContext()
+    const { dogRecords, error, isLoading, getAgeGroup } = useDogRecordsContext()
 
     const [sort, setSort] = React.useState("")
     const [searchQuery, setSearchQuery] = React.useState("")
@@ -69,8 +67,6 @@ export default function ShelterOverview() {
     return (
         <div className="shelter-overview">
 
-            <BreedSearchbar />
-            
             {/* the top bar where the user can search by name or sort */}
             <div className="filter-sort-bar">
                 {/* search bar */}
