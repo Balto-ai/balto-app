@@ -1,5 +1,4 @@
 import React from 'react'
-import Select from 'react-select'
 import ApiClient from '../../services/ApiClient'
 import FilterSearchbar from '../FilterSearchbar/FilterSearchbar'
 import './BreedSearchbar.css'
@@ -14,9 +13,9 @@ export default function BreedSearchbar() {
   React.useEffect(() => {
     const fetchDogBreeds = async () => {
         const { data, error } = await ApiClient.fetchDogBreeds()
-        if (data?.dogBreeds) {
-          // turn the JSON object into a usable array of dog breeds - ["Poodle", "Labrador", ...]
-          setDogBreeds(Object.values({ ...data.dogBreeds }))
+        if (data?.dogBreedNames) {
+          // get the usable array of dog breeds - ["Poodle", "Labrador", ...]
+          setDogBreeds(data.dogBreedNames)
           setError(null)
         }
         if (error) setError(error)
