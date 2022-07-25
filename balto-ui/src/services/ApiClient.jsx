@@ -147,22 +147,9 @@ class ApiClient {
     // SEARCH ===============================================================================
 
     async fetchDogBreeds() {
-        try {
-            const res = await axios.get('https://dog.ceo/api/breeds/list/all')
-            return { data: res.data, error: null}
-        } catch(error) {
-            const message = error?.response?.data?.error?.message
-            return { data: null, error: message || String(error) }
-        }
-
-        axios.get('https://dog.ceo/api/breeds/list/all')
-        .then((res) => {
-          return res?.data
-        })
-        .catch((err) => {
-          console.log(err)
-          return null
-        })
+        // get dog breed names
+        // used to populate select area in dog search page
+        return await this.request({ endpoint:`search/dog-breeds`, method:'GET' })
     }
 
 }
