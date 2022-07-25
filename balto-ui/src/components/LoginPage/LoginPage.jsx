@@ -1,13 +1,23 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
+import { useAuthContext } from '../../contexts/auth'
 import LoginForm from "../LoginForm/LoginForm"
 
 export default function LoginPage() {
 
   const navigate = useNavigate()
+  const { user } = useAuthContext()
 
-  // create useEffect here, if user is logged in, navigate to the landing page OR the admin dashboard
-  
+  // if user is logged in, navigate to the landing page OR the admin dashboard depending on user type
+  if (user?.email) {
+    if (user?.shelterId) {
+      navigate("/admin-dashboard")
+    } else {
+      navigate("/")
+    }
+    return null
+  }
+
   return (
     <LoginForm />
   )
