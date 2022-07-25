@@ -143,6 +143,15 @@ class ApiClient {
         return await this.request({ endpoint:`user/starred/${dogId}`, method:'DELETE' })
     }
 
+
+    // SEARCH ===============================================================================
+
+    async fetchDogBreeds() {
+        // get dog breed names
+        // used to populate select area in dog search page
+        return await this.request({ endpoint:`search/dog-breeds`, method:'GET' })
+    }
+
 }
 
 export default new ApiClient(API_BASE_URL || "http://localhost:3001")
