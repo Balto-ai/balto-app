@@ -131,6 +131,10 @@ class ApiClient {
         return await this.request({ endpoint:'user/starred', method:'GET' })
     }
 
+    async fetchStarredDog(dogId) {
+        return await this.request({ endpoint: `user/starred/${dogId}`, method: 'GET'})
+    }
+
     async starDog(dogId) {
         // add a dog to the user's starred list
         // called when the user clicks the "Star" button on the dog profile

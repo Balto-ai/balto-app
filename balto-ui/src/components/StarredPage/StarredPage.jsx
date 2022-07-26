@@ -15,6 +15,7 @@ import Card from 'react-bootstrap/Card';
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import ApiClient from '../../services/ApiClient'
 // import { user_dog_pairings, dogs } from "../../data"
 
 export default function StarredPageContainer() {
@@ -27,7 +28,7 @@ export default function StarredPageContainer() {
 
 export function StarredPage() {
 
-  const { starredDogs, error, isLoading } = useStarredContext()
+  const { starredList, error, isLoading } = useStarredContext() // user_dog_pairings
   const [sort, setSort] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -53,18 +54,25 @@ export function StarredPage() {
     }
   }
 
+  const getStarredDog = async (dogId) => {
+    const dog = await ApiClient.fetchStarredDog(dogId)
+    console.log(dog)
+    return dog
+  }
+
   const navigate = useNavigate();
-  {console.log(starredDogs)}
+  {console.log(starredList)}
 
   return (
     <div className='main-div'>
-      <h1 className='title'>Favorited Dogs ({starredDogs.length})</h1>
+      <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
       <div className='filter-section'>
         <Form.Control id="search-bar" placeholder="Search for a life-long friend" />
         <DropDownSortMenu />
       </div>
       <div className='starred-grid'>
-        {starredDogs.map((dog, idx) => {
+        {starredList.map((pairing, idx) => {
+          const dog = getStarredDog(pairing.dog_id)
           return (
             <StarredCard dog={dog} key={idx} getAgeGroup={getAgeGroup()} navigate={navigate} />
           )

@@ -77,7 +77,7 @@ class Starred {
     }
 
     // fetch each individual dog from a dog id
-    static async fetchStarredDogById( dogId ) {
+    static async fetchStarredDogById(dogId) {
         if (!dogId) {
             throw new BadRequestError("No dogId provided")
         }
