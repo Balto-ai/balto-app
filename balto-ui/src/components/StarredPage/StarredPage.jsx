@@ -73,6 +73,8 @@ export function StarredPage() {
       <div className='starred-grid'>
         {starredList.map((pairing, idx) => {
           const dog = getStarredDog(pairing.dog_id)
+          console.log("pairing dog_id", pairing.dog_id)
+          console.log("dog obj", dog)
           return (
             <StarredCard dog={dog} key={idx} getAgeGroup={getAgeGroup()} navigate={navigate} />
           )
