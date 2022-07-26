@@ -8,6 +8,7 @@ export function AuthContextProvider( {children} ) {
     const [initialized, setInitialized] = React.useState(false)
     const [isProcessing, setIsProcessing] = React.useState(false)
     const [error, setError] = React.useState(null)
+    const [isAuthed, setIsAuthed] = React.useState(false)
 
     React.useEffect(() => {
         const fetchUser = async () => {
@@ -28,7 +29,7 @@ export function AuthContextProvider( {children} ) {
         }
         setIsProcessing(false)
         setInitialized(true)
-        }, [])
+        }, [isAuthed])
 
     const validateEmail = (email) => {
         const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -40,6 +41,7 @@ export function AuthContextProvider( {children} ) {
         if (error) setError(error)
         if (data?.user) {
             ApiClient.setToken(data.token)
+            setIsAuthed(true)
         }
     }
 
@@ -48,6 +50,7 @@ export function AuthContextProvider( {children} ) {
         if (error) setError(error)
         if (data?.user) {
             ApiClient.setToken(data.token)
+            setIsAuthed(true)
         }
     }
     const fetchUserFromToken = async () => {
@@ -55,6 +58,7 @@ export function AuthContextProvider( {children} ) {
         if (error) setError(error)
         if (data?.user) {
             ApiClient.setToken(data.token)
+            setIsAuthed(true)
         }
     }
 
