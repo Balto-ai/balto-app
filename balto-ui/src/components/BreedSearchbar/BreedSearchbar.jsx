@@ -21,11 +21,16 @@ export default function BreedSearchbar({selectedBreeds=[], setSelectedBreeds=()=
     }
     fetchDogBreeds()
     }, [])
+
+    // this is to create an array of options that can be used with the react-select Select element
+    const dogBreedOptions = dogBreeds.map((breed) => {
+      return { value:breed, label:breed }
+    })
   
   // return a FilterSearchBar component, which is a react-select Select element
   return (
-    <FilterSearchbar 
-      optionsArr={dogBreeds}
+    <FilterSearchbar
+      optionsArr={dogBreedOptions}
       selectedOptions={selectedBreeds}
       setSelectedOptions={setSelectedBreeds}
       placeholder="Search by breed"
