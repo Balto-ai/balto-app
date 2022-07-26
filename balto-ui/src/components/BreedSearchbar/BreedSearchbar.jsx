@@ -3,10 +3,9 @@ import ApiClient from '../../services/ApiClient'
 import FilterSearchbar from '../FilterSearchbar/FilterSearchbar'
 import './BreedSearchbar.css'
 
-export default function BreedSearchbar() {
+export default function BreedSearchbar({selectedBreeds=[], setSelectedBreeds=()=>{}}) {
 
   const [dogBreeds, setDogBreeds] = React.useState([])
-  const [selectedBreeds, setSelectedBreeds] = React.useState([])
   const [error, setError] = React.useState(null)
 
   // useEffect to get JSON object of dog breed names
