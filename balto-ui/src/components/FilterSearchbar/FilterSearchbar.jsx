@@ -15,7 +15,7 @@ export default function FilterSearchbar({ optionsArr=[], selectedOptions=[], set
   const handleSelectionChange = (evt) => {
     setSelectedOptions( evt.map(selection => selection.value) )
   }
-  
+
   return (
     <Select
       options={options}
@@ -23,6 +23,9 @@ export default function FilterSearchbar({ optionsArr=[], selectedOptions=[], set
       // set value of the element
       value={options.filter((selection) => selectedOptions.includes(selection.value))}
       onChange={handleSelectionChange}
+      // these two allows menu to stay open when the user selects an option
+      closeMenuOnSelect={false}
+      blurInputOnSelect={false}
       // isMulti allows multiple options to be selected
       isMulti
      />
