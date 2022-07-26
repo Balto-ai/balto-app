@@ -148,8 +148,14 @@ class ApiClient {
 
     async fetchDogBreeds() {
         // get dog breed names
-        // used to populate select area in dog search page
+        // used to populate breed select area in dog search page
         return await this.request({ endpoint:`search/dog-breeds`, method:'GET' })
+    }
+
+    async fetchShelters() {
+        // get shelter names
+        // used to populate shelter select area in dog search page
+        return await this.request({ endpoint:`search/shelters`, method: 'GET' })
     }
 
 }
