@@ -6,6 +6,7 @@ const security = require("./middleware/security")
 const authRoutes = require("./routes/auth")
 const dogRecordsRoutes = require("./routes/dog-records")
 const userRoutes = require("./routes/user")
+const dogsRoutes = require("./routes/dogs")
 
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 
@@ -20,6 +21,7 @@ app.use(security.extractUserFromJwt)
 app.use("/auth", authRoutes)
 app.use("/dog-records", dogRecordsRoutes)
 app.use("/user", userRoutes)
+app.user("/dogs", dogsRoutes)
 
 
 // 404 error handler
