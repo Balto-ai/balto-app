@@ -29,25 +29,25 @@ export default function StarredPageContainer() {
 
 export function StarredPage() {
 
-  const { starredList, error, isLoading } = useStarredContext() // user_dog_pairings
+  const { starredList, error, isLoading } = useStarredContext()
   const [sort, setSort] = useState("")
-  const [searchQuery, setSearchQuery] = useState("")
 
-  console.log("STARRED LIST:", starredList[0])
+  function sortByNameAsc(a, b) {
+    if ( a.name.toLowerCase() < b.name.toLowerCase() ) return -1
+    if ( a.name.toLowerCase() > b.name.toLowerCase() ) return 1
+    return 0
+}
 
   return (
     <div className='main-div'>
-      <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
-      <div className='filter-section'>
-        <Form.Control id="search-bar" placeholder="Search for a life-long friend" />
-        <DropDownSortMenu />
+      <div className='header'>
+        <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
+        <DropDownSortMenu className="filter-menu" variant="secondary"/>
       </div>
       <div className='starred-grid'>
         {starredList.map((dogObj, idx) => {
           return <StarredCard dog={dogObj} key={idx} />
-        })
-        }
-
+        })}
       </div>
     </div>
   )
@@ -56,14 +56,14 @@ export function StarredPage() {
 export function DropDownSortMenu() {
   return (
     <Dropdown name="sort-dropdown" id="sort-dropdown">
-      <Dropdown.Toggle variant="primary" id="sort-toggle">
+      <Dropdown.Toggle variant="secondary" id="sort-toggle">
         Sort by:
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Location</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Size</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Age</Dropdown.Item>
+        <Dropdown.Item href="#/action-1">Name (A-Z)</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Distance (Ascending)</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Size (Ascending)</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Age (Ascending)</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )

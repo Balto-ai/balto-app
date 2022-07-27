@@ -5,32 +5,10 @@
     flex-direction: column;
 }
 
-.title {
-    padding-top: 2%;
-    text-align: center;
-}
-
-.filter-section {
+.header {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1%;
-}
-
-.filter-section #search-bar {
-    width: 70%;
-    /* font-size: 20px; */
-    /* border: solid black 1px;
-    border-radius: 10px; */
-    padding-left: 2%;
-    padding-right: 2%;
-    margin: 2%;
-}
-
-
-.filter-section #sort-dropdown {
-    font-size: 20px;
-    color: gray;
-    margin: 2%;
+    justify-content: space-between;
+    margin-top: 2%;
 }
 
 .starred-grid {
