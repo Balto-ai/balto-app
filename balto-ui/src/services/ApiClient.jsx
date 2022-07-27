@@ -60,16 +60,13 @@ class ApiClient {
     // DOGS ===============================================================================
 
     async fetchDogs(filters) {
-        // get dogs in database
-        console.log("filters in ApiClient:", filters)
         return await this.request({ endpoint:'dogs/', method:'POST', data:filters })
     }
 
-    // async fetchDogById(dogId) {
-    //     // get information about an individual dog using their ID
-    //     return await this.request({ endpoint:`dogs/${dogId}`, method: 'GET'})
-    // }
-
+    async fetchDogById(dogId) {
+        // get information about an individual dog using their ID
+        return await this.request({ endpoint:`dogs/${dogId}`, method: 'GET'})
+    }
 
     // DOG-RECORDS ===============================================================================
     

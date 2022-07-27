@@ -29,7 +29,7 @@ export default function DogSearchPage() {
     strangerFriendly: selectedGoodWith.includes("Strangers"),
     dogFriendly: selectedGoodWith.includes("Other dogs"),
     distance: selectedDistance || null,
-    shelterIds: selectedShelters,
+    shelterIds: selectedShelters
   }
 
   // function to handle checking/unchecking checkboxes used in the size, gender, and good with filters
@@ -226,7 +226,7 @@ export function DogGrid({ filters={} }) {
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
-        setError(null);
+        setError(null)
       }
       if (error) setError(error);
     };
@@ -235,7 +235,6 @@ export function DogGrid({ filters={} }) {
 
   return (
     <div className="hi">
-      {/* <p>{JSON.stringify(dogResults)}</p> */}
       {dogResults.map((dogResult, idx) => (
         <p key={dogResult?.id || idx}>{dogResult?.name}</p>
       ))}

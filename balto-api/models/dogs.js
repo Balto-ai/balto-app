@@ -46,7 +46,7 @@ class Dogs {
         const shelterQuery = Dogs.createIntegerListQuery("shelter_id", filters.shelterIds)
 
         const arrayQueryStrings = [breedQuery, sizeQuery, sexQuery, shelterQuery].filter((item)=>item)
-        const whereClause = 'WHERE ' + arrayQueryStrings.join(" AND ")
+        const whereClause = arrayQueryStrings.length > 0 ? 'WHERE ' + arrayQueryStrings.join(" AND ") : ""
 
         
         const query = `
