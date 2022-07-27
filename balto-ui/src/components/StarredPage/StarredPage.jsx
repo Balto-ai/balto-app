@@ -16,6 +16,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import ApiClient from '../../services/ApiClient'
+import { useEffect } from 'react'
 // import { user_dog_pairings, dogs } from "../../data"
 
 export default function StarredPageContainer() {
@@ -31,6 +32,45 @@ export function StarredPage() {
   const { starredList, error, isLoading } = useStarredContext() // user_dog_pairings
   const [sort, setSort] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
+
+  console.log("STARRED LIST:", starredList[0])
+
+  return (
+    <div className='main-div'>
+      <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
+      <div className='filter-section'>
+        <Form.Control id="search-bar" placeholder="Search for a life-long friend" />
+        <DropDownSortMenu />
+      </div>
+      <div className='starred-grid'>
+        {starredList.map((dogObj, idx) => {
+          return <StarredCard dog={dogObj} key={idx} />
+        })
+        }
+
+      </div>
+    </div>
+  )
+}
+
+export function DropDownSortMenu() {
+  return (
+    <Dropdown name="sort-dropdown" id="sort-dropdown">
+      <Dropdown.Toggle variant="primary" id="sort-toggle">
+        Sort by:
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Location</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Size</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Age</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
+
+export function StarredCard(dog, key) {
+  const navigate = useNavigate();
 
   function getAgeGroup(dob) {
     const birthDate = new Date(dob)
@@ -54,61 +94,16 @@ export function StarredPage() {
     }
   }
 
-  const getStarredDog = async (dogId) => {
-    const dog = await ApiClient.fetchStarredDog(dogId)
-    console.log(dog)
-    return dog
-  }
-
-  const navigate = useNavigate();
-  {console.log(starredList)}
-
   return (
-    <div className='main-div'>
-      <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
-      <div className='filter-section'>
-        <Form.Control id="search-bar" placeholder="Search for a life-long friend" />
-        <DropDownSortMenu />
-      </div>
-      <div className='starred-grid'>
-        {starredList.map((pairing, idx) => {
-          const dog = getStarredDog(pairing.dog_id)
-          console.log("pairing dog_id", pairing.dog_id)
-          console.log("dog obj", dog)
-          return (
-            <StarredCard dog={dog} key={idx} getAgeGroup={getAgeGroup()} navigate={navigate} />
-          )
-        })}
-      </div>
-    </div>
+    <Card className='cards' bg='light' onClick={() => navigate("/dog-profile")}>
+      <img src={dog.dog.image_url} />
+      <Card.Body>
+        <Card.Title>{dog.dog.name}</Card.Title>
+        <Card.Text>
+          {dog.dog.breed}<br></br>
+          {getAgeGroup(dog.dog.dob)}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   )
-}
-
-export function DropDownSortMenu() {
-  return (
-    <Dropdown name="sort-dropdown" id="sort-dropdown">
-      <Dropdown.Toggle variant="primary" id="sort-toggle">
-        Sort by:
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Location</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Size</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Age</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  )
-}
-
-export function StarredCard(dog, idx, getAgeGroup = () => { }, navigate) {
-  <Card key={idx} className='cards' bg='light' onClick={() => navigate("/dog-profile")}>
-    <img src={dog.image_url} />
-    <Card.Body>
-      <Card.Title>{dog.name}</Card.Title>
-      <Card.Text>
-        <p>{dog.breed}<br></br>
-          {getAgeGroup(dog.dob)}</p>
-      </Card.Text>
-    </Card.Body>
-  </Card>
 }

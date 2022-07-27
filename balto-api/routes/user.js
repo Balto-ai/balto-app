@@ -19,8 +19,8 @@ router.get("/starred/:dogId", security.requireAuthenticatedUser, async (req, res
     try {
         const { dogId } = req.params
         console.log("DOGID", dogId)
-        const starredDog = await Starred.fetchStarredDogById(dogId)
-        return res.status(200).json({ starredDog })
+        const dog = await Starred.fetchStarredDogById(dogId)
+        return res.status(200).json({ dog })
     } catch (err) {
         next(err)
     }
