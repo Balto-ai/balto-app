@@ -15,7 +15,6 @@ export default function ShelterSearchbar({selectedShelters=[], setSelectedShelte
         if (data?.shelters) {
           // get the usable array of shelters [ { id:, name } ]
           setShelters(data.shelters)
-          console.log(shelters)
           setError(null)
         }
         if (error) setError(error)
