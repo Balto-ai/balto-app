@@ -2,22 +2,13 @@ import React from 'react'
 import "./StarredPage.css"
 import { useStarredContext } from '../../contexts/starred'
 import { StarredContextProvider } from '../../contexts/starred'
-
-// import DogCard from "../DogCard/DogCard"
-// import DogProfile from "../DogProfile/DogProfile"
-// import { Link } from "react-router-dom"
-
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from "react-bootstrap/Button"
 import Dropdown from 'react-bootstrap/Dropdown'
-import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import ApiClient from '../../services/ApiClient'
 import { useEffect } from 'react'
-// import { user_dog_pairings, dogs } from "../../data"
 
 export default function StarredPageContainer() {
   return (
@@ -30,19 +21,12 @@ export default function StarredPageContainer() {
 export function StarredPage() {
 
   const { starredList, error, isLoading } = useStarredContext()
-  const [sort, setSort] = useState("")
-
-  function sortByNameAsc(a, b) {
-    if ( a.name.toLowerCase() < b.name.toLowerCase() ) return -1
-    if ( a.name.toLowerCase() > b.name.toLowerCase() ) return 1
-    return 0
-}
 
   return (
     <div className='main-div'>
       <div className='header'>
         <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
-        <DropDownSortMenu className="filter-menu" variant="secondary"/>
+        <DropDownSortMenu className="filter-menu" variant="secondary" />
       </div>
       <div className='starred-grid'>
         {starredList.map((dogObj, idx) => {
@@ -54,16 +38,50 @@ export function StarredPage() {
 }
 
 export function DropDownSortMenu() {
+  const [sort, setSort] = useState("") 
+  const { starredList, error, isLoading } = useStarredContext()
+
+  useEffect(() => {
+    console.log("sorting")
+  }, [sort])
+
+  function sortByNameAsc(a, b) {
+    console.log("SortByName triggered")
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+    return 0
+  }
+
+  function sortBySizeAsc(a, b) {
+    console.log("SortBySize triggered")
+    const sizeMap = { "small": 1, "medium": 2, "large": 3 }
+    const dogA = sizeMap[a.size.toLowerCase()]
+    const dogB = sizeMap[b.size.toLowerCase()]
+
+    if (dogA < dogB) { return -1 }
+    if (dogA > dogB) { return 1 }
+    return 0
+  }
+
+  function sortByAgeAsc(a, b) {
+    return new Date(b.date_entered) - new Date(a.date_entered)
+  }
+
+  // sort based on dropdown selection
+  if (sort == "name") { starredList.sort(sortByNameAsc) }
+  else if (sort == "size") { starredList.sort(sortBySizeAsc) }
+  else if (sort == "age") { starredList.sort(sortByAgeAsc) }
+
   return (
     <Dropdown name="sort-dropdown" id="sort-dropdown">
       <Dropdown.Toggle variant="secondary" id="sort-toggle">
         Sort by:
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Name (A-Z)</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Distance (Ascending)</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Size (Ascending)</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Age (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSort("name"); console.log(starredList)}}>Name (A-Z)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{starredList.sort()}}>Distance (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSort("size"); console.log(starredList)}}>Size (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSort("age")}}>Age (Ascending)</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )

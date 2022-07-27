@@ -9,7 +9,6 @@ const StarredContext = React.createContext()
 export function StarredContextProvider({ children }) {
 
     const [starredList, setStarredList] = useState([])
-    const [starredDogs, setStarredDogs] = useState([])
     const [initialized, setInitialized] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
