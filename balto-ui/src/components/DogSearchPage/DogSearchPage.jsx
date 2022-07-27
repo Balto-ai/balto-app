@@ -5,6 +5,8 @@ import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
 import ShelterSearchbar from "../ShelterSearchbar/ShelterSearchbar";
 import ApiClient from "../../services/ApiClient";
+import DogCard from "../DogCard/DogCard"
+import "./DogSearchPage.css"
 
 export default function DogSearchPage() {
   // options that will show up on the filters, not used for anything else
@@ -47,6 +49,7 @@ export default function DogSearchPage() {
 
   return (
     <div className="dog-search-page">
+      <div className="dog-search-page-container">
       <div className="filter-sidebar">
         {/* alwaysOpen allows multiple filters to be open at once */}
         <Accordion alwaysOpen>
@@ -208,9 +211,9 @@ export default function DogSearchPage() {
         </Accordion>
       </div>
 
-      <div className="dog-grid">
-        <DogGrid filters = {filters}/>
-      </div>
+
+      <DogGrid filters = {filters}/>
+    </div>
     </div>
   )
 }
@@ -234,9 +237,15 @@ export function DogGrid({ filters={} }) {
   }, [filters])
 
   return (
-    <div className="hi">
+    <div className="dog-grid">
       {dogResults.map((dogResult, idx) => (
-        <p key={dogResult?.id || idx}>{dogResult?.name}</p>
+        <DogCard key={dogResult.id || idx}
+          imgUrl={dogResult.image_url}
+          name={dogResult.name}
+          breed={dogResult.breed}
+          ageGroup={dogResult.dob}
+        />
+
       ))}
     </div>
   );

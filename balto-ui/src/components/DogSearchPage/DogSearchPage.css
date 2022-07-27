@@ -1,0 +1,23 @@
+.filter-sidebar {
+    min-width: 250px;
+    width: 15vw;
+}
+
+.dog-search-page {
+    min-height: 600px;
+    background-color: rgb(244, 244, 244);
+}
+
+.dog-search-page-container {
+    display: flex;
+    padding: 50px;
+    gap: 50px;
+}
+
+
+.dog-grid {
+    display: flex;
+    gap: 10px;
+    flex-flow: row wrap;
+    width: 70vw;
+}
