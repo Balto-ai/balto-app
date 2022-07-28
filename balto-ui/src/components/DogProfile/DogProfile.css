@@ -37,6 +37,7 @@
     margin: 20px;
     margin-top: -10%;
     border: 1px solid black;
+    object-fit: cover;
 }
 
 .profile-pane .profile-header .profile-title {
@@ -62,12 +63,13 @@
     background-color: grey;
     margin-right: 10px;
     margin: 2px;
-    border-radius: 10px;
-    padding: 3px;
+    /* border-radius: 10px; */
+    padding: 6px;
     padding-left: 10px;
     padding-right: 10px;
     color: white;
     white-space: nowrap;
+    font-size: 16px;
 }
 
 .profile-pane .about-section {
@@ -75,6 +77,10 @@
     flex-direction: column;
     text-align: left;
     padding: 5%;
+}
+
+.profile-pane .about-section p {
+    font-size: large;
 }
 
 .training-pane {
@@ -89,36 +95,19 @@
     display: flex;
     justify-content: right;
     padding: 5%;
-    color: bn
 }
 
 .training-pane .action-btns .btn {
-    background-color: #869DEC;
     margin-right: 10px;
-    border-radius: 20px;
     padding: 10px;
     padding-right: 15px;
     padding-left: 15px;
-    color: black;
-    font-weight: bold;
     text-decoration: none;
     font-size: 20px;
     white-space: nowrap;
 }
 
-.training-pane .action-btns .btn:hover {
-    background-color: #FEC272;
-    margin-right: 10px;
-    border-radius: 20px;
-    padding: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 20px;
-    white-space: nowrap;
-}
+
 
 .training-pane .progress-bar {
     display: flex;
@@ -126,10 +115,8 @@
 }
 
 .training-pane .progress-bar div {
-    background-color: gray;
     width: 80%;
     height: 30px;
-    margin-top: 3%;
     align-self: center;
     border-radius: 10px;
 }
