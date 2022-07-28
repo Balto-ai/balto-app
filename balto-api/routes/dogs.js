@@ -9,6 +9,13 @@ router.get("/:dogId", async (req, res, next) => {
         const dog = await Dog.fetchDogInfo(dogId)
         return res.status(200).json({ dog })
     } catch (err) {
+
+// view dog search results
+router.post("/", async (req, res, next) => {
+    try {
+        const dogResults = await Dogs.listDogResults(req.body)
+        return res.status(200).json({ dogResults })
+    } catch(err) {
         next(err)
     }
 })
