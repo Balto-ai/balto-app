@@ -1,5 +1,7 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
+import Chip from '@mui/material/Chip'
+import Dropdown from 'react-bootstrap/Dropdown';
 import Form from "react-bootstrap/Form";
 import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
@@ -14,7 +16,7 @@ export default function DogSearchPage() {
   const genderOptions = ["Male", "Female"];
   const goodWithOptions = ["Kids", "Strangers", "Other dogs"];
   const distanceOptions = [5, 10, 15];
-
+  
   // states each of the filters
   const [selectedBreeds, setSelectedBreeds] = React.useState([]); // ex. ["Dalmation", "Labrador"]
   const [selectedSizes, setSelectedSizes] = React.useState([]); // ex. ["S", "M"]
@@ -22,6 +24,9 @@ export default function DogSearchPage() {
   const [selectedGoodWith, setSelectedGoodWith] = React.useState([]); // ex. ["Kids", "Strangers"]
   const [selectedDistance, setSelectedDistance] = React.useState(""); // integer, or '' if distance isn't selected
   const [selectedShelters, setSelectedShelters] = React.useState([]); // selected shelters by their Id, ex. [3, 4]
+  const [sortBy, setSortBy] = React.useState('')
+ 
+  console.log(selectedGenders.length)
 
   const filters = {
     breed: selectedBreeds,
@@ -38,6 +43,7 @@ export default function DogSearchPage() {
   //    takes a state var and setState var  as params (ex. selectedSizes and setSelectedSizes)
   const handleCheck = (evt, stateArr, setStateArr) => {
     let newArr = [...stateArr];
+    console.log(evt.target.checked)
     if (evt.target.checked) {
       // checking if the checkbox just got checked or unchecked
       newArr = [...stateArr, evt.target.value];
@@ -46,7 +52,6 @@ export default function DogSearchPage() {
     }
     setStateArr(newArr); // updating the stateArr here
   };
-
   return (
     <div className="dog-search-page">
       <div className="dog-search-page-container">
@@ -210,18 +215,108 @@ export default function DogSearchPage() {
           </Accordion.Item>
         </Accordion>
       </div>
+      <div>
+        <div className="search-dog-header">
+          <div className="search-col" id='applied-filters'>
+          {(selectedBreeds.length > 0 || selectedDistance.length > 0 || selectedGenders.length > 0 || selectedGoodWith.length > 0 || selectedShelters.lenght > 0 || selectedSizes.length > 0) && <h2 className="applied-filters-title">Applied Filters</h2>}
+          
+          <div className="applied-filters-labels">
+            {selectedGenders.length > 0 && selectedGenders.map((gender, ind)=>{
+              return(
+                <Chip className="applied-filters-chip" key={ind} label = {gender === 'm' ? 'Male': 'Female'} name={gender}/>
+              )
+            })}
+            {selectedBreeds.length > 0 && selectedBreeds.map((breed, ind)=>{
+              return(
+                <Chip className="applied-filters-chip"  key={ind} label = {breed} name={breed}/>
+              )
+            })}
+            {selectedDistance && <Chip className="applied-filters-chip" label = {`${selectedDistance} miles`} name={selectedDistance}/>}
+           
+            {selectedGoodWith.length > 0 && selectedGoodWith.map((goodWith, ind)=>{
+              return(
+                <Chip className="applied-filters-chip"  key={ind} label = {goodWith} name={goodWith}/>
+              )
+            })}
+            {selectedSizes.length > 0 && selectedSizes.map((size, ind)=>{
+              return(
+                <Chip className="applied-filters-chip"  key={ind} label = {size} name={size}/>
+              )
+            })}
+            {selectedShelters.length > 0 && <ShelterNames selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters} />
 
-
-      <DogGrid filters = {filters}/>
+            }
+            </div>
+          </div>
+       
+        <div className='search-col' id='dropdown-menu'>
+          <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+        </div>
+        </div>
+        <div>
+          <DogGrid sortBy={sortBy} setSortBy={setSortBy} filters = {filters}/>
+        </div>
+      </div>
+              
+      
     </div>
     </div>
   )
 }
 
-export function DogGrid({ filters={} }) {
+export function DogGrid({ filters={}, setSortBy, sortBy }) {
 
   const [dogResults, setDogResults] = React.useState([]);
   const [error, setError] = React.useState(null)
+  // sorting functions
+ function sortByNameAsc(a, b) {
+  if ( a.name.toLowerCase() < b.name.toLowerCase() ) return -1
+  if ( a.name.toLowerCase() > b.name.toLowerCase() ) return 1
+  return 0
+}
+
+function sortByNameDesc(a, b) {
+  console.log(24,a.name, b.name)
+  if ( a.name.toLowerCase() < b.name.toLowerCase() ) return 1
+  if ( a.name.toLowerCase() > b.name.toLowerCase() ) return -1
+  return 0
+}
+
+
+function sortByDateEnteredAsc(a, b) {
+  return new Date(b.date_entered) - new Date(a.date_entered)
+}
+
+function sortByDateEnteredDesc(a, b) {
+  return new Date(a.date_entered) - new Date(b.date_entered)
+}
+
+function sortByDOBAsc(a, b) {
+  return new Date(b.dob) - new Date(a.dob)
+}
+function sortByDOBDesc(a, b) {
+  return new Date(a.dob) - new Date(b.dob)
+}
+
+
+
+// sort dogRecords based on sort criteria
+if (sortBy === 'Name (A-Z)') {
+  dogResults.sort( sortByNameAsc )
+} else if (sortBy === 'Name (Z-A)') {
+  console.log('does this work????')
+  dogResults.sort( sortByNameDesc )
+}else if (sortBy === 'Newest Addition') {
+  console.log('hello')
+  dogResults.sort( sortByDateEnteredAsc )
+}else if (sortBy === 'Oldest Addition') {
+  dogResults.sort( sortByDateEnteredDesc )
+}else if (sortBy === 'Youngest to Oldest') {
+  dogResults.sort( sortByDOBAsc )
+}else if (sortBy === 'Oldest to Youngest') {
+  dogResults.sort( sortByDOBDesc )
+}
+
 
   React.useEffect(() => {
     const fetchDogResults = async () => {
@@ -249,4 +344,62 @@ export function DogGrid({ filters={} }) {
       ))}
     </div>
   );
+}
+export function DogRecordDropdown({ sortBy, setSortBy }) {
+  console.log(25,sortBy)
+  return (
+      <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
+          <Dropdown.Menu>
+              <Dropdown.Item onClick={()=>{setSortBy("Name (A-Z)")}}>Name (A-Z)</Dropdown.Item>
+              <Dropdown.Item onClick={()=>{setSortBy("Name (Z-A)")}}>Name (Z-A)</Dropdown.Item>
+              <Dropdown.Item onClick={()=>{setSortBy("Youngest to Oldest")}}>Youngest to Oldest</Dropdown.Item>
+              <Dropdown.Item onClick={()=>{setSortBy("Oldest to Youngest")}}>Oldest to Youngest</Dropdown.Item>
+              <Dropdown.Item onClick={()=>{setSortBy("Newest Addition")}}>Newest Addition</Dropdown.Item>
+              <Dropdown.Item onClick={()=>{setSortBy("Oldest Addition")}}>Oldest Addition</Dropdown.Item>
+          </Dropdown.Menu>
+      </Dropdown>
+  )
+}
+export function ShelterNames({selectedShelters=[], setSelectedShelters=()=>{}}){
+  const [shelters, setShelters] = React.useState([])
+  const [error, setError] = React.useState(null)
+  const [shelter, setShelter] = React.useState({})
+  var result = [];
+  // useEffect to get JSON object of shelter names
+  React.useEffect(() => {
+    const fetchShelters = async () => {
+        const { data, error } = await ApiClient.fetchShelters()
+        if (data?.shelters) {
+          // get the usable array of shelters [ { id:, name } ]
+          console.log(data.shelters)
+          setShelters(data.shelters)
+          setError(null)
+        }
+        if (error) setError(error)
+    }
+    fetchShelters()
+    }, [])
+    console.log(selectedShelters)
+    console.log(shelters)
+    if (Object.keys(shelters).length !== 0){
+      result = selectedShelters.map((el)=>{
+        let obj = shelters.find(({id})=> id === el)
+        console.log(obj)
+        return obj;
+      })
+      console.log(result)
+    }
+    
+    return(
+      <span>
+        {result.length !== 0 && result.map((element)=>{
+          console.log('element',element.name)
+          return(
+            <Chip className="applied-filters-chip" label = {element.name}/>
+          )
+        })}
+      </span>
+      
+    )
 }

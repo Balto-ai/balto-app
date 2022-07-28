@@ -21,3 +21,20 @@
     flex-flow: row wrap;
     width: 70vw;
 }
+.applied-filters-title{
+    font-size: 18px;
+}
+.search-dog-header{
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    margin-bottom: 10px;
+}
+#applied-filters{
+    display:flex;
+    flex-direction: column;
+    width: 70%;
+}
+.applied-filters-chip{
+    margin: 5px;
+}
