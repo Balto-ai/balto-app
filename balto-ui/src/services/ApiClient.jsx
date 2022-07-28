@@ -59,17 +59,14 @@ class ApiClient {
 
     // DOGS ===============================================================================
 
-    async fetchDogs() {
-        // get dogs in database
-        // NOTE: need to revisit this once we get closer towards filtering results
-        return await this.request({ endpoint:'dogs/', method:'GET' })
+    async fetchDogs(filters) {
+        return await this.request({ endpoint:'dogs/', method:'POST', data:filters })
     }
 
     async fetchDogById(dogId) {
         // get information about an individual dog using their ID
         return await this.request({ endpoint:`dogs/${dogId}`, method: 'GET'})
     }
-
 
     // DOG-RECORDS ===============================================================================
     
@@ -148,8 +145,14 @@ class ApiClient {
 
     async fetchDogBreeds() {
         // get dog breed names
-        // used to populate select area in dog search page
+        // used to populate breed select area in dog search page
         return await this.request({ endpoint:`search/dog-breeds`, method:'GET' })
+    }
+
+    async fetchShelters() {
+        // get shelter names
+        // used to populate shelter select area in dog search page
+        return await this.request({ endpoint:`search/shelters`, method: 'GET' })
     }
 
 }
