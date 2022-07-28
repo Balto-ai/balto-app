@@ -11,6 +11,7 @@ import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import { AuthContextProvider, useAuthContext } from '../../contexts/auth';
 
 export default function DogProfile() {
 
@@ -18,6 +19,7 @@ export default function DogProfile() {
   const [error, setError] = useState(null)
   const [dogInfo, setDogInfo] = useState({})
   const { dogId } = useParams()
+  const { user } = useAuthContext()
 
   useEffect(() => {
     const getDog = async (id) => {
@@ -37,6 +39,7 @@ export default function DogProfile() {
     // SOLUTION: set default state variable dogInfo to empty object
   }, []);
   { console.log("dogInfo object after useEffect: ", dogInfo) }
+  { console.log("AUTH USER DATA", user) }
 
   function getAgeGroup(dob) {
     const birthDate = new Date(dob)
@@ -60,8 +63,8 @@ export default function DogProfile() {
     }
   }
 
-  const handleOnFavorite = () => {
-    
+  const handleOnFavorite = async () => {
+    return await ApiClient.starDog(dogInfo.id)
   }
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
@@ -102,13 +105,11 @@ export default function DogProfile() {
         </div>
         <div className='training-pane'>
           <section className='action-btns'>
-            <Button variant="info" className='btn'>
-              <Link to="/star" style={{textDecoration: 'none', color: 'black', fontWeight: 'bold'}}>
-                <BsStar /> Favorite</Link>
+            <Button variant="info" className='btn' onClick={handleOnFavorite()} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+              <BsStar /> Favorite
             </Button>
-            <Button variant="secondary" className='btn'>
-              <Link to="/adopt" style={{textDecoration: 'none', color: 'black', fontWeight: 'bold'}}>
-                <BsFillHouseDoorFill /> Adopt Me</Link>
+            <Button variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+              <BsFillHouseDoorFill /> Adopt Me
             </Button>
           </section>
           <section className='progress-bar'>

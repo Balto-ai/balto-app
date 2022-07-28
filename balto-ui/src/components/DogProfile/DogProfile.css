@@ -31,12 +31,10 @@
 .profile-pane .profile-header .profile-img {
     width: 200px;
     height: 200px;
-    background-color: blanchedalmond;
     align-self: center;
     border-radius: 100%;
     margin: 20px;
     margin-top: -10%;
-    border: 1px solid black;
     object-fit: cover;
 }
 
