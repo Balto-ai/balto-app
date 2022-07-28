@@ -1,69 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
 import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
 import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import { milestones } from '../../data'
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import ApiClient from '../../services/ApiClient';
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { useAuthContext } from '../../contexts/auth';
+import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
 
-export default function DogProfile() {
+export default function DogProfileContainer() {
+  return (
+    <DogProfileContextProvider>
+      <DogProfile />
+    </DogProfileContextProvider>
+  )
+}
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [dogInfo, setDogInfo] = useState({})
-  console.log("dogInfo: ", dogInfo)
-  const { dogId } = useParams()
-  const { user } = useAuthContext()
+export function DogProfile() {
 
-  useEffect(() => {
-    const getDog = async () => {
-      setIsLoading(true)
-      const { data, error } = await ApiClient.fetchDogById(dogId)
-      if (data?.dog) {
-        console.log("DATA HERE!!!", data.dog)
-        setDogInfo(data.dog[0])
-      }
-      if (error) {
-        setError(error)
-        console.log("error: ", error)
-      }
-      setIsLoading(false)
-    }
-    getDog()
-    // TODO: can't use await keyword above...so need to deconstruct object on call (setDogInfo(data.dog[0])) or else risks synchronous array destructuring to throw key not found error
-    // SOLUTION: set default state variable dogInfo to empty object
-  }, []);
-
-  console.log("dogInfo object after useEffect: ", dogInfo)
-  console.log("AUTH USER DATA", user)
-
-  function getAgeGroup(dob) {
-    const birthDate = new Date(dob)
-    const currentDate = new Date()
-    let ageTime = currentDate - birthDate
-    let ageDays = Math.floor(ageTime / (1000 * 3600 * 24))
-    // following this source for age groupings:
-    // https://www.frontiersin.org/articles/10.3389/fvets.2021.643085/full#:~:text=An%20option%20here%20would%20be,11%20years%20as%20Late%2DSenior.
-    if (ageDays <= 180) {
-      return "Puppy"
-    } else if (ageDays > 180 && ageDays <= 365) {
-      return "Junior"
-    } else if (ageDays > 365 && ageDays <= 730) {
-      return "Young Adult"
-    } else if (ageDays > 730 && ageDays <= 2555) {
-      return "Mature Adult"
-    } else if (ageDays > 2555 && ageDays <= 4380) {
-      return "Senior"
-    } else {
-      return "Geriatric"
-    }
-  }
+  const { dogInfo, setDogInfo, error, getAgeGroup } = useDogProfileContext()
+  const { user } = useAuthContext({})
 
   const handleOnFavorite = async () => {
     // return await ApiClient.starDog(dogInfo.id)

@@ -1,8 +1,8 @@
-import React, { createContext, useState } from "react";
-import { useContext } from "react";
-import { useEffect } from "react";
+import { React, createContext, useContext, useEffect, useState } from "react";
 import ApiClient from "../services/ApiClient"
 import { useAuthContext } from "./auth";
+import { useParams } from 'react-router-dom';
+
 
 const DogProfileContext = createContext()
 
@@ -11,8 +11,7 @@ export function DogProfileContextProvider({ children }) {
     const [dogInfo, setDogInfo] = useState({})
     const [initialized, setInitialized] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const { user } = useAuthContext({})
+    const [error, setError] = useState()
     const { dogId } = useParams()
 
     useEffect(() => {
@@ -30,6 +29,8 @@ export function DogProfileContextProvider({ children }) {
         }
         getDog()
     }, [])
+
+    console.log("dogInfo from context: ", dogInfo)
 
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)
@@ -55,15 +56,10 @@ export function DogProfileContextProvider({ children }) {
 
     return (
         <DogProfileContext.Provider value={{
-            dogInfo,
-            setDogInfo,
-            initialized,
-            setInitialized,
-            isLoading,
-            setIsLoading,
-            error,
-            setError,
-            user,
+            dogInfo, setDogInfo,
+            initialized, setInitialized,
+            isLoading, setIsLoading,
+            error, setError,
             dogId,
             getAgeGroup
         }} >
