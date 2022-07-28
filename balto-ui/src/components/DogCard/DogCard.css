@@ -16,10 +16,12 @@
     cursor: pointer;
 }
 
+/* body of the card */
 .dog-card .dog-info {
     padding: 15px 15px 20px 15px;
 }
 
+/* flexbox to format the name/distance and the star button to be spaced apart */
 .dog-card .dog-info-topline {
     width: 100%;
 
@@ -29,12 +31,15 @@
     align-items: center;
 }
 
+/* flexbox to format name and distance */
 .dog-card .dog-info-header {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
     gap: 10px;
 }
+
+/* TEXT CONTENTS BELOW */
 
 .dog-card .dog-info-header .dog-distance {
     height: 100%;
@@ -52,6 +57,6 @@
     text-overflow: ellipsis;
 }
 
-.dog-card .dog-info .dog-details > *{
+.dog-card .dog-info .dog-details > * {
     margin: 0;
 }

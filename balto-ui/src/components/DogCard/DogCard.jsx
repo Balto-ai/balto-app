@@ -50,10 +50,12 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
     <div className='dog-card'>
       <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
       <div className='dog-info'>
+        {/* name, distance, and star button */}
         <div className='dog-info-topline'>
+          {/* name and distance */}
           <div className='dog-info-header'>
             <h2 className='dog-name'>{name}</h2>
-            {/* placeholder distance here */}
+            {/* using placeholder distance here */}
             <h2 className='dog-distance'>2.1 mi</h2>
           </div>
           <StarButton dogId={dogId} dogName={name} />
