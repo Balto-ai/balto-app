@@ -7,7 +7,6 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import ApiClient from '../../services/ApiClient'
 import { useEffect } from 'react'
 
 export default function StarredPageContainer() {
@@ -21,6 +20,11 @@ export default function StarredPageContainer() {
 export function StarredPage() {
 
   const { starredList, error, isLoading } = useStarredContext()
+
+  useEffect(() => {
+    console.log("useEffect")
+  }, [starredList]) 
+  // TODO: this is dumb, but if I don't have it, page never rerenders with starredList populated from context
 
   return (
     <div className='main-div'>
@@ -113,7 +117,7 @@ export function StarredCard(dog, key) {
   }
 
   return (
-    <Card className='cards' bg='light' onClick={() => navigate("/dog-profile")}>
+    <Card className='cards' bg='light' onClick={() => navigate(`/dog/${dog.dog.id}`)}>
       <img src={dog.dog.image_url} />
       <Card.Body>
         <Card.Title>{dog.dog.name}</Card.Title>

@@ -46,7 +46,7 @@ function App() {
                 <StarredPage />} />
               <Route path="/admin-dashboard/*" element={
                 <AdminDashboard />} />
-              <Route path="/dog-profile" element={
+              <Route path="dog/:dogId" element={
                 <DogProfile />} />
               <Route path="*" element={
                 <NotFound />} />

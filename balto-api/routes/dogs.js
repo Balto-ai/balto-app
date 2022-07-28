@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const Dog = require("../models/Dog")
+const Dog = require("../models/dogs")
 
 // get the dog for the given dog id
 router.get("/:dogId", async (req, res, next) => {
