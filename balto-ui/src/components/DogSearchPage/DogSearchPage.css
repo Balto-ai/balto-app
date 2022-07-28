@@ -33,7 +33,7 @@
 #applied-filters{
     display:flex;
     flex-direction: column;
-    width: 70%;
+    width: 66%;
 }
 .applied-filters-chip{
     margin: 5px;
