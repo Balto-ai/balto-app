@@ -25,8 +25,6 @@ export default function DogSearchPage() {
   const [selectedDistance, setSelectedDistance] = React.useState(""); // integer, or '' if distance isn't selected
   const [selectedShelters, setSelectedShelters] = React.useState([]); // selected shelters by their Id, ex. [3, 4]
   const [sortBy, setSortBy] = React.useState('')
- 
-  console.log(selectedGenders.length)
 
   const filters = {
     breed: selectedBreeds,
@@ -43,7 +41,6 @@ export default function DogSearchPage() {
   //    takes a state var and setState var  as params (ex. selectedSizes and setSelectedSizes)
   const handleCheck = (evt, stateArr, setStateArr) => {
     let newArr = [...stateArr];
-    console.log(evt.target.checked)
     if (evt.target.checked) {
       // checking if the checkbox just got checked or unchecked
       newArr = [...stateArr, evt.target.value];
@@ -276,7 +273,6 @@ export function DogGrid({ filters={}, setSortBy, sortBy }) {
 }
 
 function sortByNameDesc(a, b) {
-  console.log(24,a.name, b.name)
   if ( a.name.toLowerCase() < b.name.toLowerCase() ) return 1
   if ( a.name.toLowerCase() > b.name.toLowerCase() ) return -1
   return 0
@@ -304,10 +300,8 @@ function sortByDOBDesc(a, b) {
 if (sortBy === 'Name (A-Z)') {
   dogResults.sort( sortByNameAsc )
 } else if (sortBy === 'Name (Z-A)') {
-  console.log('does this work????')
   dogResults.sort( sortByNameDesc )
 }else if (sortBy === 'Newest Addition') {
-  console.log('hello')
   dogResults.sort( sortByDateEnteredAsc )
 }else if (sortBy === 'Oldest Addition') {
   dogResults.sort( sortByDateEnteredDesc )
@@ -320,7 +314,6 @@ if (sortBy === 'Name (A-Z)') {
 
   React.useEffect(() => {
     const fetchDogResults = async () => {
-      console.log("filters:", filters)
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
@@ -335,8 +328,10 @@ if (sortBy === 'Name (A-Z)') {
     <div className="dog-grid">
       {dogResults.map((dogResult, idx) => (
         <DogCard key={dogResult.id || idx}
+          dogId={dogResult.id}
           imgUrl={dogResult.image_url}
           name={dogResult.name}
+          dob={dogResult.dob}
           breed={dogResult.breed}
           ageGroup={dogResult.dob}
         />
@@ -346,7 +341,6 @@ if (sortBy === 'Name (A-Z)') {
   );
 }
 export function DogRecordDropdown({ sortBy, setSortBy }) {
-  console.log(25,sortBy)
   return (
       <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
@@ -372,7 +366,6 @@ export function ShelterNames({selectedShelters=[], setSelectedShelters=()=>{}}){
         const { data, error } = await ApiClient.fetchShelters()
         if (data?.shelters) {
           // get the usable array of shelters [ { id:, name } ]
-          console.log(data.shelters)
           setShelters(data.shelters)
           setError(null)
         }
@@ -380,21 +373,17 @@ export function ShelterNames({selectedShelters=[], setSelectedShelters=()=>{}}){
     }
     fetchShelters()
     }, [])
-    console.log(selectedShelters)
-    console.log(shelters)
+
     if (Object.keys(shelters).length !== 0){
       result = selectedShelters.map((el)=>{
         let obj = shelters.find(({id})=> id === el)
-        console.log(obj)
         return obj;
       })
-      console.log(result)
     }
     
     return(
       <span>
         {result.length !== 0 && result.map((element)=>{
-          console.log('element',element.name)
           return(
             <Chip className="applied-filters-chip" label = {element.name}/>
           )

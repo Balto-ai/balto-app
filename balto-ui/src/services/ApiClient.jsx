@@ -136,13 +136,13 @@ class ApiClient {
     async starDog(dogId) {
         // add a dog to the user's starred list
         // called when the user clicks the "Star" button on the dog profile
-        return await this.request({ endpoint:`user/starred`, method:'POST' })
+        return await this.request({ endpoint:`user/starred`, method:'POST', data:dogId })
     }
 
     async unstarDog(dogId) {
         // remove a dog from the user's starred list
         // called when the user clicks the "Unstar" button on the dog profile
-        return await this.request({ endpoint:`user/starred`, method:'DELETE' })
+        return await this.request({ endpoint:`user/starred/${dogId}`, method:'DELETE' })
     }
 
 

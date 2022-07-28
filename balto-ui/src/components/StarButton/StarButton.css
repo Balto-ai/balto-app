@@ -1,0 +1,12 @@
+/* CSS may need to be modified for use in other parts of the site */
+
+.star-button {
+    border-radius: 100px !important;
+    color: white !important;
+}
+
+.star-update-toast {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
