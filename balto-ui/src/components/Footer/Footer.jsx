@@ -17,7 +17,7 @@ export default function Footer() {
         <Container  maxWidth="lg">
           <Grid  justifyContent='center' container spacing={5}  textAlign='left'>
             {/* Grid Container that contains the social media icons */}
-            <Grid gap={46.5} container  direction='row'  justifyContent='center' alignItems='center' pt={{xs: 5, sm: 2}} pb={{xs: 5, sm: 3}}>
+            <Grid gap={5} container  direction='row'  justifyContent='center' alignItems='center' pt={{xs: 5, sm: 2}} pb={{xs: 5, sm: 3}}>
               <Grid item xs={7} sm={3.5}><span className='social-span'>Get connected with us on social networks:</span></Grid>
               <Grid item xs={12} sm={4.75}>
           <a href='facebook' className='socials'>
