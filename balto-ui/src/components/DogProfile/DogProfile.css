@@ -83,7 +83,6 @@
 
 .training-pane {
     width: 50%;
-    background-color: white;
     display: flex;
     flex-direction: column;
     margin: 0px;
@@ -104,8 +103,6 @@
     font-size: 20px;
     white-space: nowrap;
 }
-
-
 
 .training-pane .progress-bar {
     display: flex;

@@ -5,16 +5,19 @@ import { BsAward } from 'react-icons/bs'
 export default function TrainingFeed(props) {
     return (
         props.milestones.map((milestone, idx) => {
-            return (<TrainingCell milestone={milestone} key={idx} />)
+            return (<TrainingCell dogInfo={props.dogInfo} milestone={milestone} key={idx} />)
         })
     )
 }
 
 export function TrainingCell(props) {
+    console.log(999, Object.keys(props.dogInfo).length)
+    // if (props.dogInfo) {
+    { console.log("TrainingFeed Dog Info: ", props.dogInfo) }
     return (
         <div className='training-cell'>
             <section className="cell-header">
-                <img className="profile-pic" src="#" />
+                <img className="profile-pic" src={props.dogInfo.image_url} />
                 <div className="header-text">
                     <h3>{props.milestone["dog_id"] === 1 ? "Marley" : "Balto"}</h3>
                     <p>{props.milestone["updated_at"]}</p>
@@ -30,3 +33,4 @@ export function TrainingCell(props) {
         </div>
     )
 }
+// }

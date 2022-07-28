@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import './DogProfile.css'
-import { Link, useNavigate } from 'react-router-dom'
 import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
 import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import { milestones } from '../../data'
@@ -11,21 +10,23 @@ import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import { AuthContextProvider, useAuthContext } from '../../contexts/auth';
+import { useAuthContext } from '../../contexts/auth';
 
 export default function DogProfile() {
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [dogInfo, setDogInfo] = useState({})
+  console.log("dogInfo: ", dogInfo)
   const { dogId } = useParams()
   const { user } = useAuthContext()
 
   useEffect(() => {
-    const getDog = async (id) => {
+    const getDog = async () => {
       setIsLoading(true)
-      const { data, error } = await ApiClient.fetchDogById(id)
+      const { data, error } = await ApiClient.fetchDogById(dogId)
       if (data?.dog) {
+        console.log("DATA HERE!!!", data.dog)
         setDogInfo(data.dog[0])
       }
       if (error) {
@@ -34,12 +35,13 @@ export default function DogProfile() {
       }
       setIsLoading(false)
     }
-    getDog(dogId)
+    getDog()
     // TODO: can't use await keyword above...so need to deconstruct object on call (setDogInfo(data.dog[0])) or else risks synchronous array destructuring to throw key not found error
     // SOLUTION: set default state variable dogInfo to empty object
   }, []);
-  { console.log("dogInfo object after useEffect: ", dogInfo) }
-  { console.log("AUTH USER DATA", user) }
+
+  console.log("dogInfo object after useEffect: ", dogInfo)
+  console.log("AUTH USER DATA", user)
 
   function getAgeGroup(dob) {
     const birthDate = new Date(dob)
@@ -64,7 +66,7 @@ export default function DogProfile() {
   }
 
   const handleOnFavorite = async () => {
-    return await ApiClient.starDog(dogInfo.id)
+    // return await ApiClient.starDog(dogInfo.id)
   }
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
@@ -105,7 +107,7 @@ export default function DogProfile() {
         </div>
         <div className='training-pane'>
           <section className='action-btns'>
-            <Button variant="info" className='btn' onClick={handleOnFavorite()} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+            <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsStar /> Favorite
             </Button>
             <Button variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
@@ -120,7 +122,7 @@ export default function DogProfile() {
           <div className='training-feed'>
             <h2>Training Feed</h2>
             <div className='feed'>
-              <TrainingFeed milestones={milestones} />
+              <TrainingFeed milestones={milestones} dogInfo={dogInfo} />
             </div>
           </div>
         </div>
