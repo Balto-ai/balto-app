@@ -1,7 +1,22 @@
 const db = require("../db")
+
 const { UnauthorizedError, BadRequestError } = require("../utils/errors")
 
 class Dogs {
+
+    // get dog info for specific dog id
+    static async fetchDogInfo(dogId) {
+        if (!dogId) {
+            throw new BadRequestError("No dog id provided")
+        }
+
+        const query = `
+            SELECT * FROM dogs
+            WHERE id = $1
+            `
+        const result = await db.query(query, [dogId])
+        return result.rows
+    }
 
     // used to create IN sql queries using array of strings
     //   ex. ["Yes", "True"] -> `col_name IN ('Yes', 'No')`

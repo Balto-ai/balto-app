@@ -65,6 +65,7 @@ class ApiClient {
 
     async fetchDogById(dogId) {
         // get information about an individual dog using their ID
+        console.log("Calling fetchDogsById in ApiClient")
         return await this.request({ endpoint:`dogs/${dogId}`, method: 'GET'})
     }
 
@@ -128,16 +129,20 @@ class ApiClient {
         return await this.request({ endpoint:'user/starred', method:'GET' })
     }
 
+    async fetchStarredDog(dogId) {
+        return await this.request({ endpoint: `user/starred/${dogId}`, method: 'GET', data: {dogId}})
+    }
+
     async starDog(dogId) {
         // add a dog to the user's starred list
         // called when the user clicks the "Star" button on the dog profile
-        return await this.request({ endpoint:`user/starred/${dogId}`, method:'POST' })
+        return await this.request({ endpoint:`user/starred`, method:'POST' })
     }
 
     async unstarDog(dogId) {
         // remove a dog from the user's starred list
         // called when the user clicks the "Unstar" button on the dog profile
-        return await this.request({ endpoint:`user/starred/${dogId}`, method:'DELETE' })
+        return await this.request({ endpoint:`user/starred`, method:'DELETE' })
     }
 
 

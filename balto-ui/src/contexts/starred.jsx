@@ -36,7 +36,7 @@ export function StarredContextProvider({ children }) {
 
     return (
         <StarredContext.Provider value={{
-            starredDogs: starredList, setDogRecords: setStarredList,
+            starredList, setStarredList,
             initialized, setInitialized,
             isLoading, setIsLoading,
             error, setError,

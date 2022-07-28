@@ -9,10 +9,14 @@ class Starred {
             throw new BadRequestError("No userId")
         }
 
+        // merge user_dog_pairings and dogs
         const query = `
-            SELECT * FROM user_dog_pairings
-            WHERE user_id = $1
-            ORDER BY created_at ASC
+            SELECT *
+            FROM user_dog_pairings
+            INNER JOIN dogs
+            ON user_dog_pairings.dog_id = dogs.id
+            WHERE user_dog_pairings.user_id = $1
+            ORDER BY user_dog_pairings.created_at ASC;
             `
         const result = await db.query(query, [userId])
         return result.rows
@@ -30,7 +34,7 @@ class Starred {
             INSERT INTO user_dog_pairings (user_id, dog_id)
             VALUES ($1, $2)
             RETURNING *
-            `     
+            `
         const result = await db.query(query, [userId, dogId])
         return result.rows
     }
@@ -74,6 +78,27 @@ class Starred {
             `
         const result = await db.query(query, [userId, dogId])
         return result.rows[0]
+    }
+
+    // fetch each individual dog from a dog id
+    static async fetchStarredDogById(dogId) {
+        if (!dogId) {
+            throw new BadRequestError("No dogId provided")
+        }
+
+        const query = `
+            SELECT * FROM dogs
+            WHERE id = $1;
+            `
+        const result = await db.query(query, [dogId])
+
+        if (result.rows.length === 0) {
+            throw new UnauthorizedError("The starred dog does not exist")
+        }
+
+        console.log("RESULT", result)
+
+        return result.rows
     }
 
 }
