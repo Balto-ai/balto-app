@@ -1,16 +1,25 @@
 import React from 'react'
 import "./Footer.css"
-import {Link} from 'react-router-dom'
-import {BsFillTelephoneFill,BsFillEnvelopeFill,BsFillHouseDoorFill,BsFacebook, BsTwitter, BsGoogle, BsInstagram, BsLinkedin, BsGithub} from "react-icons/bs";
-export default function Footer() {
-  return (
-    <div className='footer'>
-        <section className='social-network'>
-        <div className='social-span'>
-          <span>Get connected with us on social networks:</span>
-        </div>
+import { Box } from '@mui/material';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import DogIcon from './icons/paw (1).png'
 
-        <div className='social-logos'>
+
+
+import {BsFillTelephoneFill,BsFillEnvelopeFill,BsFillHouseDoorFill,BsFacebook, BsTwitter, BsGoogle, BsInstagram, BsLinkedin, BsGithub} from "react-icons/bs";
+
+export default function Footer() {
+  return(
+    <footer>
+      <Box px={{xs: 3, sm: 10}} color='white' py={{xs: 5, sm:7}} bgcolor='#908AF8'>
+        <Container  maxWidth="lg">
+          <Grid  justifyContent='center' container spacing={5}  textAlign='left'>
+            {/* Grid Container that contains the social media icons */}
+            <Grid gap={46.5} container  direction='row'  justifyContent='center' alignItems='center' pt={{xs: 5, sm: 2}} pb={{xs: 5, sm: 3}}>
+              <Grid item xs={7} sm={3.5}><span className='social-span'>Get connected with us on social networks:</span></Grid>
+              <Grid item xs={12} sm={4.75}>
           <a href='facebook' className='socials'>
             <BsFacebook/>
           </a>
@@ -29,42 +38,54 @@ export default function Footer() {
           <a href='github' className='socials'>
             <BsGithub/>
           </a>
-        </div>
-      </section>
-
-      <div className='footer-container'>
-        {/* column1 */}
-        <div className='col'>
-          <h4 className='footer-title'>BALTO</h4>
-          <ul className="list-unstyled">
-            <li className='footer-content'><BsFillHouseDoorFill/> New York, NY 10012, US</li>
-            <li className='footer-content'><BsFillEnvelopeFill/> info@example.com</li>
-            <li className='footer-content'><BsFillTelephoneFill/> + 01 234 567 89</li>
-          </ul>
-        </div>
-        {/* comlumn2 */}
-        <div className='col'>
-          <h4 id="company-info" className='footer-title'>COMPANY</h4>
-          <ul className='list-unstyled'>
-              <li className='footer-content'>About Us</li>
-              <li className='footer-content'>Privacy Policy</li>
-              <li className='footer-content'>Terms of Service</li>
-            </ul>
-        </div>
-        {/* column3 */}
-        <div  className='col'>
-          <h4 id="useful-links" className='footer-title'>USEFUL LINKS</h4>
-          <ul className='list-unstyled'>
-            <li className='footer-content'><Link className='footer-links' to="/search">Find a Dog</Link></li>
-            <li className='footer-content'><Link className='footer-links' to="/">Take a Quiz</Link></li>
-            <li className='footer-content'><Link className='footer-links' to="/register">Register for Free</Link></li>
-          </ul>
-        </div>
-      </div>
-
-      <div className='copyright' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2022 Copyright Balto
-      </div>
-    </div>
+</Grid>
+            </Grid>
+            {/* Grid container that contains the columns of company info and resources */}
+            <Grid container justifyContent='center' gap={20}>
+            <Grid item xs={5} sm={2.25} >
+              <Box textAlign='left' pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}><img className='dog-icon' src={DogIcon} alt='dog house icon' width='20px' height='20px'></img>BALTO</Box>
+              <Box>
+              <span className='footer-content'><i className='company-icon'><BsFillHouseDoorFill/></i> New York, NY 10012, US</span>
+              </Box>
+              <Box>
+              <span className='footer-content'><i className='company-icon'><BsFillEnvelopeFill/></i> balto-ai@balto.com</span>
+              </Box>
+              <Box>
+              <span className='footer-content'><i ><BsFillTelephoneFill/></i> + 01 234 567 89</span>
+              </Box>
+            </Grid>
+            <Grid item xs={5} sm={1.5} >
+              <Box pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>OVERVIEW</Box>
+              <Box>
+              <span className='footer-content'>About Us</span>
+              </Box>
+              <Box>
+              <span className='footer-content'>Privacy Policy</span>
+              </Box>
+              <Box>
+              <span className='footer-content'>Terms of Service</span>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={1.5} >
+              <Box pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>RESOURCES</Box>
+              <Box>
+              <Link id='footer-links' className='footer-content' href='/search' color='inherit'>Find A Dog</Link>
+              </Box>
+              <Box>
+              <Link id='footer-links' className='footer-content' href='/search' color='inherit'>Take A Quiz</Link>
+              </Box>
+              <Box>
+              <Link id='footer-links' className='footer-content' href='/register' color='inherit'>Register for Free</Link>
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>  
+          {/* Box that displays copyright */}
+          <Box color='white' textAlign='center' pt={{xs: 5, sm: 10}} pb={{xs: 3, sm: 0}}>
+          © 2022 Copyright Balto
+          </Box>
+        </Container>
+      </Box>
+    </footer>
   )
 }
