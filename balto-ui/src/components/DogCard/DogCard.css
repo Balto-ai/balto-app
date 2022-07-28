@@ -1,40 +1,57 @@
-.dog-card:hover{
+.dog-card {
+    white-space: nowrap;
+    background-color: white;
+    height: 365px;
+    width: 230px;
+    border-radius: 10px;
+}
+
+.dog-card-img{
+    width: 100%;
+    height: 253px;
+    border-radius: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1.1;
     cursor: pointer;
 }
-.dog-card{
-    white-space: nowrap;
-    height: 380px;
-    width: 230px;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 5px;
+
+.dog-card .dog-info {
+    padding: 15px 15px 20px 15px;
 }
-.dog-img{
-    margin-top: 27.5px;
-}
-#dog-card-img{
-    border-width: 1px;
-    height: 230px;
-    width: 170px;
-    border-style: solid;
-    object-fit: cover;
-}
-.dog-info{
-    max-height: 92.5px;
-    margin-top: -10px;
+
+.dog-card .dog-info-topline {
     width: 100%;
-    text-align: left;
-    justify-self: center;
- 
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
-.dog-name{
-    padding-left: 25px;
+
+.dog-card .dog-info-header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    gap: 10px;
 }
-.dog-breed{
-    margin-top: -15px;
-    padding-left: 25px;
+
+.dog-card .dog-info-header .dog-distance {
+    height: 100%;
+    font-weight: 400;
+    font-size: 0.9em;
+    color: rgb(117, 117, 117);
 }
-.dog-age-group{
-    margin-top: -12px;
-    padding-left: 25px;
+
+.dog-card .dog-name {
+    height: 100%;
+    max-width: 70%;
+    font-size: 1.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dog-card .dog-info .dog-details > *{
+    margin: 0;
 }
