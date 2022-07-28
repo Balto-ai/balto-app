@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDogRecordsContext } from '../../contexts/dog-records'
-import { Link } from 'react-router-dom' 
+import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
@@ -72,7 +72,7 @@ export default function ShelterOverview() {
                 {/* search bar */}
                 <DogRecordSearch setSearchQuery={setSearchQuery} />
                 {/* sort by dropdown menu */}
-                <DogRecordDropdown sort={sort} setSort={setSort} className="dog-record-sort" />
+                <DogRecordDropdown sort={sort} setSort={setSort} />
             </div>
 
             {/* list of all the dogs in the shelter */}
@@ -113,7 +113,7 @@ export function DogRecordSearch({ setSearchQuery }) {
 export function DogRecordDropdown({ sort, setSort }) {
     return (
         <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">Sort By: {sort}</Dropdown.Toggle>
+            <Dropdown.Toggle variant="light" id="dropdown-basic"  className="dog-record-sort">Sort By: {sort}</Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item onClick={()=>{setSort("Name (A-Z)")}}>Name (A-Z)</Dropdown.Item>
                 <Dropdown.Item onClick={()=>{setSort("Name (Z-A)")}}>Name (Z-A)</Dropdown.Item>
@@ -128,19 +128,22 @@ export function DogRecordDropdown({ sort, setSort }) {
 
 // TODO: need to figure out formatting and exactly which props we want to show up here
 export function DogRecordRow( props ) {
+    const navigate = useNavigate()
     return (
 
-        <Card style={{ width: '100%', minWidth: '700px' }}>
-            <Card.Body>
-                <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} />                    
-                <Card.Title>{props.name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {props.ageGroup}</Card.Subtitle>
-                <Card.Text>Entered {(new Date(props.dateEntered)).toLocaleDateString()}</Card.Text>
+        <div className="dog-record-card" onClick={()=>{navigate("/admin-dashboard/dog-record/id/" + props.dogRecordId)}} >
+            <div className="dog-record-col-1">
+                <a href>{props.rowNumber}</a>
+                <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} /> 
+                <div className="dog-record-main-text">                   
+                    <Card.Title>{props.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{props.breed} | {props.sex == "m" ? "Male" : "Female"} | {props.ageGroup}</Card.Subtitle>
+                </div>
+            </div>
+            {/* <p className="date-entered-label">Entered {(new Date(props.dateEntered)).toLocaleDateString()}</p> */}
 
-                {/* TODO: figure out if we want to keep it as a link/button or have the person click the dog name to view details */}
-                <Link to={"/admin-dashboard/dog-record/id/" + props.dogRecordId}>View Details</Link>
-
-            </Card.Body>
-        </Card>
+            {/* TODO: figure out if we want to keep it as a link/button or have the person click the dog name to view details */}
+            {/* <a className="view-more-link:" href={"/admin-dashboard/dog-record/id/" + props.dogRecordId}>View Details</a> */}
+        </div>
     )
 }

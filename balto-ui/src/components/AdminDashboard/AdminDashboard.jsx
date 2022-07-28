@@ -18,7 +18,7 @@ export default function AdminDashboardContainer() {
 export function AdminDashboard() {
   return (
     <div className="admin-dashboard">
-      <div className="admin-dashboard-container">
+      <div className="admin-dashboard-container primary-container">
         <Routes>
           <Route path="/" element={
             <ShelterOverview />} />

@@ -1,5 +1,16 @@
 
 .App {
-  /* overflow-x: hidden; */
   margin: 0 auto;
 }
+
+/* GLOBAL VARIABLES */
+:root {
+  --light-bg-grey: #f4f4f4;
+}
+
+/* GLOBAL CLASS STYLINGS */
+.primary-container {
+  margin: 0 auto;
+  padding: 60px 80px;
+  min-width: 600px;
+  }
