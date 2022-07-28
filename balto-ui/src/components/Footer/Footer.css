@@ -1,63 +1,24 @@
-.footer {
-    /* position:fixed; */
-    white-space: nowrap; /*prevents the texts from wrapping*/
-    bottom:0;
-    width:100%;
-    height:245px;   /* Height of the footer */
-    background-color: #908af8;
-    padding-top: 20px;
-    padding-bottom:245px;
-    color: white;
-   
+.dog-icon{
+   margin-right: 15px;
  }
- .footer-container{
-    height: 200px;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
- }
- .social-network{
-   display: flex;
-   flex-wrap: nowrap;
-   margin-left: 10%;
- }
- .social-logos{
-   margin-left: 35%;
- }
+.company-icon{
+   margin-right: 15px;
+}
 .socials{
     color: white;
     justify-content: space-evenly;
     padding-right: 30px;
     padding-left: 30px;
 }
-.list-unstyled{
-   list-style: none;
-}
-.footer-title{
-   text-align: left;
-   justify-content: center;
-}
 .footer-content{
    text-align: left;
+   color: white;
 }
-.footer-container{
-   justify-content: center;
-}
-.copyright{
-   background-color: #99adf9;
-}
-.col{
-   padding: 10px 100px 10px 100px;
-}
-#company-info{
-   width: 100px;
-   margin-left: 25%;
-}
-#useful-links{
-   margin-left: 25%;
-   width:110px;
-}
-.footer-links{
+
+#footer-links{
    text-decoration: none;
    color:white;
+}
+#footer-links:hover, #footer-link:active{
+   color: #48457c;
 }
