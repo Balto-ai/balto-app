@@ -38,10 +38,10 @@ router.post("/starred", security.requireAuthenticatedUser, async (req, res, next
 })
 
 // unstar a dog; delete a user_dog pairing in the database
-router.delete("/starred/", security.requireAuthenticatedUser, async (req, res, next) => {
+router.delete("/starred/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const { userId } = res.locals.user
-        const { dogId } = req.body
+        const { dogId } = req.params
         await Starred.deleteUserDogPairing(userId, dogId)
         return res.status(204).send("Resource successfully deleted")
     } catch (err) {
