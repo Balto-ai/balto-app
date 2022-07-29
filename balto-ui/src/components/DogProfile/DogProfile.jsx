@@ -11,6 +11,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im"
+import ApiClient from '../../services/ApiClient';
 
 export default function DogProfileContainer() {
   return (
@@ -26,7 +27,7 @@ export function DogProfile() {
   const { user } = useAuthContext({})
 
   const handleOnFavorite = async () => {
-    // return await ApiClient.starDog(dogInfo.id)
+    return await ApiClient.starDog(dogInfo.id)
   }
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
@@ -75,7 +76,7 @@ export function DogProfile() {
               <h2>You can meet me at...</h2>
               <p>{dogInfo.shelter_name}</p>
               <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
-              <p>{dogInfo.phone_number}</p>
+              <p>{dogInfo.email}</p>
             </section>
           </div>
         </div>
