@@ -1,7 +1,10 @@
-.main-div {
+.starred-page {
+    width: 100%;
+    background-color: var(--light-bg-grey);
+}
+
+.starred-page-container {
     display: flex;
-    margin-right: 10%;
-    margin-left: 10%;
     flex-direction: column;
 }
 
@@ -14,6 +17,7 @@
 .starred-grid {
     display: flex;
     flex-wrap: wrap;
+    gap: 15px;
 }
 
 .cards {
