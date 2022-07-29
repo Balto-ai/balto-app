@@ -4,12 +4,10 @@
     border-radius: 100px !important;
     color: white !important;
 }
-/* .starbtn:hover, .starbtn:focus, .starbtn::selection, .starbtn:{
-    background-color: blue;
-} */
-/* .starbtn:hover, .starbtn:focus-visible{
-    background-color: blue;
-} */
+
+.starbtn:hover, .starbtn:focus-visible{
+    background-color: #6460ad;
+}
 .star-update-toast {
     position: fixed;
     bottom: 10px;
