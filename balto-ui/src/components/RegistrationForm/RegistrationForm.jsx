@@ -36,11 +36,6 @@ export default function RegistrationForm() {
         setErrors((existingErrors) => ({ ...existingErrors, email: null }))
       }
     }
-    if (evt.target.name ==='firstName'){
-      if(form.name !== evt.target.value){
-        setErrors((e)=>({...e, name: 'Enter first name'}))
-      }
-    }
     // check if passwords match
     if (evt.target.name === "password") {
         if (form.passwordConfirm && form.passwordConfirm !== evt.target.value) {
@@ -107,11 +102,9 @@ export default function RegistrationForm() {
                 type="text"
                 onChange={handleOnInputChange}
                 required
-                isInvalid={errors.firstName}
                 defaultValue={form.firstName}
                 placeholder="First Name" 
                 className="form-input" />
-            {/* <Form.Control.Feedback type="invalid">Please enter your first name</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
           <Form.Group as={Col} md='6' controlId="validationCustom02" className="form-item">
@@ -121,11 +114,9 @@ export default function RegistrationForm() {
                 type="text"
                 onChange={handleOnInputChange}
                 required
-                isInvalid={!form.lastName}
                 defaultValue={form.lastName}
                 placeholder="Last Name" 
                 className="form-input" />
-            {/* <Form.Control.Feedback type="invalid">Please enter your last name</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
         </Row>
@@ -136,11 +127,9 @@ export default function RegistrationForm() {
                 type="text"
                 onChange={handleOnInputChange}
                 required
-                isInvalid={!form.zipCode}
                 defaultValue={form.zipCode}
                 placeholder="Zip Code" 
                 className="form-input" />
-            {/* <Form.Control.Feedback type="invalid">Please enter your zip code</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
           <Form.Group controlId="validationCustom04" className="form-item">
@@ -179,10 +168,8 @@ export default function RegistrationForm() {
                 onChange={handleOnInputChange}
                 required
                 placeholder="PasswordConfirm"
-                isInvalid={!form.passwordConfirm}
                 defaultValue={form.passwordConfirm} />
                 <Form.Control.Feedback type="invalid">Please confirm password</Form.Control.Feedback>
-                {errors.passwordConfirm && <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>}
             </FloatingLabel>
           </Form.Group>
           <Button type="submit" className="mb-2 form-item">Sign Up</Button>
