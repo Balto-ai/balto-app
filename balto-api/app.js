@@ -8,6 +8,7 @@ const dogRecordsRoutes = require("./routes/dog-records")
 const userRoutes = require("./routes/user")
 const searchRoutes = require("./routes/search")
 const dogsRoutes = require("./routes/dogs")
+const milestoneRoutes = require("./routes/milestone")
 
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 
@@ -24,6 +25,7 @@ app.use("/dog-records", dogRecordsRoutes)
 app.use("/user", userRoutes)
 app.use("/search", searchRoutes)
 app.use("/dogs", dogsRoutes)
+app.use("/milestone", milestoneRoutes)
 
 // 404 error handler
 app.use((req, res, next) => {
