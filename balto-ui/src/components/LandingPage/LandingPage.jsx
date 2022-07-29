@@ -105,7 +105,6 @@ export function LandingDogGrid(){
   const dogs = dogResults.slice(0,4);
 
   return(
-    // <div className='landing-dog-grid'>
     <Grid container direction='row' gap={1.5}>
         {dogs.map((dog, idx)=>{
           return(
@@ -113,7 +112,5 @@ export function LandingDogGrid(){
           )
         })}
     </Grid>
-        
-    // </div>
   )
 }
