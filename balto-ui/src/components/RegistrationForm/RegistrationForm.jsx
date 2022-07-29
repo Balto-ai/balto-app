@@ -7,6 +7,8 @@ import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import { BsX } from "react-icons/bs"
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function RegistrationForm() {
 
@@ -20,7 +22,7 @@ export default function RegistrationForm() {
                                             passwordConfirm: ""
                                           })
   const [isValidated, setIsValidated] = React.useState(false)
-  const { user, signupUser } = useAuthContext()
+  const { user, signupUser, error } = useAuthContext()
   console.log('errors',errors)
   console.log('form',form)
   
@@ -88,9 +90,56 @@ export default function RegistrationForm() {
     <div className="registration-card">
       <h2>Sign Up</h2>
       <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
-          {errors.email ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {errors.email}</Alert> : null}
+          {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           {errors.passwordConfirm ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {errors.passwordConfirm}</Alert> : null}
-          <Form.Group controlId="validationCustom01" className="form-item">
+        <Row className='mb-2'>
+        <Form.Group as={Col} md='6'controlId="validationCustom01" className="form-item">
+            <FloatingLabel controlId="floatingInput" label="First Name" className="mb-3">
+              <Form.Control
+                name="firstname"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                isInvalid={errors.firstName}
+                defaultValue={form.firstName}
+                placeholder="First Name" 
+                className="form-input" />
+            <Form.Control.Feedback type="invalid">Please enter a valid first name</Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} md='6' controlId="validationCustom02" className="form-item">
+          <FloatingLabel controlId="floatingInput" label="Last Name" className="mb-3">
+              <Form.Control
+                name="lastname"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                isInvalid={errors.lastName}
+                defaultValue={form.lastName}
+                placeholder="Last Name" 
+                className="form-input" />
+            <Form.Control.Feedback type="invalid">Please enter a valid last name</Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+        <Form.Group controlId="validationCustom03" className="form-item">
+          <FloatingLabel controlId="floatingInput" label="Zip Code" className="mb-3">
+              <Form.Control
+                name="zipcode"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                isInvalid={errors.zipCode}
+                defaultValue={form.zipCode}
+                placeholder="Zip Code" 
+                className="form-input" />
+            <Form.Control.Feedback type="invalid">Please enter a valid zip code</Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group controlId="validationCustom04" className="form-item">
             <FloatingLabel controlId="floatingInput" label="Email Address" className="mb-3">
               <Form.Control
                 name="email"
@@ -104,7 +153,7 @@ export default function RegistrationForm() {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group controlId="validationCustom02" className="form-item">
+          <Form.Group controlId="validationCustom05" className="form-item">
             <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3 form-input">
             <Form.Control
                 name="password"
