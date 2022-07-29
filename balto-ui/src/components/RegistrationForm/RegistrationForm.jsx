@@ -36,7 +36,11 @@ export default function RegistrationForm() {
         setErrors((existingErrors) => ({ ...existingErrors, email: null }))
       }
     }
-
+    if (evt.target.name ==='firstName'){
+      if(form.name !== evt.target.value){
+        setErrors((e)=>({...e, name: 'Enter first name'}))
+      }
+    }
     // check if passwords match
     if (evt.target.name === "password") {
         if (form.passwordConfirm && form.passwordConfirm !== evt.target.value) {
@@ -63,24 +67,27 @@ export default function RegistrationForm() {
     setErrors((existingErrors) => ({ ...existingErrors, form: null }))
 
     const registerForm = evt.currentTarget;
-    if (form.password !== form.passwordConfirm) {
-      setErrors((existingErrors) => ({ ...existingErrors, form: "Passwords do not match" }))
-    }
-
-    if (errors.form) {
+      if (errors.form) {
       console.log("invalid form")
     } else {
       console.log(form)
     }
     
-    if (registerForm.checkValidity() === false) {
-      evt.stopPropagation()
-    } else {
-      // TODO: check for valid zip code using third-party API
-      await signupUser(form)
-      if (user?.email) navigate("/")
-      // TODO: check for user type and navigate to appropriate page for the user type
-  }
+    if (form.password !== form.passwordConfirm) {
+      setErrors((existingErrors) => ({ ...existingErrors, form: "Passwords do not match" }))
+    } else{
+      if (registerForm.checkValidity() === false) {
+        evt.stopPropagation()
+      } else {
+        // TODO: check for valid zip code using third-party API
+        await signupUser(form)
+        if (user?.email) navigate("/")
+        // TODO: check for user type and navigate to appropriate page for the user type
+    }
+    }
+
+  
+   
 }
 
   return (
@@ -96,7 +103,7 @@ export default function RegistrationForm() {
         <Form.Group as={Col} md='6'controlId="validationCustom01" className="form-item">
             <FloatingLabel controlId="floatingInput" label="First Name" className="mb-3">
               <Form.Control
-                name="firstname"
+                name="firstName"
                 type="text"
                 onChange={handleOnInputChange}
                 required
@@ -104,39 +111,36 @@ export default function RegistrationForm() {
                 defaultValue={form.firstName}
                 placeholder="First Name" 
                 className="form-input" />
-            <Form.Control.Feedback type="invalid">Please enter a valid first name</Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            {/* <Form.Control.Feedback type="invalid">Please enter your first name</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
           <Form.Group as={Col} md='6' controlId="validationCustom02" className="form-item">
           <FloatingLabel controlId="floatingInput" label="Last Name" className="mb-3">
               <Form.Control
-                name="lastname"
+                name="lastName"
                 type="text"
                 onChange={handleOnInputChange}
                 required
-                isInvalid={errors.lastName}
+                isInvalid={!form.lastName}
                 defaultValue={form.lastName}
                 placeholder="Last Name" 
                 className="form-input" />
-            <Form.Control.Feedback type="invalid">Please enter a valid last name</Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            {/* <Form.Control.Feedback type="invalid">Please enter your last name</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
         </Row>
         <Form.Group controlId="validationCustom03" className="form-item">
           <FloatingLabel controlId="floatingInput" label="Zip Code" className="mb-3">
               <Form.Control
-                name="zipcode"
+                name="zipCode"
                 type="text"
                 onChange={handleOnInputChange}
                 required
-                isInvalid={errors.zipCode}
+                isInvalid={!form.zipCode}
                 defaultValue={form.zipCode}
                 placeholder="Zip Code" 
                 className="form-input" />
-            <Form.Control.Feedback type="invalid">Please enter a valid zip code</Form.Control.Feedback>
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            {/* <Form.Control.Feedback type="invalid">Please enter your zip code</Form.Control.Feedback> */}
             </FloatingLabel>
           </Form.Group>
           <Form.Group controlId="validationCustom04" className="form-item">
@@ -161,10 +165,10 @@ export default function RegistrationForm() {
                 onChange={handleOnInputChange}
                 required
                 placeholder="Password"
-                isInvalid={errors.passwordConfirm}
+                isInvalid={!form.password}
                 defaultValue={form.password} />
-                
-            <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>
+           <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
+           {(errors.passwordConfirm && form.password) && <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>}
             </FloatingLabel>
           </Form.Group>
           <Form.Group controlId="validationCustom03" className="form-item">
@@ -175,9 +179,10 @@ export default function RegistrationForm() {
                 onChange={handleOnInputChange}
                 required
                 placeholder="PasswordConfirm"
-                isInvalid={errors.passwordConfirm}
+                isInvalid={!form.passwordConfirm}
                 defaultValue={form.passwordConfirm} />
-                <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">Please confirm password</Form.Control.Feedback>
+                {errors.passwordConfirm && <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>}
             </FloatingLabel>
           </Form.Group>
           <Button type="submit" className="mb-2 form-item">Sign Up</Button>
