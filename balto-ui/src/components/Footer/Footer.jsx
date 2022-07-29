@@ -15,33 +15,46 @@ export default function Footer() {
     <footer>
       <Box px={{xs: 3, sm: 10}} color='white' py={{xs: 5, sm:7}} bgcolor='#908AF8'>
         <Container  maxWidth="lg">
-          <Grid  justifyContent='center' container spacing={5}  textAlign='left'>
+          <Grid justifyContent='center' container spacing={5}  textAlign='left'>
             {/* Grid Container that contains the social media icons */}
-            <Grid gap={5} container  direction='row'  justifyContent='center' alignItems='center' pt={{xs: 5, sm: 2}} pb={{xs: 5, sm: 3}}>
+            <Grid gap={3} container  direction='row'  justifyContent='center' alignItems='center' pt={{xs: 5, sm: 2}} pb={{xs: 5, sm: 3}}>
               <Grid item xs={7} sm={3.5}><span className='social-span'>Get connected with us on social networks:</span></Grid>
-              <Grid item xs={12} sm={4.75}>
-          <a href='facebook' className='socials'>
-            <BsFacebook/>
-          </a>
-          <a href='twitter' className='socials'>
-            <BsTwitter/>
-          </a>
-          <a href='google' className='socials'>
-            <BsGoogle/>
-          </a>
-          <a href='instagram' className='socials'>
-            <BsInstagram/>
-          </a>
-          <a href='linkedin' className='socials'>
-            <BsLinkedin/>
-          </a>
-          <a href='github' className='socials'>
-            <BsGithub/>
-          </a>
-</Grid>
+              <Grid item xs={5} sm={4.75}>
+                <Grid justifyContent='right' px={{xs:3, sm:3}} container gap={5} >
+                  <Box>
+                    <a href='facebook' className='socials'>
+                      <BsFacebook/>
+                    </a>
+                  </Box>
+                  <Box>
+                    <a href='twitter' className='socials'>
+                     <BsTwitter/>
+                    </a>
+                  </Box>
+                  <Box>
+                  <a href='google' className='socials'>
+                   <BsGoogle/>
+                 </a>
+                  </Box>
+                  <Box> 
+                    <a href='instagram' className='socials'>
+                      <BsInstagram/>
+                    </a>
+                 </Box>
+                    <a href='linkedin' className='socials'>
+                      <BsLinkedin/>
+                    </a>
+                 <Box>
+                    <a href='github' className='socials'>
+                      <BsGithub/>
+                    </a>
+                 </Box>
+                </Grid>
+          
+              </Grid>
             </Grid>
             {/* Grid container that contains the columns of company info and resources */}
-            <Grid container justifyContent='center' gap={20}>
+            <Grid direction='row' container justifyContent='center' gap={20}>
             <Grid item xs={5} sm={2.25} >
               <Box textAlign='left' pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}><img className='dog-icon' src={DogIcon} alt='dog house icon' width='20px' height='20px'></img>BALTO</Box>
               <Box>
@@ -66,7 +79,7 @@ export default function Footer() {
               <span className='footer-content'>Terms of Service</span>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={1.5} >
+            <Grid item xs={5} sm={1.5} >
               <Box pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>RESOURCES</Box>
               <Box>
               <Link id='footer-links' className='footer-content' href='/search' color='inherit'>Find A Dog</Link>

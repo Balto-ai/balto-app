@@ -1,48 +1,119 @@
 import React from 'react'
 import "./LandingPage.css"
+import { useState, useEffect } from 'react'
 import {FiArrowRight} from 'react-icons/fi'
 import Hero from "./image/Adopt a pet-amico 2.png"
 import {useNavigate} from 'react-router-dom'
 import DogCard from '../DogCard/DogCard'
+import { Container } from '@mui/material';
+import { Button } from '@mui/material';
+import {Box} from '@mui/material'
+import {Grid} from '@mui/material'
+import {AiOutlineDoubleRight} from 'react-icons/ai'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ApiClient from '../../services/ApiClient'
 
+//change theme colors to change the button mui colors
+const theme = createTheme({
+  status: {
+    danger: '#e53e3e',
+  },
+  palette: {
+    primary: {
+      main: '#908af8',
+      darker: '#7972f7',
+      contrastText: 'white'
+    },
+    secondary: {
+      main: '#FEC272',
+      contrastText: 'black',
+    },
+  },
+});
 export default function LandingPage() {
   const navigate = useNavigate();
   return (
-    <div className='landing-page'>
-      <div className='landing-container'>
-        <div className='landing-col'>
-          <h1 className='landing-title'>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
-          <p className='landing-para'>Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
-          <button className='quiz-btn' onClick={() => {navigate("/search")}}>Start a quiz<i className='quiz-icon'><FiArrowRight size={18} /></i></button>
-        </div>
-        <div className='landing-col'>
-          <img src={Hero} alt="hero-dog-pic"></img>
-        </div>
-        <div className='landing-col'></div>
-      </div>  
-      <div className='landing-dog-grids'>
-        <h1>Dogs Near You</h1>
-        <div className='landing-dog-container'>
-          <LandingDogGrid/>
-        </div>
-        <button className='landing-see-more-btn' onClick={() => {navigate('/search')}}>See More</button>
-      </div>
-    </div>
+  <ThemeProvider theme={theme}> 
+    <Box  px={{xs: 3, sm: 12}} color='black' py={{xs: 5, sm:12}} bgcolor='rgb(244, 244, 244);'>
+      <Container maxWidth='lg'>
+        <Grid container  direction="row" spacing={5}>
+          <Grid item xs={5} sm={5} >
+            {/* tagline; we can modify later if wanted */}
+            <Box>
+              <h1 className='landing-title'>Help Change a Life, </h1>
+              <h1>One Paw at a Time</h1>
+            </Box>
+            <Box><p className='landing-para'>You can’t change a dog’s past, but you can rewrite their future</p></Box>
+            <Box>
+              <Button size='large' variant="outlined" href="/search" endIcon={<AiOutlineDoubleRight />}>Start Exploring</Button>
+            </Box>
+          </Grid>
+          <Grid item xs={5} sm={7} >
+            {/* hero image */}
+            <Box>
+              <img src={Hero} alt="hero-dog-pic"></img>
+              </Box>
+          </Grid>
+        </Grid>
+        <Grid container direction='column' alignItems='center' justifyContent='center' spacing={5}>
+          <Grid item>
+            <h1>Dogs Near You</h1>
+          </Grid>
+          <Grid item>
+            <LandingDogGrid/>
+          </Grid>
+          <Grid item>
+            <Button color='primary' size='large' variant="contained" onClick={()=>{navigate('/search')}}>See More</Button>
+          </Grid>
+        </Grid>
+       
+          
+      </Container>
+    </Box>
+ </ThemeProvider>  
   )
 }
 
 export function LandingDogGrid(){
-  // NOTE: this is just dummy data
-  const dogs = [{name:'Sparky', breed: 'Welsh Corgi', ageGroup: 'Young Adult',imgUrl:'https://us.123rf.com/450wm/vectortatu/vectortatu1902/vectortatu190200031/125007968-corgi-funny-orange-smiling-welsh-corgi-vector-illustration-cute-comic-canine-character.jpg?ver=6'}, {name:'Buddy', breed: 'Welsh Corgi', ageGroup: 'Young Adult',imgUrl:'https://us.123rf.com/450wm/vectortatu/vectortatu1902/vectortatu190200031/125007968-corgi-funny-orange-smiling-welsh-corgi-vector-illustration-cute-comic-canine-character.jpg?ver=6'}, {name:'Lola', breed: 'Welsh Corgi', ageGroup: 'Young Adult',imgUrl:'https://us.123rf.com/450wm/vectortatu/vectortatu1902/vectortatu190200031/125007968-corgi-funny-orange-smiling-welsh-corgi-vector-illustration-cute-comic-canine-character.jpg?ver=6'}, {name:'Daisy', breed: 'Welsh Corgi', ageGroup: 'Young Adult',imgUrl:'https://us.123rf.com/450wm/vectortatu/vectortatu1902/vectortatu190200031/125007968-corgi-funny-orange-smiling-welsh-corgi-vector-illustration-cute-comic-canine-character.jpg?ver=6'}]
+  //constant variables for useEffect
+  const [dogResults, setDogResults] = useState([]) 
+  const [error, setError] = useState(null)
+  //empty filter used to fetch dogs from api client
+  const filters = {
+    breed: [],
+    size: [],
+    sex: [],
+    kidFriendly: [],
+    strangerFriendly: [],
+    dogFriendly: [],
+    distance: '' || null,
+    shelterIds: []
+  }
+  //fetch dogs
+  useEffect(() => {
+    const fetchDogResults = async () => {
+      const { data, error } = await ApiClient.fetchDogs(filters);
+      if (data?.dogResults) {
+        setDogResults(data.dogResults)
+        setError(null)
+      }
+      if (error) setError(error);
+    };
+    fetchDogResults()
+  }, [])
+  //variable that stores only 4 dogs for the landing page
+  const dogs = dogResults.slice(0,4);
+
   return(
-    <div className='landing-dog-grid'>
+    // <div className='landing-dog-grid'>
+    <Grid container direction='row' gap={1.5}>
         {dogs.map((dog, idx)=>{
           return(
-           
-              <DogCard  key={idx} name={dog.name} breed={dog.breed} ageGroup={dog.ageGroup} imgUrl={dog.imgUrl}/>
-          
+                  <DogCard  key={idx} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
-    </div>
+    </Grid>
+        
+    // </div>
   )
 }

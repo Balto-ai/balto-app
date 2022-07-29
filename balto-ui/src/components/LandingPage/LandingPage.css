@@ -11,7 +11,12 @@
     text-align: left;
     gap: 10px;
 }
-
+.dog-grid {
+    display: flex;
+    gap: 10px;
+    flex-flow: row wrap;
+    width: 70vw;
+}
 .quiz-btn{
     padding: 10px 15px 10px 20px;
     text-align: center;
@@ -31,7 +36,7 @@
     vertical-align:middle;
 }
 
-.landing-dog-grid{
+/* .landing-dog-grid{
     width:80%;
     margin-left: 10%;
     display: flex;
@@ -44,14 +49,4 @@
 }
 .landing-dog-grids{
     padding-bottom: 80px;
-}
-.landing-see-more-btn{
-    padding: 12.5px 20px 12.5px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    background-color: #908af8;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-}
+} */
