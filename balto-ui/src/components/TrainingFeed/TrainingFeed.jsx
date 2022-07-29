@@ -11,9 +11,6 @@ export default function TrainingFeed(props) {
 }
 
 export function TrainingCell(props) {
-    console.log(999, Object.keys(props.dogInfo).length)
-    // if (props.dogInfo) {
-    { console.log("TrainingFeed Dog Info: ", props.dogInfo) }
     return (
         <div className='training-cell'>
             <section className="cell-header">
@@ -33,4 +30,3 @@ export function TrainingCell(props) {
         </div>
     )
 }
-// }

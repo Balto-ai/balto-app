@@ -116,6 +116,10 @@
     border-radius: 10px;
 }
 
+#attribute-list {
+    list-style-type: none;
+}
+
 
 
 

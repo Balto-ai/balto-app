@@ -88,7 +88,7 @@ class Starred {
 
         const query = `
             SELECT * FROM dogs
-            WHERE id = $1;
+            WHERE dogs.id = $1
             `
         const result = await db.query(query, [dogId])
 

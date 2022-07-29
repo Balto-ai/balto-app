@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
+import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im"
 
 export default function DogProfileContainer() {
   return (
@@ -39,7 +40,7 @@ export function DogProfile() {
           <div className='profile-header'>
             <Image src={dogInfo.image_url} className='profile-img' roundedCircle ></Image>
             <div className='profile-title'>
-              <span>Hi, I'm <h1>{dogInfo.name}</h1></span>
+              <span>Hi, I'm <h1>{dogInfo.dog_name}</h1></span>
               <section className='tags'>
                 <Badge bg="primary" className='tag'>{dogInfo.breed}</Badge>
                 <Badge bg="primary" className='tag'>{getAgeGroup(dogInfo.dob)}</Badge>
@@ -57,10 +58,24 @@ export function DogProfile() {
               <h2>I'm looking for someone who...</h2>
               <p>{dogInfo.desc_2}</p>
             </section>
+            <section className='attributes'>
+              <h2>A little more about me...</h2>
+              <ul id='attribute-list'>
+                <li>{(dogInfo.kid_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Kid Friendly</li>
+                <li>{(dogInfo.stranger_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Stranger Friendly</li>
+                <li>{(dogInfo.dog_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Dog Friendly</li>
+                <li>{(dogInfo.novice_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Novice Owner Friendly</li>
+                <li>{(dogInfo.easu_to_groom >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Easy to Groom</li>
+                <li>{(dogInfo.energy_levels >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Energy Levels</li>
+                <li>{(dogInfo.exercise_needs >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Exercise Needs</li>
+                <li>{(dogInfo.trainability >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Easy to Train</li>
+              </ul>
+            </section>
             <section className='shelter-loc'>
               <h2>You can meet me at...</h2>
-              <p>Wags for Treats Animal Shelter</p>
-              <p>2700 Ninth St, Berkeley, CA, 94710</p>
+              <p>{dogInfo.shelter_name}</p>
+              <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
+              <p>{dogInfo.phone_number}</p>
             </section>
           </div>
         </div>

@@ -11,8 +11,12 @@ class Dogs {
         }
 
         const query = `
-            SELECT * FROM dogs
-            WHERE id = $1
+            SELECT *, dogs.id as dog_id, shelters.id as shelter_id,
+            dogs.name as dog_name, shelters.name as shelter_name
+            FROM dogs
+            INNER JOIN shelters
+            ON dogs.shelter_id = shelters.id
+            WHERE dogs.id = $1;
             `
         const result = await db.query(query, [dogId])
         return result.rows
