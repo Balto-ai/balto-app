@@ -100,6 +100,11 @@ class ApiClient {
 
     // MILESTONES ===============================================================================
 
+    async fetchMilestones(dogId) {
+        return await this.request({ endpoint: `milestone/dog/${dogId}`, method: 'GET'})
+    }
+
+
     async createMilestone(milestoneInformation) {
         // create a new milestone
         return await this.request({ endpoint:'milestone/', method:'POST', data:milestoneInformation })

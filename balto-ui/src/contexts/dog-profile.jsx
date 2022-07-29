@@ -12,6 +12,7 @@ export function DogProfileContextProvider({ children }) {
     const [initialized, setInitialized] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
+    const [milestones, setMilestones] = useState()
     const { dogId } = useParams()
 
     useEffect(() => {
@@ -27,10 +28,28 @@ export function DogProfileContextProvider({ children }) {
             }
             setIsLoading(false)
         }
-        getDog()
-    }, [])
 
-    console.log("dogInfo from context: ", dogInfo)
+        const getMilestones = async () => {
+            setIsLoading(true)
+            const { data, error } = await ApiClient.fetchMilestones(dogId)
+            if (data) {
+                setMilestones(data)
+            }
+            if (error) {
+                setError(error)
+                console.log("error: ", error)
+            }
+            setIsLoading(false)
+        }
+
+        getDog()
+        getMilestones()
+
+        console.log("DOGINFO", dogInfo)
+        console.log("MILESTONE", milestones)
+
+
+    }, [])
 
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)
@@ -57,6 +76,7 @@ export function DogProfileContextProvider({ children }) {
     return (
         <DogProfileContext.Provider value={{
             dogInfo, setDogInfo,
+            milestones, setMilestones,
             initialized, setInitialized,
             isLoading, setIsLoading,
             error, setError,
