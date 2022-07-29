@@ -7,10 +7,31 @@ import Modal from 'react-bootstrap/Modal'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import Toast from 'react-bootstrap/Toast'
 import LoginForm from '../LoginForm/LoginForm'
+import { IconButton } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "./StarButton.css"
 
-export default function StarButton({ dogId=1, dogName=""}) {
 
+//change theme colors to change the button mui colors
+
+const theme = createTheme({
+  status: {
+    danger: '#e53e3e',
+  },
+  palette: {
+    primary: {
+      main: '#908af8',
+      darker: '#7972f7',
+      contrastText: 'white'
+    },
+    secondary: {
+      main: '#FEC272',
+      contrastText: 'black',
+    },
+  },
+});
+
+export default function StarButton({ dogId=1, dogName=""}) {
     const { user } = useAuthContext()
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
@@ -55,18 +76,23 @@ export default function StarButton({ dogId=1, dogName=""}) {
     }
 
     return (
-        <>
+      <ThemeProvider theme={theme}>
+                <>
         {/* actual button component that is displayed on the card */}
-        <Button className="star-button" variant="primary" onClick={handleOnClick}>
+        {/* <Button className="star-button" variant="primary" onClick={handleOnClick}>
             {isStarred ? <BsStarFill /> : <BsStar />}
-        </Button>
-
+        </Button> */}
+        <IconButton 
+    disableRipple className='starbtn' onClick={handleOnClick} sx={{ bgcolor: '#908af8', color:'white'}} aria-label="star" >
+          {isStarred ? <BsStarFill/> : <BsStar/>}
+        </IconButton>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         <StarModal show={modalShow} onHide={() => setModalShow(false)} />
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
         <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
         </>
+      </ThemeProvider>
     )
 }
 
