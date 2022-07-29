@@ -34,9 +34,9 @@ export default function LandingPage() {
   const navigate = useNavigate();
   return (
   <ThemeProvider theme={theme}> 
-    <Box  px={{xs: 3, sm: 12}} color='black' py={{xs: 5, sm:12}} bgcolor='rgb(244, 244, 244);'>
+    <Box px={{xs: 3, sm: 12}} color='black' py={{xs: 5, sm:12}} bgcolor='rgb(244, 244, 244);'>
       <Container maxWidth='lg'>
-        <Grid container  direction="row" spacing={5}>
+        <Grid alignItems='center' justifyContent='center' container  direction="row" spacing={5}>
           <Grid item xs={5} sm={5} >
             {/* tagline; we can modify later if wanted */}
             <Box>
