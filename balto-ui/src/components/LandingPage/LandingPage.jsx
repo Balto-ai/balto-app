@@ -106,9 +106,9 @@ export function LandingDogGrid(){
 
   return(
     <Grid container direction='row' gap={1.5}>
-        {dogs.map((dog, idx)=>{
+        {dogs.map((dog)=>{
           return(
-                  <DogCard  key={idx} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
+                  <DogCard  key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
     </Grid>

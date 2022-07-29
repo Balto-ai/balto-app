@@ -41,10 +41,12 @@ export default function StarButton({ dogId=1, dogName=""}) {
             if (isStarred) {
                 // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.unstarDog(dogId)
+                console.log(data, error)
                 setIsStarred(false)
             } else {
                 // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.starDog({dogId})
+                console.log(data, error)
                 setIsStarred(true)
             }
             setToastShow(true)
