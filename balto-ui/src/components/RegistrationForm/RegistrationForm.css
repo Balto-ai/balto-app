@@ -3,103 +3,27 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
     padding: 0px 40px;
     gap: 60px;
 }
 
+.signup-title{
+    text-align: center;
+    margin-bottom: 50px;
+}
 .registration-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 56px 40px;
-    gap: 30px;
-
     width: 500px;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    padding: 40px;
 }
 
-.registration-card form {
+.registration-form form {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
-    align-items: flex-start;
 }
 
-.registration-form .form .name-inputs {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 25px;
-
+.form-item {
     width: 100%;
-
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
-}
-
-.registration-card .form .input-field {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    gap: 10px;
-}
-
-.registration-card .form .input-field .form-input {
-    width: 100%;
-    height: 50px;
-    
-    background: #FFFFFF;
-    border: 2px solid #000000;
-    
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 0;
-}
-
-.error {
-    color: #e45d6b;
-    font-size: 0.8em;
-}
-
-.registration-card .form .submit-registration {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 30px;
-    gap: 10px;
-
-    width: 100%;
-    height: 68px;
-
-    background: #000000;
-    color: white;
-    border-radius: 10px;
-
-    flex: none;
-    order: 2;
-    align-self: stretch;
-    flex-grow: 0;
-}
-
-.registration-image {
-    box-sizing: border-box;
-
-    width: 555px;
-
-    background: #EBEBEB;
-    border: 2px solid #000000;
-    
-    flex: none;
-    order: 1;
-    flex-grow: 0;
 }

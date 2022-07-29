@@ -90,7 +90,7 @@ export default function RegistrationForm() {
     <div className="registration-form">
     {/* login card form (left) */}
     <div className="registration-card">
-      <h2>Sign Up</h2>
+      <h2 className='signup-title'>Sign Up</h2>
       <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           {errors.passwordConfirm ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {errors.passwordConfirm}</Alert> : null}
@@ -154,10 +154,8 @@ export default function RegistrationForm() {
                 onChange={handleOnInputChange}
                 required
                 placeholder="Password"
-                isInvalid={!form.password}
                 defaultValue={form.password} />
            <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
-           {(errors.passwordConfirm && form.password) && <Form.Control.Feedback type="invalid">Passwords do not match</Form.Control.Feedback>}
             </FloatingLabel>
           </Form.Group>
           <Form.Group controlId="validationCustom03" className="form-item">
