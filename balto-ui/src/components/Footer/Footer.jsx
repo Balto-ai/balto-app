@@ -55,7 +55,7 @@ export default function Footer() {
             </Grid>
             {/* Grid container that contains the columns of company info and resources */}
             <Grid direction='row' container justifyContent='center' gap={20}>
-            <Grid item xs={5} sm={2.25} >
+            <Grid item xs={5} sm={2.5}>
               <Box textAlign='left' pb={{xs: 5, sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}><img className='dog-icon' src={DogIcon} alt='dog house icon' width='20px' height='20px'></img>BALTO</Box>
               <Box>
               <span className='footer-content'><i className='company-icon'><BsFillHouseDoorFill/></i> New York, NY 10012, US</span>
