@@ -7,10 +7,10 @@ import Modal from 'react-bootstrap/Modal'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import Toast from 'react-bootstrap/Toast'
 import LoginForm from '../LoginForm/LoginForm'
+import { IconButton } from '@mui/material';
 import "./StarButton.css"
 
 export default function StarButton({ dogId=1, dogName=""}) {
-
     const { user } = useAuthContext()
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
@@ -57,10 +57,10 @@ export default function StarButton({ dogId=1, dogName=""}) {
     return (
         <>
         {/* actual button component that is displayed on the card */}
-        <Button className="star-button" variant="primary" onClick={handleOnClick}>
-            {isStarred ? <BsStarFill /> : <BsStar />}
-        </Button>
-
+        <IconButton 
+          disableRipple className='starbtn' onClick={handleOnClick} sx={{ transition: '0.3s', bgcolor: '#908af8', color:'white'}} aria-label="star" >
+          {isStarred ? <BsStarFill/> : <BsStar/>}
+        </IconButton>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         <StarModal show={modalShow} onHide={() => setModalShow(false)} />
 
