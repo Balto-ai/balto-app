@@ -21,15 +21,19 @@ class DogRecords {
     }
 
     // called in POST request to /dog-records/
-    // TODO: incomplete
     static async createDogRecord(dogRecordForm, shelterId) {
         if (!shelterId) {
             throw new BadRequestError("No shelterId provided")
         }
+        if (!dogRecordForm) {
+            throw new BadRequestError("No dogRecordForm provided")
+        }
 
         // throw error if any required fields are missing
-        const requiredFields = ["name", "dateOfBirth", "size", "breed", "sex", "color",
-                                "desc1", "desc2", "dateEntered", "imageUrl"]
+        const requiredFields = ["name", "dob", "size", "breed", "sex", "color",
+                                "desc1", "desc2", "dateEntered", "imageUrl",
+                                "noviceFriendly", "kidFriendly", "dogFriendly", "catFriendly", "strangerFriendly",
+                                "playfulness", "energyLevel", "exerciseNeeds"]
 
         requiredFields.forEach((field) => {
             if (!dogRecordForm.hasOwnProperty(field)) {
@@ -37,26 +41,27 @@ class DogRecords {
             }
         })
 
+        // check if size is a valid value
+        if (!["small", "medium", "large"].includes(dogRecordForm.size)) throw new BadRequestError("Invalid size")
+        // check if sex is valid value
+        if (!["m", "f"].includes(dogRecordForm.sex)) throw new BadRequestError("Invalid sex")
+        
+        // TODO: check if breed is a valid value, would need to get breed list from the json?
+        // TODO: check if dateEntered is not in the future
+
         const query = `
             INSERT INTO dogs (
-                name,
-                dob,
-                size,
-                breed,
-                sex,
-                color,
-                desc_1,
-                desc_2,
-                date_entered,
-                image_url,
+                name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_url,
+                novice_friendly, kid_friendly, dog_friendly, cat_friendly, stranger_friendly,
+                playfulness, energy_level, exercise_needs, 
                 shelter_id
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-            RETURNING id, name, dob, size, breed, color, desc_1, desc_2, date_entered, image_url, shelter_id;
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+            RETURNING id;
             `
 
         const result = await db.query(query, [dogRecordForm.name,
-                                              dogRecordForm.dateOfBirth,
+                                              dogRecordForm.dob,
                                               dogRecordForm.size,
                                               dogRecordForm.breed,
                                               dogRecordForm.sex,
@@ -65,8 +70,40 @@ class DogRecords {
                                               dogRecordForm.desc2,
                                               dogRecordForm.dateEntered,
                                               dogRecordForm.imageUrl,
+                                              dogRecordForm.noviceFriendly,
+                                              dogRecordForm.kidFriendly,
+                                              dogRecordForm.dogFriendly,
+                                              dogRecordForm.catFriendly,
+                                              dogRecordForm.strangerFriendly,
+                                              dogRecordForm.playfulness,
+                                              dogRecordForm.energyLevel,
+                                              dogRecordForm.exerciseNeeds,
                                               shelterId
                                              ])
+        return result.rows[0]
+    }
+
+    // called in DELETE response to /dog-records/:dogId
+    static async deleteDogRecord(shelterId, dogId) {
+        if (!shelterId) {
+            throw new BadRequestError("No userId provided")
+        }
+        if (!dogId) {
+            throw new BadRequestError("No dogId provided")
+        }
+
+        const query = `
+            DELETE FROM dogs
+            WHERE shelter_id = $1 AND id = $2
+            RETURNING id
+            `
+        const result = await db.query(query, [shelterId, dogId])
+
+        // checking if the query actually deleted anything (if the pairing exists)
+        if (result.rowCount == 0) {
+            throw new BadRequestError(`There is no dog with id ${dogId} at shelter id ${shelterId}`)
+        }
+
         return result.rows[0]
     }
 
