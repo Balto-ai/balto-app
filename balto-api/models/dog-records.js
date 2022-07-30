@@ -151,7 +151,7 @@ class DogRecords {
         
         const query = `
             UPDATE dogs
-            SET ${setClauseString}
+            SET ${setClauseString}, updated_at = NOW()
             WHERE id = $1 AND shelter_id = $2
             RETURNING *;
             `
