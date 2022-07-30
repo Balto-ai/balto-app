@@ -21,7 +21,7 @@ class DogRecords {
     }
 
     // called in POST request to /dog-records/
-    static async createDogRecord(dogRecordForm, shelterId) {
+    static async createDogRecord(shelterId, dogRecordForm) {
         if (!shelterId) {
             throw new BadRequestError("No shelterId provided")
         }
@@ -83,7 +83,19 @@ class DogRecords {
         return result.rows[0]
     }
 
-    // called in DELETE response to /dog-records/:dogId
+    // called in PUT request to /dog-records/:dogId
+    static async updateDogRecord(shelterId, updateForm) {
+        if (!shelterId) {
+            throw new BadRequestError("No userId provided")
+        }
+        if (!updateForm) {
+            throw new BadRequestError("No dogId provided")
+        }
+        return {"ping": "pong"}
+
+    }
+
+    // called in DELETE request to /dog-records/:dogId
     static async deleteDogRecord(shelterId, dogId) {
         if (!shelterId) {
             throw new BadRequestError("No userId provided")
@@ -107,12 +119,12 @@ class DogRecords {
         return result.rows[0]
     }
 
-    static async fetchDogRecordById( dogId, shelterId ) {
-        if (!dogId) {
-            throw new BadRequestError("No dogId provided")
-        }
+    static async fetchDogRecordById(shelterId, dogId) {
         if (!shelterId) {
             throw new BadRequestError("No shelterId provided")
+        }
+        if (!dogId) {
+            throw new BadRequestError("No dogId provided")
         }
 
         // get dog record with requested id that matches the shelterId of the user
