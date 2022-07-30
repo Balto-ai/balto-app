@@ -42,8 +42,9 @@ router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) 
   router.put("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
-        const { updateDogRecordForm } = req.params
-        const updatedDogRecord = await DogRecords.updateDogRecord(shelterId, updateDogRecordForm)
+        const { dogId } = req.params
+        const updateDogRecordForm = req?.body
+        const updatedDogRecord = await DogRecords.updateDogRecord(shelterId, dogId, updateDogRecordForm)
         return res.status(200).json( { updatedDogRecord } )
     } catch (err) {
         next(err)
