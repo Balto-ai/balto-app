@@ -24,14 +24,14 @@ CREATE TABLE dogs (
     desc_2          TEXT NOT NULL,
     date_entered    DATE NOT NULL,
     image_url       TEXT NOT NULL,
-    novice_friendly INTEGER,
-    kid_friendly    INTEGER,
-    dog_friendly    INTEGER,
-    stranger_friendly INTEGER,
-    easy_to_groom   INTEGER,
-    trainability    INTEGER,
-    energy_level    INTEGER,
-    exercise_needs  INTEGER,
+    novice_friendly BOOLEAN,
+    kid_friendly    BOOLEAN,
+    dog_friendly    BOOLEAN,
+    cat_friendly    BOOLEAN,
+    stranger_friendly BOOLEAN,
+    playfulness     INTEGER CHECK (playfulness BETWEEN 0 and 5),
+    energy_level    INTEGER CHECK (energy_level BETWEEN 0 and 5),
+    exercise_needs  INTEGER CHECK (exercise_needs BETWEEN 0 and 5),
     created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     shelter_id      INTEGER NOT NULL,
@@ -71,3 +71,13 @@ CREATE TABLE user_dog_pairings (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
+
+CREATE TABLE adoption_inquiries {
+    id              SERIAL PRIMARY KEY,
+    email           TEXT NOT NULL CHECK (POSITION('@' IN email) > 1),
+    phone_number    TEXT,
+    comments        TEXT,
+    created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
+};
