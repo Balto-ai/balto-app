@@ -3,7 +3,7 @@ import ApiClient from '../../services/ApiClient'
 import FilterSearchbar from '../FilterSearchbar/FilterSearchbar'
 import './ShelterSearchbar.css'
 
-export default function ShelterSearchbar({selectedShelters=[], setSelectedShelters=()=>{}}) {
+export default function ShelterSearchbar({ isMulti=true, selectedShelters=[], setSelectedShelters=()=>{} }) {
 
   const [shelters, setShelters] = React.useState([])
   const [error, setError] = React.useState(null)
@@ -30,6 +30,7 @@ export default function ShelterSearchbar({selectedShelters=[], setSelectedShelte
   // return a FilterSearchBar component, which is a react-select Select element
   return (
     <FilterSearchbar
+      isMulti={isMulti}
       optionsArr={shelterOptions}
       selectedOptions={selectedShelters}
       setSelectedOptions={setSelectedShelters}
