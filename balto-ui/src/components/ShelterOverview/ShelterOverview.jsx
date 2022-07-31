@@ -133,7 +133,7 @@ export function DogRecordRow( props ) {
 
         <div className="dog-record-card" onClick={()=>{navigate("/admin-dashboard/dog-record/id/" + props.dogRecordId)}} >
             <div className="dog-record-col-1">
-                <a href>{props.rowNumber}</a>
+                <p>{props.rowNumber}</p>
                 <img className="dog-record-image" src={props.imageUrl} alt={`Image of ${props.name}`} /> 
                 <div className="dog-record-main-text">                   
                     <Card.Title>{props.name}</Card.Title>
