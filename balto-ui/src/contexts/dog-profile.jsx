@@ -1,6 +1,5 @@
 import { React, createContext, useContext, useEffect, useState } from "react";
 import ApiClient from "../services/ApiClient"
-import { useAuthContext } from "./auth";
 import { useParams } from 'react-router-dom';
 
 
@@ -45,11 +44,10 @@ export function DogProfileContextProvider({ children }) {
         getDog()
         getMilestones()
 
-        console.log("DOGINFO", dogInfo)
-        console.log("MILESTONE", milestones)
-
-
     }, [])
+
+    console.log("DOGINFO", dogInfo)
+    console.log("MILESTONE", milestones)
 
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)

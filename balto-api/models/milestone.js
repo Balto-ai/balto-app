@@ -17,7 +17,7 @@ class Milestone {
         const query = `
             SELECT *
             FROM milestones
-            WHERE dogs_id = $1;
+            WHERE dog_id = $1;
             `
         const result = await db.query(query, [dogId])
         return result.rows

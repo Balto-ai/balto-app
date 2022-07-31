@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const Milestone = "../models/milestone"
+const Milestone = require("../models/milestone")
 
 
 // get the dog for the given dog id

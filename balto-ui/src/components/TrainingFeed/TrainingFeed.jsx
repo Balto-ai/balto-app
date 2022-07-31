@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState }from 'react'
 import './TrainingFeed.css'
 import { BsAward } from 'react-icons/bs'
 
 export default function TrainingFeed(props) {
+    console.log("training feed milestone", props.milestones)
     return (
         props.milestones.map((milestone, idx) => {
             return (<TrainingCell dogInfo={props.dogInfo} milestone={milestone} key={idx} />)
@@ -11,6 +12,8 @@ export default function TrainingFeed(props) {
 }
 
 export function TrainingCell(props) {
+    console.log("training cell milestones: ", props.milestones)
+
     return (
         <div className='training-cell'>
             <section className="cell-header">
