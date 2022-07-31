@@ -2,8 +2,8 @@ import React from 'react'
 import { useNavigate } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import BreedSearchbar from '../BreedSearchbar/BreedSearchbar'
+import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
-import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Row from 'react-bootstrap/Row'
@@ -116,18 +116,17 @@ export default function AddDogRecord() {
 
             <Row>
 
+              {/* breed selector */}
               <Form.Group as={Col} className="mb-3">
                   <Form.Label>Breed</Form.Label>
                   <Form.Text>{selectedBreed}</Form.Text>
-                  <BreedSearchbar
-                    isMulti={false}
-                    selectedBreeds={selectedBreed}
-                    setSelectedBreeds={setSelectedBreed}
-                    placeholder={"Type to search breed options"}
-                    required
-                    />
+                    {/* BreedDropdown component is at the bottom of this file */}
+                    <BreedDropdown
+                      form={form}
+                      setForm={setForm} />
                 </Form.Group>
 
+                {/* color input */}
                 <Form.Group as={Col} className="form-item mb-3">
                   <Form.Label>Color</Form.Label>
                   <Form.Control
@@ -284,4 +283,44 @@ export default function AddDogRecord() {
       </div>
     </div>
   )
+}
+
+export function BreedDropdown({ form={}, setForm=()=>{} }) {
+  
+  // the body of this function minus the handleOnSelection function is nearly the identical to the BreedSearchBar component
+  const [dogBreeds, setDogBreeds] = React.useState([])
+  const [error, setError] = React.useState(null)
+
+  // useEffect to get JSON object of dog breed names
+  React.useEffect(() => {
+    const fetchDogBreeds = async () => {
+        const { data, error } = await ApiClient.fetchDogBreeds()
+        if (data?.dogBreedNames) {
+          // get the usable array of dog breeds - ["Poodle", "Labrador", ...]
+          setDogBreeds(data.dogBreedNames)
+          setError(null)
+        }
+        if (error) setError(error)
+    }
+    fetchDogBreeds()
+    }, [])
+
+  // this is to create an array of options that can be used with the react-select Select element
+  const dogBreedOptions = dogBreeds.map((breed) => {
+    return { value:breed, label:breed }
+  })
+
+  const handleOnSelection = (evt) => {
+    setForm((existingForm) => ({ ...existingForm, breed: evt.value }))
+  }
+
+  return (
+    <Select
+      options={dogBreedOptions}
+      value={dogBreedOptions.filter((selection) => (form.breed === selection.value))}
+      onChange={handleOnSelection}
+      placeholder="Type to search breeds..."
+    />
+  )
+    
 }
