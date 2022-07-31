@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
+import { useDogRecordsContext } from '../../contexts/dog-records'
 import BreedSearchbar from '../BreedSearchbar/BreedSearchbar'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
@@ -25,6 +26,8 @@ export default function AddDogRecord() {
   //  - add guiding comments, maybe those ? icons where the user can hover over it to see more info
 
   const navigate = useNavigate()
+  const { addDogRecord } = useDogRecordsContext()
+
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
 
@@ -88,7 +91,7 @@ export default function AddDogRecord() {
     } else {
       // update form to include the selected breed
       setForm((existingForm) => ({ ...existingForm, breed:selectedBreed[0] }))
-      await ApiClient.createDogRecord(form)
+      await addDogRecord(form)
       navigate("/admin-dashboard")
     }
   }
