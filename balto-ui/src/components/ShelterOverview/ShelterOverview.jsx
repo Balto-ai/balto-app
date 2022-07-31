@@ -3,6 +3,7 @@ import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
 import './ShelterOverview.css'
@@ -76,7 +77,7 @@ export default function ShelterOverview() {
             </div>
 
             {/* list of all the dogs in the shelter */}
-            <div className="dog-record-feed">
+            <div className="dog-record-feed mb-3">
                 {dogRecords.length <= 0 && !isLoading
                 ? <h2 className="empty-message">No dogs to display</h2>
                 // create a row for each dog record
@@ -96,6 +97,9 @@ export default function ShelterOverview() {
                     } })
                 }
             </div>
+
+            <Button variant="primary" href="admin-dashboard/add-record">+ Add Dog Record</Button>
+
         </div>
     )
 }
