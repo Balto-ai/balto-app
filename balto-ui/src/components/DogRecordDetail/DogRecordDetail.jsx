@@ -28,15 +28,18 @@ export default function DogRecordDetail() {
       setIsLoading(true)
         const { data, error } = await ApiClient.fetchDogRecordById(dogId)
         if (data?.dogRecord) {
-          setDogRecord(data.dogRecord)
+          setDogRecord(data.dogRecord[0])
         }
         if (error) setError(error)
       setIsLoading(false)
     }
     if (user?.email && user?.shelterId) {
+      console.log(222)
       getDogRecord()
     }
-  }, [])
+  }, [user])
+
+  console.log(dogRecord)
 
   // gets the data, only showing a string of the dog record object at this point
   // TODO: finish up what gets returned: training feed, modal to update training, ability to edit record
@@ -63,10 +66,14 @@ export default function DogRecordDetail() {
             readOnly />
         </div>
       ))}
+      
 
-      <p>DOB: {(new Date(dogRecord.dob)).toLocaleDateString()}</p>
-      <p>Date Entered: {(new Date(dogRecord.date_entered)).toLocaleDateString()}</p>
-      <p>Breed: {dogRecord.breed}</p>
+      <p className="capitalized">Breed: {dogRecord.breed}</p>
+      <p className="capitalized">{dogRecord.size}</p>
+      <p className="capitalized">{dogRecord.sex}</p>
+
+      <p>Date of birth: {(new Date(dogRecord.dob)).toLocaleDateString()}</p>
+      <p>Date entered: {(new Date(dogRecord.date_entered)).toLocaleDateString()}</p>
 
     
       {/* This goes to a dedicated preview route; could be good if we want an "Exit Preview" button */}
