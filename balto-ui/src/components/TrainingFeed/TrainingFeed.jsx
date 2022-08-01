@@ -1,16 +1,32 @@
 import React from 'react'
 import './TrainingFeed.css'
 import { BsAward } from 'react-icons/bs'
+import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
 
-export default function TrainingFeed(props) {
+export default function TrainingFeedContainer() {
     return (
-        props.milestones.map((milestone, idx) => {
-            return (<TrainingCell dogInfo={props.dogInfo} milestone={milestone} key={idx} />)
+      <DogProfileContextProvider>
+        <TrainingFeed />
+      </DogProfileContextProvider>
+    )
+  }
+
+export function TrainingFeed() {
+
+    const { dogInfo, setDogInfo, milestones } = useDogProfileContext()
+
+    console.log("training feed milestone: ", milestones)
+
+    return (
+        milestones.map((milestone, idx) => {
+            return (<TrainingCell dogInfo={dogInfo} milestone={milestone} key={idx} />)
         })
     )
 }
 
 export function TrainingCell(props) {
+    console.log("training cell milestones: ", props.milestones)
+
     return (
         <div className='training-cell'>
             <section className="cell-header">

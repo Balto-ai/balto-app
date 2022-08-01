@@ -116,8 +116,9 @@
     border-radius: 10px;
 }
 
-#attribute-list {
-    list-style-type: none;
+.attributes-list {
+    display: flex;
+    justify-content: left;
 }
 
 

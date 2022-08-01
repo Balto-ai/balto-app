@@ -101,7 +101,7 @@ class ApiClient {
     // MILESTONES ===============================================================================
 
     async fetchMilestones(dogId) {
-        return await this.request({ endpoint: `milestone/dog/${dogId}`, method: 'GET'})
+        return await this.request({ endpoint: `milestone/view/${dogId}`, method: 'GET'})
     }
 
 
