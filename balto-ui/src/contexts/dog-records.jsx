@@ -40,6 +40,12 @@ export function DogRecordsContextProvider({ children }) {
         if (data) setReceivedNewDogRecord(true)
     }
 
+    const editDogRecord = async (updateForm) => {
+        const { data, error } = await ApiClient.updateDogRecord(updateForm)
+        if (error) setError(error)
+        if (data) setError(null)
+    }
+
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)
         const currentDate = new Date()
