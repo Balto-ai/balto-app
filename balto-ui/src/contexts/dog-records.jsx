@@ -10,6 +10,8 @@ export function DogRecordsContextProvider({ children }) {
     const [initialized, setInitialized] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
+    
+    const [receivedNewDogRecord, setReceivedNewDogRecord] = React.useState(false)
 
     const { user } = useAuthContext()
 
@@ -23,14 +25,20 @@ export function DogRecordsContextProvider({ children }) {
             if (error) setError(error)
         }
 
-        if (user?.email) {
+        if (user?.email && user?.shelterId) {
             setIsLoading(true)
             setError(null)
             fetchDogRecords()
         }
         setIsLoading(false)
         setInitialized(true)
-    }, [user])
+    }, [user, receivedNewDogRecord])
+
+    const addDogRecord = async (dogRecordForm) => {
+        const { data, error } = await ApiClient.createDogRecord(dogRecordForm)
+        if (error) setError(error)
+        if (data) setReceivedNewDogRecord(true)
+    }
 
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)
@@ -60,6 +68,8 @@ export function DogRecordsContextProvider({ children }) {
             initialized, setInitialized,
             isLoading, setIsLoading,
             error, setError,
+            receivedNewDogRecord, setReceivedNewDogRecord,
+            addDogRecord,
             getAgeGroup
         }} >
             {children}

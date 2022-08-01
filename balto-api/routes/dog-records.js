@@ -8,7 +8,7 @@ router.get("/", security.requireAuthenticatedUser, security.requireShelterAdminU
     try {
         const { shelterId } = res.locals.user
         const dogRecords = await DogRecords.listDogRecordsForShelter(shelterId)
-        return res.status(200).json({ dogRecords })
+        return res.status(200).json( { dogRecords } )
     } catch(err) {
         next(err)
     }
@@ -19,7 +19,7 @@ router.post("/", security.requireAuthenticatedUser, security.requireShelterAdmin
     try {
         const { shelterId } = res.locals.user
         const newDogRecordForm = req?.body
-        const dogRecord = await DogRecords.createDogRecord( newDogRecordForm, shelterId )
+        const dogRecord = await DogRecords.createDogRecord(shelterId, newDogRecordForm)
         return res.status(201).json( { dogRecord } )
     } catch(err) {
         next(err)
@@ -30,20 +30,22 @@ router.post("/", security.requireAuthenticatedUser, security.requireShelterAdmin
 router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
-        const dogId = req.params.dogId
-        const dogRecord = await DogRecords.fetchDogRecordById( dogId, shelterId )
+        const { dogId } = req.params
+        const dogRecord = await DogRecords.fetchDogRecordById(shelterId, dogId)
         return res.status(200).json( { dogRecord } )
     } catch (err) {
         next(err)
     }
   })
 
-  // edit a dog record
-  // TODO: incomplete
+  // update a dog record
   router.put("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
-        const dogId = req.params.dogId
-        return res.status(200).json( { dogId } )
+        const { shelterId } = res.locals.user
+        const { dogId } = req.params
+        const updateDogRecordForm = req?.body
+        const updatedDogRecord = await DogRecords.updateDogRecord(shelterId, dogId, updateDogRecordForm)
+        return res.status(200).json( { updatedDogRecord } )
     } catch (err) {
         next(err)
     }
@@ -53,8 +55,10 @@ router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) 
   // TODO: incomplete
   router.delete("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
-        const dogId = req.params.dogId
-        return res.status(200).json( { dogId } )
+        const { shelterId } = res.locals.user
+        const { dogId } = req.params
+        await DogRecords.deleteDogRecord(shelterId, dogId)
+        return res.status(204).send("Dog record successfully deleted")
     } catch (err) {
         next(err)
     }

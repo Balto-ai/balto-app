@@ -24,14 +24,14 @@ CREATE TABLE dogs (
     desc_2          TEXT NOT NULL,
     date_entered    DATE NOT NULL,
     image_url       TEXT NOT NULL,
-    novice_friendly INTEGER,
-    kid_friendly    INTEGER,
-    dog_friendly    INTEGER,
-    stranger_friendly INTEGER,
-    easy_to_groom   INTEGER,
-    trainability    INTEGER,
-    energy_level    INTEGER,
-    exercise_needs  INTEGER,
+    novice_friendly BOOLEAN NOT NULL DEFAULT FALSE,
+    kid_friendly    BOOLEAN NOT NULL DEFAULT FALSE,
+    dog_friendly    BOOLEAN NOT NULL DEFAULT FALSE,
+    cat_friendly    BOOLEAN NOT NULL DEFAULT FALSE,
+    stranger_friendly BOOLEAN NOT NULL DEFAULT FALSE,
+    playfulness     INTEGER NOT NULL CHECK (playfulness BETWEEN 0 and 5),
+    energy_level    INTEGER NOT NULL CHECK (energy_level BETWEEN 0 and 5),
+    exercise_needs  INTEGER NOT NULL CHECK (exercise_needs BETWEEN 0 and 5),
     created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     shelter_id      INTEGER NOT NULL,
@@ -68,6 +68,18 @@ CREATE TABLE user_dog_pairings (
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
     user_id     INTEGER NOT NULL,
     dog_id      INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE adoption_inquiries (
+    id              SERIAL PRIMARY KEY,
+    email           TEXT NOT NULL CHECK (POSITION('@' IN email) > 1),
+    phone_number    TEXT,
+    comments        TEXT,
+    created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    user_id         INTEGER NOT NULL,
+    dog_id          INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
