@@ -52,8 +52,6 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
-  console.log("dog profile milestone: ", milestones)
-
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
     <div className='profile-page'>

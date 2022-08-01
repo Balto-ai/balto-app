@@ -46,9 +46,6 @@ export function DogProfileContextProvider({ children }) {
 
     }, [])
 
-    console.log("DOGINFO", dogInfo)
-    console.log("MILESTONE", milestones)
-
     function getAgeGroup(dob) {
         const birthDate = new Date(dob)
         const currentDate = new Date()

@@ -15,8 +15,6 @@ export function TrainingFeed() {
 
     const { dogInfo, setDogInfo, milestones } = useDogProfileContext()
 
-    console.log("training feed milestone: ", milestones)
-
     return (
         milestones.map((milestone, idx) => {
             return (<TrainingCell dogInfo={dogInfo} milestone={milestone} key={idx} />)
@@ -25,8 +23,6 @@ export function TrainingFeed() {
 }
 
 export function TrainingCell(props) {
-    console.log("training cell milestones: ", props.milestones)
-
     return (
         <div className='training-cell'>
             <section className="cell-header">
