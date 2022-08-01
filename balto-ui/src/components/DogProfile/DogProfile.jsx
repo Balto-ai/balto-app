@@ -36,6 +36,7 @@ export function DogProfile() {
   const [energyLevels, setEnergyLevels] = useState(0)
   const [exerciseNeeds, setExerciseNeeds] = useState(0)
   const [playfulness, setPlayfulness] = useState(0)
+  const [modalShow, setModalShow] = useState(false)
 
   // set the dog attributes to state variables for ratings
   useEffect(() => {
@@ -136,9 +137,10 @@ export function DogProfile() {
             <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsStar /> Favorite
             </Button>
-            <Button variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+            <Button onClick={() => {setModalShow(true)}} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsFillHouseDoorFill /> Adopt Me
             </Button>
+            <AdoptionModal show={modalShow} onHide={() => {setModalShow(false)}} />
           </section>
           <section className='progress-bar'>
             <b>Progress in the shelter's training milestones</b>

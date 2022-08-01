@@ -22,9 +22,6 @@ export default function AdoptionInquiryModal(props) {
                 {/* NOTE: passes in the onHide prop so that the modal can close once the user submits the form */}
                 <AdoptionInquiryForm onHide={props.onHide} />
             </Modal.Body>
-            {/* <Modal.Footer>
-          <Button onClick={props.onHide}>Submit</Button>
-        </Modal.Footer> */}
         </Modal>
     )
 }
