@@ -72,12 +72,14 @@ CREATE TABLE user_dog_pairings (
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
 
-CREATE TABLE adoption_inquiries {
+CREATE TABLE adoption_inquiries (
     id              SERIAL PRIMARY KEY,
     email           TEXT NOT NULL CHECK (POSITION('@' IN email) > 1),
     phone_number    TEXT,
     comments        TEXT,
     created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    user_id         INTEGER NOT NULL,
+    dog_id          INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
-};
+);
