@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
-import AdoptionInquiryForm from '../AdoptionInquiryForm/AdoptionInquiryForm'
+import AdoptionInquiryForm from '../AdoptionForm/AdoptionForm'
 
 // takes in two props: show (a Boolean) and onHide (function)
 // example instance: <AdoptionInquiryModal show={modalShow} onHide={() => setModalShow(false)} />

@@ -12,37 +12,40 @@ import "./StarButton.css"
 
 export default function StarButton({ dogId=1, dogName=""}) {
     const { user } = useAuthContext()
-    const [isInquired, setIsInquired] = React.useState(false) // if dog has already been requested by user
-    const [modalShow, setModalShow] = React.useState(false) // show modal on "Adopt" button click
+    const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
+    const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
+    const [toastShow, setToastShow] = React.useState(false) // shows bottom-right notification that appears when a dog is starred/unstarred
 
+    // useEffect hook gets the user's list of starred dogs and checks if the card's dog is in that list
+    //   TODO: for later sprint, create new endpoint that returns a boolean
     React.useEffect(() => {
-        const checkIfInquired = async () => {
+        const checkIfStarred = async () => {
             const { data, error } = await ApiClient.fetchStarredDogs()
             if (data?.starredDogs) {
                 // this is checking though the returned list of starred dogs to see if one of them has a dog_id value matching the card's dogId
                 if (data.starredDogs.some(e => e.dog_id === dogId)) {
-                    setIsInquired(true)
+                    setIsStarred(true)
                   }
             }
         }
         // only check if starred if the user is signed into an account since
         //  we know that non-loggin in users should not have any saved dogs
         if (user?.email) {
-            checkIfInquired()
+            checkIfStarred()
         }
     }, [user])
 
     const handleOnClick = async () => {
         // if a user is signed in, allow the user to star/unstar the dog
         if (user?.email) {
-            if (isInquired) {
+            if (isStarred) {
                 // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.unstarDog(dogId)
-                setIsInquired(false)
+                setIsStarred(false)
             } else {
                 // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.starDog({dogId})
-                setIsInquired(true)
+                setIsStarred(true)
             }
             setToastShow(true)
         // if no user is signed in, show a modal prompting them to login/signup
@@ -56,13 +59,13 @@ export default function StarButton({ dogId=1, dogName=""}) {
         {/* actual button component that is displayed on the card */}
         <IconButton 
           disableRipple className='starbtn' onClick={handleOnClick} sx={{ transition: '0.3s', bgcolor: '#908af8', color:'white'}} aria-label="star" >
-          {isInquired ? <BsStarFill/> : <BsStar/>}
+          {isStarred ? <BsStarFill/> : <BsStar/>}
         </IconButton>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         <StarModal show={modalShow} onHide={() => setModalShow(false)} />
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
-        <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isInquired} />
+        <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
         </>
     )
 }
