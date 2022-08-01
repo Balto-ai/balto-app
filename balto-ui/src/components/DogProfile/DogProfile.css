@@ -118,10 +118,12 @@
 
 .attributes-list {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
+    margin-bottom: 2%;
 }
 
-
-
-
+.attributes-list .checkbox-line {
+    display: flex;
+    margin-bottom: 5px;
+}
 
