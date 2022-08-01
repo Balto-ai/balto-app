@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
 import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
 import TrainingFeed from '../TrainingFeed/TrainingFeed';
-import { milestones } from '../../data'
 import React from 'react';
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
@@ -10,8 +9,11 @@ import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
-import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im"
 import ApiClient from '../../services/ApiClient';
+import { Rating, Typography } from '@mui/material'
+import EmptyBone from "../Icon/EmptyBone"
+import FilledBone from "../Icon/FilledBone"
+
 
 export default function DogProfileContainer() {
   return (
@@ -23,12 +25,34 @@ export default function DogProfileContainer() {
 
 export function DogProfile() {
 
-  const { dogInfo, setDogInfo, error, getAgeGroup } = useDogProfileContext()
+  const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
   const { user } = useAuthContext({})
+  const [kidFriendly, setKidFriendly] = useState(0)
+  const [strangerFriendly, setStrangerFriendly] = useState(0)
+  const [dogFriendly, setDogFriendly] = useState(0)
+  const [noviceFriendly, setNoviceFriendly] = useState(0)
+  const [easyToGroom, setEasyToGroom] = useState(0)
+  const [energyLevels, setEnergyLevels] = useState(0)
+  const [exerciseNeeds, setExerciseNeeds] = useState(0)
+  const [easyToTrain, setEasyToTrain] = useState(0)
+
+  // set the dog attributes to state variables for ratings
+  useEffect(() => {
+    setKidFriendly(dogInfo.kid_friendly)
+    setStrangerFriendly(dogInfo.stranger_friendly)
+    setDogFriendly(dogInfo.dog_friendly)
+    setNoviceFriendly(dogInfo.novice_friendly)
+    setEasyToGroom(dogInfo.easy_to_groom)
+    setEnergyLevels(dogInfo.energy_level)
+    setExerciseNeeds(dogInfo.exercise_needs)
+    setEasyToTrain(dogInfo.trainability)
+  })
 
   const handleOnFavorite = async () => {
     return await ApiClient.starDog(dogInfo.id)
   }
+
+  console.log("dog profile milestone: ", milestones)
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
@@ -39,7 +63,7 @@ export function DogProfile() {
       <div className='split-pane'>
         <div className='profile-pane'>
           <div className='profile-header'>
-            <Image src={dogInfo.image_url} className='profile-img' roundedCircle ></Image>
+            <img src={dogInfo.image_url} className='profile-img'></img>
             <div className='profile-title'>
               <span>Hi, I'm <h1>{dogInfo.dog_name}</h1></span>
               <section className='tags'>
@@ -61,16 +85,43 @@ export function DogProfile() {
             </section>
             <section className='attributes'>
               <h2>A little more about me...</h2>
-              <ul id='attribute-list'>
-                <li>{(dogInfo.kid_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Kid Friendly</li>
-                <li>{(dogInfo.stranger_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Stranger Friendly</li>
-                <li>{(dogInfo.dog_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Dog Friendly</li>
-                <li>{(dogInfo.novice_friendly >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Novice Owner Friendly</li>
-                <li>{(dogInfo.easu_to_groom >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Easy to Groom</li>
-                <li>{(dogInfo.energy_levels >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Energy Levels</li>
-                <li>{(dogInfo.exercise_needs >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Exercise Needs</li>
-                <li>{(dogInfo.trainability >= 3) ? <ImCheckboxChecked /> : <ImCheckboxUnchecked /> } Easy to Train</li>
-              </ul>
+              <div className='attributes-list'>
+                <div>
+                  <Typography component="legend">Kid Friendly</Typography>
+                  <Rating value={kidFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Stranger Friendly</Typography>
+                  <Rating value={strangerFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Dog Friendly</Typography>
+                  <Rating value={dogFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Novice Friendly</Typography>
+                  <Rating value={noviceFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                </div>
+                <div>
+                  <Typography component="legend">Easy to Groom</Typography>
+                  <Rating value={easyToGroom} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Energy Levels</Typography>
+                  <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Exercise Needs</Typography>
+                  <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend">Easy to Train</Typography>
+                  <Rating value={easyToTrain} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                </div>
+              </div>
             </section>
             <section className='shelter-loc'>
               <h2>You can meet me at...</h2>
@@ -97,7 +148,7 @@ export function DogProfile() {
           <div className='training-feed'>
             <h2>Training Feed</h2>
             <div className='feed'>
-              <TrainingFeed milestones={milestones} dogInfo={dogInfo} />
+              {/* <TrainingFeed /> */}
             </div>
           </div>
         </div>
