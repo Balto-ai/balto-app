@@ -62,9 +62,7 @@ export default function RegistrationForm() {
 
     const registerForm = evt.currentTarget;
       if (errors.form) {
-      console.log("invalid form")
-    } else {
-      console.log(form)
+      console.error("invalid form")
     }
     
     if (form.password !== form.passwordConfirm) {
