@@ -27,7 +27,7 @@ router.post("/", security.requireAuthenticatedUser, security.requireShelterAdmin
 })
 
 // view a dog record
-router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
+router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
         const { dogId } = req.params
@@ -39,7 +39,7 @@ router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) 
   })
 
   // update a dog record
-  router.put("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
+  router.patch("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
         const { dogId } = req.params
@@ -52,8 +52,7 @@ router.get("/:dogId", security.requireAuthenticatedUser, async (req, res, next) 
   })
 
   // delete a dog record
-  // TODO: incomplete
-  router.delete("/:dogId", security.requireAuthenticatedUser, async (req, res, next) => {
+  router.delete("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
     try {
         const { shelterId } = res.locals.user
         const { dogId } = req.params

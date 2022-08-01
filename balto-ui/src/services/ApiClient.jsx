@@ -89,7 +89,7 @@ class ApiClient {
     async updateDogRecord(dogId, dogInformation) {
         // edit an individual dog record
         // NOTE: revisit once data structure is clearly defined, can possibly condense to just the dogInformation parameter
-        return await this.request({ endpoint:`dog-records/${dogId}`, method:'PUT', data:dogInformation })
+        return await this.request({ endpoint:`dog-records/${dogId}`, method:'PATCH', data:dogInformation })
     }
 
     async deleteDogRecord(dogId) {
