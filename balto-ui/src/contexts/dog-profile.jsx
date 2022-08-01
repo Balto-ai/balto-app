@@ -10,8 +10,8 @@ export function DogProfileContextProvider({ children }) {
     const [dogInfo, setDogInfo] = useState({})
     const [initialized, setInitialized] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState()
-    const [milestones, setMilestones] = useState()
+    const [error, setError] = useState(null)
+    const [milestones, setMilestones] = useState({})
     const { dogId } = useParams()
 
     useEffect(() => {

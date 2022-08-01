@@ -148,7 +148,7 @@ export function DogProfile() {
           <div className='training-feed'>
             <h2>Training Feed</h2>
             <div className='feed'>
-              {/* <TrainingFeed milestones={milestones} dogInfo={dogInfo} /> */}
+              <TrainingFeed />
             </div>
           </div>
         </div>

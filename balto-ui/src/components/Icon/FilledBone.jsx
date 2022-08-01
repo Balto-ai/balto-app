@@ -7,3 +7,6 @@ const FilledBone = () => (
 )
 
 export default FilledBone
+
+// used svgr to convert svg to rfc:
+// https://react-svgr.com/playground/

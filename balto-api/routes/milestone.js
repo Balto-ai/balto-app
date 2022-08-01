@@ -4,9 +4,7 @@ const Milestone = require("../models/milestone")
 
 
 // get the dog for the given dog id
-router.get("/dog/:dogId", async (req, res, next) => {
-    console.log("reached routes for milestone")
-    console.log("dogId in routes; ", req.params.dogId)
+router.get("/view/:dogId", async (req, res, next) => {
     try {
         const dogId = req.params.dogId
         const milestoneResults = await Milestone.fetchMilestones(dogId)
@@ -15,6 +13,12 @@ router.get("/dog/:dogId", async (req, res, next) => {
         next(err)
     }
 })
+
+// router.post("/", async (req, res, next) => {
+
+// })
+
+
 
 
 module.exports = router
