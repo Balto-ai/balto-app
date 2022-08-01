@@ -23,8 +23,7 @@ export default function RegistrationForm() {
                                           })
   const [isValidated, setIsValidated] = React.useState(false)
   const { user, signupUser, error } = useAuthContext()
-  console.log('errors',errors)
-  console.log('form',form)
+
   
   const handleOnInputChange = (evt) => {
 
