@@ -13,6 +13,7 @@ import ApiClient from '../../services/ApiClient';
 import { Rating, Typography } from '@mui/material'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
+import AdoptionModal from "../AdoptionModal/AdoptionModal"
 
 
 export default function DogProfileContainer() {

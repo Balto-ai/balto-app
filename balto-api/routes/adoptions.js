@@ -38,4 +38,16 @@ router.post("/", async (req, res, next) => {
     }
 })
 
+// delete the adoption inqury between a dog and user
+router.delete("/", async (req, res, next) => {
+    try {
+        const { dogId } = req?.body
+        const { userId } = req?.body
+        const inquiry = await Adoptions.deleteAdoptionInquiry(userId, dogId)
+        return res.status(201).json( {inquiry} )
+    } catch(err) {
+        next(err)
+    }
+})
+
 module.exports = router
