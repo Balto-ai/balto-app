@@ -68,6 +68,7 @@ export default function DogSearchPage() {
             </Accordion.Header>
             <Accordion.Body>
               <BreedSearchbar
+                isMulti={true}
                 selectedBreeds={selectedBreeds}
                 setSelectedBreeds={setSelectedBreeds}
               />
@@ -205,6 +206,7 @@ export default function DogSearchPage() {
             </Accordion.Header>
             <Accordion.Body>
               <ShelterSearchbar
+                isMulti={true}
                 selectedShelters={selectedShelters}
                 setSelectedShelters={setSelectedShelters}
               />

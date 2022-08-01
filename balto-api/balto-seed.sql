@@ -69,7 +69,7 @@ VALUES (
     (SELECT id FROM shelters WHERE name='Vanderpump Dogs')
 );
 
-INSERT INTO dogs (name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_url, novice_friendly, kid_friendly, dog_friendly, stranger_friendly, easy_to_groom, trainability, energy_level, exercise_needs, created_at, shelter_id)
+INSERT INTO dogs (name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_url, novice_friendly, kid_friendly, dog_friendly, cat_friendly, stranger_friendly, playfulness, energy_level, exercise_needs, created_at, shelter_id)
 VALUES (
     'Marley',
     '2015-09-06',
@@ -81,7 +81,8 @@ VALUES (
     'takes me on walks and shows me lots of attention',
     '2021-11-21',
     'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=962&q=80',
-    3, 5, 5, 5, 4, 5, 5, 5,
+    TRUE, TRUE, TRUE, FALSE, TRUE,
+    5, 5, 5,
     NOW(),
     (SELECT id FROM shelters WHERE name='Vanderpump Dogs')
 ), (
@@ -95,7 +96,8 @@ VALUES (
     'will put up with my energy and I will reward them back with hugs and kisses :)',
     '2022-03-01',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Harrier_tricolour.jpg/440px-Harrier_tricolour.jpg',
-    3, 5, 5, 5, 5, 4, 5, 5,
+    FALSE, TRUE, FALSE, TRUE, TRUE,
+    1, 2, 3,
     NOW(),
     (SELECT id FROM shelters WHERE name='The Real Bark')
 ), (
@@ -109,7 +111,8 @@ VALUES (
     'is always ready for a run or at least a trip to the park',
     '2022-06-29',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Blue_greyhound.JPG/440px-Blue_greyhound.JPG',
-    5, 5, 4, 4, 5, 4, 4, 4,
+    TRUE, TRUE, TRUE, TRUE, TRUE,
+    4, 5, 5,
     NOW(),
     (SELECT id FROM shelters WHERE name='The Real Bark')
 ), (
@@ -123,7 +126,8 @@ VALUES (
     'is willing to take a chance on me',
     '2021-01-19',
     'https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg',
-    4, 3, 3, 3, 4, 4, 4, 3,
+    FALSE, TRUE, TRUE, FALSE, FALSE,
+    3, 3, 1,
     NOW(),
     (SELECT id FROM shelters WHERE name='Vanderpump Dogs')
 ), (
@@ -137,7 +141,8 @@ VALUES (
     'has the same drive and dedication as I do to dog sledding, someone who will respect me and help me achieve great things',
     '2003-06-23',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Siberian_Husky_sable.jpg/440px-Siberian_Husky_sable.jpg',
-    1, 5, 5, 5, 2, 4, 5, 5,
+    FALSE, TRUE, TRUE, TRUE, FALSE,
+    2, 2, 3,
     NOW(),
     (SELECT id FROM shelters WHERE name='The Real Bark')
 ), (
@@ -151,7 +156,8 @@ VALUES (
     'respects my boundaries and trusts my abilities to protect you',
     '2017-05-22',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Boy_c11.jpg/440px-Boy_c11.jpg',
-    2, 1, 1, 2, 1, 4, 4, 4,
+    TRUE, FALSE, FALSE, FALSE, TRUE,
+    5, 3, 3,
     NOW(),
     (SELECT id FROM shelters WHERE name='Vanderpump Dogs')
 ), (
@@ -165,7 +171,8 @@ VALUES (
     'will take me on adventures and journeys',
     '2019-10-15',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Керн_терьер_%28cairn_terrier%29.jpg/440px-Керн_терьер_%28cairn_terrier%29.jpg',
-    4, 5, 4, 4, 5, 4, 5, 4,
+    FALSE, FALSE, FALSE, FALSE, FALSE,
+    1, 1, 1,
     NOW(),
     (SELECT id FROM shelters WHERE name='The Real Bark')
 );
