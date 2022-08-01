@@ -9,9 +9,10 @@ import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
-import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im"
 import ApiClient from '../../services/ApiClient';
 import { Rating, Typography } from '@mui/material'
+import EmptyBone from "../Icon/EmptyBone"
+import FilledBone from "../Icon/FilledBone"
 
 
 export default function DogProfileContainer() {
@@ -62,7 +63,7 @@ export function DogProfile() {
       <div className='split-pane'>
         <div className='profile-pane'>
           <div className='profile-header'>
-            <Image src={dogInfo.image_url} className='profile-img' roundedCircle ></Image>
+            <img src={dogInfo.image_url} className='profile-img'></img>
             <div className='profile-title'>
               <span>Hi, I'm <h1>{dogInfo.dog_name}</h1></span>
               <section className='tags'>
@@ -87,30 +88,38 @@ export function DogProfile() {
               <div className='attributes-list'>
                 <div>
                   <Typography component="legend">Kid Friendly</Typography>
-                  <Rating value={kidFriendly} readOnly />
+                  <Rating value={kidFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Stranger Friendly</Typography>
-                  <Rating value={strangerFriendly} readOnly />
+                  <Rating value={strangerFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Dog Friendly</Typography>
-                  <Rating value={dogFriendly} readOnly />
+                  <Rating value={dogFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Novice Friendly</Typography>
-                  <Rating value={noviceFriendly} readOnly />
+                  <Rating value={noviceFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                 </div>
                 <div>
                   <Typography component="legend">Easy to Groom</Typography>
-                  <Rating value={easyToGroom} readOnly />
+                  <Rating value={easyToGroom} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Energy Levels</Typography>
-                  <Rating value={energyLevels} readOnly />
+                  <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Exercise Needs</Typography>
-                  <Rating value={exerciseNeeds} readOnly />
+                  <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                   <Typography component="legend">Easy to Train</Typography>
-                  <Rating value={easyToTrain} readOnly />
+                  <Rating value={easyToTrain} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                 </div>
               </div>
             </section>
