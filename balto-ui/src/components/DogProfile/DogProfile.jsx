@@ -55,11 +55,17 @@ export function DogProfile() {
   }
 
   console.log("User's city: ", location.city)
+  console.log("dogInfo: ", dogInfo)
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    <div className='profile-page'>
-      
+    <div class='container'>
+      <div class='row'>
+        <h1>{dogInfo.dog_name}</h1>
+      </div>
+      <div>
+        <img src={dogInfo.dog_image_url} className="main-image"/>
+      </div>
     </div>
   )
   // }
