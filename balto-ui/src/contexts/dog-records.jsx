@@ -37,13 +37,19 @@ export function DogRecordsContextProvider({ children }) {
     const addDogRecord = async (dogRecordForm) => {
         const { data, error } = await ApiClient.createDogRecord(dogRecordForm)
         if (error) setError(error)
-        if (data) setReceivedNewDogRecord(true)
+        if (data) {
+            setError(false)
+            setReceivedNewDogRecord(true)
+        }
     }
 
-    const editDogRecord = async (updateForm) => {
-        const { data, error } = await ApiClient.updateDogRecord(updateForm)
+    const editDogRecord = async (dogId, updateForm) => {
+        const { data, error } = await ApiClient.updateDogRecord(dogId, updateForm)
         if (error) setError(error)
-        if (data) setError(null)
+        if (data) {
+            setError(null)
+            setReceivedNewDogRecord(true)
+        }
     }
 
     function getAgeGroup(dob) {
@@ -76,6 +82,7 @@ export function DogRecordsContextProvider({ children }) {
             error, setError,
             receivedNewDogRecord, setReceivedNewDogRecord,
             addDogRecord,
+            editDogRecord,
             getAgeGroup
         }} >
             {children}
