@@ -3,11 +3,11 @@ import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, GridToolbarExport, useGridApiContext, useGridSelector, gridPageSelector, gridPageCountSelector } from '@mui/x-data-grid'
-import Pagination from '@mui/material/Pagination';
+import { styled } from '@mui/material/styles'
+import Pagination from '@mui/material/Pagination'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Card from 'react-bootstrap/Card'
 import './ShelterOverview.css'
 
 export default function ShelterOverview() {
@@ -24,6 +24,7 @@ export default function ShelterOverview() {
 
     const rows = [...dogRecordsToRender]
     const columns = [
+        { field: 'id', headerName: ' ', sortable: false, filterable: false, width: 20 },
         { field: 'image_url', headerName: 'Image', sortable: false, width: 70,
             renderCell: (params) => <img src={params.value} className="dog-record-image" /> },
         { field: 'name', headerName: 'Name', width: 150,
@@ -31,20 +32,17 @@ export default function ShelterOverview() {
         { field: 'breed', headerName: 'Breed', width: 150 },
         { field: 'sex', headerName: 'Sex', width: 90,
             renderCell: (params) => <div>{params.value === "m" ? "Male" : "Female"}</div> },
-        { field: 'dob', headerName: 'Date of Birth', width: 150,
-            renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
         { field: 'size', headerName: 'Size', width: 90,
             renderCell: (params) => <div className="capitalized">{params.value}</div> },
         { field: 'color', headerName: 'Color', width: 110,
             renderCell: (params) => <div className="capitalized">{params.value}</div> },
+        { field: 'dob', headerName: 'Date of Birth', width: 150,
+            renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
         { field: 'date_entered', headerName: 'Date Entered', width: 150,
             renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
         { field: 'updated_at', headerName: 'Last Updated', width: 150,
             renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> }
       ]
-
-    //   <p className="date-entered-label">Entered {(new Date(props.dateEntered)).toLocaleDateString()}</p>
-
 
     return (
         <div className="shelter-overview primary-container" style={{ display: 'flex', height: 700, width: '100%' }}>
@@ -70,11 +68,12 @@ export default function ShelterOverview() {
 export function DogRecordSearch({ setSearchQuery }) {
     return (
         <Form.Group className="mb-3 dog-record-search">
-          <Form.Control placeholder="Search by name" onChange={(evt)=>setSearchQuery(evt.target.value)} />
+          <Form.Control placeholder="Search by Name" onChange={(evt)=>setSearchQuery(evt.target.value)} />
         </Form.Group>
     )
 }
 
+// toolbar with column list, filters, and export option
 export function CustomToolbar() {
     return (
       <GridToolbarContainer>
@@ -85,10 +84,20 @@ export function CustomToolbar() {
     )
   }
 
+// custom pagination that appears at the footer
 export function CustomPagination() {
     const apiRef = useGridApiContext()
     const page = useGridSelector(apiRef, gridPageSelector)
     const pageCount = useGridSelector(apiRef, gridPageCountSelector)
+
+    return (
+        <Pagination
+          color="primary"
+          count={pageCount}
+          page={page + 1}
+          onChange={(event, value) => apiRef.current.setPage(value - 1)}
+        />
+      );
 }
 
 // import React from 'react'
