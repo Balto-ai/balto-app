@@ -113,7 +113,7 @@ export default function EditDogRecord() {
       evt.stopPropagation()
     } else {
       await editDogRecord(dogId, form)
-      navigate("/admin-dashboard")
+      navigate("/admin-dashboard/dog-record/id/"+dogId)
     }
   }
 
@@ -307,8 +307,6 @@ export default function EditDogRecord() {
 
         </Form>
       </div>
-      <p>{JSON.stringify(form)}</p>
-      <p>{JSON.stringify(dogRecord)}</p>
     </div>
   )
   }
