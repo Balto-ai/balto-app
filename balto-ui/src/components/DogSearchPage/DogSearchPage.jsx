@@ -14,7 +14,7 @@ export default function DogSearchPage() {
   // options that will show up on the filters, not used for anything else
   const sizeOptions = ["Small", "Medium", "Large"];
   const genderOptions = ["Male", "Female"];
-  const goodWithOptions = ["Kids", "Strangers", "Other dogs"];
+  const goodWithOptions = ["Kids", "Strangers", "Other dogs", "Cats", "Beginner Owners"];
   const distanceOptions = [5, 10, 15];
   
   // states each of the filters
@@ -33,6 +33,8 @@ export default function DogSearchPage() {
     kidFriendly: selectedGoodWith.includes("Kids"),
     strangerFriendly: selectedGoodWith.includes("Strangers"),
     dogFriendly: selectedGoodWith.includes("Other dogs"),
+    catFriendly: selectedGoodWith.includes("Cats"),
+    noviceFriendly: selectedGoodWith.includes("Beginner Owners"),
     distance: selectedDistance || null,
     shelterIds: selectedShelters
   }
