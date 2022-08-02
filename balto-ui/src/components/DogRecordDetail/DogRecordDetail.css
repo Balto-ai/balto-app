@@ -1,0 +1,27 @@
+/* sub-sections of the page */
+.dog-record-detail .secondary-container {
+    background-color: white;
+    padding: 40px;
+    margin: 10px;
+}
+
+.dog-record-detail .dog-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+/* View Public Profile, Edit, and Delete Buttons */
+.dog-record-detail .bottom-buttons {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.checkbox-line {
+    display: flex;
+    margin-bottom: 5px;
+}
+

@@ -2,6 +2,13 @@ import React from 'react'
 import { useNavigate, Link } from "react-router-dom"
 import { useAuthContext } from '../../contexts/auth'
 import "./RegistrationForm.css"
+import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
+import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
+import { BsX } from "react-icons/bs"
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function RegistrationForm() {
 
@@ -14,9 +21,10 @@ export default function RegistrationForm() {
                                             password: "",
                                             passwordConfirm: ""
                                           })
+  const [isValidated, setIsValidated] = React.useState(false)
+  const { user, signupUser, error } = useAuthContext()
+
   
-  const { user, signupUser } = useAuthContext()
-                                    
   const handleOnInputChange = (evt) => {
 
     // check if email is valid
@@ -27,7 +35,6 @@ export default function RegistrationForm() {
         setErrors((existingErrors) => ({ ...existingErrors, email: null }))
       }
     }
-
     // check if passwords match
     if (evt.target.name === "password") {
         if (form.passwordConfirm && form.passwordConfirm !== evt.target.value) {
@@ -50,123 +57,122 @@ export default function RegistrationForm() {
 
   const handleOnFormSubmit = async (evt) => {
     evt.preventDefault()
+    setIsValidated(true)
     setErrors((existingErrors) => ({ ...existingErrors, form: null }))
 
-    if (form.password !== form.passwordConfirm) {
-      setErrors((existingErrors) => ({ ...existingErrors, form: "Passwords do not match" }))
-    }
-
-    if (errors.form) {
-      console.log("invalid form")
-    } else {
-      console.log(form)
+    const registerForm = evt.currentTarget;
+      if (errors.form) {
+      console.error("invalid form")
     }
     
-    // TODO: check for valid zip code using third-party API
+    if (form.password !== form.passwordConfirm) {
+      setErrors((existingErrors) => ({ ...existingErrors, form: "Passwords do not match" }))
+    } else{
+      if (registerForm.checkValidity() === false) {
+        evt.stopPropagation()
+      } else {
+        // TODO: check for valid zip code using third-party API
+        await signupUser(form)
+        if (user?.email) navigate("/")
+        // TODO: check for user type and navigate to appropriate page for the user type
+    }
+    }
 
-    await signupUser(form)
-    if (user?.email) navigate("/")
-    // TODO: check for user type and navigate to appropriate page for the user type
-
-  }
+  
+   
+}
 
   return (
     
     <div className="registration-form">
-
     {/* login card form (left) */}
     <div className="registration-card">
-      <h2>Sign Up</h2>
-      <form className="form">
+      <h2 className='signup-title'>Sign Up</h2>
+      <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
+          {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
+          {errors.passwordConfirm ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {errors.passwordConfirm}</Alert> : null}
+        <Row className='mb-2'>
+        <Form.Group as={Col} md='6'controlId="validationCustom01" className="form-item">
+            <FloatingLabel controlId="floatingInput" label="First Name" className="mb-3">
+              <Form.Control
+                name="firstName"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                defaultValue={form.firstName}
+                placeholder="First Name" 
+                className="form-input" />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} md='6' controlId="validationCustom02" className="form-item">
+          <FloatingLabel controlId="floatingInput" label="Last Name" className="mb-3">
+              <Form.Control
+                name="lastName"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                defaultValue={form.lastName}
+                placeholder="Last Name" 
+                className="form-input" />
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+        <Form.Group controlId="validationCustom03" className="form-item">
+          <FloatingLabel controlId="floatingInput" label="Zip Code" className="mb-3">
+              <Form.Control
+                name="zipCode"
+                type="text"
+                onChange={handleOnInputChange}
+                required
+                defaultValue={form.zipCode}
+                placeholder="Zip Code" 
+                className="form-input" />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group controlId="validationCustom04" className="form-item">
+            <FloatingLabel controlId="floatingInput" label="Email Address" className="mb-3">
+              <Form.Control
+                name="email"
+                type="email"
+                onChange={handleOnInputChange}
+                required
+                isInvalid={errors.email}
+                placeholder="Email Address" 
+                className="form-input" />
+            <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
 
-        {/* div element so that first name and last name inputs are on the same "line" */}
-        <div className="name-inputs">
+          <Form.Group controlId="validationCustom05" className="form-item">
+            <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3 form-input">
+            <Form.Control
+                name="password"
+                type="password"
+                onChange={handleOnInputChange}
+                required
+                placeholder="Password"
+                defaultValue={form.password} />
+           <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group controlId="validationCustom03" className="form-item">
+            <FloatingLabel controlId="floatingPasswordConfirm" label="Confirm Password" className="mb-3 form-input">
+            <Form.Control
+                name="passwordConfirm"
+                type="password"
+                onChange={handleOnInputChange}
+                required
+                placeholder="PasswordConfirm"
+                defaultValue={form.passwordConfirm} />
+                <Form.Control.Feedback type="invalid">Please confirm password</Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+          <Button type="submit" className="mb-2 form-item">Sign Up</Button>
+          <Form.Text>Already have an account? <a href="/login">Login here</a></Form.Text>
+        </Form>
 
-          {/* first name input */}
-          <div className="input-field">
-            <label htmlFor="firstName">First Name</label>
-            <input className="form-input"
-              name="firstName"
-              type="text"
-              value={form.firstName}
-              onChange={handleOnInputChange}
-            />
-            {errors.firstName && <span className="error">{errors.firstName}</span>}
-          </div>
-
-          {/* last name input */}
-          <div className="input-field">
-            <label htmlFor="lastName">Last Name</label>
-            <input className="form-input"
-              name="lastName"
-              type="text"
-              value={form.lastName}
-              onChange={handleOnInputChange}
-            />
-            {errors.lastName && <span className="error">{errors.lastName}</span>}
-          </div>
-        </div>
-
-        {/* zip code input */}
-        <div className="input-field">
-          <label htmlFor="zipCode">ZIP Code</label>
-          <input className="form-input"
-            name="zipCode"
-            type="text"
-            value={form.zipCode}
-            onChange={handleOnInputChange}
-          />
-          {errors.zipCode && <span className="error">{errors.zipCode}</span>}
-        </div>
-
-        {/* email input */}
-        <div className="input-field">
-          <label htmlFor="email">Email</label>
-          <input className="form-input"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleOnInputChange}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-
-        {/* password input */}
-        <div className="input-field">
-          <label htmlFor="password">Password</label>
-          <input className="form-input"
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleOnInputChange}
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
-        </div>
-
-        {/* password confirm input */}
-        <div className="input-field">
-          <label htmlFor="passwordConfirm">Confirm Password</label>
-          <input className="form-input"
-            name="passwordConfirm"
-            type="password"
-            value={form.passwordConfirm}
-            onChange={handleOnInputChange}
-          />
-          {errors.passwordConfirm && <span className="error">{errors.passwordConfirm}</span>}
-        </div>
-      
-        {/* submit button */}
-        <button className="submit-registration" onClick={handleOnFormSubmit}>Sign Up</button>
-
-      </form>
 
     </div>
-
-    {/* login image (right) */}
-    <div className="registration-image">
-      <img src="" alt="Registration Image" />
-    </div>
-
   </div>
 
   )
