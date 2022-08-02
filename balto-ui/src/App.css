@@ -6,11 +6,39 @@
 /* GLOBAL VARIABLES */
 :root {
   --light-bg-grey: #f4f4f4;
+  --balto-main: #908AF8;
+  --border-radius-large: 20px;
+  --faded-text-grey: #a7a7a7;
 }
 
 /* GLOBAL CLASS STYLINGS */
 .primary-container {
   margin: 0 auto;
-  padding: 60px 80px;
+  padding: 60px;
   min-width: 600px;
+  border-radius: 20px;
+  max-width: 100%;
   }
+
+.secondary-container {
+  margin: 0 auto;
+  padding: 60px;
+  border-radius: 20px;
+}
+
+.capitalized::first-letter {
+  text-transform:capitalize;
+}
+
+.filled-rating-icon {
+  color: var(--balto-main);
+}
+
+.empty-rating-icon {
+  opacity: 0.5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
