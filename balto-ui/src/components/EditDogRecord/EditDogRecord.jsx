@@ -28,7 +28,8 @@ export default function EditDogRecord() {
 
   const [dogRecord, setDogRecord] = React.useState({})
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
-  
+  const [isInitialized, setIsInitialized] = React.useState(false)
+
   const [isValidated, setIsValidated] = React.useState(false)
 
   // options that will show up as form options, not used for anything else
@@ -50,6 +51,7 @@ export default function EditDogRecord() {
 
   // useEffect to get the row in the dog table
   React.useEffect(() => {
+    setIsInitialized(false)
     const getDogRecord = async () => {
       const { data, error } = await ApiClient.fetchDogRecordById(dogId)
       if (data?.dogRecord) {
@@ -59,6 +61,7 @@ export default function EditDogRecord() {
     }
     if (user?.email && user?.shelterId) {
       getDogRecord()
+      setIsInitialized(true)
     }
   }, [user])
 
@@ -114,6 +117,7 @@ export default function EditDogRecord() {
     }
   }
 
+  if (isInitialized) {
   return (
     <div className="add-record-form primary-container">
       <div className="add-record-card">
@@ -307,6 +311,7 @@ export default function EditDogRecord() {
       <p>{JSON.stringify(dogRecord)}</p>
     </div>
   )
+  }
 }
 
 export function BreedDropdown({ initialBreed, form={}, setForm=()=>{} }) {
