@@ -20,6 +20,7 @@ export default function DogRecordDetail() {
 
   const [modalShow, setModalShow] = React.useState(false) // modal to confirm if the user wants to delete the record
 
+  // used to set the ratings; due to how rating inputs work this is needed to show the ratings on the page
   const [playfulness, setPlayfulness] = React.useState(0)
   const [energyLevel, setEnergyLevel] = React.useState(0)
   const [exerciseNeeds, setExerciseNeeds] = React.useState(0)
@@ -44,6 +45,7 @@ export default function DogRecordDetail() {
       
       <Row>
         
+        {/* basic info like name, breed, sex, etc. */}
         <Col className="basic-info secondary-container">
           <div className="main-top-header">
 
@@ -66,7 +68,7 @@ export default function DogRecordDetail() {
           </div>
         </Col>
 
-
+        {/* Good with categories and ratings */}
         <Col className="adopter-compatibility secondary-container">
 
           <Row fluid className="dog-record-detail">
@@ -101,6 +103,7 @@ export default function DogRecordDetail() {
         </Col>
       </Row>
       
+      {/* Text descriptions */}
       <Row>
         <Col className="adopter-compatibility secondary-container">
           <h5>I'm known for being...</h5>
@@ -111,7 +114,7 @@ export default function DogRecordDetail() {
       </Row>
 
     
-
+      {/* View Public Profile, Edit, and Delete buttons */}
       <div className="bottom-buttons">
         {/* This one just links to the dog page that you can get to from the search page */}
         <Link className="btn" variant="outline-secondary" to={`/dog/${dogRecord.id}`}>View Public Profile</Link>

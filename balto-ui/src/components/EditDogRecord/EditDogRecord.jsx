@@ -59,7 +59,6 @@ export default function EditDogRecord() {
     // similar to handleOnInputChange, just formats the date correctly
     if (dogRecord[evt.target.name].substring(0,10) !== evt.target.value) {
       setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
-      // else, remove the kay/value pair from the form object. This is done to reduce the request body size as much as possible
     } else {
       let tempForm = {...form}
       delete tempForm[evt.target.name]
@@ -82,11 +81,9 @@ export default function EditDogRecord() {
   const handleOnRatingChange = (evt) => {
     // nearly identical to handleOnInputChange, only difference being that it sents value as an integer (vs. string)
 
-    // if the value is different from the original dogRecord value, add the key and value to the form object
     let targetValue = parseInt(evt.target.value)
     if (dogRecord[evt.target.name] !== targetValue) {
       setForm((existingForm) => ({ ...existingForm, [evt.target.name]: targetValue }))
-      // else, remove the kay/value pair from the form object. This is done to reduce the request body size as much as possible
     } else {
       let tempForm = {...form}
       delete tempForm[evt.target.name]
