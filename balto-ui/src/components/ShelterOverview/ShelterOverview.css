@@ -1,5 +1,7 @@
 .shelter-overview {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* FILTERS (SEARCHBAR AND SORT) */
