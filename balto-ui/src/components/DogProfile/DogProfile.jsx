@@ -137,10 +137,10 @@ export function DogProfile() {
             <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsStar /> Favorite
             </Button>
-            <Button onClick={() => {setModalShow(true)}} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+            <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsFillHouseDoorFill /> Adopt Me
             </Button>
-            <AdoptionModal show={modalShow} onHide={() => {setModalShow(false)}} />
+            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
           </section>
           <section className='progress-bar'>
             <b>Progress in the shelter's training milestones</b>

@@ -8,22 +8,23 @@ import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
 import { BsX } from "react-icons/bs"
 // import "./AdoptionInquiryForm.css"
+import ApiClient from '../../services/ApiClient'
 
-export default function AdoptionInquiryForm({ onHide = () => { } }) {
+export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = () => { } }) {
 
     const navigate = useNavigate()
     const [error, setError] = React.useState(null)
     const [form, setForm] = React.useState({
+        userId: userId,
+        dogId: dogId,
         firstName: "",
         lastName: "",
-        phone: "",
+        phoneNumber: "",
         email: "",
         comments: ""
     })
 
     const [isValidated, setIsValidated] = React.useState(false)
-
-    console.log(form)
 
     const handleOnInputChange = (evt) => {
         // update form state var with input value
@@ -33,8 +34,23 @@ export default function AdoptionInquiryForm({ onHide = () => { } }) {
     const handleOnFormSubmit = async (evt) => {
         evt.preventDefault()
         setIsValidated(true)
-        const adoptionInquiryForm = evt.currentTarget
+        console.log("Handling adoption form submission...")
+        console.log("Form:", form)
+        // TODO: add form validation
+        submitForm(form)
+    }
+
+    const submitForm = async (submittedForm) => {
+        console.log("calling submitForm()")
+        const { data, error } = await ApiClient.createAdoptionInquiry(submittedForm)
         onHide()
+        if (data) {
+            setError(null)
+            return (<Alert variant='secondary'>Your inquiry has been submitted!</Alert>)
+        }
+        if (error) {
+            setError(error)
+        }
     }
 
     return (
@@ -88,11 +104,11 @@ export default function AdoptionInquiryForm({ onHide = () => { } }) {
                         <Form.Group controlId="validationCustom04" as={Col} className="form-item">
                             <FloatingLabel controlId="floatingInput" label="Phone Number">
                                 <Form.Control
-                                    name="phone"
+                                    name="phoneNumber"
                                     type="text"
                                     onChange={handleOnInputChange}
                                     required
-                                    placeholder="Phone NUmber"
+                                    placeholder="Phone Number"
                                     className="form-input" />
                                 <Form.Control.Feedback type="invalid">Please enter a phone number</Form.Control.Feedback>
                             </FloatingLabel>

@@ -178,7 +178,7 @@ class ApiClient {
 
     async createAdoptionInquiry(form) {
         // post a dog adoption inquiry
-        return await this.request({ endpoint: `adoptions`, method: 'POST' })
+        return await this.request({ endpoint: `adoptions`, method: 'POST', data: form })
     }
 
     async deleteAdoptionInquiry(data) {
