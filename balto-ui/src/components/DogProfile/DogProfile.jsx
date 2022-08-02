@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
-import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
-import TrainingFeed from '../TrainingFeed/TrainingFeed';
+import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "react-icons/bs";
+// import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
@@ -13,6 +13,7 @@ import ApiClient from '../../services/ApiClient';
 import { Rating, Typography } from '@mui/material'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
+import AdoptionModal from "../AdoptionModal/AdoptionModal"
 
 
 export default function DogProfileContainer() {
@@ -27,14 +28,15 @@ export function DogProfile() {
 
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
   const { user } = useAuthContext({})
-  const [kidFriendly, setKidFriendly] = useState(0)
-  const [strangerFriendly, setStrangerFriendly] = useState(0)
-  const [dogFriendly, setDogFriendly] = useState(0)
-  const [noviceFriendly, setNoviceFriendly] = useState(0)
-  const [easyToGroom, setEasyToGroom] = useState(0)
+  const [kidFriendly, setKidFriendly] = useState(false)
+  const [strangerFriendly, setStrangerFriendly] = useState(false)
+  const [dogFriendly, setDogFriendly] = useState(false)
+  const [catFriendly, setCatFriendly] = useState(false)
+  const [noviceFriendly, setNoviceFriendly] = useState(false)
   const [energyLevels, setEnergyLevels] = useState(0)
   const [exerciseNeeds, setExerciseNeeds] = useState(0)
-  const [easyToTrain, setEasyToTrain] = useState(0)
+  const [playfulness, setPlayfulness] = useState(0)
+  const [modalShow, setModalShow] = useState(false)
 
   // set the dog attributes to state variables for ratings
   useEffect(() => {
@@ -42,17 +44,15 @@ export function DogProfile() {
     setStrangerFriendly(dogInfo.stranger_friendly)
     setDogFriendly(dogInfo.dog_friendly)
     setNoviceFriendly(dogInfo.novice_friendly)
-    setEasyToGroom(dogInfo.easy_to_groom)
+    setCatFriendly(dogInfo.cat_friendly)
     setEnergyLevels(dogInfo.energy_level)
     setExerciseNeeds(dogInfo.exercise_needs)
-    setEasyToTrain(dogInfo.trainability)
+    setPlayfulness(dogInfo.playfulness)
   })
 
   const handleOnFavorite = async () => {
     return await ApiClient.starDog(dogInfo.id)
   }
-
-  console.log("dog profile milestone: ", milestones)
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
@@ -87,39 +87,40 @@ export function DogProfile() {
               <h2>A little more about me...</h2>
               <div className='attributes-list'>
                 <div>
-                  <Typography component="legend">Kid Friendly</Typography>
-                  <Rating value={kidFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend">Stranger Friendly</Typography>
-                  <Rating value={strangerFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend">Dog Friendly</Typography>
-                  <Rating value={dogFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend">Novice Friendly</Typography>
-                  <Rating value={noviceFriendly} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
+                  <span className='checkbox-line'>
+                    {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {kidFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {dogFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {catFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {strangerFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
+                  </span>
                 </div>
                 <div>
-                  <Typography component="legend">Easy to Groom</Typography>
-                  <Rating value={easyToGroom} readOnly icon={<FilledBone fontSize="inherit" />}
+                  <Typography component="legend" noWrap={true}>Playfulness</Typography>
+                  <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
                     emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
-                  <Typography component="legend">Energy Levels</Typography>
+                  <Typography component="legend" noWrap={true}>Energy Levels</Typography>
                   <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
                     emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
-                  <Typography component="legend">Exercise Needs</Typography>
+                  <Typography component="legend" noWrap={true}>Exercise Needs</Typography>
                   <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
                     emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
-                  <Typography component="legend">Easy to Train</Typography>
-                  <Rating value={easyToTrain} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
                 </div>
               </div>
             </section>
@@ -136,9 +137,10 @@ export function DogProfile() {
             <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsStar /> Favorite
             </Button>
-            <Button variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+            <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsFillHouseDoorFill /> Adopt Me
             </Button>
+            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
           </section>
           <section className='progress-bar'>
             <b>Progress in the shelter's training milestones</b>

@@ -29,8 +29,8 @@ class ApiClient {
         // return { data, error } object
         try {
             const res = await axios({ url, method, data, headers })
-            return { data: res.data, error: null}
-        } catch(error) {
+            return { data: res.data, error: null }
+        } catch (error) {
             const message = error?.response?.data?.error?.message
             return { data: null, error: message || String(error) }
         }
@@ -39,11 +39,11 @@ class ApiClient {
     // AUTH ===============================================================================
 
     async login(credentials) {
-        return await this.request({ endpoint:'auth/login', method:'POST', data:credentials })
+        return await this.request({ endpoint: 'auth/login', method: 'POST', data: credentials })
     }
 
     async signup(credentials) {
-        return await this.request({ endpoint:'auth/register', method:'POST', data:credentials })
+        return await this.request({ endpoint: 'auth/register', method: 'POST', data: credentials })
     }
 
     async logout() {
@@ -53,37 +53,36 @@ class ApiClient {
     }
 
     async fetchUserFromToken() {
-        return await this.request({ endpoint:'auth/me', method:'GET' })
+        return await this.request({ endpoint: 'auth/me', method: 'GET' })
     }
 
 
     // DOGS ===============================================================================
 
     async fetchDogs(filters) {
-        return await this.request({ endpoint:'dogs/', method:'POST', data:filters })
+        return await this.request({ endpoint: 'dogs/', method: 'POST', data: filters })
     }
 
     async fetchDogById(dogId) {
         // get information about an individual dog using their ID
-        console.log("Calling fetchDogsById in ApiClient")
-        return await this.request({ endpoint:`dogs/${dogId}`, method: 'GET'})
+        return await this.request({ endpoint: `dogs/${dogId}`, method: 'GET' })
     }
 
     // DOG-RECORDS ===============================================================================
-    
+
     async fetchDogRecords() {
         // get dogs under the user's associated shelter
-        return await this.request({ endpoint:'dog-records/', method:'GET' })
+        return await this.request({ endpoint: 'dog-records/', method: 'GET' })
     }
 
     async createDogRecord(dogInformation) {
         // create a new dog record
-        return await this.request({ endpoint:'dog-records/', method:'POST', data:dogInformation })
+        return await this.request({ endpoint: 'dog-records/', method: 'POST', data: dogInformation })
     }
 
     async fetchDogRecordById(dogId) {
         // get an individual dog record
-        return await this.request({ endpoint:`dog-records/${dogId}`, method:'GET' })
+        return await this.request({ endpoint: `dog-records/${dogId}`, method: 'GET' })
     }
 
     async updateDogRecord(dogId, dogInformation) {
@@ -94,36 +93,36 @@ class ApiClient {
 
     async deleteDogRecord(dogId) {
         // delete an individual dog record
-        return await this.request({ endpoint:`dog-records/${dogId}`, method:'DELETE' })
+        return await this.request({ endpoint: `dog-records/${dogId}`, method: 'DELETE' })
     }
 
 
     // MILESTONES ===============================================================================
 
     async fetchMilestones(dogId) {
-        return await this.request({ endpoint: `milestone/view/${dogId}`, method: 'GET'})
+        return await this.request({ endpoint: `milestone/view/${dogId}`, method: 'GET' })
     }
 
 
     async createMilestone(milestoneInformation) {
         // create a new milestone
-        return await this.request({ endpoint:'milestone/', method:'POST', data:milestoneInformation })
+        return await this.request({ endpoint: 'milestone/', method: 'POST', data: milestoneInformation })
     }
 
     async fetchMilestoneById(milestoneId) {
         // get information about an individual milestone
-        return await this.request({ endpoint:`milestone/${milestoneId}`, method:'GET'})
+        return await this.request({ endpoint: `milestone/${milestoneId}`, method: 'GET' })
     }
 
     async updateMilestone(milestoneId, milestoneInformation) {
         // edit information about an individual milestone
         // NOTE: revisit once data structure is clearly defined, can possibly condense to just the milestoneInformation parameter
-        return await this.request({ endpoint:`milestone/${milestoneId}`, method:'PUT', data:milestoneInformation})
+        return await this.request({ endpoint: `milestone/${milestoneId}`, method: 'PUT', data: milestoneInformation })
     }
 
     async deleteMilestone(milestoneId) {
         // delete a milestone
-        return await this.request({ endpoint:`milestone/${milestoneId}`, method:'DELETE'})
+        return await this.request({ endpoint: `milestone/${milestoneId}`, method: 'DELETE' })
     }
 
 
@@ -131,23 +130,23 @@ class ApiClient {
 
     async fetchStarredDogs() {
         // get all of the dogs a user has starred
-        return await this.request({ endpoint:'user/starred', method:'GET' })
+        return await this.request({ endpoint: 'user/starred', method: 'GET' })
     }
 
     async fetchStarredDog(dogId) {
-        return await this.request({ endpoint: `user/starred/${dogId}`, method: 'GET', data: {dogId}})
+        return await this.request({ endpoint: `user/starred/${dogId}`, method: 'GET', data: { dogId } })
     }
 
     async starDog(dogId) {
         // add a dog to the user's starred list
         // called when the user clicks the "Star" button on the dog profile
-        return await this.request({ endpoint:`user/starred`, method:'POST', data:dogId })
+        return await this.request({ endpoint: `user/starred`, method: 'POST', data: dogId })
     }
 
     async unstarDog(dogId) {
         // remove a dog from the user's starred list
         // called when the user clicks the "Unstar" button on the dog profile
-        return await this.request({ endpoint:`user/starred/${dogId}`, method:'DELETE' })
+        return await this.request({ endpoint: `user/starred/${dogId}`, method: 'DELETE' })
     }
 
 
@@ -156,14 +155,36 @@ class ApiClient {
     async fetchDogBreeds() {
         // get dog breed names
         // used to populate breed select area in dog search page
-        return await this.request({ endpoint:`search/dog-breeds`, method:'GET' })
+        return await this.request({ endpoint: `search/dog-breeds`, method: 'GET' })
     }
 
     async fetchShelters() {
         // get shelter names
         // used to populate shelter select area in dog search page
-        return await this.request({ endpoint:`search/shelters`, method: 'GET' })
+        return await this.request({ endpoint: `search/shelters`, method: 'GET' })
     }
+
+    // ADOPTION INQUIRIES ============================================================================
+    async fetchAllInquiries() {
+        // get all adoption inquiries
+        return await this.request({ endpoint: `adoptions/`, method: 'GET' })
+    }
+
+    async fetchInquiriesByDog(dogId) {
+        // get adoption inquiries for a single dog
+        return await this.request({ endpoint: `adoptions/${dogId}`, method: 'GET' })
+    }
+
+    async createAdoptionInquiry(form) {
+        // post a dog adoption inquiry
+        return await this.request({ endpoint: `adoptions`, method: 'POST', data: form })
+    }
+
+    async deleteAdoptionInquiry(data) {
+        // delete a dog adoption inquiry
+        return await this.request({ endpoint: `adoptions/`, method: 'DELETE', data: data })
+    }
+
 
 }
 

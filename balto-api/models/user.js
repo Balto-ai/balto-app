@@ -12,7 +12,7 @@ class User {
             email: user.email,
             firstName: user.first_name,
             lastName: user.last_name,
-            shelterId: user.shelter_id
+            shelterId: user.shelter_id,
         }
     }
 
