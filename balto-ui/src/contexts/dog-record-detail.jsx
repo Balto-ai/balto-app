@@ -12,8 +12,6 @@ export function DogRecordDetailContextProvider({ children }) {
     const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
 
-    const [updatedDogRecord, setUpdatedDogRecord] = React.useState(false)
-
     const { dogId } = useParams()
     const { user } = useAuthContext()
 
@@ -34,14 +32,14 @@ export function DogRecordDetailContextProvider({ children }) {
         }
         setIsLoading(false)
         setInitialized(true)
-    }, [user, updatedDogRecord])
+    }, [user])
 
     const editDogRecord = async (dogId, updateForm) => {
         const { data, error } = await ApiClient.updateDogRecord(dogId, updateForm)
         if (error) setError(error)
-        if (data) {
+        if (data?.updatedDogRecord) {
             setError(null)
-            setUpdatedDogRecord(true)
+            setDogRecord(data.updatedDogRecord)
         }
     }
 
@@ -51,7 +49,6 @@ export function DogRecordDetailContextProvider({ children }) {
             initialized, setInitialized,
             isLoading, setIsLoading,
             error, setError,
-            updatedDogRecord, setUpdatedDogRecord,
             editDogRecord
         }} >
             {children}
