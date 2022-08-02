@@ -297,7 +297,6 @@ export default function EditDogRecord() {
           <Button type="submit" className="mb-2 form-item">Save</Button>
 
         </Form>
-        <p>{JSON.stringify(form)}</p>
       </div>
     </div>
   )
