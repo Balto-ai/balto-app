@@ -39,8 +39,6 @@ export default function DogSearchPage() {
     shelterIds: selectedShelters
   }
 
-  console.log(filters)
-
   // function to handle checking/unchecking checkboxes used in the size, gender, and good with filters
   //    takes a state var and setState var  as params (ex. selectedSizes and setSelectedSizes)
   const handleCheck = (evt, stateArr, setStateArr) => {
