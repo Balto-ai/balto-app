@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import { useAuthContext } from '../../contexts/auth'
 import { useDogRecordsContext } from '../../contexts/dog-records'
+import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -24,12 +25,9 @@ export default function EditDogRecord() {
   const { dogId } = useParams()
 
   const { user } = useAuthContext()
-  const { editDogRecord, error, setError } = useDogRecordsContext()
+  const { dogRecord, editDogRecord, error, setError, initialized } = useDogRecordDetailContext()
 
-  const [dogRecord, setDogRecord] = React.useState({})
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
-  const [isInitialized, setIsInitialized] = React.useState(false)
-
   const [isValidated, setIsValidated] = React.useState(false)
 
   // options that will show up as form options, not used for anything else
@@ -48,22 +46,6 @@ export default function EditDogRecord() {
     energy_level: "Energy Level",
     exercise_needs: "Exercise Needs"
   }
-
-  // useEffect to get the row in the dog table
-  React.useEffect(() => {
-    setIsInitialized(false)
-    const getDogRecord = async () => {
-      const { data, error } = await ApiClient.fetchDogRecordById(dogId)
-      if (data?.dogRecord) {
-        setDogRecord(data.dogRecord[0])
-      }
-      if (error) setError(error)
-    }
-    if (user?.email && user?.shelterId) {
-      getDogRecord()
-      setIsInitialized(true)
-    }
-  }, [user])
 
   const handleOnInputChange = (evt) => {
     // if the value is different from the original dogRecord value, add the key and value to the form object
@@ -117,7 +99,7 @@ export default function EditDogRecord() {
     }
   }
 
-  if (isInitialized) {
+  if (initialized) {
   return (
     <div className="add-record-form primary-container">
       <div className="add-record-card">
