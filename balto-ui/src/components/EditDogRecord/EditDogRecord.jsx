@@ -1,8 +1,6 @@
 import React from 'react'
 import { useNavigate, useParams } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
-import { useAuthContext } from '../../contexts/auth'
-import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
@@ -18,13 +16,11 @@ import "./EditDogRecord.css"
 export default function EditDogRecord() {
 
   // TODO: refer to TODO LIST in AddDogRecord.jsx
-  //  - show breed on intitial render
-  //  - show rating on initial render
+  //  - breed and ratings show correctly on initial load, but disappears after refreshing ??
 
   const navigate = useNavigate()
   const { dogId } = useParams()
 
-  const { user } = useAuthContext()
   const { dogRecord, editDogRecord, error, setError, initialized } = useDogRecordDetailContext()
 
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
@@ -50,6 +46,18 @@ export default function EditDogRecord() {
   const handleOnInputChange = (evt) => {
     // if the value is different from the original dogRecord value, add the key and value to the form object
     if (dogRecord[evt.target.name] !== evt.target.value) {
+      setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
+      // else, remove the kay/value pair from the form object. This is done to reduce the request body size as much as possible
+    } else {
+      let tempForm = {...form}
+      delete tempForm[evt.target.name]
+      setForm(tempForm)
+    }
+  }
+
+  const handleOnDateChange = (evt) => {
+    // similar to handleOnInputChange, just formats the date correctly
+    if (dogRecord[evt.target.name].substring(0,10) !== evt.target.value) {
       setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
       // else, remove the kay/value pair from the form object. This is done to reduce the request body size as much as possible
     } else {
@@ -154,7 +162,7 @@ export default function EditDogRecord() {
                   name="dob"
                   type="date"
                   defaultValue={dogRecord?.dob?.substring(0,10)}
-                  onChange={handleOnInputChange}
+                  onChange={handleOnDateChange}
                   required
                   className="form-input" />
               </Form.Group>
@@ -166,7 +174,7 @@ export default function EditDogRecord() {
                   name="date_entered"
                   type="date"
                   defaultValue={dogRecord?.date_entered?.substring(0,10)}
-                  onChange={handleOnInputChange}
+                  onChange={handleOnDateChange}
                   required
                   className="form-input" />
               </Form.Group>
@@ -252,6 +260,7 @@ export default function EditDogRecord() {
                   <Form.Label>{ratings[category]}</Form.Label>
                   <Rating
                     name={category}
+                    value={form[category] || dogRecord[category]}
                     onChange={handleOnRatingChange}
                     icon={<IoPaw fontSize="inherit" />}
                     emptyIcon={<IoPawOutline fontSize="inherit" />}
@@ -288,6 +297,7 @@ export default function EditDogRecord() {
           <Button type="submit" className="mb-2 form-item">Save</Button>
 
         </Form>
+        <p>{JSON.stringify(form)}</p>
       </div>
     </div>
   )
