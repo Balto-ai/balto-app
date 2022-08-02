@@ -9,6 +9,9 @@ CREATE TABLE shelters (
     state       TEXT NOT NULL,
     zipcode     TEXT NOT NULL,
     phone_number TEXT NOT NULL,
+    image_url   TEXT NOT NULL,
+    latitude    FLOAT NOT NULL,
+    longitude   FLOAT NOT NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

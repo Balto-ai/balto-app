@@ -27,7 +27,7 @@ export default function DogProfileContainer() {
 export function DogProfile() {
 
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
-  const { user } = useAuthContext({})
+  const { user, location } = useAuthContext({})
   const [kidFriendly, setKidFriendly] = useState(false)
   const [strangerFriendly, setStrangerFriendly] = useState(false)
   const [dogFriendly, setDogFriendly] = useState(false)
@@ -54,107 +54,12 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
+  console.log("User's city: ", location.city)
+
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
     <div className='profile-page'>
-      <div className='banner'>
-        <img src="#" className='banner-img'></img>
-      </div>
-      <div className='split-pane'>
-        <div className='profile-pane'>
-          <div className='profile-header'>
-            <img src={dogInfo.image_url} className='profile-img'></img>
-            <div className='profile-title'>
-              <span>Hi, I'm <h1>{dogInfo.dog_name}</h1></span>
-              <section className='tags'>
-                <Badge bg="primary" className='tag'>{dogInfo.breed}</Badge>
-                <Badge bg="primary" className='tag'>{getAgeGroup(dogInfo.dob)}</Badge>
-                <Badge bg="primary" className='tag'>{dogInfo.size}</Badge>
-                <Badge bg="primary" className='tag'>{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>
-              </section>
-            </div>
-          </div>
-          <div className='about-section'>
-            <section className='desc-1'>
-              <h2>I'm known for being...</h2>
-              <p>{dogInfo.desc_1}</p>
-            </section>
-            <section className='desc-2'>
-              <h2>I'm looking for someone who...</h2>
-              <p>{dogInfo.desc_2}</p>
-            </section>
-            <section className='attributes'>
-              <h2>A little more about me...</h2>
-              <div className='attributes-list'>
-                <div>
-                  <span className='checkbox-line'>
-                    {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {kidFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {dogFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {catFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {strangerFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
-                  </span>
-                </div>
-                <div>
-                  <Typography component="legend" noWrap={true}>Playfulness</Typography>
-                  <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend" noWrap={true}>Energy Levels</Typography>
-                  <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend" noWrap={true}>Exercise Needs</Typography>
-                  <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                </div>
-              </div>
-            </section>
-            <section className='shelter-loc'>
-              <h2>You can meet me at...</h2>
-              <p>{dogInfo.shelter_name}</p>
-              <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
-              <p>{dogInfo.email}</p>
-            </section>
-          </div>
-        </div>
-        <div className='training-pane'>
-          <section className='action-btns'>
-            <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-              <BsStar /> Favorite
-            </Button>
-            <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-              <BsFillHouseDoorFill /> Adopt Me
-            </Button>
-            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
-          </section>
-          <section className='progress-bar'>
-            <b>Progress in the shelter's training milestones</b>
-            <br></br>
-            <ProgressBar now={60} striped variant="secondary" />
-          </section>
-          <div className='training-feed'>
-            <h2>Training Feed</h2>
-            <div className='feed'>
-              {/* <TrainingFeed /> */}
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   )
   // }
