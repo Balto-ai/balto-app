@@ -47,7 +47,13 @@ class Dogs {
         }
 
         // check if everything in filters.size is 'small' or 'medium' or 'large'
+        if (!filters.size.every((item) => {return ['small','medium', 'large'].includes(item)})) {
+            throw new BadRequestError("Invalid size filter")
+        }
         // check if everything in filters.sex is 'm' or 'f'
+        if (!filters.sex.every((item) => {return ['m','f'].includes(item)})) {
+            throw new BadRequestError("Invalid sex filter")
+        }
 
         const breedQuery = Dogs.createListQuery("breed", filters.breed)
         const sizeQuery = Dogs.createListQuery("size", filters.size)
