@@ -34,14 +34,11 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
     const handleOnFormSubmit = async (evt) => {
         evt.preventDefault()
         setIsValidated(true)
-        console.log("Handling adoption form submission...")
-        console.log("Form:", form)
         // TODO: add form validation
         submitForm(form)
     }
 
     const submitForm = async (submittedForm) => {
-        console.log("calling submitForm()")
         const { data, error } = await ApiClient.createAdoptionInquiry(submittedForm)
         onHide()
         if (data) {

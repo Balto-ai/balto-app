@@ -78,7 +78,6 @@ class Adoptions {
         }
 
         const existingAdoptionInquiry = await Adoptions.fetchAdoptionInquiryByDogAndUser(dogId, userId)
-        console.log("existingAdoptionInquiry", existingAdoptionInquiry)
         if (existingAdoptionInquiry.length > 0) {
             throw new BadRequestError("This adoption inquiry already exists")
         }

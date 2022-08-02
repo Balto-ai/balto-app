@@ -65,7 +65,6 @@ class ApiClient {
 
     async fetchDogById(dogId) {
         // get information about an individual dog using their ID
-        console.log("Calling fetchDogsById in ApiClient")
         return await this.request({ endpoint: `dogs/${dogId}`, method: 'GET' })
     }
 

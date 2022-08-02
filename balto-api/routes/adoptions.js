@@ -27,7 +27,6 @@ router.get("/:dogId", async (req, res, next) => {
 // create the adoption inquiry between a dog and user
 router.post("/", async (req, res, next) => {
     try {
-        console.log("REQUEST BODY", req.body)
         const adoptionForm = req?.body
         const { dogId } = req?.body
         const { userId } = req?.body
