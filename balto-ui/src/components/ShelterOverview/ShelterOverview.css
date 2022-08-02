@@ -4,6 +4,12 @@
     flex-direction: column;
 }
 
+.shelter-overview-grid {
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius-small)
+}
+
 /* FILTERS (SEARCHBAR AND SORT) */
 .filter-sort-bar {
     display: flex;
