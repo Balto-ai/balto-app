@@ -79,9 +79,9 @@ export function DropDownSortMenu() {
         Sort by:
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={()=>{setSort("name"); console.log(starredList)}}>Name (A-Z)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSort("name")}}>Name (A-Z)</Dropdown.Item>
         <Dropdown.Item onClick={()=>{starredList.sort()}}>Distance (Ascending)</Dropdown.Item>
-        <Dropdown.Item onClick={()=>{setSort("size"); console.log(starredList)}}>Size (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSort("size")}}>Size (Ascending)</Dropdown.Item>
         <Dropdown.Item onClick={()=>{setSort("age")}}>Age (Ascending)</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

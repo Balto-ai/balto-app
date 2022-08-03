@@ -364,7 +364,6 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
     fetchDogResults()
   }, [filters])
 
-  console.log("DOGRESULTS", dogResults)
 
   return (
     <div className="dog-grid">

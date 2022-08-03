@@ -76,7 +76,6 @@ class Dogs {
             INNER JOIN shelters
             ON shelters.id = dogs.shelter_id
             ${whereClause}`
-        console.log(query)
         const result = await db.query(query)
         return result.rows
 

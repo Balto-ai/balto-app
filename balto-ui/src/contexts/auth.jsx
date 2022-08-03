@@ -16,7 +16,6 @@ export function AuthContextProvider({ children }) {
     React.useEffect(() => {
         const getLocation = async () => {
             const { data, error } = await axios.get('https://geolocation-db.com/json/')
-            console.log("GEODATA: ", data)
             setUserLocation(data)
         }
         getLocation()
