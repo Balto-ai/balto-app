@@ -34,7 +34,7 @@ export default function AddDogRecord() {
   const [imageUpload, setImageUpload] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
-  // const [url, setUrl] = React.useState(null)
+
   // options that will show up as form options, not used for anything else
   const sexOptions = ["Male", "Female"]
   const sizeOptions = ["Small", "Medium", "Large"]
@@ -233,18 +233,7 @@ export default function AddDogRecord() {
             <div className='save-btn-area'>
               <Button className='save-btn' onClick={uploadImage}>Upload</Button>
             </div>
-            
-            {/* image URL input */}
-            {/* <Form.Group className="form-item mb-3">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control
-                name="imageUrl"
-                type="text"
-                value={form.imageUrl}
-                onChange={handleOnInputChange}
-                required
-                className="form-input" />
-            </Form.Group> */}
+           
           </Form.Group>
   
           
