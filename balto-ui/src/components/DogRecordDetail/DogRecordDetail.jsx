@@ -40,10 +40,6 @@ export default function DogRecordDetail() {
     setExerciseNeeds(dogRecord.exercise_needs)
   })
 
-  if (!initialized && !dogRecord) {
-    return <h1>Loading...</h1>
-  }
-
   return (
     <Container fluid="true" className="dog-record-detail">
       
