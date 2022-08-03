@@ -63,8 +63,13 @@ export function DogProfile() {
       <div class='row'>
         <h1>{dogInfo.dog_name}</h1>
       </div>
-      <div>
-        <img src={dogInfo.dog_image_url} className="main-image"/>
+      <div class='row align-items-center' >
+        <div class='col-sm align-items-center'>
+          <img src={dogInfo.dog_image_url} className="main-image" />
+        </div>
+        <div class='col-sm align-items-center'>
+          <img src={dogInfo.dog_image_url} className="main-image" />
+        </div>
       </div>
     </div>
   )
