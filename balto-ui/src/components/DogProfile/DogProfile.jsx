@@ -4,13 +4,7 @@ import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "r
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image'
-import Badge from 'react-bootstrap/Badge'
-import Button from 'react-bootstrap/Button'
-import Carousel from 'react-bootstrap/Carousel';
+import { Container, Row, Col, Image, Badge, Button, Carousel } from 'react-bootstrap'
 
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
@@ -64,15 +58,12 @@ export function DogProfile() {
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    <Container class='container'>
-      <Row>
-        <h1>Hi! I'm {dogInfo.dog_name}.</h1>
-      </Row>
+    <Container>
       <Row>
         <Col class='col-sm align-items-center'>
           <Carousel>
             <Carousel.Item>
-            <img src={dogInfo.dog_image_url} className="main-image" />
+              <img src={dogInfo.dog_image_url} className="main-image" />
               <Carousel.Caption>
                 <h3>{dogInfo.dog_name}</h3>
                 <p>I'm a {dogInfo.breed}.</p>
@@ -81,6 +72,10 @@ export function DogProfile() {
           </Carousel>
         </Col>
         <Col class='col-sm'>
+          <Row>
+            <h1>Hi! I'm {dogInfo.dog_name}.</h1>
+          </Row>
+          <Row>
           <section className='action-btns'>
             <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsStar /> Favorite
@@ -90,19 +85,20 @@ export function DogProfile() {
             </Button>
             <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
           </section>
+          </Row>
+          <Row>
           <div className='about-section'>
-            <section className='desc-1'>
+            <Row className='desc-1'>
               <h2>I'm known for being...</h2>
               <p>{dogInfo.desc_1}</p>
-            </section>
-            <section className='desc-2'>
+            </Row>
+            <Row className='desc-2'>
               <h2>I'm looking for someone who...</h2>
               <p>{dogInfo.desc_2}</p>
-            </section>
-            <section className='attributes'>
+            </Row>
+            <Row className='attributes'>
               <h2>A little more about me...</h2>
               <div className='attributes-list'>
-                <div>
                   <span className='checkbox-line'>
                     {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
@@ -138,17 +134,16 @@ export function DogProfile() {
                     emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                 </div>
-              </div>
-            </section>
-            <section className='shelter-loc'>
+            </Row>
+            <Row className='shelter-loc'>
               <h2>You can meet me at...</h2>
               <p>{dogInfo.shelter_name}</p>
               <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
               <p>{dogInfo.email}</p>
-            </section>
+            </Row>
           </div>
+          </Row>
         </Col>
-
       </Row>
     </Container>
   )

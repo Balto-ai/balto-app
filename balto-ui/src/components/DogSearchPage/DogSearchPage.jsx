@@ -298,6 +298,8 @@ function sortByDOBDesc(a, b) {
 
 
 
+
+
 // sort dogRecords based on sort criteria
 if (sortBy === 'Name (A-Z)') {
   dogResults.sort( sortByNameAsc )
@@ -325,6 +327,8 @@ if (sortBy === 'Name (A-Z)') {
     };
     fetchDogResults()
   }, [filters])
+
+  console.log("DOGRESULTS", dogResults)
 
   return (
     <div className="dog-grid">
