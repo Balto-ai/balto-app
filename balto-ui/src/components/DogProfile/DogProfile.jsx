@@ -26,7 +26,7 @@ export default function DogProfileContainer() {
 export function DogProfile() {
 
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
-  const { user, location } = useAuthContext()
+  const { user } = useAuthContext()
   const [kidFriendly, setKidFriendly] = useState(false)
   const [strangerFriendly, setStrangerFriendly] = useState(false)
   const [dogFriendly, setDogFriendly] = useState(false)
@@ -52,9 +52,6 @@ export function DogProfile() {
   const handleOnFavorite = async () => {
     return await ApiClient.starDog(dogInfo.id)
   }
-
-  console.log("User's city: ", location.city)
-  console.log("dogInfo: ", dogInfo)
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
