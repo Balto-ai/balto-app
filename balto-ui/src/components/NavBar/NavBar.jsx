@@ -19,11 +19,10 @@ export default function NavBar() {
   return (
     <Navbar bg="light" id="navbar">
       <Container>
-        <Logo ShelterAdmin={isShelterAdmin}/>
+        <Logo isShelterAdmin={isShelterAdmin}/>
         <NavLinks isShelterAdmin={isShelterAdmin} />
         <UserLinks
           isLoggedIn={isLoggedIn}
-          isShelterAdmin={isShelterAdmin}
           logoutUser={logoutUser}
           userFirstName={user?.firstName} />
       </Container>
@@ -56,7 +55,7 @@ export function NavLinks({ isShelterAdmin }) {
 }
 
 // 
-export function UserLinks({ isLoggedIn, isShelterAdmin, logoutUser, userFirstName }) {
+export function UserLinks({ isLoggedIn, logoutUser, userFirstName }) {
 
   // if no one is logged in, display the signup/registration buttons
   if (!isLoggedIn) {
