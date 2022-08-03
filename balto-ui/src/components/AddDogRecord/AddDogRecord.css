@@ -24,12 +24,12 @@
     margin-right: 5px;
 }
 .photo-area .camera-icon{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     align-items:'center';
     justify-content:'center';
     vertical-align: middle;
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 10px;
 }
 .photo-area{
@@ -38,4 +38,16 @@
     justify-content: center;
     vertical-align: middle;
     text-align: center;
+}
+.dogImage{  
+    border-radius: 10px;
+    height: 300px;
+}
+.dog-image-area{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.image-preview-container{
+    margin-bottom: 20px;
 }

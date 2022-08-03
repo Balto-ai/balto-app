@@ -25,53 +25,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 
 
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress color='purple' variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
 
-CircularProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate variant.
-   * Value between 0 and 100.
-   * @default 0
-   */
-  value: PropTypes.number.isRequired,
-};
-
-export function CircularStatic() {
-  const [progress, setProgress] = React.useState(10);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 2000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return <CircularProgressWithLabel value={progress} />;
-}
 export default function AddDogRecord() {
 
   // TODO LIST: not part of MVP, but should be addressed in the next sprint
@@ -187,7 +141,7 @@ export default function AddDogRecord() {
     <div className="add-record-form primary-container">
 
       <div className="add-record-card">
-        <h1 className="mb-3">Add a New Dog</h1>
+        <h1 className="mb-3" id='add-dog-title'>Add a New Dog</h1>
         <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           
@@ -290,15 +244,30 @@ export default function AddDogRecord() {
             {/* nonfunctional image upload at the moment, pushed to future sprint */}
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Upload Image</Form.Label>
-                {/* without [0], we could select multiple files */}
 
-                  {/* <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '7px', height: 300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}><img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img></Box> */}
+                  {!form.imageUrl ? 
+                      <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '10px', height: 300, width:300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
+                        
 
-                  <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '10px', height: 300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
-                    <img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img>
-                    <div className='image-preview'>Image Preview</div>
-                    <CircularStatic/>
-                  </Box>
+                      {!isLoading ? 
+                        <div>
+                            <Row className="justify-content-md-center">
+                              <Col> <img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img></Col>
+                            </Row >
+                            <Row className="justify-content-md-center">
+                              <Col> <p>No image preview available</p></Col>
+                            </Row>
+                          </div>
+                          :
+                          null
+                        }
+                      </Box>  
+                  :
+                    <div className='image-preview-container'>
+                      <img className='dogImage' src={form.imageUrl} alt='preview'></img>
+                    </div>
+                  }
+                  
 
                 
                 <Form.Control type="file" onChange={handleOnImageFileChange} />
@@ -438,3 +407,50 @@ export function ShowToast({setShow, show}) {
     </div>
   );
 }
+// function CircularProgressWithLabel(props) {
+//   return (
+//     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+//       <CircularProgress color='purple' variant="determinate" {...props} />
+//       <Box
+//         sx={{
+//           top: 0,
+//           left: 0,
+//           bottom: 0,
+//           right: 0,
+//           position: 'absolute',
+//           display: 'flex',
+//           alignItems: 'center',
+//           justifyContent: 'center',
+//         }}
+//       >
+//         <Typography variant="caption" component="div" color="text.secondary">
+//           {`${Math.round(props.value)}%`}
+//         </Typography>
+//       </Box>
+//     </Box>
+//   );
+// }
+
+// CircularProgressWithLabel.propTypes = {
+//   /**
+//    * The value of the progress indicator for the determinate variant.
+//    * Value between 0 and 100.
+//    * @default 0
+//    */
+//   value: PropTypes.number.isRequired,
+// };
+
+// export function CircularStatic() {
+//   const [progress, setProgress] = React.useState(10);
+
+//   React.useEffect(() => {
+//     const timer = setInterval(() => {
+//       setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+//     }, 2000);
+//     return () => {
+//       clearInterval(timer);
+//     };
+//   }, []);
+
+//   return <CircularProgressWithLabel value={progress} />;
+// }
