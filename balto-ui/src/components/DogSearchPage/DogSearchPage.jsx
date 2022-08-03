@@ -303,8 +303,8 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
   // add distanceBetween attribute to each dog
 
   function sortByLocationAsc(a, b) {
-      if (a.distanceBetween < b.distanceBetween) return 1
-      if (a.distanceBetween > b.distanceBetween) return -1
+      if (a.distanceBetween < b.distanceBetween) return -1
+      if (a.distanceBetween > b.distanceBetween) return 1
     return 0
   }
 
