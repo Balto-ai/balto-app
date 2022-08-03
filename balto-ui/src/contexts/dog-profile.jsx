@@ -23,7 +23,6 @@ export function DogProfileContextProvider({ children }) {
             }
             if (error) {
                 setError(error)
-                console.log("error: ", error)
             }
             setIsLoading(false)
         }
@@ -36,7 +35,6 @@ export function DogProfileContextProvider({ children }) {
             }
             if (error) {
                 setError(error)
-                console.log("error: ", error)
             }
             setIsLoading(false)
         }
