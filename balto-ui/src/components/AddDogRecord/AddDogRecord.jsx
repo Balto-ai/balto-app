@@ -13,6 +13,10 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./AddDogRecord.css"
+import { storage } from '../../firebase/firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 } from 'uuid'
+
 
 export default function AddDogRecord() {
 
@@ -27,10 +31,10 @@ export default function AddDogRecord() {
 
   const navigate = useNavigate()
   const { addDogRecord } = useDogRecordsContext()
-
+  const [imageUpload, setImageUpload] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
-
+  // const [url, setUrl] = React.useState(null)
   // options that will show up as form options, not used for anything else
   const sexOptions = ["Male", "Female"]
   const sizeOptions = ["Small", "Medium", "Large"]
@@ -80,11 +84,28 @@ export default function AddDogRecord() {
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: parseInt(evt.target.value) }))
   }
 
+  const handleOnImageFileChange = (evt) => {
+    if (evt.target.files[0]){
+      setImageUpload(evt.target.files[0])
+    }
+  }
 
+  const uploadImage = () => {
+    if (imageUpload === null) return;
+    let imageName = imageUpload.name + v4();
+    const imageRef = ref(storage, `dogProfileImages/${imageName}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot)=>{
+        getDownloadURL(snapshot.ref).then(async(url)=>{
+          setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
+          
+        })
+      })
+  }
   const handleOnFormSubmit = async (evt) => {
     setError(null)
     evt.preventDefault()
     setIsValidated(true)
+
     const addDogRecordForm = evt.currentTarget
     if (addDogRecordForm.checkValidity() === false) {
       evt.stopPropagation()
@@ -95,7 +116,10 @@ export default function AddDogRecord() {
       navigate("/admin-dashboard")
     }
   }
-
+  console.log(form)
+  React.useEffect(()=>{
+    console.log(form.imageUrl)
+  }, [form.imageUrl])
   return (
     <div className="add-record-form primary-container">
       <div className="add-record-card">
@@ -200,16 +224,18 @@ export default function AddDogRecord() {
               ))}
             </Form.Group>
             </Row>
-  
-
             {/* nonfunctional image upload at the moment, pushed to future sprint */}
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" />
-            </Form.Group>
-
+                {/* without [0], we could select multiple files */}
+                <Form.Control type="file" onChange={handleOnImageFileChange} />
+              </Form.Group>    
+            <div className='save-btn-area'>
+              <Button className='save-btn' onClick={uploadImage}>Upload</Button>
+            </div>
+            
             {/* image URL input */}
-            <Form.Group className="form-item mb-3">
+            {/* <Form.Group className="form-item mb-3">
               <Form.Label>Image URL</Form.Label>
               <Form.Control
                 name="imageUrl"
@@ -218,7 +244,7 @@ export default function AddDogRecord() {
                 onChange={handleOnInputChange}
                 required
                 className="form-input" />
-            </Form.Group>
+            </Form.Group> */}
           </Form.Group>
   
           

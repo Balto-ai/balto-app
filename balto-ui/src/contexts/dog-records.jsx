@@ -36,6 +36,7 @@ export function DogRecordsContextProvider({ children }) {
 
     const addDogRecord = async (dogRecordForm) => {
         setReceivedNewDogRecord(false)
+        console.log(dogRecordForm)
         const { data, error } = await ApiClient.createDogRecord(dogRecordForm)
         if (error) setError(error)
         if (data) {

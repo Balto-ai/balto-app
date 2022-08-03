@@ -77,6 +77,7 @@ class ApiClient {
 
     async createDogRecord(dogInformation) {
         // create a new dog record
+        console.log(dogInformation)
         return await this.request({ endpoint: 'dog-records/', method: 'POST', data: dogInformation })
     }
 

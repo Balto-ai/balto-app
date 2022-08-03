@@ -7,3 +7,9 @@
     font-weight: 500;
     font-size: 1.1em;
 }
+.save-btn{
+    float: right;
+}
+.save-btn-area{
+    margin-bottom: 55px;
+}
