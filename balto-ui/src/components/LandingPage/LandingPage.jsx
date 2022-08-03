@@ -75,6 +75,7 @@ export default function LandingPage() {
 }
 
 export function LandingDogGrid(){
+  
   //constant variables for useEffect
   const [dogResults, setDogResults] = useState([]) 
   const [error, setError] = useState(null)
@@ -83,9 +84,11 @@ export function LandingDogGrid(){
     breed: [],
     size: [],
     sex: [],
-    kidFriendly: [],
-    strangerFriendly: [],
-    dogFriendly: [],
+    kidFriendly: false,
+    strangerFriendly: false,
+    dogFriendly: false,
+    catFriendly: false,
+    noviceFriendly: false,
     distance: '' || null,
     shelterIds: []
   }
@@ -94,7 +97,9 @@ export function LandingDogGrid(){
     const fetchDogResults = async () => {
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
+        console.log(data)
         setDogResults(data.dogResults)
+
         setError(null)
       }
       if (error) setError(error);
@@ -103,6 +108,7 @@ export function LandingDogGrid(){
   }, [])
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
+  
 
   return(
     <Grid container direction='row' gap={1.5}>
