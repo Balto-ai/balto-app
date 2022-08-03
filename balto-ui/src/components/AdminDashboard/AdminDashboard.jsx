@@ -4,6 +4,7 @@ import { DogRecordsContextProvider } from "../../contexts/dog-records"
 import ShelterOverview from '../ShelterOverview/ShelterOverview'
 import AddDogRecord from '../AddDogRecord/AddDogRecord'
 import DogRecordPage from '../DogRecordPage/DogRecordPage'
+import AdoptionInquiriesPage from '../AdoptionInquiriesPage/AdoptionInquiriesPage'
 // import EditDogRecord from '../EditDogRecord/EditDogRecord'
 // import DogRecordDetail from '../DogRecordDetail/DogRecordDetail'
 import NotFound from '../NotFound/NotFound'
@@ -28,6 +29,8 @@ export function AdminDashboard() {
             <AddDogRecord />} />
           <Route path="/dog-record/id/:dogId/*" element={
             <DogRecordPage />} />
+          <Route path="adoption-inquiries" element={
+            <AdoptionInquiriesPage />} />
           <Route path="/*" element={
             <NotFound />} />
         </Routes>
