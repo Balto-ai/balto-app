@@ -102,7 +102,6 @@ export default function AddDogRecord() {
     uploadBytes(imageRef, imageUpload).then((snapshot)=>{
         getDownloadURL(snapshot.ref).then(async(url)=>{
           setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
-          
         })
       })
       setLoading(true)
