@@ -1,6 +1,6 @@
 -- SEED File to create mock data
 
-INSERT INTO shelters (name, url, email, address, city, state, zipcode, phone_number)
+INSERT INTO shelters (name, url, email, address, city, state, zipcode, phone_number, image_url, latitude, longitude)
 VALUES (
     'The Real Bark',
     'https://www.therealbark.org',
@@ -9,7 +9,10 @@ VALUES (
     'Los Angeles',
     'CA',
     '90026',
-    '3238342360'
+    '3238342360',
+    'https://pbs.twimg.com/profile_images/1417607570127167490/6dOMFt6g_400x400.jpg',
+    34.0907365678171, 
+    -118.27843708701957
 ), (
     'Vanderpump Dogs',
     'https://www.vanderpumpdogs.org',
@@ -18,7 +21,10 @@ VALUES (
     'Los Angeles',
     'CA',
     '90026',
-    '3238523647'
+    '3238523647',
+    'https://pbs.twimg.com/profile_images/1068256605496532992/vPCJxT4B_400x400.jpg',
+    34.07224872150636, 
+    -118.3672076330468
 );
 
 INSERT INTO users (first_name, last_name, email, password, zipcode, is_admin, created_at, shelter_id)

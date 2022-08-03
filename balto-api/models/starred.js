@@ -64,7 +64,6 @@ class Starred {
 
     // check if there is already a specific user dog pairing in the database
     static async fetchUserDogPairing(userId, dogId) {
-        console.log("in fetchUserDogPairing", userId, dogId)
         if (!userId) {
             throw new BadRequestError("No userId provided")
         }
@@ -95,8 +94,6 @@ class Starred {
         if (result.rows.length === 0) {
             throw new UnauthorizedError("The starred dog does not exist")
         }
-
-        console.log("RESULT", result)
 
         return result.rows
     }

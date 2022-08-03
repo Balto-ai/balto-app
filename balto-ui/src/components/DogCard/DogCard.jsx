@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import StarButton from '../StarButton/StarButton'
 import './DogCard.css'
 
-export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="" }) { 
+export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="", distancebetween=0 }) { 
 
   const navigate = useNavigate()
 
@@ -56,7 +56,7 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
           <div className='dog-info-header'>
             <h2 className='dog-name'>{name}</h2>
             {/* using placeholder distance here */}
-            <h2 className='dog-distance'>2.1 mi</h2>
+            <h2 className='dog-distance'>{Math.round(distancebetween)} miles</h2>
           </div>
           <StarButton dogId={dogId} dogName={name} />
         </div>

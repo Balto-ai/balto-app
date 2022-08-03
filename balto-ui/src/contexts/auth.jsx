@@ -1,23 +1,34 @@
 import * as React from "react"
 import ApiClient from "../services/ApiClient"
+import axios from 'axios'
 
 const AuthContext = React.createContext()
 
-export function AuthContextProvider( {children} ) {
+export function AuthContextProvider({ children }) {
     const [user, setUser] = React.useState({})
     const [initialized, setInitialized] = React.useState(false)
     const [isProcessing, setIsProcessing] = React.useState(false)
     const [error, setError] = React.useState(null)
     const [isAuthed, setIsAuthed] = React.useState(false)
+    const [userLocation, setUserLocation] = React.useState({})
+
+    // on load, fetch user location data for sorting by location and map view
+    React.useEffect(() => {
+        const getLocation = async () => {
+            const { data, error } = await axios.get('https://geolocation-db.com/json/')
+            setUserLocation(data)
+        }
+        getLocation()
+    }, [])
 
     React.useEffect(() => {
         const fetchUser = async () => {
-          const { data, error } = await ApiClient.fetchUserFromToken()
-          if (data?.user) {
-            setUser(data.user)
-            setError(null)
-          }
-          if (error) setError(error)
+            const { data, error } = await ApiClient.fetchUserFromToken()
+            if (data?.user) {
+                setUser(data.user)
+                setError(null)
+            }
+            if (error) setError(error)
         }
 
         const token = localStorage.getItem("balto_token")
@@ -29,7 +40,10 @@ export function AuthContextProvider( {children} ) {
         }
         setIsProcessing(false)
         setInitialized(true)
-        }, [isAuthed])
+
+    }, [isAuthed])
+
+
 
     const validateEmail = (email) => {
         const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -71,17 +85,19 @@ export function AuthContextProvider( {children} ) {
     }
 
     return (
-    <AuthContext.Provider value={ { user, setUser,
-                                    initialized, setInitialized,
-                                    isProcessing, setIsProcessing,
-                                    error, setError,
-                                    validateEmail,
-                                    loginUser,
-                                    signupUser,
-                                    logoutUser,
-                                   } } >
-        {children}
-    </AuthContext.Provider>
+        <AuthContext.Provider value={{
+            user, setUser,
+            userLocation, setUserLocation,
+            initialized, setInitialized,
+            isProcessing, setIsProcessing,
+            error, setError,
+            validateEmail,
+            loginUser,
+            signupUser,
+            logoutUser,
+        }} >
+            {children}
+        </AuthContext.Provider>
     )
 }
 
