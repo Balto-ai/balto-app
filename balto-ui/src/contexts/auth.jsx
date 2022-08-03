@@ -10,18 +10,17 @@ export function AuthContextProvider({ children }) {
     const [isProcessing, setIsProcessing] = React.useState(false)
     const [error, setError] = React.useState(null)
     const [isAuthed, setIsAuthed] = React.useState(false)
-    const [location, setLocation] = React.useState({})
+    const [userLocation, setUserLocation] = React.useState({})
 
     // on load, fetch user location data for sorting by location and map view
     React.useEffect(() => {
         const getLocation = async () => {
             const { data, error } = await axios.get('https://geolocation-db.com/json/')
             console.log("GEODATA: ", data)
-            setLocation(data)
+            setUserLocation(data)
         }
         getLocation()
     }, [])
-
 
     React.useEffect(() => {
         const fetchUser = async () => {
@@ -89,7 +88,7 @@ export function AuthContextProvider({ children }) {
     return (
         <AuthContext.Provider value={{
             user, setUser,
-            location, setLocation,
+            userLocation, setUserLocation,
             initialized, setInitialized,
             isProcessing, setIsProcessing,
             error, setError,

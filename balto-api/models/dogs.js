@@ -70,7 +70,11 @@ class Dogs {
 
         
         const query = `
-            SELECT * FROM dogs
+            SELECT dogs.breed, dogs.name, dogs.id as dog_id, dogs.dob, dogs.image_url,
+            shelters.latitude, shelters.longitude, shelters.id as shelter_id
+            FROM dogs
+            INNER JOIN shelters
+            ON shelters.id = dogs.shelter_id
             ${whereClause}`
         console.log(query)
         const result = await db.query(query)

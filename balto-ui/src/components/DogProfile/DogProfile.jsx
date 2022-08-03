@@ -26,7 +26,7 @@ export default function DogProfileContainer() {
 export function DogProfile() {
 
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
-  const { user, location } = useAuthContext({})
+  const { user, location } = useAuthContext()
   const [kidFriendly, setKidFriendly] = useState(false)
   const [strangerFriendly, setStrangerFriendly] = useState(false)
   const [dogFriendly, setDogFriendly] = useState(false)
