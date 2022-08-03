@@ -33,7 +33,7 @@ export function AdoptionInquiriesPage() {
       ]
 
     return (
-        <div className="shelter-overview primary-container" style={{ display: 'flex', height: '100%', width: '100%' }}>
+        <div className="adoption-inquiries-page primary-container" style={{ display: 'flex', height: '100%', width: '100%' }}>
             <div className="top-bar">
                 <Searchbar setSearchQuery={setSearchQuery} />
             </div>

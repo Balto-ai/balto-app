@@ -4,13 +4,6 @@
     flex-direction: column;
 }
 
-/* DataGrid component */
-.shelter-overview-grid {
-    background-color: white;
-    padding: 20px;
-    border-radius: var(--border-radius-small);
-}
-
 /* SEARCHBAR AND ADD RECORD BUTTON */
 .shelter-overview .top-bar {
     display: flex;
@@ -23,12 +16,6 @@
 .dog-record-add-btn {
     width: 100px;
     flex-shrink: 1;
-}
-
-/* search bar */
-.dog-record-search {
-    width: 100%;
-    min-width: 400px;
 }
 
 .dog-name {

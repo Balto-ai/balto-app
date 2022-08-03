@@ -3,11 +3,12 @@ import Form from 'react-bootstrap/Form'
 import Pagination from '@mui/material/Pagination'
 import PaginationItem from '@mui/material/PaginationItem'
 import { styled } from '@mui/material/styles'
+import './CustomDataGrid.css'
 
 // searchbar updates searchQuery var whenever the value is changed
 export function Searchbar({ setSearchQuery }) {
     return (
-        <Form.Group className="mb-3 dog-record-search">
+        <Form.Group className="mb-3 searchbar">
           <Form.Control placeholder="Search by Name" onChange={(evt)=>setSearchQuery(evt.target.value)} />
         </Form.Group>
     )
@@ -15,7 +16,7 @@ export function Searchbar({ setSearchQuery }) {
 
 export default function CustomDataGrid(props) {
     return (
-        <div style={{ flexGrow: 1}} className="shelter-overview-grid">
+        <div style={{ flexGrow: 1}} className="custom-data-grid">
             <StyledDataGrid
                 rows={props.rows}
                 columns={props.columns}
