@@ -55,9 +55,9 @@ export function DogProfile() {
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    <Container>
+    <Container className="primary-container" >
       <Row>
-        <Col class='col-sm align-items-center'>
+        <Col className='col-sm align-items-center'>
           <Carousel>
             <Carousel.Item>
               <img src={dogInfo.dog_image_url} className="main-image" />
@@ -68,7 +68,7 @@ export function DogProfile() {
             </Carousel.Item>
           </Carousel>
         </Col>
-        <Col class='col-sm'>
+        <Col className='col-sm'>
           <Row>
             <h1>Hi! I'm {dogInfo.dog_name}.</h1>
           </Row>
