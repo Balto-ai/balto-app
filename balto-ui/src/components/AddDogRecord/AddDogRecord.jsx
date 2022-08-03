@@ -18,8 +18,60 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { v4 } from 'uuid'
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
+import Box from '@mui/material/Box';
+import ImagePlaceholder from './icon/image (1).png'
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress color='purple' variant="determinate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
+};
+
+export function CircularStatic() {
+  const [progress, setProgress] = React.useState(10);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+    }, 2000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return <CircularProgressWithLabel value={progress} />;
+}
 export default function AddDogRecord() {
 
   // TODO LIST: not part of MVP, but should be addressed in the next sprint
@@ -239,6 +291,16 @@ export default function AddDogRecord() {
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Upload Image</Form.Label>
                 {/* without [0], we could select multiple files */}
+
+                  {/* <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '7px', height: 300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}><img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img></Box> */}
+
+                  <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '10px', height: 300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
+                    <img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img>
+                    <div className='image-preview'>Image Preview</div>
+                    <CircularStatic/>
+                  </Box>
+
+                
                 <Form.Control type="file" onChange={handleOnImageFileChange} />
               </Form.Group>    
             <div className='save-btn-area'>

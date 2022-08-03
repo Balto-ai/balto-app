@@ -23,3 +23,19 @@
     width: 28px;
     margin-right: 5px;
 }
+.photo-area .camera-icon{
+    width: 100px;
+    height: 100px;
+    align-items:'center';
+    justify-content:'center';
+    vertical-align: middle;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+.photo-area{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    text-align: center;
+}
