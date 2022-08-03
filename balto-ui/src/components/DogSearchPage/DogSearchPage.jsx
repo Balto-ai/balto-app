@@ -369,7 +369,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
     <div className="dog-grid">
       {dogResults.map((dogResult, idx) => (
         <DogCard key={dogResult.id || idx}
-          dogId={dogResult.id}
+          dogId={dogResult.dog_id}
           imgUrl={dogResult.image_url}
           name={dogResult.name}
           dob={dogResult.dob}
