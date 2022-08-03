@@ -1,6 +1,8 @@
 import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthContextProvider } from "./contexts/auth"
+import AdminProtectedRoute from './components/AdminProtectedRoute/AdminProtectedRoute'
+import UserProtectedRoute from './components/UserProtectedRoute/UserProtectedRoute'
 import NavBar from "./components/NavBar/NavBar.jsx"
 import LandingPage from "./components/LandingPage/LandingPage"
 import LoginPage from "./components/LoginPage/LoginPage"
@@ -43,9 +45,9 @@ function App() {
               <Route path="/search" element={
                 <DogSearchPage />} />
               <Route path="/star" element={
-                <StarredPage />} />
+                <UserProtectedRoute element={<StarredPage />} />} />
               <Route path="/admin-dashboard/*" element={
-                <AdminDashboard />} />
+                <AdminProtectedRoute element={<AdminDashboard />} />} />
               <Route path="dog/:dogId" element={
                 <DogProfile />} />
               <Route path="*" element={
