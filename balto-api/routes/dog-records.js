@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const DogRecords = require("../models/dog-records")
 const security = require("../middleware/security")
+const permissions = require("../middleware/permissions")
 
 // view dogs under user's associated shelter
 router.get("/", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
@@ -27,11 +28,10 @@ router.post("/", security.requireAuthenticatedUser, security.requireShelterAdmin
 })
 
 // view a dog record
-router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
+router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, permissions.shelterAdminUserOwnsDogRecord, async (req, res, next) => {
     try {
-        const { shelterId } = res.locals.user
         const { dogId } = req.params
-        const dogRecord = await DogRecords.fetchDogRecordById(shelterId, dogId)
+        const dogRecord = await DogRecords.fetchDogRecordById(dogId)
         return res.status(200).json( { dogRecord } )
     } catch (err) {
         next(err)
@@ -39,12 +39,11 @@ router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelter
   })
 
   // update a dog record
-  router.patch("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
+  router.patch("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, permissions.shelterAdminUserOwnsDogRecord, async (req, res, next) => {
     try {
-        const { shelterId } = res.locals.user
         const { dogId } = req.params
         const updateDogRecordForm = req?.body
-        const updatedDogRecord = await DogRecords.updateDogRecord(shelterId, dogId, updateDogRecordForm)
+        const updatedDogRecord = await DogRecords.updateDogRecord(dogId, updateDogRecordForm)
         return res.status(200).json( { updatedDogRecord } )
     } catch (err) {
         next(err)
@@ -52,11 +51,10 @@ router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelter
   })
 
   // delete a dog record
-  router.delete("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) => {
+  router.delete("/:dogId", security.requireAuthenticatedUser, security.requireShelterAdminUser, permissions.shelterAdminUserOwnsDogRecord, async (req, res, next) => {
     try {
-        const { shelterId } = res.locals.user
         const { dogId } = req.params
-        await DogRecords.deleteDogRecord(shelterId, dogId)
+        await DogRecords.deleteDogRecord(dogId)
         return res.status(204).send("Dog record successfully deleted")
     } catch (err) {
         next(err)
