@@ -62,7 +62,7 @@ export function DogProfileContextProvider({ children }) {
         } else if (ageDays > 2555 && ageDays <= 4380) {
             return "Senior"
         } else {
-            return "Geriatric"
+            return "Seasoned"
         }
     }
 
