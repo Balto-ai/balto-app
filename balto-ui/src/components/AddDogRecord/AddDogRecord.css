@@ -13,3 +13,13 @@
 .save-btn-area{
     margin-bottom: 55px;
 }
+.update-toast {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+.dog-icon-toast{
+    height: 28px;
+    width: 28px;
+    margin-right: 5px;
+}

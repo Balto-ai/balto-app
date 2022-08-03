@@ -16,6 +16,8 @@ import "./AddDogRecord.css"
 import { storage } from '../../firebase/firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { v4 } from 'uuid'
+import Toast from 'react-bootstrap/Toast';
+import DogIcon from './icon/paw (1).png'
 
 
 export default function AddDogRecord() {
@@ -34,7 +36,8 @@ export default function AddDogRecord() {
   const [imageUpload, setImageUpload] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
-
+  const [isLoading, setLoading] = React.useState(false)
+  const [show, setShow] = React.useState(false);
   // options that will show up as form options, not used for anything else
   const sexOptions = ["Male", "Female"]
   const sizeOptions = ["Small", "Medium", "Large"]
@@ -77,7 +80,9 @@ export default function AddDogRecord() {
       setForm((existingForm) => ({ ...existingForm, [evt.target.name]: false }))
     }
   }
-
+  function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+  }
   // NOTE: we may want to make ratings optional. mandatory at the moment
   const handleOnRatingChange = (evt) => {
     // nearly identical to handleOnInputChange, only difference being that it sents value as an integer (vs. string)
@@ -100,6 +105,7 @@ export default function AddDogRecord() {
           
         })
       })
+      setLoading(true)
   }
   const handleOnFormSubmit = async (evt) => {
     setError(null)
@@ -116,16 +122,22 @@ export default function AddDogRecord() {
       navigate("/admin-dashboard")
     }
   }
-  console.log(form)
+ 
   React.useEffect(()=>{
+    if (isLoading) {
+      simulateNetworkRequest().then(() => {
+        setLoading(false);
+        setShow(true)
+      });
+    }
     console.log(form.imageUrl)
-  }, [form.imageUrl])
+  }, [form.imageUrl, isLoading])
   return (
     <div className="add-record-form primary-container">
+
       <div className="add-record-card">
         <h1 className="mb-3">Add a New Dog</h1>
         <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
-
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           
           <Form.Group className="form-group-container mb-5">
@@ -231,7 +243,7 @@ export default function AddDogRecord() {
                 <Form.Control type="file" onChange={handleOnImageFileChange} />
               </Form.Group>    
             <div className='save-btn-area'>
-              <Button className='save-btn' onClick={uploadImage}>Upload</Button>
+              <Button disabled={isLoading} className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
             </div>
            
           </Form.Group>
@@ -298,7 +310,9 @@ export default function AddDogRecord() {
           <Button type="submit" className="mb-2 form-item">Add</Button>
 
         </Form>
+        
       </div>
+      {show && <ShowToast show={show} setShow={setShow} />}
     </div>
   )
 }
@@ -341,4 +355,25 @@ export function BreedDropdown({ form={}, setForm=()=>{} }) {
     />
   )
     
+}
+export function ShowToast({setShow, show}) {
+  return (
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+    >
+        <Toast  onClose={() => setShow(false)} show={show} delay={2000} autohide className='update-toast' >
+          <Toast.Header>
+            <img
+              src={DogIcon}
+              className="dog-icon-toast"
+              alt="dog paw"
+            />
+            <strong className="me-auto">Balto</strong>
+            <small className="text-muted">just now</small>
+          </Toast.Header>
+          <Toast.Body>Image saved!</Toast.Body>
+        </Toast>
+    </div>
+  );
 }
