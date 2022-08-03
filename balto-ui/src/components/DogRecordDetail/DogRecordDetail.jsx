@@ -16,7 +16,7 @@ import "./DogRecordDetail.css"
 export default function DogRecordDetail() {
 
   const { dogId } = useParams()
-  const { dogRecord } = useDogRecordDetailContext()
+  const { dogRecord, initialized } = useDogRecordDetailContext()
 
   const [modalShow, setModalShow] = React.useState(false) // modal to confirm if the user wants to delete the record
 
@@ -40,8 +40,12 @@ export default function DogRecordDetail() {
     setExerciseNeeds(dogRecord.exercise_needs)
   })
 
+  if (!initialized && !dogRecord) {
+    return <h1>Loading...</h1>
+  }
+
   return (
-    <Container fluid className="dog-record-detail">
+    <Container fluid="true" className="dog-record-detail">
       
       <Row>
         
@@ -71,11 +75,11 @@ export default function DogRecordDetail() {
         {/* Good with categories and ratings */}
         <Col className="adopter-compatibility secondary-container">
 
-          <Row fluid className="dog-record-detail">
+          <Row className="dog-record-detail">
             <Col className="good-withs">
-              {Object.keys(goodWithCategories).map(category => {
+              {Object.keys(goodWithCategories).map((category, idx) => {
                   return (
-                    <div className="good-with">
+                    <div className="good-with" key={idx}>
                       <span className="checkbox-line">
                         {goodWithCategories[category] ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#ffffff' fontSize="150%" />}
                         {goodWithCategories[category] ? <Typography component="legend" noWrap={true}>&nbsp; {category}</Typography> : <Typography component="legend" noWrap={true} color="var(--faded-text-grey)">&nbsp; {category}</Typography>}
@@ -85,12 +89,12 @@ export default function DogRecordDetail() {
             </Col>
 
             <Col className="ratings">
-              {Object.keys(ratingCategories).map((category => {
+              {Object.keys(ratingCategories).map(((category, idx) => {
                 return (
-                <div className="rating">
+                <div className="rating" key={idx}>
                   <p className="rating-label">{category}</p>
                   <Rating
-                    value={ratingCategories[category]}
+                    value={ratingCategories[category] || 1}
                     icon={<IoPaw className="filled-rating-icon" />}
                     emptyIcon={<IoPaw className="empty-rating-icon" />}
                     getLabelText={(value) => `Rating ${value}`}
