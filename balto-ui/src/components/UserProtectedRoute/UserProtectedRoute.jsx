@@ -6,7 +6,7 @@ export default function UserProtectedRoute( {element} ) {
   const { initialized, user } = useAuthContext()
 
   // if no user and application is not currently loading
-  if (initialized && user?.email && !user?.shelterId) {
+  if (initialized && !user?.shelterId) {
   return (
     element
   )} else {
