@@ -4,7 +4,7 @@ import {getStorage} from 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDPjkIhzsaL_y_i9zoUAdTkFnHpJbDt0pk",
+  apiKey: 'AIzaSyDPjkIhzsaL_y_i9zoUAdTkFnHpJbDt0pk',
   authDomain: "balto-cca.firebaseapp.com",
   projectId: "balto-cca",
   storageBucket: "balto-cca.appspot.com",
