@@ -3,13 +3,15 @@ import './DogProfile.css'
 import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "react-icons/bs";
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import Carousel from 'react-bootstrap/Carousel';
+
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
 import ApiClient from '../../services/ApiClient';
@@ -68,7 +70,15 @@ export function DogProfile() {
       </Row>
       <Row>
         <Col class='col-sm align-items-center'>
-          <img src={dogInfo.dog_image_url} className="main-image" />
+          <Carousel>
+            <Carousel.Item>
+            <img src={dogInfo.dog_image_url} className="main-image" />
+              <Carousel.Caption>
+                <h3>{dogInfo.dog_name}</h3>
+                <p>I'm a {dogInfo.breed}.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
         </Col>
         <Col class='col-sm'>
           <section className='action-btns'>
