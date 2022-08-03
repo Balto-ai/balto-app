@@ -3,6 +3,9 @@ import './DogProfile.css'
 import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "react-icons/bs";
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
@@ -59,19 +62,85 @@ export function DogProfile() {
 
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    <div class='container'>
-      <div class='row'>
-        <h1>{dogInfo.dog_name}</h1>
-      </div>
-      <div class='row align-items-center' >
-        <div class='col-sm align-items-center'>
+    <Container class='container'>
+      <Row>
+        <h1>Hi! I'm {dogInfo.dog_name}.</h1>
+      </Row>
+      <Row>
+        <Col class='col-sm align-items-center'>
           <img src={dogInfo.dog_image_url} className="main-image" />
-        </div>
-        <div class='col-sm align-items-center'>
-          <img src={dogInfo.dog_image_url} className="main-image" />
-        </div>
-      </div>
-    </div>
+        </Col>
+        <Col class='col-sm'>
+          <section className='action-btns'>
+            <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+              <BsStar /> Favorite
+            </Button>
+            <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+              <BsFillHouseDoorFill /> Adopt Me
+            </Button>
+            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
+          </section>
+          <div className='about-section'>
+            <section className='desc-1'>
+              <h2>I'm known for being...</h2>
+              <p>{dogInfo.desc_1}</p>
+            </section>
+            <section className='desc-2'>
+              <h2>I'm looking for someone who...</h2>
+              <p>{dogInfo.desc_2}</p>
+            </section>
+            <section className='attributes'>
+              <h2>A little more about me...</h2>
+              <div className='attributes-list'>
+                <div>
+                  <span className='checkbox-line'>
+                    {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {kidFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {dogFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {catFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
+                  </span>
+                  <span className='checkbox-line'>
+                    {strangerFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
+                  </span>
+                </div>
+                <div>
+                  <Typography component="legend" noWrap={true}>Playfulness</Typography>
+                  <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend" noWrap={true}>Energy Levels</Typography>
+                  <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                  <Typography component="legend" noWrap={true}>Exercise Needs</Typography>
+                  <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />} />
+                  <br></br>
+                </div>
+              </div>
+            </section>
+            <section className='shelter-loc'>
+              <h2>You can meet me at...</h2>
+              <p>{dogInfo.shelter_name}</p>
+              <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
+              <p>{dogInfo.email}</p>
+            </section>
+          </div>
+        </Col>
+
+      </Row>
+    </Container>
   )
   // }
 }
