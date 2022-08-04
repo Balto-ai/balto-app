@@ -1,10 +1,16 @@
 import React from 'react'
-import { Map, Marker } from "pigeon-maps"
+import Map from 'react-map-gl';
 
 export default function ShelterMap({ lat, lon }) {
     return (
-        <Map height={300} defaultCenter={[lat, lon]} defaultZoom={11}>
-            {/* <Marker width={50} anchor={[lat, lon]} /> */}
-        </Map>
+        <Map
+            initialViewState={{
+                longitude: -100,
+                latitude: 40,
+                zoom: 3.5
+            }}
+            style={{ width: 600, height: 400 }}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+        />
     )
 }

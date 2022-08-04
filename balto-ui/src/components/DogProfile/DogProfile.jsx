@@ -54,9 +54,10 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
+  console.log("DOG INFO: ", dogInfo)
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    
+
     <Container>
       <Row>
         <Col>
@@ -76,7 +77,9 @@ export function DogProfile() {
             </div>
           </Row>
           <Row>
-            <ShelterMap lat={userLocation.latitude} lon={userLocation.longitude} />
+            <Container>
+              <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
+            </Container>
           </Row>
         </Col>
         <Col>
