@@ -133,10 +133,7 @@ export default function AddDogRecord() {
         setShow(true)
       });
     }
-    if (form.imageUrl && form.imageName){
-      console.log("image saved!")
-    }
-  }, [form.imageUrl, form.imageName, isLoading])
+  }, [isLoading])
   return (
     <div className="add-record-form primary-container">
 

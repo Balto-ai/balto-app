@@ -61,7 +61,7 @@ export default function EditDogRecord() {
   function simulateNetworkRequest() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
-  console.log(form.imageUrl)
+
 
   const uploadImage = () => {
     if (imageUpload === null) return;
@@ -147,7 +147,7 @@ export default function EditDogRecord() {
       navigate("/admin-dashboard/dog-record/id/"+dogId)
     }
   }
-  console.log(form.image_url)
+
   React.useEffect(()=>{
     if (isLoading) {
       simulateNetworkRequest().then(() => {
@@ -155,11 +155,8 @@ export default function EditDogRecord() {
         setShow(true);
       });
     }
-    if (form.image_url && form.image_name){
-      console.log("image saved!")
-    }
-  }, [form.image_url, form.image_name, isLoading])
-  console.log(dogRecord.image_name, dogRecord.image_url)
+  }, [isLoading])
+
   if (initialized) {
   return (
     <div className="add-record-form primary-container">
