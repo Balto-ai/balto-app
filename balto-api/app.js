@@ -10,7 +10,7 @@ const searchRoutes = require("./routes/search")
 const dogsRoutes = require("./routes/dogs")
 const milestoneRoutes = require("./routes/milestone")
 const adoptionsRoutes = require("./routes/adoptions")
-
+const imagesRoutes = require("./routes/images")
 
 const { BadRequestError, NotFoundError } = require("./utils/errors")
 
