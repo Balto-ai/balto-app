@@ -69,22 +69,24 @@ export function DogProfile() {
             </Carousel>
           </Row>
           <Row>
-            <Container>
-              <Badge pill bg="primary">{dogInfo.breed}</Badge>{' '}
-              <Badge pill bg="primary">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
-              <Badge pill bg="primary">{dogInfo.size}</Badge>{' '}
-              <Badge pill bg="primary">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
-            </Container>
-          </Row>
-          <Row>
-            <Container className='map'>
+            <Container >
+              <div className="rounded me-auto">
               <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
+              </div>
             </Container>
           </Row>
         </Col>
         <Col>
           <Row>
             <h1>Hi! I'm {dogInfo.dog_name}.</h1>
+          </Row>
+          <Row>
+            <Container>
+              <Badge pill bg="primary">{dogInfo.breed}</Badge>{' '}
+              <Badge pill bg="primary">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
+              <Badge pill bg="primary">{dogInfo.size}</Badge>{' '}
+              <Badge pill bg="primary">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
+            </Container>
           </Row>
           <Row>
             <section className='action-btns'>
