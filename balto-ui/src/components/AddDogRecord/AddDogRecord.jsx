@@ -13,6 +13,15 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./AddDogRecord.css"
+import { storage } from '../../firebase/firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 } from 'uuid'
+import Toast from 'react-bootstrap/Toast';
+import DogIcon from './icon/paw (1).png'
+import Box from '@mui/material/Box';
+import ImagePlaceholder from './icon/image (1).png'
+
+
 
 export default function AddDogRecord() {
 
@@ -27,10 +36,11 @@ export default function AddDogRecord() {
 
   const navigate = useNavigate()
   const { addDogRecord } = useDogRecordsContext()
-
+  const [imageUpload, setImageUpload] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
-
+  const [isLoading, setLoading] = React.useState(false)
+  const [show, setShow] = React.useState(false);
   // options that will show up as form options, not used for anything else
   const sexOptions = ["Male", "Female"]
   const sizeOptions = ["Small", "Medium", "Large"]
@@ -73,18 +83,37 @@ export default function AddDogRecord() {
       setForm((existingForm) => ({ ...existingForm, [evt.target.name]: false }))
     }
   }
-
+  function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+  }
   // NOTE: we may want to make ratings optional. mandatory at the moment
   const handleOnRatingChange = (evt) => {
     // nearly identical to handleOnInputChange, only difference being that it sents value as an integer (vs. string)
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: parseInt(evt.target.value) }))
   }
 
+  const handleOnImageFileChange = (evt) => {
+    if (evt.target.files[0]){
+      setImageUpload(evt.target.files[0])
+    }
+  }
 
+  const uploadImage = () => {
+    if (imageUpload === null) return;
+    let imageName = imageUpload.name + v4();
+    const imageRef = ref(storage, `dogProfileImages/${imageName}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot)=>{
+        getDownloadURL(snapshot.ref).then(async(url)=>{
+          setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
+        })
+      })
+      setLoading(true)
+  }
   const handleOnFormSubmit = async (evt) => {
     setError(null)
     evt.preventDefault()
     setIsValidated(true)
+
     const addDogRecordForm = evt.currentTarget
     if (addDogRecordForm.checkValidity() === false) {
       evt.stopPropagation()
@@ -95,13 +124,24 @@ export default function AddDogRecord() {
       navigate("/admin-dashboard")
     }
   }
-
+ 
+  React.useEffect(()=>{
+    if (isLoading) {
+      simulateNetworkRequest().then(() => {
+        setLoading(false);
+        setShow(true)
+      });
+    }
+    if (form.imageUrl){
+      console.log("image saved!")
+    }
+  }, [form.imageUrl, isLoading])
   return (
     <div className="add-record-form primary-container">
-      <div className="add-record-card">
-        <h1 className="mb-3">Add a New Dog</h1>
-        <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
 
+      <div className="add-record-card">
+        <h1 className="mb-3" id='add-dog-title'>Add a New Dog</h1>
+        <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           
           <Form.Group className="form-group-container mb-5">
@@ -200,25 +240,41 @@ export default function AddDogRecord() {
               ))}
             </Form.Group>
             </Row>
-  
-
             {/* nonfunctional image upload at the moment, pushed to future sprint */}
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" />
-            </Form.Group>
 
-            {/* image URL input */}
-            <Form.Group className="form-item mb-3">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control
-                name="imageUrl"
-                type="text"
-                value={form.imageUrl}
-                onChange={handleOnInputChange}
-                required
-                className="form-input" />
-            </Form.Group>
+                  {!form.imageUrl ? 
+                      <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '10px', height: 300, width:300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
+                        
+
+                      {!isLoading ? 
+                        <div>
+                            <Row className="justify-content-md-center">
+                              <Col> <img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img></Col>
+                            </Row >
+                            <Row className="justify-content-md-center">
+                              <Col> <p>No image preview available</p></Col>
+                            </Row>
+                          </div>
+                          :
+                          null
+                        }
+                      </Box>  
+                  :
+                    <div className='image-preview-container'>
+                      <img className='dogImage' src={form.imageUrl} alt='preview'></img>
+                    </div>
+                  }
+                  
+
+                
+                <Form.Control type="file" onChange={handleOnImageFileChange} />
+              </Form.Group>    
+            <div className='save-btn-area'>
+              <Button disabled={isLoading} className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
+            </div>
+           
           </Form.Group>
   
           
@@ -283,7 +339,9 @@ export default function AddDogRecord() {
           <Button type="submit" className="mb-2 form-item">Add</Button>
 
         </Form>
+        
       </div>
+      {show && <ShowToast show={show} setShow={setShow} />}
     </div>
   )
 }
@@ -326,4 +384,25 @@ export function BreedDropdown({ form={}, setForm=()=>{} }) {
     />
   )
     
+}
+export function ShowToast({setShow, show}) {
+  return (
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+    >
+        <Toast  onClose={() => setShow(false)} show={show} delay={2000} autohide className='update-toast' >
+          <Toast.Header>
+            <img
+              src={DogIcon}
+              className="dog-icon-toast"
+              alt="dog paw"
+            />
+            <strong className="me-auto">Balto</strong>
+            <small className="text-muted">just now</small>
+          </Toast.Header>
+          <Toast.Body>Image saved!</Toast.Body>
+        </Toast>
+    </div>
+  );
 }
