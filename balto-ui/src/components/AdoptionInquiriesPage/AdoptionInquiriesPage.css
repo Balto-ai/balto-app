@@ -3,3 +3,13 @@
     display: flex;
     flex-direction: column;
 }
+
+.adoption-inquiries-page .dog-image-icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+    object-fit: cover;
+    background-color: lightgrey;
+    margin-left: 5px;
+    margin-right: 10px;
+}
