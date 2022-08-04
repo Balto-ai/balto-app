@@ -19,6 +19,23 @@ const shelterAdminUserOwnsDogRecord = async (req, res, next) =>{
     return next(error)
    } 
 }
+const shelterAdminUserOwnsImage = async (req, res, next) =>{
+    try {
+     const { shelterId } = res.locals.user
+     const { imageId } = req.params
+     const image = await Images.fetchImageById(imageId)
+     const dogRecord = await DogRecords.fetchDogRecordById(image.dog_id)
+     if (dogRecord?.shelter_id !== shelterId){
+         throw new ForbiddenError(`This dog record (id ${dogRecord.id}) belongs to another shelter`)
+     }
+     const dogId = dogRecord.id
+     res.locals.dogId = dogId
+     return next()
+    } catch (error) {
+     return next(error)
+    } 
+ }
 module.exports = {
-    shelterAdminUserOwnsDogRecord
+    shelterAdminUserOwnsDogRecord,
+    shelterAdminUserOwnsImage
 }
