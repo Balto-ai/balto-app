@@ -48,6 +48,8 @@ CREATE TABLE dog_images (
     image_url   TEXT NOT NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
     dog_id      INTEGER NOT NULL,
+    shelter_id      INTEGER NOT NULL,
+    FOREIGN KEY (shelter_id) REFERENCES shelters(id) ON DELETE CASCADE,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
 
