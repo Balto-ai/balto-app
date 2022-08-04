@@ -21,18 +21,16 @@ class Images {
     }
 
     // create an adoption inquiry
-    static async createImage(newImage, dogRecord) {
-        if (!dogRecord){
-            throw new BadRequestError("No dog record provided")
-        }
+    static async createImage(newImage) {
+        console.log(newImage)
         if (!newImage) {
             throw new BadRequestError("No image provided")
         }
 
-        const requiredFields = ["imageName", "imageUrl"]
+        const requiredFields = ["imageName", "imageUrl", "dogId"]
 
         requiredFields.forEach((field)=>{
-            if (!newImage(field)){
+            if (!newImage.hasOwnProperty(field)){
                 throw new BadRequestError(`Missing ${field} in request body.`)
             }
         })
@@ -43,17 +41,18 @@ class Images {
             RETURNING *;
         `
 
-        const result = await db.query(query, [newImage.imageName, newImage.imageUrl, dogRecord.id])
+        const result = await db.query(query, [newImage.imageName, newImage.imageUrl, newImage.dogId])
         return result.rows
     }
     
     // called in GET request to /images/:imageId
     static async fetchImagebyId(imageId, dogId) {
+        console.log(dogId, imageId)
         if (!imageId) {
             throw new BadRequestError("No imageId provided")
         }
         if (!dogId) {
-            throw new BadRequestError("No dogRecord provided")
+            throw new BadRequestError("No dogId provided")
         }
 
         // get image with requested id
@@ -72,19 +71,20 @@ class Images {
     }
 
     // delete an adoption inquiry
-    static async deleteImage(imageId, dogRecord) {
+    static async deleteImage(imageId, dogId) {
+        console.log("inside model")
         if (!imageId) {
             throw new BadRequestError("No imageId provided")
         }
-        if (!dogRecord){
+        if (!dogId){
             throw new BadRequestError("No dog record provided")
         }
         const query = `
             DELETE FROM dog_images
-            WHERE image_id = $1 AND dog_id = $2
+            WHERE id = $1 AND dog_id = $2
             RETURNING *;
         `
-        const result = await db.query(query, [imageId, dogRecord.id])
+        const result = await db.query(query, [imageId, dogId])
 
         if (result.rowCount = 0) {
             throw new BadRequestError("Image does not exist")
