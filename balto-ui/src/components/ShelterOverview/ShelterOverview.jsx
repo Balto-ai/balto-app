@@ -45,7 +45,7 @@ export default function ShelterOverview() {
     return (
         <div className="shelter-overview primary-container" style={{ display: 'flex', height: '100%', width: '100%' }}>
             <div className="top-bar">
-                <Searchbar setSearchQuery={setSearchQuery} />
+                <Searchbar setSearchQuery={setSearchQuery} placeholder={"Search by dog name"}/>
                 <Button href="/admin-dashboard/add-record" className="dog-record-add-btn mb-3">+ New</Button>
             </div>
             <RowContextMenu rows={rows} columns={columns} />

@@ -6,10 +6,10 @@ import { styled } from '@mui/material/styles'
 import './CustomDataGrid.css'
 
 // searchbar updates searchQuery var whenever the value is changed
-export function Searchbar({ setSearchQuery }) {
+export function Searchbar({ setSearchQuery, placeholder }) {
     return (
         <Form.Group className="mb-3 searchbar">
-          <Form.Control placeholder="Search by Name" onChange={(evt)=>setSearchQuery(evt.target.value)} />
+          <Form.Control placeholder={placeholder} onChange={(evt)=>setSearchQuery(evt.target.value)} />
         </Form.Group>
     )
 }
