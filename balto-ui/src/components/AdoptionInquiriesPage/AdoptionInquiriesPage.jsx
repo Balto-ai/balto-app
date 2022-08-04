@@ -16,14 +16,14 @@ export default function AdoptionInquiriesPageContainer() {
 export function AdoptionInquiriesPage() {
 
     const { allAdoptionInquiries, error, isLoading } = useAdoptionInquiriesContext()
-    const [searchQuery, setSearchQuery] = React.useState("")
+    // const [searchQuery, setSearchQuery] = React.useState("")
 
     // filter dogs based on search query
-    let adoptionInquiriesToRender = [...allAdoptionInquiries]
+    // let adoptionInquiriesToRender = [...allAdoptionInquiries]
 
-    if (searchQuery !== "") {
-      adoptionInquiriesToRender = adoptionInquiriesToRender.filter(adoptionInquiry => adoptionInquiry.dog_name.toLowerCase().includes(searchQuery.toLowerCase()))
-    }
+    // if (searchQuery !== "") {
+    //   adoptionInquiriesToRender = adoptionInquiriesToRender.filter(adoptionInquiry => adoptionInquiry.dog_name.toLowerCase().includes(searchQuery.toLowerCase()))
+    // }
 
     const rows = [...allAdoptionInquiries]
     const columns = [
@@ -45,9 +45,9 @@ export function AdoptionInquiriesPage() {
 
     return (
         <div className="adoption-inquiries-page primary-container" style={{ display: 'flex', height: '100%', width: '100%' }}>
-            <div className="top-bar">
+            {/* <div className="top-bar">
                 <Searchbar setSearchQuery={setSearchQuery} placeholder={"Search by dog name"} />
-            </div>
+            </div> */}
             <CustomDataGrid rows={rows} columns={columns} />
         </div>
     )
