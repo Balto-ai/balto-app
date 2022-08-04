@@ -12,6 +12,17 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./EditDogRecord.css"
+import { storage } from '../../firebase/firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 } from 'uuid'
+import Toast from 'react-bootstrap/Toast';
+import DogIcon from './icon/paw (1).png'
+import Box from '@mui/material/Box';
+import ImagePlaceholder from './icon/image (1).png'
+
+
+
+
 
 export default function EditDogRecord() {
 

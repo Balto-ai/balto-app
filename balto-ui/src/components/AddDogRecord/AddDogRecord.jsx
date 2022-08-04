@@ -245,7 +245,7 @@ export default function AddDogRecord() {
               <Form.Label>Upload Image</Form.Label>
 
                   {!form.imageUrl ? 
-                      <Box className='photo-area' sx={{ marginBottom: 5 , borderRadius: '10px', height: 300, width:300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
+                      <Box className='photo-area' sx={{ borderRadius: '10px', height: 300, width:300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
                         
 
                       {!isLoading ? 
