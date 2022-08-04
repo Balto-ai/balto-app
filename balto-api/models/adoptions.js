@@ -53,8 +53,8 @@ class Adoptions {
         return result.rows
     }
 
-    // get all adoption inquiries in the db
-    static async fetchAllAdoptionInquiries() {
+    // get all adoption inquiries in the db for the shelter
+    static async fetchAllAdoptionInquiries(shelterId) {
 
         const query =  `
             SELECT adoption_inquiries.id, adoption_inquiries.email, adoption_inquiries.phone_number, adoption_inquiries.comments, adoption_inquiries.created_at, adoption_inquiries.user_id,
@@ -64,10 +64,11 @@ class Adoptions {
                 ON adoption_inquiries.dog_id = dogs.id
             INNER JOIN users
                 ON adoption_inquiries.user_id = users.id
+            WHERE dogs.shelter_id = $1
             ORDER BY created_at DESC
         `
 
-        const result = await db.query(query, [])
+        const result = await db.query(query, [shelterId])
         return result.rows
     }
 
