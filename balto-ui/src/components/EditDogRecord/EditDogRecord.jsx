@@ -12,6 +12,16 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./EditDogRecord.css"
+import { storage } from '../../firebase/firebase'
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { v4 } from 'uuid'
+import Toast from 'react-bootstrap/Toast';
+import DogIcon from './icon/paw (1).png'
+import Box from '@mui/material/Box';
+
+
+
+
 
 export default function EditDogRecord() {
 
@@ -20,9 +30,10 @@ export default function EditDogRecord() {
 
   const navigate = useNavigate()
   const { dogId } = useParams()
-
+  const [isLoading, setLoading] = React.useState(false)
+  const [show, setShow] = React.useState(false);
+  const [imageUpload, setImageUpload] = React.useState(null)
   const { dogRecord, editDogRecord, error, setError, initialized } = useDogRecordDetailContext()
-
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
   const [isValidated, setIsValidated] = React.useState(false)
 
@@ -42,7 +53,40 @@ export default function EditDogRecord() {
     energy_level: "Energy Level",
     exercise_needs: "Exercise Needs"
   }
+  const handleOnImageFileChange = (evt) => {
+    if (evt.target.files[0]){
+      setImageUpload(evt.target.files[0])
+    }
+  }
+  function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+  }
 
+
+  const uploadImage = () => {
+    if (imageUpload === null) return;
+    if (dogRecord.image_name){
+      const oldImageRef = ref(storage, `dogProfileImages/${dogRecord.image_name}`);
+      // Delete the file
+      deleteObject(oldImageRef).then(() => {
+        // File deleted successfully
+        // setImageDeleted(true)
+      }).catch((error) => {
+        // Uh-oh, an error occurred!
+        console.error(error)
+      });
+    }
+    
+    let imageName = imageUpload.name + v4();
+    setForm((existingForm) => ({...existingForm, image_name: imageName}))
+    const imageRef = ref(storage, `dogProfileImages/${imageName}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot)=>{
+        getDownloadURL(snapshot.ref).then(async(url)=>{
+          setForm((existingForm) => ({ ...existingForm, image_url: url }))
+        })
+      })
+      setLoading(true)
+  }
   const handleOnInputChange = (evt) => {
     // if the value is different from the original dogRecord value, add the key and value to the form object
     if (dogRecord[evt.target.name] !== evt.target.value) {
@@ -103,6 +147,15 @@ export default function EditDogRecord() {
       navigate("/admin-dashboard/dog-record/id/"+dogId)
     }
   }
+
+  React.useEffect(()=>{
+    if (isLoading) {
+      simulateNetworkRequest().then(() => {
+        setLoading(false);
+        setShow(true);
+      });
+    }
+  }, [isLoading])
 
   if (initialized) {
   return (
@@ -210,27 +263,37 @@ export default function EditDogRecord() {
               ))}
             </Form.Group>
             </Row>
-
             {/* nonfunctional image upload at the moment, pushed to future sprint */}
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" />
-            </Form.Group>
-
-            {/* image URL input */}
-            <Form.Group className="form-item mb-3">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control
-                name="image_url"
-                type="text"
-                defaultValue={dogRecord?.image_url}
-                onChange={handleOnInputChange}
-                required
-                className="form-input" />
-            </Form.Group>
-          </Form.Group>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Upload Image</Form.Label>
   
-          
+                    {!form?.image_url ? 
+                        <div className='image-preview-container'>
+                          {!isLoading ? 
+                          <div className='image-preview-container'>
+                              <img className='dogImage' src={dogRecord.image_url} alt='preview'></img>
+                            </div>
+                            :
+                            <div className='image-preview-container'>
+                              <img className='dogImage' src={dogRecord.image_url} alt='preview'></img>
+                            </div>
+                          }
+                        </div>
+                    :
+                      <div className='image-preview-container'>
+                        <img className='dogImage' src={form.image_url} alt='preview'></img>
+                      </div>
+                    }
+
+                <Form.Control type="file" onChange={handleOnImageFileChange} />
+              </Form.Group>    
+            <div className='btn-area'>
+                <Button active className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
+
+            </div>
+           
+          </Form.Group>
+
           <h2>Additional Information</h2>
           <p>Let potential adopters know more about this dog</p>
           
@@ -295,6 +358,7 @@ export default function EditDogRecord() {
 
         </Form>
       </div>
+      {show && <ShowToast show={show} setShow={setShow} />}
     </div>
   )
   }
@@ -340,4 +404,25 @@ export function BreedDropdown({ initialBreed, form={}, setForm=()=>{} }) {
     />
   )
     
+}
+export function ShowToast({setShow, show}) {
+  return (
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+    >
+        <Toast  onClose={() => setShow(false)} show={show} delay={2000} autohide className='update-toast' >
+          <Toast.Header>
+            <img
+              src={DogIcon}
+              className="dog-icon-toast"
+              alt="dog paw"
+            />
+            <strong className="me-auto">Balto</strong>
+            <small className="text-muted">just now</small>
+          </Toast.Header>
+          <Toast.Body>Image updated!</Toast.Body>
+        </Toast>
+    </div>
+  );
 }

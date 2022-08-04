@@ -7,3 +7,24 @@
     font-weight: 500;
     font-size: 1.1em;
 }
+.save-btn{
+    float: right;
+}
+.delete-btn{
+    margin-right: 10px;
+    float: right;
+}
+.btn-area{
+    margin-bottom: 55px;
+}
+.delete-btn-area{
+    margin: 10px;
+}
+.dog-photo-area{
+    height:300px;
+    width: 300px
+}
+.dogImage{  
+    border-radius: 10px;
+    height: 300px;
+}

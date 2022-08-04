@@ -1,13 +1,23 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useStarredContext } from '../../contexts/starred'
-import { StarredContextProvider } from '../../contexts/starred'
+import { StarredContextProvider, useStarredContext } from '../../contexts/starred'
+import { useAuthContext } from '../../contexts/auth'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DogCard from '../DogCard/DogCard'
+import LoginToAccess from '../LoginToAccess/LoginToAccess'
 import "./StarredPage.css"
 
 export default function StarredPageContainer() {
+
+  // If no user is logged in, display a page telling them to login in order to access their favorites
+  const { user, initialized } = useAuthContext()
+  if (initialized && !user?.email) {
+    return (
+      <LoginToAccess />
+    )
+  }
+
   return (
     <StarredContextProvider>
       <StarredPage />

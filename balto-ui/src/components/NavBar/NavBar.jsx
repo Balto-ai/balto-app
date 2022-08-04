@@ -19,11 +19,10 @@ export default function NavBar() {
   return (
     <Navbar bg="light" id="navbar">
       <Container>
-        <Logo ShelterAdmin={isShelterAdmin}/>
+        <Logo isShelterAdmin={isShelterAdmin}/>
         <NavLinks isShelterAdmin={isShelterAdmin} />
         <UserLinks
           isLoggedIn={isLoggedIn}
-          isShelterAdmin={isShelterAdmin}
           logoutUser={logoutUser}
           userFirstName={user?.firstName} />
       </Container>
@@ -42,9 +41,14 @@ export function Logo({ isShelterAdmin=false }) {
 
 // find a dog, starred page
 export function NavLinks({ isShelterAdmin }) {
-  // if the user is a shelter admin, do not display any navigation links
+  // if the user is a shelter admin, display dogs and adoption inquiries tabs
   if (isShelterAdmin) {
-    return null
+    return (
+      <Nav className="me-auto">
+        <Nav.Link href="/admin-dashboard/" id="dog-records-navlink">Dogs</Nav.Link>
+        <Nav.Link href="/admin-dashboard/adoption-inquiries" id="adoption-inquiries-navlink">Adoption Inquiries</Nav.Link>
+      </Nav>
+    )
   }
   // else, show the find a dog and favorites links
   return (
@@ -56,7 +60,7 @@ export function NavLinks({ isShelterAdmin }) {
 }
 
 // 
-export function UserLinks({ isLoggedIn, isShelterAdmin, logoutUser, userFirstName }) {
+export function UserLinks({ isLoggedIn, logoutUser, userFirstName }) {
 
   // if no one is logged in, display the signup/registration buttons
   if (!isLoggedIn) {

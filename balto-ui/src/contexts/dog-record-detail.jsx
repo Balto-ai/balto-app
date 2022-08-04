@@ -19,7 +19,7 @@ export function DogRecordDetailContextProvider({ children }) {
         const fetchDogRecord = async () => {
             const { data, error } = await ApiClient.fetchDogRecordById(dogId)
             if (data?.dogRecord) {
-                setDogRecord([...data.dogRecord][0])
+                setDogRecord({...data.dogRecord})
                 setError(null)
             }
             if (error) setError(error)

@@ -1,66 +1,34 @@
 .shelter-overview {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-/* FILTERS (SEARCHBAR AND SORT) */
-.filter-sort-bar {
+/* SEARCHBAR AND ADD RECORD BUTTON */
+.shelter-overview .top-bar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
 }
 
-.dog-record-sort {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-left: 0;
+/* add button */
+.dog-record-add-btn {
+    width: 100px;
     flex-shrink: 1;
 }
 
-.dog-record-search {
-    width: 100%;
-    min-width: 400px;
+.dog-name {
+    font-weight: 500;
+    font-size: 1.1em;
 }
 
-/* LIST OF DOG RECORDS */
-
-.dog-record-feed {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.dog-record-card {
-    width: 100%;
-    background-color: white;
-    border: solid 1px #d3d3d3;
-    padding: 20px;
-    border-radius: 8px;
-    display:flex;
-    flex-direction: row;
-    align-content: space-between;
-    cursor: pointer;
-}
-
-.dog-record-col-1 {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    align-content: center;
-}
-
-.dog-record-image {
-    height: 50px;
-    width: 50px;
+.shelter-overview .dog-image-icon {
+    height: 35px;
+    width: 35px;
     border-radius: 5px;
     object-fit: cover;
     background-color: lightgrey;
-}
-
-.date-entered-label, .view-more-link {
-    height: 100%;
-    background-color: pink;
+    margin-left: 5px;
+    margin-right: 10px;
 }

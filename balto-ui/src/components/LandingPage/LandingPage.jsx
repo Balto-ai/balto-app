@@ -83,9 +83,11 @@ export function LandingDogGrid(){
     breed: [],
     size: [],
     sex: [],
-    kidFriendly: [],
-    strangerFriendly: [],
-    dogFriendly: [],
+    kidFriendly: false,
+    strangerFriendly: false,
+    dogFriendly: false,
+    catFriendly: false,
+    noviceFriendly: false,
     distance: '' || null,
     shelterIds: []
   }

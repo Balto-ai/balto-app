@@ -9,7 +9,7 @@ class DogRecords {
             throw new BadRequestError("No shelterId provided")
         }
 
-        // get all the rows in nutrition where the shelter_id column matches the shelterId parameter
+        // get all the rows in dogs where the shelter_id column matches the shelterId parameter
         const query = `
             SELECT * FROM dogs
             WHERE shelter_id = $1
@@ -31,7 +31,7 @@ class DogRecords {
 
         // throw error if any required fields are missing
         const requiredFields = ["name", "dob", "size", "breed", "sex", "color",
-                                "desc1", "desc2", "dateEntered", "imageUrl",
+                                "desc1", "desc2", "dateEntered", "imageName","imageUrl",
                                 "noviceFriendly", "kidFriendly", "dogFriendly", "catFriendly", "strangerFriendly",
                                 "playfulness", "energyLevel", "exerciseNeeds"]
 
@@ -51,12 +51,12 @@ class DogRecords {
 
         const query = `
             INSERT INTO dogs (
-                name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_url,
+                name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_name, image_url,
                 novice_friendly, kid_friendly, dog_friendly, cat_friendly, stranger_friendly,
                 playfulness, energy_level, exercise_needs, 
                 shelter_id
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
             RETURNING id;
             `
 
@@ -69,6 +69,7 @@ class DogRecords {
                                               dogRecordForm.desc1,
                                               dogRecordForm.desc2,
                                               dogRecordForm.dateEntered,
+                                              dogRecordForm.imageName,
                                               dogRecordForm.imageUrl,
                                               dogRecordForm.noviceFriendly,
                                               dogRecordForm.kidFriendly,
@@ -85,35 +86,29 @@ class DogRecords {
 
 
     // called in GET request to /dog-recors/:dogId
-    static async fetchDogRecordById(shelterId, dogId) {
-        if (!shelterId) {
-            throw new BadRequestError("No shelterId provided")
-        }
+    static async fetchDogRecordById(dogId) {
         if (!dogId) {
             throw new BadRequestError("No dogId provided")
         }
 
-        // get dog record with requested id that matches the shelterId of the user
+        // get dog record with requested id
         const query = `
             SELECT * FROM dogs
-            WHERE id = $1 AND shelter_id = $2;
+            WHERE id = $1;
             `
-        const result = await db.query(query, [dogId, shelterId])
+        const result = await db.query(query, [dogId])
 
         // checking if there is there the requested dog record belongs to the shelter
         if (result.rows.length === 0) {
-            throw new UnauthorizedError(`There is no dog with id ${dogId} at shelter id ${shelterId}`)
+            throw new UnauthorizedError(`There is no dog with id ${dogId}`)
         } 
 
-        return result.rows
+        return result.rows[0]
     }
 
 
     // called in PUT request to /dog-records/:dogId
-    static async updateDogRecord(shelterId, dogId, updateForm) {
-        if (!shelterId) {
-            throw new BadRequestError("No userId provided")
-        }
+    static async updateDogRecord(dogId, updateForm) {
         if (!dogId){
             throw new BadRequestError("No dogId provided")
         }
@@ -123,7 +118,7 @@ class DogRecords {
 
         // array of valid column names that can be updated here
         const validColumns = ["name", "dob", "size", "breed", "sex", "color",
-                              "desc_1", "desc_2", "date_entered", "image_url",
+                              "desc_1", "desc_2", "date_entered","image_name", "image_url",
                               "novice_friendly", "kid_friendly", "dog_friendly", "cat_friendly", "stranger_friendly",
                               "playfulness", "energy_level", "exercise_needs"]
     
@@ -152,15 +147,15 @@ class DogRecords {
         const query = `
             UPDATE dogs
             SET ${setClauseString}, updated_at = NOW()
-            WHERE id = $1 AND shelter_id = $2
+            WHERE id = $1
             RETURNING *;
             `
 
-        const result = await db.query(query, [dogId, shelterId])
+        const result = await db.query(query, [dogId])
         
         // checking if the query actually found a dog with that dogId to update
         if (result.rowCount == 0) {
-            throw new BadRequestError(`There is no dog with id ${dogId} at shelter id ${shelterId}`)
+            throw new BadRequestError(`There is no dog with id ${dogId}`)
         }
 
         return result.rows[0]
@@ -168,24 +163,21 @@ class DogRecords {
 
     
     // called in DELETE request to /dog-records/:dogId
-    static async deleteDogRecord(shelterId, dogId) {
-        if (!shelterId) {
-            throw new BadRequestError("No userId provided")
-        }
+    static async deleteDogRecord(dogId) {
         if (!dogId) {
             throw new BadRequestError("No dogId provided")
         }
 
         const query = `
             DELETE FROM dogs
-            WHERE shelter_id = $1 AND id = $2
+            WHERE id = $1
             RETURNING id
             `
-        const result = await db.query(query, [shelterId, dogId])
+        const result = await db.query(query, [dogId])
 
         // checking if the query actually deleted anything (if the pairing exists)
         if (result.rowCount == 0) {
-            throw new BadRequestError(`There is no dog with id ${dogId} at shelter id ${shelterId}`)
+            throw new BadRequestError(`There is no dog with id ${dogId}`)
         }
 
         return result.rows[0]

@@ -26,6 +26,7 @@ CREATE TABLE dogs (
     desc_1          TEXT NOT NULL,
     desc_2          TEXT NOT NULL,
     date_entered    DATE NOT NULL,
+    image_name      TEXT NOT NULL,
     image_url       TEXT NOT NULL,
     novice_friendly BOOLEAN NOT NULL DEFAULT FALSE,
     kid_friendly    BOOLEAN NOT NULL DEFAULT FALSE,
@@ -39,6 +40,15 @@ CREATE TABLE dogs (
     updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
     shelter_id      INTEGER NOT NULL,
     FOREIGN KEY (shelter_id) REFERENCES shelters(id)
+);
+
+CREATE TABLE dog_images (
+    id          SERIAL PRIMARY KEY,
+    image_name  TEXT NOT NULL,
+    image_url   TEXT NOT NULL,
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+    dog_id      INTEGER NOT NULL,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
 
 CREATE TABLE milestones (
