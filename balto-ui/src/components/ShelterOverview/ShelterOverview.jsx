@@ -23,13 +23,20 @@ export default function ShelterOverview() {
 
     const rows = [...dogRecordsToRender]
     const columns = [
-        { field: 'name', headerName: 'Name', width: 150,
-            // renderCell: (params) => <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
-            renderCell: (params) =>
-            <div className="capitalized" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.rows.id}`)}}>
-              <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} />
-              {params.value}
-            </div> },  
+        // { field: 'name', headerName: 'Name', width: 150,
+        //     // renderCell: (params) => <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
+        //     renderCell: (params) =>
+        //     <div className="name-cell" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.rows.id}`)}}>
+        //       <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} />
+        //       <div classname="capitalized dog-name">{params.value}</div>
+        //     </div> },
+        { field: 'name', headerName: 'Name', width: 170,
+          renderCell: (params) =>
+            <>
+              <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+              <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
+            </>
+        }, 
         { field: 'breed', headerName: 'Breed', width: 130 },
         { field: 'sex', headerName: 'Sex', width: 90,
             renderCell: (params) => <div>{params.value === "m" ? "Male" : "Female"}</div> },
@@ -41,7 +48,7 @@ export default function ShelterOverview() {
             renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
         { field: 'date_entered', headerName: 'Date Entered', width: 150,
             renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
-        { field: 'updated_at', headerName: 'Last Updated', width: 150,
+        { field: 'updated_at', headerName: 'Last Updated', flex: 1,
             renderCell: (params) => <div>{(new Date(params.value)).toLocaleDateString()}</div> },
       ]
 
