@@ -23,10 +23,13 @@ export default function ShelterOverview() {
 
     const rows = [...dogRecordsToRender]
     const columns = [
-        { field: 'image_url', headerName: 'Image', sortable: false, filterable: false, width: 70,
-            renderCell: (params) => <img src={params.value} className="dog-record-image" /> },
         { field: 'name', headerName: 'Name', width: 150,
-            renderCell: (params) => <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div> },
+            // renderCell: (params) => <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
+            renderCell: (params) =>
+            <div className="capitalized" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.rows.id}`)}}>
+              <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} />
+              {params.value}
+            </div> },  
         { field: 'breed', headerName: 'Breed', width: 130 },
         { field: 'sex', headerName: 'Sex', width: 90,
             renderCell: (params) => <div>{params.value === "m" ? "Male" : "Female"}</div> },
