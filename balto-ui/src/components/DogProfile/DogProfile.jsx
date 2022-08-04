@@ -14,6 +14,7 @@ import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
 import AdoptionModal from "../AdoptionModal/AdoptionModal"
 
+import ShelterMap from '../ShelterMap/ShelterMap';
 
 export default function DogProfileContainer() {
   return (
@@ -26,7 +27,7 @@ export default function DogProfileContainer() {
 export function DogProfile() {
 
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
-  const { user } = useAuthContext()
+  const { user, userLocation } = useAuthContext()
   const [kidFriendly, setKidFriendly] = useState(false)
   const [strangerFriendly, setStrangerFriendly] = useState(false)
   const [dogFriendly, setDogFriendly] = useState(false)
@@ -53,49 +54,64 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
+  console.log("DOG INFO: ", dogInfo)
   // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
-    <Container className="primary-container" >
+
+    <Container>
       <Row>
-        <Col className='col-sm align-items-center'>
-          <Carousel>
-            <Carousel.Item>
-              <img src={dogInfo.dog_image_url} className="main-image" />
-              <Carousel.Caption>
-                <h3>{dogInfo.dog_name}</h3>
-                <p>I'm a {dogInfo.breed}.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          </Carousel>
+        <Col>
+          <Row>
+            <Carousel>
+              <Carousel.Item>
+                <img src={dogInfo.dog_image_url} className="main-image" />
+              </Carousel.Item>
+            </Carousel>
+          </Row>
+          <Row>
+            <Container >
+              <div className="rounded me-auto">
+              <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
+              </div>
+            </Container>
+          </Row>
         </Col>
-        <Col className='col-sm'>
+        <Col>
           <Row>
             <h1>Hi! I'm {dogInfo.dog_name}.</h1>
           </Row>
           <Row>
-          <section className='action-btns'>
-            <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-              <BsStar /> Favorite
-            </Button>
-            <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-              <BsFillHouseDoorFill /> Adopt Me
-            </Button>
-            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.dog_id} />
-          </section>
+            <Container>
+              <Badge pill bg="primary">{dogInfo.breed}</Badge>{' '}
+              <Badge pill bg="primary">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
+              <Badge pill bg="primary">{dogInfo.size}</Badge>{' '}
+              <Badge pill bg="primary">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
+            </Container>
           </Row>
           <Row>
-          <div className='about-section'>
-            <Row className='desc-1'>
-              <h2>I'm known for being...</h2>
-              <p>{dogInfo.desc_1}</p>
-            </Row>
-            <Row className='desc-2'>
-              <h2>I'm looking for someone who...</h2>
-              <p>{dogInfo.desc_2}</p>
-            </Row>
-            <Row className='attributes'>
-              <h2>A little more about me...</h2>
-              <div className='attributes-list'>
+            <section className='action-btns'>
+              <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                <BsStar /> Favorite
+              </Button>
+              <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                <BsFillHouseDoorFill /> Adopt Me
+              </Button>
+              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
+            </section>
+          </Row>
+          <Row>
+            <div className='about-section'>
+              <Row className='desc-1'>
+                <h2>I'm known for being...</h2>
+                <p>{dogInfo.desc_1}</p>
+              </Row>
+              <Row className='desc-2'>
+                <h2>I'm looking for someone who...</h2>
+                <p>{dogInfo.desc_2}</p>
+              </Row>
+              <Row className='attributes'>
+                <h2>A little more about me...</h2>
+                <div className='attributes-list'>
                   <span className='checkbox-line'>
                     {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
@@ -131,14 +147,14 @@ export function DogProfile() {
                     emptyIcon={<EmptyBone fontSize="inherit" />} />
                   <br></br>
                 </div>
-            </Row>
-            <Row className='shelter-loc'>
-              <h2>You can meet me at...</h2>
-              <p>{dogInfo.shelter_name}</p>
-              <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
-              <p>{dogInfo.email}</p>
-            </Row>
-          </div>
+              </Row>
+              <Row className='shelter-loc'>
+                <h2>You can meet me at...</h2>
+                <p>{dogInfo.shelter_name}</p>
+                <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
+                <p>{dogInfo.email}</p>
+              </Row>
+            </div>
           </Row>
         </Col>
       </Row>
