@@ -12,6 +12,8 @@ import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
 import Typography from '@mui/material/Typography'
 import "./DogRecordDetail.css"
+import { storage } from '../../firebase/firebase'
+import { ref, deleteObject } from 'firebase/storage'
 
 export default function DogRecordDetail() {
 
@@ -124,7 +126,7 @@ export default function DogRecordDetail() {
 
         {/* edit button, redirects to the edit page */}
         <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
-        <DeleteDogRecordModal dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
+        <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
      </div>
     </Container>
   )
@@ -133,9 +135,19 @@ export default function DogRecordDetail() {
 export function DeleteDogRecordModal(props) {
 
   const { deleteDogRecord } = useDogRecordsContext()
+  const {imageName} = props;
   const navigate = useNavigate()
 
   const handleOnDelete = async () => {
+    const oldImageRef = ref(storage, `dogProfileImages/${imageName}`);
+    // Delete the file
+    deleteObject(oldImageRef).then(() => {
+      // File deleted successfully
+      // setImageDeleted(true)
+    }).catch((error) => {
+      // Uh-oh, an error occurred!
+      console.error(error)
+    });
     await deleteDogRecord(props.dogId)
     navigate('/admin-dashboard')
 

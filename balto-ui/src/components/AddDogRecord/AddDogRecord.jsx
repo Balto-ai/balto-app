@@ -65,7 +65,7 @@ export default function AddDogRecord() {
   // form that will be sent to API endpoint
   const [form, setForm] = React.useState({
     name: "", dob: "", size:"", breed:"", sex: "", color: "",
-    desc1: "", desc2: "", dateEntered: "", imageUrl:"",
+    desc1: "", desc2: "", dateEntered: "", imageName:"", imageUrl:"",
     noviceFriendly:false, kidFriendly:false, dogFriendly:false, catFriendly:false, strangerFriendly:false,
     playfulness:0, energyLevel:0, exerciseNeeds:0
   })
@@ -100,7 +100,9 @@ export default function AddDogRecord() {
 
   const uploadImage = () => {
     if (imageUpload === null) return;
+    
     let imageName = imageUpload.name + v4();
+    setForm((existingForm) => ({...existingForm, imageName: imageName}))
     const imageRef = ref(storage, `dogProfileImages/${imageName}`);
     uploadBytes(imageRef, imageUpload).then((snapshot)=>{
         getDownloadURL(snapshot.ref).then(async(url)=>{
@@ -124,7 +126,6 @@ export default function AddDogRecord() {
       navigate("/admin-dashboard")
     }
   }
- 
   React.useEffect(()=>{
     if (isLoading) {
       simulateNetworkRequest().then(() => {
@@ -132,10 +133,10 @@ export default function AddDogRecord() {
         setShow(true)
       });
     }
-    if (form.imageUrl){
+    if (form.imageUrl && form.imageName){
       console.log("image saved!")
     }
-  }, [form.imageUrl, isLoading])
+  }, [form.imageUrl, form.imageName, isLoading])
   return (
     <div className="add-record-form primary-container">
 

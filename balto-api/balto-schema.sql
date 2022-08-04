@@ -42,20 +42,13 @@ CREATE TABLE dogs (
     FOREIGN KEY (shelter_id) REFERENCES shelters(id)
 );
 
-CREATE TABLE image_gallery (
+CREATE TABLE dog_images (
     id          SERIAL PRIMARY KEY,
     image_name  TEXT NOT NULL,
     image_url   TEXT NOT NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE dog_gallery_pairings (
-    id          SERIAL PRIMARY KEY,
-    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-    gallery_id  INTEGER NOT NULL,
     dog_id      INTEGER NOT NULL,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE,
-    FOREIGN KEY (gallery_id) REFERENCES image_gallery(id) ON DELETE CASCADE
 );
 
 CREATE TABLE milestones (
