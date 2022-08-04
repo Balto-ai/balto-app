@@ -31,7 +31,7 @@ class DogRecords {
 
         // throw error if any required fields are missing
         const requiredFields = ["name", "dob", "size", "breed", "sex", "color",
-                                "desc1", "desc2", "dateEntered", "imageUrl",
+                                "desc1", "desc2", "dateEntered", "imageName","imageUrl",
                                 "noviceFriendly", "kidFriendly", "dogFriendly", "catFriendly", "strangerFriendly",
                                 "playfulness", "energyLevel", "exerciseNeeds"]
 
@@ -51,12 +51,12 @@ class DogRecords {
 
         const query = `
             INSERT INTO dogs (
-                name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_url,
+                name, dob, size, breed, sex, color, desc_1, desc_2, date_entered, image_name, image_url,
                 novice_friendly, kid_friendly, dog_friendly, cat_friendly, stranger_friendly,
                 playfulness, energy_level, exercise_needs, 
                 shelter_id
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
             RETURNING id;
             `
 
@@ -69,6 +69,7 @@ class DogRecords {
                                               dogRecordForm.desc1,
                                               dogRecordForm.desc2,
                                               dogRecordForm.dateEntered,
+                                              dogRecordForm.imageName,
                                               dogRecordForm.imageUrl,
                                               dogRecordForm.noviceFriendly,
                                               dogRecordForm.kidFriendly,
@@ -117,7 +118,7 @@ class DogRecords {
 
         // array of valid column names that can be updated here
         const validColumns = ["name", "dob", "size", "breed", "sex", "color",
-                              "desc_1", "desc_2", "date_entered", "image_url",
+                              "desc_1", "desc_2", "date_entered","image_name", "image_url",
                               "novice_friendly", "kid_friendly", "dog_friendly", "cat_friendly", "stranger_friendly",
                               "playfulness", "energy_level", "exercise_needs"]
     
