@@ -41,9 +41,14 @@ export function Logo({ isShelterAdmin=false }) {
 
 // find a dog, starred page
 export function NavLinks({ isShelterAdmin }) {
-  // if the user is a shelter admin, do not display any navigation links
+  // if the user is a shelter admin, display dogs and adoption inquiries tabs
   if (isShelterAdmin) {
-    return null
+    return (
+      <Nav className="me-auto">
+        <Nav.Link href="/admin-dashboard/" id="dog-records-navlink">Dogs</Nav.Link>
+        <Nav.Link href="/admin-dashboard/adoption-inquiries" id="adoption-inquiries-navlink">Adoption Inquiries</Nav.Link>
+      </Nav>
+    )
   }
   // else, show the find a dog and favorites links
   return (
