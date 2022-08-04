@@ -69,15 +69,15 @@ export function DogProfile() {
             </Carousel>
           </Row>
           <Row>
-            <div>
+            <Container>
               <Badge pill bg="primary">{dogInfo.breed}</Badge>{' '}
               <Badge pill bg="primary">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
               <Badge pill bg="primary">{dogInfo.size}</Badge>{' '}
               <Badge pill bg="primary">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
-            </div>
+            </Container>
           </Row>
           <Row>
-            <Container>
+            <Container className='map'>
               <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
             </Container>
           </Row>
