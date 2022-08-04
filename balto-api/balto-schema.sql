@@ -46,7 +46,7 @@ CREATE TABLE dog_images (
     id          SERIAL PRIMARY KEY,
     image_name  TEXT NOT NULL,
     image_url   TEXT NOT NULL,
-    created_at  TIMESTAMP NOT NULL DEFAULT NOW()
+    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
     dog_id      INTEGER NOT NULL,
     FOREIGN KEY (dog_id) REFERENCES dogs(id) ON DELETE CASCADE
 );
