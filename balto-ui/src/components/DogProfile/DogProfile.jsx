@@ -80,7 +80,7 @@ export function DogProfile() {
             <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
               <BsFillHouseDoorFill /> Adopt Me
             </Button>
-            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.id} />
+            <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} userId={user.id} dogId={dogInfo.dog_id} />
           </section>
           </Row>
           <Row>

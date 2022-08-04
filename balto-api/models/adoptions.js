@@ -55,9 +55,16 @@ class Adoptions {
 
     // get all adoption inquiries in the db
     static async fetchAllAdoptionInquiries() {
+
         const query =  `
-            SELECT * FROM adoption_inquiries
-            ORDER BY created_at ASC;
+            SELECT adoption_inquiries.id, adoption_inquiries.email, adoption_inquiries.phone_number, adoption_inquiries.comments, adoption_inquiries.created_at, adoption_inquiries.user_id,
+                dogs.id AS dog_id, dogs.name AS dog_name, dogs.image_url AS dog_image_url, users.first_name AS user_first_name, users.zipcode
+            FROM adoption_inquiries
+            INNER JOIN dogs
+                ON adoption_inquiries.dog_id = dogs.id
+            INNER JOIN users
+                ON adoption_inquiries.user_id = users.id
+            ORDER BY created_at DESC
         `
 
         const result = await db.query(query, [])

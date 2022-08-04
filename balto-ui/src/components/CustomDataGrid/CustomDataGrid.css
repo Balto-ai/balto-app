@@ -1,0 +1,11 @@
+/* DataGrid component */
+.custom-data-grid {
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius-small);
+}
+
+.searchbar {
+    width: 100%;
+    min-width: 400px;
+}

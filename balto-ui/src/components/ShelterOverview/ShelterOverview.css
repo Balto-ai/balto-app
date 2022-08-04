@@ -4,13 +4,6 @@
     flex-direction: column;
 }
 
-/* DataGrid component */
-.shelter-overview-grid {
-    background-color: white;
-    padding: 20px;
-    border-radius: var(--border-radius-small);
-}
-
 /* SEARCHBAR AND ADD RECORD BUTTON */
 .shelter-overview .top-bar {
     display: flex;
@@ -25,21 +18,17 @@
     flex-shrink: 1;
 }
 
-/* search bar */
-.dog-record-search {
-    width: 100%;
-    min-width: 400px;
-}
-
 .dog-name {
     font-weight: 500;
     font-size: 1.1em;
 }
 
-.dog-record-image {
-    height: 50px;
-    width: 50px;
+.shelter-overview .dog-image-icon {
+    height: 35px;
+    width: 35px;
     border-radius: 5px;
     object-fit: cover;
     background-color: lightgrey;
+    margin-left: 5px;
+    margin-right: 10px;
 }
