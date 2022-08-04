@@ -20,7 +20,7 @@ export default function AdoptionInquiryModal(props) {
             {/* modal body is the form to create an inquiry */}
             <Modal.Body>
                 {/* NOTE: passes in the onHide prop so that the modal can close once the user submits the form */}
-                <AdoptionInquiryForm onHide={props.onHide} userId={props.userId} dogId={props.dogId} />
+                <AdoptionInquiryForm onHide={props.onHide} dogId={props.dogId} />
             </Modal.Body>
         </Modal>
     )

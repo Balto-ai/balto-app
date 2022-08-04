@@ -85,10 +85,12 @@ class Adoptions {
             throw new BadRequestError("No form provided")
         }
 
-        const existingAdoptionInquiry = await Adoptions.fetchAdoptionInquiryByDogAndUser(dogId, userId)
-        if (existingAdoptionInquiry.length > 0) {
-            throw new BadRequestError("This adoption inquiry already exists")
-        }
+        // commenting out to allow users to submit multiple inquiries we have frontend handling for the profile page
+
+        // const existingAdoptionInquiry = await Adoptions.fetchAdoptionInquiryByDogAndUser(dogId, userId)
+        // if (existingAdoptionInquiry.length > 0) {
+        //     throw new BadRequestError("This adoption inquiry already exists")
+        // }
 
         const query = `
             INSERT INTO adoption_inquiries
