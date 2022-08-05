@@ -35,7 +35,8 @@ export function UploadModal(props){
     const {createImage} = useImageContext()
     const [imageUpload, setImageUpload] = React.useState(null)
     const [isLoading, setLoading] = React.useState(false)
-
+    const [imageList, setImageList] = React.useState([])
+    
     const handleOnFormSubmit = async (evt) => {
         setError(null)
         evt.preventDefault()
