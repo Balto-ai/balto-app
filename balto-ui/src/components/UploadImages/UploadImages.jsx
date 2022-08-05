@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '@mui/material/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
+import { useRef } from 'react'
 import { useImageContext } from '../../contexts/images';
 import { storage } from '../../firebase/firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -9,22 +10,27 @@ import { v4 } from 'uuid'
 import ImagePlaceholder from './icon/image (1).png'
 import DogIcon from './icon/paw (1).png'
 import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
 import Toast from 'react-bootstrap/Toast';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import ProgressList from '../Upload/ProgressList';
 
 export default function UploadImages({dogId}) {
   const [modalShow, setModalShow] = React.useState(false);
+  const fileRef = useRef()
   return (
         <>
-         <Button variant="contained" component="label" onClick={() => setModalShow(true)}>
-            Upload
+         <Button variant="contained" component="label">
+          Upload
+          <input inputRef hidden accept="image/*" multiple type="file" />
         </Button>
-        <UploadModal
-        dogId={dogId}
+        <ProgressList/>
+        {/* <UploadModal */}
+        {/* dogId={dogId}
         show={modalShow}
         onHide={() => setModalShow(false)}
-        />
+        /> */}
         </>
   )
 }
@@ -143,3 +149,5 @@ export function ShowToast({setShow, show}) {
     </div>
   );
 }
+
+

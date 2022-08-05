@@ -23,7 +23,11 @@ import PropTypes from 'prop-types';
 import {Box, Tab, Tabs} from '@mui/material'
 import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import UploadImages from '../UploadImages/UploadImages'
+import LightBox from 'react-image-lightbox'
+import 'react-image-lightbox/style.css'
 
 const theme = createTheme({
   status: {
@@ -245,13 +249,15 @@ export function DogRecordDetail() {
                   <Box>
                     
                    
-                    <Row>
+                    {/* <Row>
                       {images.length > 0 ? images.map((image)=> {return(
                         <Col><img key={image.id} className='dog-image' src={image.image_url} alt='dog'></img></Col>
                         
                       )}): <p className='no-photos'>No photos available</p>}
                     </Row>
-  
+   */}              <Row>
+                      <ImageLists images={images} />
+                    </Row>
                     
                    
                   </Box>
@@ -304,3 +310,46 @@ export function DeleteDogRecordModal(props) {
     </Modal>
   )
 }
+export function ImageLists({images}){
+  const [photoIndex, setPhotoIndex] = React.useState(0)
+  const [isOpen, setIsOpen] = React.useState(false)
+  return (
+  <>
+  <ImageList  cols={5}>
+      {images.map((item, index) => (
+        <ImageListItem key={item.image_url}
+        sx={{
+          opacity: '.9',
+          transition: 'opacity .3s linear',
+          cursor: 'pointer',
+          '&:hover': {opacity: 1}
+        }}>
+          <img className='dog-image'
+            src={`${item.image_url}?w=164&h=164&fit=crop&auto=format`}
+            srcSet={`${item.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt={item.title}
+            loading="lazy"
+            
+            onClick={()=>{
+              setPhotoIndex(index)
+              setIsOpen(true)
+            }}
+          />
+        </ImageListItem>
+      ))}
+    </ImageList>
+    {isOpen && (
+      <LightBox 
+      mainSrc = {images[photoIndex]?.image_url}
+      nextSrc = {images[(photoIndex + 1)%images.length]?.image_url}
+      prevSrc = {images[(photoIndex + images.length - 1)%images.length]?.image_url}
+      onCloseRequest = {()=> setIsOpen(false)}
+      onMoveNextRequest={() => setPhotoIndex((photoIndex + 1)%images.length)}
+      onMovePrevRequest={()=>setPhotoIndex((photoIndex + images.length - 1 )%images.length)}
+      imageTitle={images[photoIndex]?.image_name}
+      />
+    )}
+  </>
+  );
+}
+
