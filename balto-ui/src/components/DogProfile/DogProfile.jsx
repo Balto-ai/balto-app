@@ -57,13 +57,6 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
-  const displayAttributes = async () => {
-    const attrList = [noviceFriendly, kidFriendly, dogFriendly, catFriendly, strangerFriendly]
-    attrList.map()
-  }
-
-  console.log("DOG INFO: ", dogInfo)
-  // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
 
     <Container>
@@ -79,7 +72,7 @@ export function DogProfile() {
           <Row>
             <Container >
               <div className="rounded me-auto">
-              <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
+                <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
               </div>
             </Container>
           </Row>
@@ -118,8 +111,6 @@ export function DogProfile() {
               <Row className='attributes'>
                 <h2>A little more about me...</h2>
                 <div className='attributes-list'>
-
-
 
                   <span className='checkbox-line'>
                     {noviceFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
