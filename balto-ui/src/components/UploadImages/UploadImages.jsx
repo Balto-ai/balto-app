@@ -19,11 +19,15 @@ import ProgressList from '../Upload/ProgressList';
 export default function UploadImages({dogId}) {
   const [modalShow, setModalShow] = React.useState(false);
   const fileRef = useRef()
+  const [files, setFiles] = React.useState([])
+  const handleChange = (e) => {
+    setFiles([...e.target.files])
+  }
   return (
         <>
          <Button variant="contained" component="label">
           Upload
-          <input inputRef hidden accept="image/*" multiple type="file" />
+          <input inputRef hidden accept="image/*" multiple type="file" onChange={handleChange} />
         </Button>
         <ProgressList/>
         {/* <UploadModal */}

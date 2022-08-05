@@ -1,5 +1,6 @@
 import { BsCheckCircle } from "react-icons/bs";
 import { Box, ImageListItem } from '@mui/material';
+import { IconContext } from "react-icons";
 import React, { useEffect, useState } from 'react';
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import { v4 as uuidv4 } from 'uuid';
@@ -52,9 +53,7 @@ const ProgressItem = ({ file }) => {
           {progress < 100 ? (
             <CircularProgressWithLabel value={progress} />
           ) : (
-            <BsCheckCircle
-              sx={{ width: 60, height: 60, color: 'lightgreen' }}
-            />
+            <CircleCheck/>
           )}
         </Box>
       </ImageListItem>
@@ -75,3 +74,10 @@ const backDrop = {
   justifyContent: 'center',
   background: 'rgba(0,0,0, .5)',
 };
+export function CircleCheck(){
+  return(
+    <IconContext.Provider value={{width: 60, height: 60, color: 'lightgreen'}}>
+      <BsCheckCircle/>
+    </IconContext.Provider>
+  )
+}
