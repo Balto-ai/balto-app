@@ -20,16 +20,21 @@ export default function UploadImages({dogId}) {
   const [modalShow, setModalShow] = React.useState(false);
   const fileRef = useRef()
   const [files, setFiles] = React.useState([])
+  const handleClick = () => {
+    fileRef.current.onClick()
+  }
   const handleChange = (e) => {
     setFiles([...e.target.files])
+    fileRef.current.value = null
   }
+  console.log(files)
   return (
         <>
-         <Button variant="contained" component="label">
+         <Button variant="contained" component="label" onClick={handleClick}>
           Upload
-          <input inputRef hidden accept="image/*" multiple type="file" onChange={handleChange} />
+          <input inputRef={fileRef} hidden accept="image/*" multiple type="file" onChange={handleChange} />
         </Button>
-        <ProgressList/>
+        <ProgressList files={files} dogId={dogId} />
         {/* <UploadModal */}
         {/* dogId={dogId}
         show={modalShow}

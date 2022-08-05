@@ -3,50 +3,26 @@ import { Box, ImageListItem } from '@mui/material';
 import { IconContext } from "react-icons";
 import React, { useEffect, useState } from 'react';
 import CircularProgressWithLabel from './CircularProgressWithLabel';
-import { v4 as uuidv4 } from 'uuid';
-import uploadFileProgress from '../../../firebase/uploadFileProgress';
-import addDocument from '../../../firebase/addDocument';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 } from 'uuid'
+import { storage } from '../../firebase/firebase'
+// import uploadFileProgress from '../../../firebase/uploadFileProgress';
+// import addDocument from '../../../firebase/addDocument';
 
 
-const ProgressItem = ({ file }) => {
+const ProgressItem = ({ file, dogId }) => {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
-
-//   useEffect(() => {
-//     const uploadImage = async () => {
-//       const imageName = uuidv4() + '.' + file.name.split('.').pop();
-//       try {
-//         const url = await uploadFileProgress(
-//           file,
-//           `gallery/${currentUser?.uid}`,
-//           imageName,
-//           setProgress
-//         );
-//         const galleryDoc = {
-//           imageURL: url,
-//           uid: currentUser?.uid || '',
-//           uEmail: currentUser?.email || '',
-//           uName: currentUser?.displayName || '',
-//           uPhoto: currentUser?.photoURL || '',
-//         };
-//         await addDocument('gallery', galleryDoc, imageName);
-//         setImageURL(null);
-//       } catch (error) {
-//         setAlert({
-//           isAlert: true,
-//           severity: 'error',
-//           message: error.message,
-//           timeout: 8000,
-//           location: 'main',
-//         });
-//         console.log(error);
-//       }
-//     };
-//     setImageURL(URL.createObjectURL(file));
-//     uploadImage();
-//   }, [file]);
+  // const [imageUpload, setImageUpload] = React.useState(null)
+  const [form, setForm] = React.useState({imageUrl: '', imageName: '', dogId: dogId})
+  const [isLoading, setLoading] = React.useState(false)
+  useEffect(()=>{
+    
+  }, [file])
   return (
-    imageURL && (
+    ( 
+     <>
+      <UploadtoFirebase isLoading = {isLoading}setForm={setForm} setLoading={setLoading} file={file}  />
       <ImageListItem cols={1} rows={1}>
         <img src={imageURL} alt="gallery" loading="lazy" />
         <Box sx={backDrop}>
@@ -57,6 +33,7 @@ const ProgressItem = ({ file }) => {
           )}
         </Box>
       </ImageListItem>
+     </>
     )
   );
 };
@@ -80,4 +57,25 @@ export function CircleCheck(){
       <BsCheckCircle/>
     </IconContext.Provider>
   )
+}
+export function UploadtoFirebase({setForm, file, setLoading, isLoading}){
+    useEffect(()=>{
+      const uploadImage = () => {
+        if (file === null) return;
+      
+        let imageName = file.name + v4();
+        setForm((existingForm) => ({...existingForm, imageName: imageName}))
+        const imageRef = ref(storage, `dogImages/${imageName}`);
+        uploadBytes(imageRef, file).then((snapshot)=>{
+          getDownloadURL(snapshot.ref).then(async(url)=>{
+            setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
+          })
+        })
+        setLoading(true)
+      }
+
+      if (isLoading === false){
+        uploadImage()
+      }
+    })
 }
