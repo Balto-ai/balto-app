@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
-import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "react-icons/bs";
+import { BsFillHouseDoorFill } from "react-icons/bs";
+import { RiCheckboxCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
@@ -15,6 +16,8 @@ import FilledBone from "../Icon/FilledBone"
 import AdoptionModal from "../AdoptionModal/AdoptionModal"
 
 import ShelterMap from '../ShelterMap/ShelterMap';
+import StarButtonRect from '../StarButtonRect/StarButtonRect';
+
 
 export default function DogProfileContainer() {
   return (
@@ -54,8 +57,6 @@ export function DogProfile() {
     return await ApiClient.starDog(dogInfo.id)
   }
 
-  console.log("DOG INFO: ", dogInfo)
-  // if (dogInfo) { // TODO: hacky solution to prevent object undefined errors
   return (
 
     <Container>
@@ -71,7 +72,7 @@ export function DogProfile() {
           <Row>
             <Container >
               <div className="rounded me-auto">
-              <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
+                <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
               </div>
             </Container>
           </Row>
@@ -82,17 +83,15 @@ export function DogProfile() {
           </Row>
           <Row>
             <Container>
-              <Badge pill bg="primary">{dogInfo.breed}</Badge>{' '}
-              <Badge pill bg="primary">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
-              <Badge pill bg="primary">{dogInfo.size}</Badge>{' '}
-              <Badge pill bg="primary">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
+              <Badge pill bg="info">{dogInfo.breed}</Badge>{' '}
+              <Badge pill bg="info">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
+              <Badge pill bg="info">{dogInfo.size}</Badge>{' '}
+              <Badge pill bg="info">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
             </Container>
           </Row>
           <Row>
             <section className='action-btns'>
-              <Button variant="info" className='btn' onClick={handleOnFavorite} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-                <BsStar /> Favorite
-              </Button>
+              <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />
               <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
                 <BsFillHouseDoorFill /> Adopt Me
               </Button>
@@ -112,24 +111,25 @@ export function DogProfile() {
               <Row className='attributes'>
                 <h2>A little more about me...</h2>
                 <div className='attributes-list'>
+
                   <span className='checkbox-line'>
-                    {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {noviceFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {kidFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {kidFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {dogFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {dogFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {catFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {catFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {strangerFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {strangerFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
                   </span>
                 </div>
