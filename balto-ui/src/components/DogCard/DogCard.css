@@ -1,6 +1,39 @@
 .dog-card {
     white-space: nowrap;
     background-color: white;
+    width: 100%;
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--card-box-shadow);
+}
+
+.dog-card-img{
+    width: 100%;
+    border-radius: var(--border-radius-small);
+    object-fit: cover;
+    aspect-ratio: 1 / 1.1;
+    cursor: pointer;
+}
+
+.dog-info-topline {
+    justify-content: space-between;
+}
+
+/* .dog-card-name-distance {
+    background-color: pink;
+}
+
+.dog-card-star-button-container {
+    background-color: red;
+} */
+
+.dog-card-star-button {
+    margin: 0 auto;
+    background-color: pink;
+}
+
+/* .dog-card {
+    white-space: nowrap;
+    background-color: white;
     height: 365px;
     width: 230px;
     width: 100%;
@@ -18,46 +51,46 @@
 }
 
 /* body of the card */
-.dog-card .dog-info {
+/* .dog-card .dog-info {
     padding: 15px 15px 20px 15px;
-}
+} */
 
 /* flexbox to format the name/distance and the star button to be spaced apart */
-.dog-card .dog-info-topline {
+/* .dog-card .dog-info-topline {
     width: 100%;
-
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
 /* flexbox to format name and distance */
-.dog-card .dog-info-header {
+/* .dog-card .dog-info-header {
     display: flex;
     flex-flow: row nowrap;
-    align-items: flex-end;
-    gap: 10px;
-}
+    align-items: baseline;
+    gap: var(--gap-small);
+} */
 
 /* TEXT CONTENTS BELOW */
 
-.dog-card .dog-info-header .dog-distance {
-    height: 100%;
-    font-weight: 400;
+/* .dog-card .dog-info-header .dog-distance {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--gap-xsmall);
     font-size: 0.9em;
-    color: rgb(117, 117, 117);
-}
+    color: var(--body-text-medium);
+} */
 
-.dog-card .dog-name {
+/* .dog-card .dog-name {
     height: 100%;
     max-width: 70%;
     font-size: 1.3em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
-.dog-card .dog-info .dog-details > * {
+/* .dog-card .dog-info .dog-details > * {
     margin: 0;
-}
+} */

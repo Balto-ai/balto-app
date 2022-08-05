@@ -58,7 +58,7 @@ export default function StarButton({ dogId=1, dogName=""}) {
         <>
         {/* actual button component that is displayed on the card */}
         <IconButton 
-          disableRipple className='starbtn' onClick={handleOnClick} sx={{ transition: '0.3s', bgcolor: '#908af8', color:'white'}} aria-label="star" >
+          disableRipple className='starbtn' onClick={handleOnClick} sx={{ transition: '0.3s', bgcolor: 'var(--balto-main)', color:'white'}} aria-label="star" >
           {isStarred ? <BsStarFill/> : <BsStar/>}
         </IconButton>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}

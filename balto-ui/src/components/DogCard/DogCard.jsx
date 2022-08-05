@@ -1,5 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FiMapPin } from 'react-icons/fi'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import StarButton from '../StarButton/StarButton'
 import './DogCard.css'
 
@@ -46,25 +50,63 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
       }                 
     }
 
-  return (
-    <div className='dog-card'>
-      <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
-      <div className='dog-info'>
-        {/* name, distance, and star button */}
-        <div className='dog-info-topline'>
-          {/* name and distance */}
-          <div className='dog-info-header'>
-            <h2 className='dog-name'>{name}</h2>
-            {/* using placeholder distance here */}
-            <h2 className='dog-distance'>{Math.round(distancebetween)} miles</h2>
-          </div>
-          <StarButton dogId={dogId} dogName={name} />
-        </div>
-        <div className="dog-details">
-          <p className='dog-breed'>{breed}</p>
-          <p className='dog-age'>{calculateAge(dob)}</p>
-        </div>
+    return (
+      <div className='dog-card'>
+        <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
+          {/* name, distance, and star button */}
+        <Container>
+          <Row className='dog-info-topline'>
+            {/* name and distance */}
+              <Col className="dog-card-name-distance">
+                <h2 className='dog-name'>{name}</h2>
+                <div className='dog-distance'>
+                  <FiMapPin />
+                  {Math.round(distancebetween) < 500 ? Math.round(distancebetween) : "500+"} mi
+                </div>
+              </Col>
+
+              <Col className="dog-card-star-button-container" xl={4} l={4} m={4} s={4} xs={4} >
+                <StarButton dogId={dogId} dogName={name} className="dog-card-star-button" />
+              </Col>
+          
+          </Row>
+
+          <Row className="dog-details">
+            <Col>
+              <div className='dog-breed'> BREED {breed}</div>
+              <div className='dog-age'> AGE {calculateAge(dob)}</div>
+            </Col>
+          </Row>
+
+          </Container>
+          
       </div>
-    </div>
-  )
-}
+    )
+  }
+
+
+//   return (
+//     <div className='dog-card'>
+//       <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
+//       <div className='dog-info'>
+//         {/* name, distance, and star button */}
+//         <div className='dog-info-topline'>
+//           {/* name and distance */}
+//           <div className='dog-info-header'>
+//             <h2 className='dog-name'>{name}</h2>
+//             {/* using placeholder distance here */}
+//             <h2 className='dog-distance'>
+//               <FiMapPin />
+//               {Math.round(distancebetween) < 500 ? Math.round(distancebetween) : "500+"} mi
+//             </h2>
+//           </div>
+//           <StarButton dogId={dogId} dogName={name} />
+//         </div>
+//         <div className="dog-details">
+//           <p className='dog-breed'>{breed}</p>
+//           <p className='dog-age'>{calculateAge(dob)}</p>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
