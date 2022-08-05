@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
+import { useAuthContext } from "../../contexts/auth"
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Button from 'react-bootstrap/Button'
@@ -13,14 +14,14 @@ import ApiClient from '../../services/ApiClient'
 export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = () => { } }) {
 
     const navigate = useNavigate()
+    const { user } = useAuthContext()
+
     const [error, setError] = React.useState(null)
     const [form, setForm] = React.useState({
-        userId: userId,
+        userId: user.id,
         dogId: dogId,
-        firstName: "",
-        lastName: "",
+        email: user.email,
         phoneNumber: "",
-        email: "",
         comments: ""
     })
 
@@ -62,8 +63,8 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                                 <Form.Control
                                     name="firstName"
                                     type="text"
-                                    onChange={handleOnInputChange}
-                                    required
+                                    value={user.firstName}
+                                    readOnly
                                     placeholder="First Name"
                                     className="form-input" />
                                 <Form.Control.Feedback type="invalid">Please enter a first name</Form.Control.Feedback>
@@ -71,13 +72,13 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                         </Form.Group>
 
                         <Form.Group controlId="validationCustom02" as={Col} className="form-item">
-                            <FloatingLabel controlId="floatingInput" label="Last Name">
+                            <FloatingLabel controlId="floatingInput" label="ZIP Code">
                                 <Form.Control
                                     name="lastName"
                                     type="text"
-                                    onChange={handleOnInputChange}
-                                    required
-                                    placeholder="Last"
+                                    value={user.zipCode}
+                                    readOnly
+                                    placeholder="ZIP Code"
                                     className="form-input" />
                                 <Form.Control.Feedback type="invalid">Please enter a last</Form.Control.Feedback>
                             </FloatingLabel>
@@ -90,8 +91,8 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                                 <Form.Control
                                     name="email"
                                     type="email"
-                                    onChange={handleOnInputChange}
-                                    required
+                                    value={user.email}
+                                    readOnly
                                     placeholder="Email Address"
                                     className="form-input" />
                                 <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
@@ -99,15 +100,13 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                         </Form.Group>
 
                         <Form.Group controlId="validationCustom04" as={Col} className="form-item">
-                            <FloatingLabel controlId="floatingInput" label="Phone Number">
+                            <FloatingLabel controlId="floatingInput" label="Phone Number (optional)">
                                 <Form.Control
                                     name="phoneNumber"
                                     type="text"
                                     onChange={handleOnInputChange}
-                                    required
-                                    placeholder="Phone Number"
+                                    placeholder="Phone Number (optional)"
                                     className="form-input" />
-                                <Form.Control.Feedback type="invalid">Please enter a phone number</Form.Control.Feedback>
                             </FloatingLabel>
                         </Form.Group>
                         <Form.Text muted>
@@ -116,7 +115,7 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                     </Row>
 
                     <Form.Group controlId="validationCustom05" className="form-item">
-                        <Form.Label>Please note any comments, questions, or concerns</Form.Label>
+                        <Form.Label>Please note any comments, questions, or concerns (optional)</Form.Label>
                         <Form.Control
                             name="comments"
                             onChange={handleOnInputChange}

@@ -1,12 +1,13 @@
 const express = require("express")
 const router = express.Router()
 const Adoptions = require("../models/adoptions")
-// const security = require("../middleware/security")
+const security = require("../middleware/security")
 
-// get all the adoption inquiries in the db
-router.get("/", async (req, res, next) => {
+// get all the adoption inquiries in the db for a specific shelter
+router.get("/", security.requireShelterAdminUser, async (req, res, next) => {
     try {
-        const allAdoptionInquiries = await Adoptions.fetchAllAdoptionInquiries()
+        const { shelterId } = res.locals.user
+        const allAdoptionInquiries = await Adoptions.fetchAllAdoptionInquiries(shelterId)
         return res.status(200).json({ allAdoptionInquiries })
     } catch (err) {
         next(err)
@@ -25,7 +26,7 @@ router.get("/:dogId", async (req, res, next) => {
 })
 
 // create the adoption inquiry between a dog and user
-router.post("/", async (req, res, next) => {
+router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const adoptionForm = req?.body
         const { dogId } = req?.body
