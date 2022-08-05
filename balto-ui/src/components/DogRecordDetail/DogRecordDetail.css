@@ -23,13 +23,16 @@
     vertical-align: middle;
 }
 .dog-name-title{
-    margin-top: 70px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     justify-content: center;
     align-items: center;
 }
 .test2{
     background-color: brown;
 }
+
 /* View Public Profile, Edit, and Delete Buttons */
 .dog-record-detail .bottom-buttons {
     margin: 10px;

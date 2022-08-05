@@ -17,6 +17,7 @@ import { ref, deleteObject } from 'firebase/storage'
 import { useImageContext } from '../../contexts/images'
 import {ImagesContextProvider} from '../../contexts/images'
 import Image from 'react-bootstrap/Image'
+import Box from '@mui/material/Box';
 
 export default function DogRecordDetailContainer(){
   return(
@@ -58,15 +59,15 @@ export function DogRecordDetail() {
   
 
   return (
-    <Container maxWidth="md" className="dog-record-detail">  
+    <Container fluid className="dog-record-detail">  
         {/* basic info like name, breed, sex, etc. */}
           <div className="main-top-header">
-            <Row className="basic-info secondary-container">
-              <Col  xs sm="2">
+            <Row  xs='auto' md="auto" lg='auto' className="basic-info secondary-container">
+              <Col >
                 <Image src={dogRecord.image_url} className="dog-image" alt={`Image of ${dogRecord.name}`}></Image>
               </Col>
-              <Col xs sm="2">
-                <h1>{dogRecord.name}</h1>
+              <Col >
+                <h1 className='dog-name-title'>{dogRecord.name}</h1>
               </Col>
             </Row>
                 
