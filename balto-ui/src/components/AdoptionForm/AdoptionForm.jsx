@@ -26,10 +26,18 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
     })
 
     const [isValidated, setIsValidated] = React.useState(false)
+    const [showConfirmMsg, setShowConfirmMsg] = React.useState(false)
 
     const handleOnInputChange = (evt) => {
         // update form state var with input value
         setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
+    }
+
+    const handleConfirmMsg = (e) => {
+        if (!showConfirmMsg) {
+            e.preventDefault()
+            setShowConfirmMsg(true) // toggle confirm message
+        }
     }
 
     const handleOnFormSubmit = async (evt) => {
@@ -40,6 +48,7 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
     }
 
     const submitForm = async (submittedForm) => {
+        setIsValidated(true)
         const { data, error } = await ApiClient.createAdoptionInquiry(submittedForm)
         onHide()
         if (data) {
@@ -123,7 +132,14 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                             className="form-input mb-3" />
                     </Form.Group>
 
-                    <Button type="submit" onClick={handleOnFormSubmit} className="mb-2 form-item">Submit</Button>
+                    <Button type="submit" onClick={handleConfirmMsg} className="mb-2 form-item">Submit</Button>
+                    {showConfirmMsg && (
+                        <Alert className="text-center">
+                            Are you sure want to submit?{" "}
+                            <Button type="submit" onClick={submitForm}>Yes</Button>{' '}
+                            <Button onClick={()=> {setShowConfirmMsg(false)}}>No</Button>
+                        </Alert>
+                    )}
                 </Form>
 
             </div>

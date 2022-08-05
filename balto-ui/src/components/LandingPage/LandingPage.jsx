@@ -2,7 +2,7 @@ import React from 'react'
 import "./LandingPage.css"
 import { useState, useEffect } from 'react'
 import {FiArrowRight} from 'react-icons/fi'
-import Hero from "./image/Adopt a pet-amico 2.png"
+import Hero from "./image/Adopt a pet-amico 2.svg"
 import {useNavigate} from 'react-router-dom'
 import DogCard from '../DogCard/DogCard'
 import { Container } from '@mui/material';
