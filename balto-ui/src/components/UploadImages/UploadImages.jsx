@@ -122,3 +122,24 @@ export function UploadModal(props){
       </Modal>
     )
 }
+export function ShowToast({setShow, show}) {
+  return (
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+    >
+        <Toast  onClose={() => setShow(false)} show={show} delay={2000} autohide className='update-toast' >
+          <Toast.Header>
+            <img
+              src={DogIcon}
+              className="dog-icon-toast"
+              alt="dog paw"
+            />
+            <strong className="me-auto">Balto</strong>
+            <small className="text-muted">just now</small>
+          </Toast.Header>
+          <Toast.Body>Image saved!</Toast.Body>
+        </Toast>
+    </div>
+  );
+}

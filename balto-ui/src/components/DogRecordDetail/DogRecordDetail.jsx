@@ -247,7 +247,7 @@ export function DogRecordDetail() {
                    
                     <Row>
                       {images.length > 0 ? images.map((image)=> {return(
-                        <Col><img className='dog-image' src={image.image_url} alt='dog'></img></Col>
+                        <Col><img key={image.id} className='dog-image' src={image.image_url} alt='dog'></img></Col>
                         
                       )}): <p className='no-photos'>No photos available</p>}
                     </Row>
