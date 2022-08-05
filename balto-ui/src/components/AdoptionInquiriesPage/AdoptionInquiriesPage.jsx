@@ -1,6 +1,6 @@
 import React from 'react'
 import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '../../contexts/adoption-inquiries'
-import { Searchbar } from '../CustomDataGrid/CustomDataGrid'
+import { useNavigate } from 'react-router-dom'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './AdoptionInquiriesPage.css'
@@ -16,6 +16,7 @@ export default function AdoptionInquiriesPageContainer() {
 export function AdoptionInquiriesPage() {
 
     const { allAdoptionInquiries, error, isLoading } = useAdoptionInquiriesContext()
+    const navigate = useNavigate()
     // const [searchQuery, setSearchQuery] = React.useState("")
 
     // filter dogs based on search query
@@ -27,20 +28,21 @@ export function AdoptionInquiriesPage() {
 
     const rows = [...allAdoptionInquiries]
     const columns = [
-      { field: 'created_at', headerName: 'Timestamp', width: 160, type: 'dateTime',
-        valueFormatter: (params) => (new Date(params.value)).toLocaleString()},
       { field: 'dog_name', headerName: 'Dog', width: 160,
         renderCell: (params) =>
-          <div className="capitalized">
-            <img className="dog-image-icon" src={params.row.dog_image_url} alt={`"Image of ${params.value}`} />
-            {params.value}
-          </div> },
+          <>
+            <img className="dog-image-icon" src={params.row.dog_image_url} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+            <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}>{params.value}</div>
+          </>
+      },
       { field: 'user_first_name', headerName: 'First Name', width: 120,
         renderCell: (params) => <div className="capitalized">{params.value}</div> },
       { field: 'email', headerName: 'Email', width: 140 },
       { field: 'phone_number', headerName: 'Phone Number', width: 130, sortable: false, filterable: false },
       { field: 'zipcode', headerName: 'Zip Code', width: 100 },
-      { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false }
+      { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false },
+      { field: 'created_at', headerName: 'Timestamp', width: 160, type: 'dateTime',
+        valueFormatter: (params) => (new Date(params.value)).toLocaleString()}
     ]
 
     return (
