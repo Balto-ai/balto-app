@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Chip from '@mui/material/Chip'
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -19,7 +19,7 @@ export default function DogSearchPage() {
   const distanceOptions = [5, 10, 15];
 
   // import auth variables
-  const { user, userLocation } = useAuthContext()
+  const { user, userLocation, askForLocation, setAskForLocation } = useAuthContext()
 
   // states each of the filters
   const [selectedBreeds, setSelectedBreeds] = React.useState([]); // ex. ["Dalmation", "Labrador"]
@@ -42,6 +42,8 @@ export default function DogSearchPage() {
     distance: selectedDistance || null,
     shelterIds: selectedShelters
   }
+
+  setAskForLocation(true)
 
   // function to handle checking/unchecking checkboxes used in the size, gender, and good with filters
   //    takes a state var and setState var  as params (ex. selectedSizes and setSelectedSizes)
@@ -305,8 +307,8 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
   // add distanceBetween attribute to each dog
 
   function sortByLocationAsc(a, b) {
-      if (a.distanceBetween < b.distanceBetween) return -1
-      if (a.distanceBetween > b.distanceBetween) return 1
+    if (a.distanceBetween < b.distanceBetween) return -1
+    if (a.distanceBetween > b.distanceBetween) return 1
     return 0
   }
 

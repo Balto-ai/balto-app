@@ -11,15 +11,40 @@ export function AuthContextProvider({ children }) {
     const [error, setError] = React.useState(null)
     const [isAuthed, setIsAuthed] = React.useState(false)
     const [userLocation, setUserLocation] = React.useState({})
+    const [askForLocation, setAskForLocation] = React.useState(false)
 
     // on load, fetch user location data for sorting by location and map view
     React.useEffect(() => {
-        const getLocation = async () => {
-            const { data, error } = await axios.get('https://geolocation-db.com/json/')
-            setUserLocation(data)
+        // get user location coord
+        if (askForLocation) {
+            navigator.geolocation.getCurrentPosition(locationFound, locationError);
         }
-        getLocation()
-    }, [])
+    }, [askForLocation])
+
+    console.log("location: ", userLocation)
+
+
+    function locationFound(position) {
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+        setUserLocation({ "latitude": latitude, "longitude": longitude })
+    }
+
+    function locationError(error) {
+        const code = error.code;
+        const message = error.message;
+        console.log(code, message)
+        if (code == 1) {
+            getLocation()
+        }
+    }
+
+    // backup location fetching option using browser IP address
+    const getLocation = async () => {
+        const { data, error } = await axios.get('https://geolocation-db.com/json/')
+        setUserLocation(data)
+        alert("Using IP address to approximate location.")
+    }
 
     React.useEffect(() => {
         const fetchUser = async () => {
@@ -88,6 +113,7 @@ export function AuthContextProvider({ children }) {
         <AuthContext.Provider value={{
             user, setUser,
             userLocation, setUserLocation,
+            askForLocation, setAskForLocation,
             initialized, setInitialized,
             isProcessing, setIsProcessing,
             error, setError,
