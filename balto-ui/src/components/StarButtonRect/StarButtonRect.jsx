@@ -21,8 +21,11 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     React.useEffect(() => {
         const checkIfStarred = async () => {
             const { data, error } = await ApiClient.fetchStarredDogs()
+            console.log("checking if starred", data)
+
             if (data?.starredDogs) {
                 // this is checking though the returned list of starred dogs to see if one of them has a dog_id value matching the card's dogId
+                console.log("data.starredDogs.some(e => e.dog_id === dogId): ", (data.starredDogs.some(e => e.dog_id === dogId)))
                 if (data.starredDogs.some(e => e.dog_id === dogId)) {
                     setIsStarred(true)
                   }
@@ -33,7 +36,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         if (user?.email) {
             checkIfStarred()
         }
-    }, [user])
+    }, [user, isStarred])
 
     const handleOnClick = async () => {
         // if a user is signed in, allow the user to star/unstar the dog
@@ -54,6 +57,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         }
     }
 
+    console.log("rendering star rec button", isStarred)
     return (
         <>
         {/* actual button component that is displayed on the card */}

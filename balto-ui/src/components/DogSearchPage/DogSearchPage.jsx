@@ -387,7 +387,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 export function DogRecordDropdown({ sortBy, setSortBy }) {
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
+      <Dropdown.Toggle variant="secondary" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => { setSortBy("Name (A-Z)") }}>Name (A-Z)</Dropdown.Item>
         <Dropdown.Item onClick={() => { setSortBy("Name (Z-A)") }}>Name (Z-A)</Dropdown.Item>
