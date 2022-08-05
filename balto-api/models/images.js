@@ -22,7 +22,6 @@ class Images {
 
     // create an adoption inquiry
     static async createImage(newImage) {
-        console.log(newImage)
         if (!newImage) {
             throw new BadRequestError("No image provided")
         }
@@ -47,7 +46,6 @@ class Images {
     
     // called in GET request to /images/:imageId
     static async fetchImagebyId(imageId, dogId) {
-        console.log(dogId, imageId)
         if (!imageId) {
             throw new BadRequestError("No imageId provided")
         }
@@ -72,7 +70,6 @@ class Images {
 
     // delete an adoption inquiry
     static async deleteImage(imageId, dogId) {
-        console.log("inside model")
         if (!imageId) {
             throw new BadRequestError("No imageId provided")
         }

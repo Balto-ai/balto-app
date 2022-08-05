@@ -7,6 +7,7 @@ import React from 'react';
 import { Container, Row, Col, Image, Badge, Button, Carousel } from 'react-bootstrap'
 
 import { useAuthContext } from '../../contexts/auth';
+import {PublicImagesContextProvider, usePublicImagesContext} from '../../contexts/public-dog-images'
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
 import ApiClient from '../../services/ApiClient';
 import { Rating, Typography } from '@mui/material'
@@ -19,7 +20,9 @@ import ShelterMap from '../ShelterMap/ShelterMap';
 export default function DogProfileContainer() {
   return (
     <DogProfileContextProvider>
-      <DogProfile />
+      <PublicImagesContextProvider>
+        <DogProfile />
+      </PublicImagesContextProvider>
     </DogProfileContextProvider>
   )
 }
@@ -37,6 +40,7 @@ export function DogProfile() {
   const [exerciseNeeds, setExerciseNeeds] = useState(0)
   const [playfulness, setPlayfulness] = useState(0)
   const [modalShow, setModalShow] = useState(false)
+  const { images } = usePublicImagesContext() 
 
   // set the dog attributes to state variables for ratings
   useEffect(() => {

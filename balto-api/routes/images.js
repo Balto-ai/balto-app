@@ -17,7 +17,6 @@ router.get("/:dogId", async (req, res, next) =>{
 // create new dog image
 router.post("/",  security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) =>{
     try {
-        console.log(req.body)
         const newImage = req?.body
         const image = await Images.createImage(newImage)
         return res.status(201).json({image})
@@ -29,9 +28,7 @@ router.post("/",  security.requireAuthenticatedUser, security.requireShelterAdmi
 router.get("/:dogId/:imageId", async (req, res, next) =>{
     try {
         const {dogId, imageId} = req.params
-        console.log(req.params, dogId, imageId)
         const image = await Images.fetchImagebyId(imageId, dogId)
-        console.log(image)
         return res.status(200).json({image})
     } catch (error) {
         next(error)
@@ -42,7 +39,6 @@ router.get("/:dogId/:imageId", async (req, res, next) =>{
 router.delete("/:dogId/:imageId",  security.requireAuthenticatedUser, security.requireShelterAdminUser, async (req, res, next) =>{
     try {
         const {imageId, dogId} = req.params
-        console.log(Images.deleteImage(imageId, dogId))
         await Images.deleteImage(imageId, dogId)
         return res.status(204).send("Image successfully deleted")
     } catch (error) {

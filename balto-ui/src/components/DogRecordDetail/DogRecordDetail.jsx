@@ -14,14 +14,26 @@ import Typography from '@mui/material/Typography'
 import "./DogRecordDetail.css"
 import { storage } from '../../firebase/firebase'
 import { ref, deleteObject } from 'firebase/storage'
+import { useImageContext } from '../../contexts/images'
+import {ImagesContextProvider} from '../../contexts/images'
+import Image from 'react-bootstrap/Image'
 
-export default function DogRecordDetail() {
+export default function DogRecordDetailContainer(){
+  return(
+    <ImagesContextProvider>
+      <DogRecordDetail/>
+    </ImagesContextProvider>
+  )
+}
+
+export function DogRecordDetail() {
 
   const { dogId } = useParams()
   const { dogRecord, initialized } = useDogRecordDetailContext()
+  const {setDogId} = useImageContext()
 
   const [modalShow, setModalShow] = React.useState(false) // modal to confirm if the user wants to delete the record
-
+ 
   // used to set the ratings; due to how rating inputs work this is needed to show the ratings on the page
   const [playfulness, setPlayfulness] = React.useState(0)
   const [energyLevel, setEnergyLevel] = React.useState(0)
@@ -40,94 +52,28 @@ export default function DogRecordDetail() {
     setPlayfulness(dogRecord.playfulness)
     setEnergyLevel(dogRecord.energy_level)
     setExerciseNeeds(dogRecord.exercise_needs)
+    setDogId(dogId);
   })
 
-  return (
-    <Container fluid="true" className="dog-record-detail">
-      
-      <Row>
-        
-        {/* basic info like name, breed, sex, etc. */}
-        <Col className="basic-info secondary-container">
-          <div className="main-top-header">
+  
 
-            <img src={dogRecord.image_url} className="dog-image" alt={`Image of ${dogRecord.name}`}></img>
-              
-            <h1>{dogRecord.name}</h1>
-            <Row>
-              <Col>
-                <p>Breed: {dogRecord.breed}</p>
-                <p>Sex: {dogRecord.sex}</p>
-                <p>Size: {dogRecord.size}</p>
+  return (
+    <Container maxWidth="md" className="dog-record-detail">  
+        {/* basic info like name, breed, sex, etc. */}
+          <div className="main-top-header">
+            <Row className="basic-info secondary-container">
+              <Col  xs sm="2">
+                <Image src={dogRecord.image_url} className="dog-image" alt={`Image of ${dogRecord.name}`}></Image>
               </Col>
-              <Col>
-                <p>Color: {dogRecord.color}</p>
-                <p>Date of birth: {(new Date(dogRecord.dob)).toLocaleDateString()}</p>
-                <p>Date entered: {(new Date(dogRecord.date_entered)).toLocaleDateString()}</p>
-              </Col> 
+              <Col xs sm="2">
+                <h1>{dogRecord.name}</h1>
+              </Col>
             </Row>
+                
 
           </div>
-        </Col>
-
-        {/* Good with categories and ratings */}
-        <Col className="adopter-compatibility secondary-container">
-
-          <Row className="dog-record-detail">
-            <Col className="good-withs">
-              {Object.keys(goodWithCategories).map((category, idx) => {
-                  return (
-                    <div className="good-with" key={idx}>
-                      <span className="checkbox-line">
-                        {goodWithCategories[category] ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#ffffff' fontSize="150%" />}
-                        {goodWithCategories[category] ? <Typography component="legend" noWrap={true}>&nbsp; {category}</Typography> : <Typography component="legend" noWrap={true} color="var(--faded-text-grey)">&nbsp; {category}</Typography>}
-                      </span>
-                    </div>
-                    )})}
-            </Col>
-
-            <Col className="ratings">
-              {Object.keys(ratingCategories).map(((category, idx) => {
-                return (
-                <div className="rating" key={idx}>
-                  <p className="rating-label">{category}</p>
-                  <Rating
-                    value={ratingCategories[category] || 1}
-                    icon={<IoPaw className="filled-rating-icon" />}
-                    emptyIcon={<IoPaw className="empty-rating-icon" />}
-                    getLabelText={(value) => `Rating ${value}`}
-                    readOnly />
-                </div> )
-              }))}
-            </Col>
-          </Row>
-
-        </Col>
-      </Row>
       
-      {/* Text descriptions */}
-      <Row>
-        <Col className="adopter-compatibility secondary-container">
-          <h5>I'm known for being...</h5>
-          <p>{dogRecord.desc_1}</p>
-          <h5>I'm looking for someone who...</h5>
-          <p>{dogRecord.desc_2}</p>
-        </Col>
-      </Row>
 
-    
-      {/* View Public Profile, Edit, and Delete buttons */}
-      <div className="bottom-buttons">
-        {/* This one just links to the dog page that you can get to from the search page */}
-        <Link className="btn" variant="outline-secondary" to={`/dog/${dogRecord.id}`}>View Public Profile</Link>
-
-        {/* edit button, redirects to the edit page */}
-        <Link className="btn" variant="outline-secondary" to={`/admin-dashboard/dog-record/id/${dogId}/edit`}>Edit</Link>
-
-        {/* edit button, redirects to the edit page */}
-        <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
-        <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
-     </div>
     </Container>
   )
 }

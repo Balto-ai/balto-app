@@ -6,12 +6,30 @@
 }
 
 .dog-record-detail .dog-image {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10%;
 }
-
+.main-top-header{
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+.test{
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+.dog-name-title{
+    margin-top: 70px;
+    justify-content: center;
+    align-items: center;
+}
+.test2{
+    background-color: brown;
+}
 /* View Public Profile, Edit, and Delete Buttons */
 .dog-record-detail .bottom-buttons {
     margin: 10px;
