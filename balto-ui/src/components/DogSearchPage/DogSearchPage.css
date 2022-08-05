@@ -16,10 +16,17 @@
 
 
 .dog-grid {
-    display: flex;
+    /* display: flex;
     gap: 10px;
     flex-flow: row wrap;
-    width: 70vw;
+    width: 70vw; */
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr); */
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-column-gap: var(--gap-medium);
+    grid-row-gap: var(--gap-medium);
 }
 .applied-filters-title{
     font-size: 18px;

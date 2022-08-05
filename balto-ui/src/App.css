@@ -1,6 +1,8 @@
 
 .App {
   margin: 0 auto;
+  font-family: var(--body-font-family);
+  
 }
 
 /* GLOBAL VARIABLES */
@@ -10,7 +12,15 @@
   --border-radius-large: 20px;
   --border-radius-medium: 15px;
   --border-radius-small: 10px;
+  --border-radius-xsmall: 5px;
+
+  --gap-medium: 20px;
+  --gap-small: 10px;
+
+  --body-text-dark: #242424;
   --faded-text-grey: #a7a7a7;
+  --body-font-family: 'Albert Sans', sans-serif;
+  --header-font-family: 'Readex Pro', sans-serif;
 }
 
 /* GLOBAL CLASS STYLINGS */
@@ -28,6 +38,10 @@
   border-radius: 20px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-font-family);
+}
+
 .capitalized::first-letter {
   text-transform:capitalize;
 }
@@ -43,4 +57,5 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
