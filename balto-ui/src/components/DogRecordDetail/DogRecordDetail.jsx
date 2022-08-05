@@ -17,24 +17,57 @@ import { ref, deleteObject } from 'firebase/storage'
 import { useImageContext } from '../../contexts/images'
 import {ImagesContextProvider} from '../../contexts/images'
 import Image from 'react-bootstrap/Image'
-import Box from '@mui/material/Box';
+import Stack from 'react-bootstrap/Stack'
+import { RiPencilFill } from "react-icons/ri";
+import PropTypes from 'prop-types';
+import {Box, Tab, Tabs} from '@mui/material'
+import {TabContext, TabList, TabPanel} from '@mui/lab'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import UploadImages from '../UploadImages/UploadImages'
+
+const theme = createTheme({
+  status: {
+    danger: '#e53e3e',
+  },
+  palette: {
+    primary: {
+      main: '#908af8',
+      darker: '#7972f7',
+      contrastText: 'white'
+    },
+    secondary: {
+      main: '#FEC272',
+      contrastText: 'black',
+    },
+  },
+});
 
 export default function DogRecordDetailContainer(){
   return(
     <ImagesContextProvider>
-      <DogRecordDetail/>
+        <DogRecordDetail/>
     </ImagesContextProvider>
   )
 }
 
 export function DogRecordDetail() {
-
+  const navigate = useNavigate()
   const { dogId } = useParams()
   const { dogRecord, initialized } = useDogRecordDetailContext()
-  const {setDogId} = useImageContext()
+  const {setDogId, images} = useImageContext()
 
   const [modalShow, setModalShow] = React.useState(false) // modal to confirm if the user wants to delete the record
- 
+  
+  //tab variabls and methods
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    console.log(newValue)
+    setValue(newValue);
+  };
+
+  
+
   // used to set the ratings; due to how rating inputs work this is needed to show the ratings on the page
   const [playfulness, setPlayfulness] = React.useState(0)
   const [energyLevel, setEnergyLevel] = React.useState(0)
@@ -55,27 +88,181 @@ export function DogRecordDetail() {
     setExerciseNeeds(dogRecord.exercise_needs)
     setDogId(dogId);
   })
-
-  
-
   return (
+  <ThemeProvider theme={theme}>
     <Container fluid className="dog-record-detail">  
         {/* basic info like name, breed, sex, etc. */}
           <div className="main-top-header">
             <Row  xs='auto' md="auto" lg='auto' className="basic-info secondary-container">
-              <Col >
+
+
+
+               <Col >
                 <Image src={dogRecord.image_url} className="dog-image" alt={`Image of ${dogRecord.name}`}></Image>
               </Col>
-              <Col >
+              <Stack>
                 <h1 className='dog-name-title'>{dogRecord.name}</h1>
-              </Col>
-            </Row>
+                <div className="bottom-buttons">
                 
+                {/* This one just links to the dog page that you can get to from the search page */}
+                <Button id='view-prof-btn' onClick={()=>{navigate(`/dog/${dogRecord.id}`)}}>View Public Profile</Button>
+        
+                {/* edit button, redirects to the edit page */}
+                  <Link className="btn" variant="outline-secondary" to={`/admin-dashboard/dog-record/id/${dogId}/edit`}><i className='pencil-icon'><RiPencilFill/></i>Edit</Link>
+        
+                {/* edit button, redirects to the edit page */}
+                
+                <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
+                  <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
+                </div>  
+              </Stack>
 
+            </Row>
+
+            <Row  xs='auto' md="auto" lg='auto' className="basic-info secondary-container">
+            <Box sx={{ width: '100%' }}>
+                <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    aria-label="secondary tabs example"
+                  >
+                    <Tab value="1" label="About" />
+                    <Tab value="2" label="Characteristics" />
+                    <Tab value="3" label="Description" />
+                    <Tab value="4" label="Photos" />
+                  </Tabs>
+                </Box>
+                <TabPanel value='1'>
+                <Row>
+                    <h4 className='photo-title'>About</h4>
+                  </Row>
+                  <Box sx={{marginTop:5}}>
+                  <Row>
+                  <Col>
+                    <Row>
+                      <h4 className='detail-title'>Breed</h4>
+                      <p>{dogRecord.breed}</p>
+                    </Row>
+                    <Row>
+                      <h4  className='detail-title'>Sex</h4>
+                      <p>{dogRecord.sex === 'f' ? 'Female': 'Male'}</p>
+                    </Row>
+                    <Row>
+                      <h4  className='detail-title'>Size</h4>
+                      <p>{dogRecord.size}</p>
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row>
+                      <h4  className='detail-title'>Color</h4>
+                      <p>{dogRecord.color}</p>
+                    </Row>
+                    <Row>
+                      <h4  className='detail-title'>Date of Birth</h4>
+                      <p>{(new Date(dogRecord.dob)).toLocaleDateString()}</p>
+                    </Row>
+                    <Row>
+                      <h4  className='detail-title'>Date Entered</h4>
+                      <p>{(new Date(dogRecord.date_entered)).toLocaleDateString()}</p>
+                    </Row>
+                  </Col>
+                  </Row>
+                  
+                  
+               
+                  </Box>
+                  </TabPanel>
+                <TabPanel value='2'>
+                <Row>
+                    <h4 className='photo-title'>Characteristics</h4>
+                  </Row>
+                  {/* Good with categories and ratings */}
+                  <Col className="adopter-compatibility secondary-container">
+          
+                  <Row className="dog-record-detail">
+                    <Col className="good-withs">
+                      <h4 className='second-panel-title'>Good With...</h4>
+                      {Object.keys(goodWithCategories).map((category, idx) => {
+                          return (
+                            <div className="good-with" key={idx}>
+                              <span className="checkbox-line">
+                                {goodWithCategories[category] ? <BsCheckCircleFill color='#908AF8' fontSize="150%" />  : <BsCheckCircle color='#ffffff' fontSize="150%" />}
+                                {goodWithCategories[category] ? <Typography component="legend" noWrap={true}>&nbsp; {category}</Typography> : <Typography component="legend" noWrap={true} color="var(--faded-text-grey)">&nbsp; {category}</Typography>}
+                              </span>
+                            </div>
+                            )})}
+                    </Col>
+                  
+                    <Col className="ratings">
+                      {Object.keys(ratingCategories).map(((category, idx) => {
+                        return (
+                        <div className="rating" key={idx}>
+                          <p className="rating-label">{category}</p>
+                          <Rating
+                            value={ratingCategories[category] || 1}
+                            icon={<IoPaw className="filled-rating-icon" />}
+                            emptyIcon={<IoPaw className="empty-rating-icon" />}
+                            getLabelText={(value) => `Rating ${value}`}
+                            readOnly />
+                        </div> )
+                      }))}
+                    </Col>
+                  </Row>
+                  
+                  </Col>
+                  
+                </TabPanel>
+                <TabPanel value='3'>
+                  {/* Text descriptions */}
+                  <Row>
+                    <h4 className='photo-title'>Description</h4>
+                  </Row>
+                  <Row>
+                    <Col className="adopter-compatibility secondary-container">
+                      <h4 className='detail-title'>I'm known for being...</h4>
+                      <p>{dogRecord.desc_1}</p>
+                      <h4 className='detail-title'>I'm looking for someone who...</h4>
+                      <p>{dogRecord.desc_2}</p>
+                    </Col>
+                  </Row>
+
+                </TabPanel>
+                <TabPanel value='4'>
+                  <Box sx={{marginBottom:5}}>
+                  
+                  
+                  <Row className='upload-images-button'>
+                      <UploadImages dogId={dogId}/>
+                  </Row>
+                  <Row>
+                    <h4 className='photo-title'>Photos</h4>
+                  </Row>
+                  </Box>
+                  <Box>
+                    
+                   
+                    <Row>
+                      {images.length > 0 ? images.map((image)=> {return(
+                        <Col><img className='dog-image' src={image.image_url} alt='dog'></img></Col>
+                        
+                      )}): <p className='no-photos'>No photos available</p>}
+                    </Row>
+  
+                    
+                   
+                  </Box>
+                </TabPanel>
+                </TabContext>
+                </Box>
+            </Row>
           </div>
-      
-
     </Container>
+  </ThemeProvider>
+    
   )
 }
 
