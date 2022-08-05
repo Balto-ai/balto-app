@@ -137,7 +137,8 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                     {showConfirmMsg && (
                         <Alert className="text-center">
                             Are you sure want to submit?{" "}
-                            <Button type="submit" onClick={submitForm}>Yes</Button>
+                            <Button type="submit" onClick={submitForm}>Yes</Button>{' '}
+                            <Button onClick={()=> {setShowConfirmMsg(false)}}>No</Button>
                         </Alert>
                     )}
                 </Form>

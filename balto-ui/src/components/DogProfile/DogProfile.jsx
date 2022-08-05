@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
-import { BsFillHouseDoorFill, BsStar, BsCheckCircleFill, BsCheckCircle } from "react-icons/bs";
+import { BsFillHouseDoorFill, BsStar } from "react-icons/bs";
+import { BiCheckboxChecked, BiCheckbox } from "react-icons/bi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
@@ -113,23 +114,23 @@ export function DogProfile() {
                 <h2>A little more about me...</h2>
                 <div className='attributes-list'>
                   <span className='checkbox-line'>
-                    {noviceFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {noviceFriendly ? <BiCheckboxChecked color='#908AF8' fontSize="150%" /> : <BiCheckbox color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {kidFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {kidFriendly ? <BiCheckboxChecked color='#908AF8' fontSize="150%" /> : <BiCheckbox color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {dogFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {dogFriendly ? <BiCheckboxChecked color='#908AF8' fontSize="150%" /> : <BiCheckbox color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {catFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {catFriendly ? <BiCheckboxChecked color='#908AF8' fontSize="150%" /> : <BiCheckbox color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
                   </span>
                   <span className='checkbox-line'>
-                    {strangerFriendly ? <BsCheckCircleFill color='#908AF8' fontSize="150%" /> : <BsCheckCircle color='#908AF8' fontSize="150%" />}
+                    {strangerFriendly ? <BiCheckboxChecked color='#908AF8' fontSize="150%" /> : <BiCheckbox color='#908AF8' fontSize="150%" />}
                     <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
                   </span>
                 </div>
