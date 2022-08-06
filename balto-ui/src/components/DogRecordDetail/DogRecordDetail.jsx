@@ -100,31 +100,31 @@ export function DogRecordDetail() {
     <Container fluid className="dog-record-detail">  
         {/* basic info like name, breed, sex, etc. */}
           <div className="main-top-header">
-            <Row  xs='auto' md="auto" lg='auto' className="basic-info secondary-container">
-
-
-
-               <Col >
-                <Image src={dogRecord.image_url} className="dog-image" alt={`Image of ${dogRecord.name}`}></Image>
+           <Box>
+           <Row  xs='auto' md="auto" lg='auto' >
+      
+              <Col >
+               <Image roundedCircle src={dogRecord.image_url} className="dog-pfp" alt={`Image of ${dogRecord.name}`}></Image>
               </Col>
               <Stack>
-                <h1 className='dog-name-title'>{dogRecord.name}</h1>
-                <div className="bottom-buttons">
-                
-                {/* This one just links to the dog page that you can get to from the search page */}
-                <Button id='view-prof-btn' onClick={()=>{navigate(`/dog/${dogRecord.id}`)}}>View Public Profile</Button>
-        
-                {/* edit button, redirects to the edit page */}
-                  <Link className="btn" variant="outline-secondary" to={`/admin-dashboard/dog-record/id/${dogId}/edit`}><i className='pencil-icon'><RiPencilFill/></i>Edit</Link>
-        
-                {/* edit button, redirects to the edit page */}
-                
-                <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
-                  <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
-                </div>  
+               <h1 className='dog-name-title'>{dogRecord.name}</h1>
+               <div className="bottom-buttons">
+               
+               {/* This one just links to the dog page that you can get to from the search page */}
+               <Button id='view-prof-btn' onClick={()=>{navigate(`/dog/${dogRecord.id}`)}}>View Public Profile</Button>
+              
+               {/* edit button, redirects to the edit page */}
+                 <Link className="btn" variant="outline-secondary" to={`/admin-dashboard/dog-record/id/${dogId}/edit`}><i className='pencil-icon'><RiPencilFill/></i>Edit</Link>
+              
+               {/* edit button, redirects to the edit page */}
+               
+               <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
+                 <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
+               </div>  
               </Stack>
-
-            </Row>
+              
+              </Row>
+           </Box>
 
             <Row  xs='auto' md="auto" lg='auto' className="basic-info secondary-container">
             <Box sx={{ width: '100%' }}>
