@@ -70,7 +70,6 @@ export function DogRecordDetail() {
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
-    console.log(newValue)
     setValue(newValue);
   };
 
@@ -332,7 +331,7 @@ export function ImageLists({images}){
       {images.map((item, index) => (
         <ImageListItem key={item.image_url}
         sx={{
-          opacity: '.9',
+          opacity: '.7',
           transition: 'opacity .3s linear',
           cursor: 'pointer',
           '&:hover': {opacity: 1}

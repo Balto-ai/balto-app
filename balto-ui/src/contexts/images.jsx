@@ -5,7 +5,7 @@ const ImagesContext = React.createContext()
 
 
 export function ImagesContextProvider({ children }) {
-    // const {currentDog} = useDogRecordDetailContext()
+
     const [images, setImages] = React.useState([])
     const [initialized, setInitialized] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
@@ -14,12 +14,11 @@ export function ImagesContextProvider({ children }) {
     const [receivedNewImage, setReceivedNewImage] = React.useState(false)
     const { user } = useAuthContext()
 
-    console.log(dogId)
+
     React.useEffect(() => {
         const fetchImages = async () => {
             const { data, error } = await ApiClient.fetchAllImages(dogId)
             if (data) {
-                console.log(data?.images)
                 setImages(data?.images)
                 setError(null)
             }
