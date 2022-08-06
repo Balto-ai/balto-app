@@ -25,9 +25,11 @@ import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import UploadImages from '../UploadImages/UploadImages'
+import UploadImagesBtn from '../UploadImagesBtn/UploadImagesBtn'
 import LightBox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
+import ProgressList from '../Upload/ProgressList'
+
 
 const theme = createTheme({
   status: {
@@ -60,6 +62,8 @@ export function DogRecordDetail() {
   const { dogRecord, initialized } = useDogRecordDetailContext()
   const {setDogId, images} = useImageContext()
 
+
+
   const [modalShow, setModalShow] = React.useState(false) // modal to confirm if the user wants to delete the record
   
   //tab variabls and methods
@@ -77,7 +81,7 @@ export function DogRecordDetail() {
   const [energyLevel, setEnergyLevel] = React.useState(0)
   const [exerciseNeeds, setExerciseNeeds] = React.useState(0)
   const ratingCategories = {"Playfulness": playfulness, "Energy Level": energyLevel, "Exercise Needs": exerciseNeeds}
-
+  const [files, setFiles] = React.useState([])
   const goodWithCategories = {
     "Other Dogs": dogRecord.dog_friendly,
     "Cats": dogRecord.cat_friendly,
@@ -240,12 +244,21 @@ export function DogRecordDetail() {
                   
                   
                   <Row className='upload-images-button'>
-                      <UploadImages dogId={dogId}/>
+                   
+                        <UploadImagesBtn setFiles={setFiles} />
+                   
+                      
                   </Row>
                   <Row>
                     <h4 className='photo-title'>Photos</h4>
                   </Row>
                   </Box>
+                  <Box>
+                    <Row>
+                    <ProgressList files={files} dogId={dogId} />
+                    </Row>
+                  </Box>
+
                   <Box>
                     
                    
