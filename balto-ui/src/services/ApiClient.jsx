@@ -185,6 +185,27 @@ class ApiClient {
         return await this.request({ endpoint: `adoptions/`, method: 'DELETE', data: data })
     }
 
+    // IMAGES ======================================================================================
+    async fetchAllImages(dogId) {
+        // get images under a dog
+        return await this.request({ endpoint: `images/${dogId}`, method: 'GET' })
+    }
+
+    async createImage(imageInformation) {
+        // create a new dog record
+        return await this.request({ endpoint: 'images/', method: 'POST', data: imageInformation })
+    }
+
+    async fetchImagebyId(imageId, dogId) {
+        // get an individual image from dogId
+        return await this.request({ endpoint: `images/${dogId}/${imageId}`, method: 'GET' })
+    }
+    
+    async deleteImage(imageId, dogId) {
+        // delete an individual image 
+        return await this.request({ endpoint: `images/${dogId}/${imageId}`, method: 'DELETE' })
+    }
+
 
 }
 

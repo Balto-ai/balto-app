@@ -6,12 +6,90 @@
 }
 
 .dog-record-detail .dog-image {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    padding: 10px;
+    border-radius: 10%;
+}
+.dog-record-detail .dog-pfp {
+    border-style: solid;
+    border-width: 12px;
+    border-color: white;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10%;
 }
-
+.detail-title{
+    font-size: 18px;
+}
+.second-panel-title{
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+.tabbies{
+    text-align:right;
+}
+.text-context{
+    color: palegreen
+}
+#tabss{
+    color:bisque;
+}
+.photo-title{
+    font-size: 22px;
+    font-weight: 700;
+}
+.tabby:active{
+    color:white;
+    text-decoration: none;
+}
+.upload-images-button{
+    float: right;
+}
+.tabs{
+    /* background-color: blue;
+    display: 'block';
+    padding: 30; */
+}
+.main-top-header{
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+.test{
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+.dog-name-title{
+    margin-left: 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: center;
+    align-items: center;
+}
+.columnnnn{
+    background-color: blue;
+}
+.bottom-buttons{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: left;
+}
+.pencil-icon{
+    margin-right: 5px;
+}
+.test2{
+    background-color: brown;
+}
+#view-prof-btn, #view-prof-btn:hover{
+    color: white;
+}
 /* View Public Profile, Edit, and Delete Buttons */
 .dog-record-detail .bottom-buttons {
     margin: 10px;
@@ -25,3 +103,6 @@
     margin-bottom: 5px;
 }
 
+.no-photos{
+    text-align: center;
+}
