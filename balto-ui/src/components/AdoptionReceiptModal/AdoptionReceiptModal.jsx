@@ -39,7 +39,7 @@ export default function AdoptionReceiptModal(props) {
         <i>If you are feeling generous, leave us a tip to help keep Balto free!</i>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide} style={{ fontWeight: 'bold' }}>Close</Button>
       </Modal.Footer>
     </Modal>
     </>

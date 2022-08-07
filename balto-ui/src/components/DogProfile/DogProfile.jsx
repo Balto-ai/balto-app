@@ -6,7 +6,7 @@ import { GiPartyPopper } from "react-icons/gi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
-import { Container, Row, Col, Badge, Button, Carousel, Toast } from 'react-bootstrap'
+import { Container, Row, Col, Badge, Button, Carousel } from 'react-bootstrap'
 
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
@@ -18,7 +18,6 @@ import AdoptionModal from "../AdoptionModal/AdoptionModal"
 import AdoptionReceiptModal from '../AdoptionReceiptModal/AdoptionReceiptModal';
 import ShelterMap from '../ShelterMap/ShelterMap';
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
-
 
 export default function DogProfileContainer() {
   return (
@@ -41,7 +40,6 @@ export function DogProfile() {
   const [exerciseNeeds, setExerciseNeeds] = useState(0)
   const [playfulness, setPlayfulness] = useState(0)
   const [modalShow, setModalShow] = useState(false)
-  const [toastShow, setToastShow] = useState(false)
   const [receiptShow, setReceiptShow] = useState(false)
 
   // set the dog attributes to state variables for ratings
@@ -94,10 +92,9 @@ export function DogProfile() {
               <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
                 <BsFillHouseDoorFill /> Adopt Me
               </Button>
-              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false); setToastShow(true); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
+              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
 
               { /* Modals for adoption inquiry user story */}
-              <AdoptionToast show={toastShow} setShow={setToastShow} />
               <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />
           </section>
       </Row>
@@ -165,20 +162,4 @@ export function DogProfile() {
   )
 }
 
-export function AdoptionToast({ show, setShow }) {
-  return (
-    <div
-      aria-live="polite"
-      aria-atomic="true"
-    >
-      <Toast onClose={() => setShow(false)} show={show} className='update-toast' animation={true} delay={5000} autohide>
-        <Toast.Header>
-          <GiPartyPopper />&nbsp;
-          <strong className="me-auto">Congratulations!</strong>
-          <small className="text-muted">just now</small>
-        </Toast.Header>
-        <Toast.Body>Your adoption request is confirmed! Look out for an email from us within a week.</Toast.Body>
-      </Toast>
-    </div>
-  )
-}
+
