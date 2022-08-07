@@ -27,7 +27,6 @@ export default function Options({ imageId, imageName, dogId }) {
     //   await deleteFile(`gallery/${currentUser.uid}/${imageId}`);
         const deleteImageRef = ref(storage, `dogImages/dogId/${dogId}/${imageName}`)
         await deleteObject(deleteImageRef).then(async()=>{
-            console.log(imageId, dogId)
             await deleteImage(imageId, dogId)
             await fetchAllImages(dogId)
         }).catch((error)=>{

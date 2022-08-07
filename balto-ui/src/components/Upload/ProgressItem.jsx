@@ -31,7 +31,6 @@ const ProgressItem = ({ file, isLoading, setLoading, dogId}) => {
           imageName,
           setProgress
         )
-        console.log(url)
         const imageInfo = {
           imageUrl: url,
           imageName: imageName,

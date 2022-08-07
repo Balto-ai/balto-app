@@ -319,10 +319,6 @@ export function DeleteDogRecordModal(props) {
 export function ImageLists({images, dogId}){
   const [photoIndex, setPhotoIndex] = React.useState(0)
   const [isOpen, setIsOpen] = React.useState(false)
-  console.log(images)
-  useEffect(()=>{
-    console.log(images)
-  },[images])
   return (
   <>
   <ImageList  cols={5}>
