@@ -2,10 +2,11 @@ import { useState, useEffect, useContext } from 'react'
 import './DogProfile.css'
 import { BsFillHouseDoorFill } from "react-icons/bs";
 import { RiCheckboxCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri"
+import { GiPartyPopper } from "react-icons/gi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
-import { Container, Row, Col, Image, Badge, Button, Carousel } from 'react-bootstrap'
+import { Container, Row, Col, Badge, Button, Carousel, Toast } from 'react-bootstrap'
 
 import { useAuthContext } from '../../contexts/auth';
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
@@ -14,7 +15,7 @@ import { Rating, Typography } from '@mui/material'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
 import AdoptionModal from "../AdoptionModal/AdoptionModal"
-
+import AdoptionReceiptModal from '../AdoptionReceiptModal/AdoptionReceiptModal';
 import ShelterMap from '../ShelterMap/ShelterMap';
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
 
@@ -40,6 +41,8 @@ export function DogProfile() {
   const [exerciseNeeds, setExerciseNeeds] = useState(0)
   const [playfulness, setPlayfulness] = useState(0)
   const [modalShow, setModalShow] = useState(false)
+  const [toastShow, setToastShow] = useState(false)
+  const [receiptShow, setReceiptShow] = useState(false)
 
   // set the dog attributes to state variables for ratings
   useEffect(() => {
@@ -52,10 +55,6 @@ export function DogProfile() {
     setExerciseNeeds(dogInfo.exercise_needs)
     setPlayfulness(dogInfo.playfulness)
   })
-
-  const handleOnFavorite = async () => {
-    return await ApiClient.starDog(dogInfo.id)
-  }
 
   return (
 
@@ -95,70 +94,91 @@ export function DogProfile() {
               <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
                 <BsFillHouseDoorFill /> Adopt Me
               </Button>
-              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false) }} dogId={dogInfo.dog_id} />
-            </section>
-          </Row>
-          <Row>
-            <div className='about-section'>
-              <Row className='desc-1'>
-                <h2>I'm known for being...</h2>
-                <p>{dogInfo.desc_1}</p>
-              </Row>
-              <Row className='desc-2'>
-                <h2>I'm looking for someone who...</h2>
-                <p>{dogInfo.desc_2}</p>
-              </Row>
-              <Row className='attributes'>
-                <h2>A little more about me...</h2>
-                <div className='attributes-list'>
+              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false); setToastShow(true); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
 
-                  <span className='checkbox-line'>
-                    {noviceFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {kidFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {dogFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {catFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
-                  </span>
-                  <span className='checkbox-line'>
-                    {strangerFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
-                    <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
-                  </span>
-                </div>
-                <div>
-                  <Typography component="legend" noWrap={true}>Playfulness</Typography>
-                  <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend" noWrap={true}>Energy Levels</Typography>
-                  <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                  <Typography component="legend" noWrap={true}>Exercise Needs</Typography>
-                  <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
-                    emptyIcon={<EmptyBone fontSize="inherit" />} />
-                  <br></br>
-                </div>
-              </Row>
-              <Row className='shelter-loc'>
-                <h2>You can meet me at...</h2>
-                <p>{dogInfo.shelter_name}</p>
-                <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
-                <p>{dogInfo.email}</p>
-              </Row>
+              { /* Modals for adoption inquiry user story */}
+              <AdoptionToast show={toastShow} setShow={setToastShow} />
+              <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />
+          </section>
+      </Row>
+      <Row>
+        <div className='about-section'>
+          <Row className='desc-1'>
+            <h2>I'm known for being...</h2>
+            <p>{dogInfo.desc_1}</p>
+          </Row>
+          <Row className='desc-2'>
+            <h2>I'm looking for someone who...</h2>
+            <p>{dogInfo.desc_2}</p>
+          </Row>
+          <Row className='attributes'>
+            <h2>A little more about me...</h2>
+            <div className='attributes-list'>
+
+              <span className='checkbox-line'>
+                {noviceFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
+                <Typography component="legend" noWrap={true}>&nbsp; Novice Friendly</Typography>
+              </span>
+              <span className='checkbox-line'>
+                {kidFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
+                <Typography component="legend" noWrap={true}>&nbsp; Kid Friendly</Typography>
+              </span>
+              <span className='checkbox-line'>
+                {dogFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
+                <Typography component="legend" noWrap={true}>&nbsp; Dog Friendly</Typography>
+              </span>
+              <span className='checkbox-line'>
+                {catFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
+                <Typography component="legend" noWrap={true}>&nbsp; Cat Friendly</Typography>
+              </span>
+              <span className='checkbox-line'>
+                {strangerFriendly ? <RiCheckboxCircleFill color='#908AF8' fontSize="150%" /> : <RiCheckboxBlankCircleLine color='#908AF8' fontSize="150%" />}
+                <Typography component="legend" noWrap={true}>&nbsp; Stranger Friendly</Typography>
+              </span>
+            </div>
+            <div>
+              <Typography component="legend" noWrap={true}>Playfulness</Typography>
+              <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
+                emptyIcon={<EmptyBone fontSize="inherit" />} />
+              <br></br>
+              <Typography component="legend" noWrap={true}>Energy Levels</Typography>
+              <Rating value={energyLevels} readOnly icon={<FilledBone fontSize="inherit" />}
+                emptyIcon={<EmptyBone fontSize="inherit" />} />
+              <br></br>
+              <Typography component="legend" noWrap={true}>Exercise Needs</Typography>
+              <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
+                emptyIcon={<EmptyBone fontSize="inherit" />} />
+              <br></br>
             </div>
           </Row>
-        </Col>
+          <Row className='shelter-loc'>
+            <h2>You can meet me at...</h2>
+            <p>{dogInfo.shelter_name}</p>
+            <p>{dogInfo.address}, {dogInfo.city}, {dogInfo.state} {dogInfo.zipcode}</p>
+            <p>{dogInfo.email}</p>
+          </Row>
+        </div>
       </Row>
-    </Container>
+    </Col>
+      </Row >
+    </Container >
   )
-  // }
+}
+
+export function AdoptionToast({ show, setShow }) {
+  return (
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <Toast onClose={() => setShow(false)} show={show} className='update-toast' animation={true} delay={5000} autohide>
+        <Toast.Header>
+          <GiPartyPopper />&nbsp;
+          <strong className="me-auto">Congratulations!</strong>
+          <small className="text-muted">just now</small>
+        </Toast.Header>
+        <Toast.Body>Your adoption request is confirmed! Look out for an email from us within a week.</Toast.Body>
+      </Toast>
+    </div>
+  )
 }
