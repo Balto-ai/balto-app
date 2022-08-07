@@ -14,7 +14,7 @@ import uploadFileProgress from "../../firebase/uploadFileProgress";
 // import addDocument from '../../../firebase/addDocument';
 
 
-const ProgressItem = ({ file, isLoading, setLoading, dogId}) => {
+const ProgressItem = ({ file, isLoading, setLoading, dogId, setFiles}) => {
   const [progress, setProgress] = useState(100);
   const [imageURL, setImageURL] = useState(null);
   const {createImage} = useImageContext()
@@ -38,6 +38,7 @@ const ProgressItem = ({ file, isLoading, setLoading, dogId}) => {
         }
         await createImage(imageInfo)
         setImageURL(null)
+        setFiles([])
       } catch (error) {
         alert(error.message)
         console.log(error)

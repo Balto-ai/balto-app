@@ -5,7 +5,7 @@ import ProgressItem from './ProgressItem';
 import { create } from '@mui/material/styles/createTransitions';
 
 
-export default function ProgressList ({ files, dogId }){
+export default function ProgressList ({ files, dogId, setFiles }){
 
   const [isLoading, setLoading] = React.useState(false)
   return (
@@ -14,7 +14,7 @@ export default function ProgressList ({ files, dogId }){
       {files.map((file, index) => {
         return(
           <>
-          <ProgressItem dogId={dogId}  isLoading={isLoading} setLoading={setLoading} file={file} key={index} />
+          <ProgressItem setFiles={setFiles} dogId={dogId}  isLoading={isLoading} setLoading={setLoading} file={file} key={index} />
           </>
         )
       })}

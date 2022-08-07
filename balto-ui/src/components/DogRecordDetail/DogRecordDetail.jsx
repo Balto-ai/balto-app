@@ -256,7 +256,7 @@ export function DogRecordDetail() {
                   </Box>
                   <Box>
                     <Row>
-                    <ProgressList files={files} dogId={dogId} />
+                    <ProgressList setFiles={setFiles} files={files} dogId={dogId} />
                     </Row>
                   </Box>
 
