@@ -54,6 +54,8 @@
     ]
   },
   "devDependencies": {
+    "@react-hook/window-size": "^3.0.7",
+    "react-confetti": "^6.1.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0"
   }
