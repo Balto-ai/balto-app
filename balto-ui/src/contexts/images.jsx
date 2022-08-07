@@ -55,6 +55,15 @@ export function ImagesContextProvider({ children }) {
             setReceivedNewImage(true)
         }
     }
+    const fetchAllImages = async (dogId) => {
+        setReceivedNewImage(false)
+        const { data, error } = await ApiClient.fetchAllImages(dogId)
+        if (error) setError(error)
+        if (data) {
+            setError(false)
+            setReceivedNewImage(true)
+        }
+    }
     const deleteImage = async (imageId, dogId) => {
         setReceivedNewImage(false)
         const { data, error } = await ApiClient.deleteImage(imageId, dogId)
@@ -75,6 +84,7 @@ export function ImagesContextProvider({ children }) {
             createImage,
             deleteImage,
             fetchImagebyId,
+            fetchAllImages,
             dogId,
             setDogId
 

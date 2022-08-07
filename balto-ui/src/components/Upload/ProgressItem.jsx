@@ -91,27 +91,3 @@ export function CircleCheck(){
     </IconContext.Provider>
   )
 }
-export function UploadtoFirebase({setForm, file, setLoading, isLoading, form, setIndex, fileIndex}){
-  console.log(form.imageUrl)
-  useEffect(()=>{
-      const uploadImage = async() => {
-        if (file === null) return;
-        if (form.imageName === '' && form.imageUrl === ''){
-          let imageName = file.name + v4();
-          setForm((existingForm) => ({...existingForm, imageName: imageName}))
-          const imageRef = ref(storage, `dogImages/${imageName}`);
-          uploadBytes(imageRef, file).then((snapshot)=>{
-            getDownloadURL(snapshot.ref).then(async(url)=>{
-              setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
-            })
-          })
-          setLoading(true)
-        }
-      }
-      if (!isLoading){
-        uploadImage()
-        setIndex((oldFiles) => [...oldFiles, {...form}])
-        console.log(fileIndex)
-      }
-    },[])
-}

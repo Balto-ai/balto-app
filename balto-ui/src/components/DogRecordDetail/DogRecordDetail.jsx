@@ -20,6 +20,7 @@ import Image from 'react-bootstrap/Image'
 import Stack from 'react-bootstrap/Stack'
 import { RiPencilFill } from "react-icons/ri";
 import PropTypes from 'prop-types';
+import moment from 'moment'
 import {Box, Tab, Tabs} from '@mui/material'
 import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -29,7 +30,8 @@ import UploadImagesBtn from '../UploadImagesBtn/UploadImagesBtn'
 import LightBox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
 import ProgressList from '../Upload/ProgressList'
-
+import Options from './Options'
+import { useEffect } from 'react'
 
 const theme = createTheme({
   status: {
@@ -259,16 +261,8 @@ export function DogRecordDetail() {
                   </Box>
 
                   <Box>
-                    
-                   
-                    {/* <Row>
-                      {images.length > 0 ? images.map((image)=> {return(
-                        <Col><img key={image.id} className='dog-image' src={image.image_url} alt='dog'></img></Col>
-                        
-                      )}): <p className='no-photos'>No photos available</p>}
-                    </Row>
-   */}              <Row>
-                      <ImageLists images={images} />
+                   <Row>
+                      <ImageLists images={images} dogId={dogId} />
                     </Row>
                     
                    
@@ -322,9 +316,13 @@ export function DeleteDogRecordModal(props) {
     </Modal>
   )
 }
-export function ImageLists({images}){
+export function ImageLists({images, dogId}){
   const [photoIndex, setPhotoIndex] = React.useState(0)
   const [isOpen, setIsOpen] = React.useState(false)
+  console.log(images)
+  useEffect(()=>{
+    console.log(images)
+  },[images])
   return (
   <>
   <ImageList  cols={5}>
@@ -336,7 +334,8 @@ export function ImageLists({images}){
           cursor: 'pointer',
           '&:hover': {opacity: 1}
         }}>
-          <img className='dog-image'
+          <Options imageId={item.id} imageName = {item.image_name} dogId={dogId} />
+          <img 
             src={`${item.image_url}?w=164&h=164&fit=crop&auto=format`}
             srcSet={`${item.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}
@@ -347,6 +346,22 @@ export function ImageLists({images}){
               setIsOpen(true)
             }}
           />
+          <Typography
+          variant='body2'
+          component='span'
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left:0,
+            color:'white',
+            background: 'rgba(0,0,0, .3)',
+            p: '5px',
+            borderTopRightRadius: 8,
+              
+          }}
+          >
+            {moment(item?.created_at).fromNow()}
+          </Typography>
         </ImageListItem>
       ))}
     </ImageList>
