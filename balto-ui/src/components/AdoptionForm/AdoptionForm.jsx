@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../contexts/auth"
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
@@ -13,7 +12,6 @@ import ApiClient from '../../services/ApiClient'
 
 export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = () => { } }) {
 
-    const navigate = useNavigate()
     const { user } = useAuthContext()
 
     const [error, setError] = React.useState(null)
@@ -131,13 +129,13 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
                             as="textarea"
                             className="form-input mb-3" />
                     </Form.Group>
-
-                    <Button type="submit" onClick={handleConfirmMsg} className="mb-2 form-item">Submit</Button>
+        
+                    <Button type="submit" onClick={handleConfirmMsg} variant="secondary" style={{fontWeight: 'bold'}} className="mb-2 form-item">Submit</Button>
                     {showConfirmMsg && (
                         <Alert className="text-center">
-                            Are you sure want to submit?{" "}
-                            <Button type="submit" onClick={submitForm}>Yes</Button>{' '}
-                            <Button onClick={()=> {setShowConfirmMsg(false)}}>No</Button>
+                            Are you sure want to submit?&nbsp; &nbsp; &nbsp; 
+                            <Button type="submit" onClick={submitForm} style={{fontWeight: 'bold'}} >Yes</Button>{' '}
+                            <Button onClick={()=> {setShowConfirmMsg(false)}} style={{fontWeight: 'bold'}}>No</Button>
                         </Alert>
                     )}
                 </Form>
