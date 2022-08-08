@@ -20,5 +20,5 @@ const shelterAdminUserOwnsDogRecord = async (req, res, next) =>{
    } 
 }
 module.exports = {
-    shelterAdminUserOwnsDogRecord
+    shelterAdminUserOwnsDogRecord,
 }

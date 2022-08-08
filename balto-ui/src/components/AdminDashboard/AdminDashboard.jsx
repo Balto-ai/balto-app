@@ -9,11 +9,13 @@ import AdoptionInquiriesPage from '../AdoptionInquiriesPage/AdoptionInquiriesPag
 // import DogRecordDetail from '../DogRecordDetail/DogRecordDetail'
 import NotFound from '../NotFound/NotFound'
 import './AdminDashboard.css'
-
+import { DogRecordDetailContextProvider } from '../../contexts/dog-record-detail'
 export default function AdminDashboardContainer() {
   return (
     <DogRecordsContextProvider>
-      <AdminDashboard />
+      <DogRecordDetailContextProvider>
+          <AdminDashboard />
+      </DogRecordDetailContextProvider>
     </DogRecordsContextProvider>
   )
 }

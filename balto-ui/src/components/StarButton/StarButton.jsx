@@ -86,7 +86,7 @@ export function StarModal(props) {
             <LoginForm/>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     )

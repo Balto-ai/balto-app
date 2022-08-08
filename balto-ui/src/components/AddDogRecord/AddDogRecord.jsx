@@ -270,7 +270,7 @@ export default function AddDogRecord() {
                 <Form.Control type="file" onChange={handleOnImageFileChange} />
               </Form.Group>    
             <div className='save-btn-area'>
-              <Button disabled={isLoading} className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
+              <Button style={{color:'white'}} disabled={isLoading} className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
             </div>
            
           </Form.Group>
@@ -334,7 +334,7 @@ export default function AddDogRecord() {
           
           </Form.Group>
         
-          <Button type="submit" className="mb-2 form-item">Add</Button>
+          <Button style={{color:'white'}} type="submit" className="mb-2 form-item">Add</Button>
 
         </Form>
         

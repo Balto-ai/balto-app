@@ -60,5 +60,5 @@ router.get("/:dogId", security.requireAuthenticatedUser, security.requireShelter
         next(err)
     }
   })
-
+  
 module.exports = router

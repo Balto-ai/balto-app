@@ -8,6 +8,7 @@ import { Searchbar } from '../CustomDataGrid/CustomDataGrid'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './ShelterOverview.css'
+import AddIcon from '@mui/icons-material/Add'; 
 
 export default function ShelterOverview() {
 
@@ -56,7 +57,7 @@ export default function ShelterOverview() {
         <div className="shelter-overview primary-container" style={{ display: 'flex', height: '100%', width: '100%' }}>
             <div className="top-bar">
                 <Searchbar setSearchQuery={setSearchQuery} placeholder={"Search by dog name"}/>
-                <Button href="/admin-dashboard/add-record" className="dog-record-add-btn mb-3">+ New</Button>
+                <Button style={{color:'white'}} href="/admin-dashboard/add-record" className="dog-record-add-btn mb-3">+ New</Button>
             </div>
             <RowContextMenu rows={rows} columns={columns} />
         </div>

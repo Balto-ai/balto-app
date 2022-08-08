@@ -9,6 +9,7 @@ import Toast from 'react-bootstrap/Toast'
 import LoginForm from '../LoginForm/LoginForm'
 import { IconButton } from '@mui/material';
 import "./StarButtonRect.css"
+import Tooltip from '@mui/material/Tooltip';
 
 export default function StarButtonRect({ dogId=1, dogName=""}) {
     const { user } = useAuthContext()
@@ -58,7 +59,10 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     return (
         <>
         {/* actual button component that is displayed on the card */}
-        <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button>
+        {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
+        <Tooltip title="Add to Favorites">
+          <IconButton aria-label='favorite' onClick={handleOnClick}>{isStarred ? <BsStarFill /> : <BsStar />}</IconButton>
+        </Tooltip>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         <StarModal show={modalShow} onHide={() => setModalShow(false)} />
 
@@ -84,7 +88,7 @@ export function StarModal(props) {
             <LoginForm/>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     )
