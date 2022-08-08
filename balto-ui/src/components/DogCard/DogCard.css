@@ -1,7 +1,8 @@
 .dog-card {
     white-space: nowrap;
     background-color: white;
-    width: 100%;
+    /* width: 100%; */
+    min-width: var(--min-dog-card-width);
     border-radius: var(--border-radius-small);
     box-shadow: var(--card-box-shadow);
 }
@@ -14,83 +15,22 @@
     cursor: pointer;
 }
 
-.dog-info-topline {
-    justify-content: space-between;
+.dog-card .dog-info {
+    padding: var(--gap-xsmall);
 }
 
-/* .dog-card-name-distance {
-    background-color: pink;
-}
-
-.dog-card-star-button-container {
-    background-color: red;
-} */
-
-.dog-card-star-button {
-    margin: 0 auto;
-    background-color: pink;
-}
-
-/* .dog-card {
-    white-space: nowrap;
-    background-color: white;
-    height: 365px;
-    width: 230px;
-    width: 100%;
-    border-radius: 10px;
-}
-
-.dog-card-img{
-    width: 100%;
-    height: 253px;
-    border-radius: 10px;
-    border-radius: 10px;
-    object-fit: cover;
-    aspect-ratio: 1 / 1.1;
-    cursor: pointer;
-}
-
-/* body of the card */
-/* .dog-card .dog-info {
-    padding: 15px 15px 20px 15px;
-} */
-
-/* flexbox to format the name/distance and the star button to be spaced apart */
-/* .dog-card .dog-info-topline {
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+.dog-card .dog-info-topline {
+    /* background-color: red; */
     align-items: center;
-} */
-
-/* flexbox to format name and distance */
-/* .dog-card .dog-info-header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: baseline;
-    gap: var(--gap-small);
-} */
-
-/* TEXT CONTENTS BELOW */
-
-.dog-card .dog-distance {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: var(--gap-xsmall);
-    font-size: 0.9em;
-    color: var(--body-text-medium);
 }
 
-/* .dog-card .dog-name {
-    height: 100%;
-    max-width: 70%;
-    font-size: 1.3em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-} */
+.dog-card .dog-info-topline .dog-name {
+    font-family: var(--header-font-family);
+    font-size: 1.2em;
+}
 
-/* .dog-card .dog-info .dog-details > * {
-    margin: 0;
-} */
+.dog-card .dog-info-topline .dog-distance {
+    font-size: 0.8em;
+    color: var(--body-text-medium);
+    gap: 30px;
+}

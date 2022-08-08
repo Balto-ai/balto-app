@@ -1,33 +1,12 @@
-.filter-sidebar {
-    min-width: 250px;
-    width: 15vw;
-}
-
 .dog-search-page {
     min-height: 600px;
-    background-color: rgb(244, 244, 244);
+    background-color: var(--light-bg-grey);
+    border-radius: 0% !important;
 }
 
-.dog-search-page-container {
-    display: flex;
-    padding: 50px;
-    gap: 50px;
-}
-
-#dropdown-menu{
-   /* margin-left: 10%; */
-   /* margin-left: 140px; */
-}
 .dog-grid {
-    /* display: flex;
-    gap: 10px;
-    flex-flow: row wrap;
-    width: 70vw; */
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr); */
-    grid-template-columns: repeat(auto-fill, 250px);
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-dog-card-width), 1fr));
     grid-column-gap: var(--gap-medium);
     grid-row-gap: var(--gap-medium);
 }
@@ -47,4 +26,10 @@
 }
 .applied-filters-chip{
     margin: 5px;
+}
+
+.dog-record-sort {
+    align-self: flex-end;
+    right: 0;
+    position: absolute;
 }

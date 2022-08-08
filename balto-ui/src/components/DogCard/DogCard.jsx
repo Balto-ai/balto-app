@@ -4,9 +4,10 @@ import { FiMapPin } from 'react-icons/fi'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import StarButton from '../StarButton/StarButton'
+// import StarButton from '../StarButton/StarButton'
 import defaultImage from '../../assets/default-image.svg'
 import './DogCard.css'
+import StarButtonRect from '../StarButtonRect/StarButtonRect';
 
 export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="", distancebetween=0 }) { 
 
@@ -56,31 +57,29 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
       <div className='dog-card'>
         <img src={imageSrc} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
           {/* name, distance, and star button */}
-        <Container>
-          <Row className='dog-info-topline'>
+        <div className="dog-info">
+          <Row className='dog-info-topline' xs={3} s={3} m={3} lg={3} xlg={3} >
             {/* name and distance */}
-            <Col className="dog-card-name-distance">
-              <h2 className='dog-name'>{name}</h2>
-              <div className='dog-distance'>
+            <Col className='dog-name'>{name}</Col>
+            <Col className='dog-distance'>
                 <FiMapPin />
                 {Math.round(distancebetween) < 500 ? Math.round(distancebetween) : "500+"} mi
-              </div>
             </Col>
             {/* star button */}
-            <Col className="dog-card-star-button-container" xl={4} l={4} m={4} s={4} xs={4} >
-              <StarButton dogId={dogId} dogName={name} className="dog-card-star-button" />
+            <Col className="dog-card-star-button-container">
+              <StarButtonRect dogId={dogId} dogName={name} />
             </Col>
           
           </Row>
 
           <Row className="dog-details">
             <Col>
-              <div className='dog-breed'> BREED {breed}</div>
-              <div className='dog-age'> AGE {calculateAge(dob)}</div>
+              <div className='dog-breed'>{breed}</div>
+              <div className='dog-age'>{calculateAge(dob)}</div>
             </Col>
           </Row>
 
-          </Container>
+          </div>
           
       </div>
     )
