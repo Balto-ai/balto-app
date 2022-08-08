@@ -1,23 +1,17 @@
-import { BsCheckCircle } from "react-icons/bs";
-import { Box, ImageListItem } from '@mui/material';
-import { IconContext } from "react-icons";
 import React, { useEffect, useState } from 'react';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { ref, deleteObject } from 'firebase/storage'
 import { v4 } from 'uuid'
 import { storage } from '../../firebase/firebase'
-import { create } from "@mui/material/styles/createTransitions";
 import uploadFileProgress from "../../firebase/uploadFileProgress";
 // import uploadFileProgress from '../../../firebase/uploadFileProgress';
 // import addDocument from '../../../firebase/addDocument';
 
 
-const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setShow}) => {
+const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form}) => {
   const [progress, setProgress] = useState(100);
   const [imageURL, setImageURL] = useState(null);
 
   // const [imageUpload, setImageUpload] = React.useState(null)
-  console.log(form.image_name, form.image_url)
-  console.log(image)
   useEffect(()=>{
     const handleDelete = async () => {
       try {
@@ -30,7 +24,7 @@ const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setSho
           })
       } catch (error) {
         alert(error.message);
-        console.log(error);
+        console.error(error);
       }
     };
     
@@ -52,7 +46,7 @@ const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setSho
         setLoading(true)
       } catch (error) {
         alert(error.message)
-        console.log(error)
+        console.error(error)
       }
     }
    

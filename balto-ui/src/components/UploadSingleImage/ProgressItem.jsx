@@ -16,8 +16,6 @@ const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setSho
   const [imageURL, setImageURL] = useState(null);
 
   // const [imageUpload, setImageUpload] = React.useState(null)
-  console.log(form.imageName, form.imageUrl)
-  console.log(image)
   useEffect(()=>{
     const handleDelete = async () => {
       try {
@@ -30,7 +28,7 @@ const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setSho
           })
       } catch (error) {
         alert(error.message);
-        console.log(error);
+        console.error(error);
       }
     };
     
@@ -52,7 +50,7 @@ const ProgressItem = ({ setLoading, image, setImageUpload, setForm, form, setSho
         setLoading(true)
       } catch (error) {
         alert(error.message)
-        console.log(error)
+        console.error(error)
       }
     }
    

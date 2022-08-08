@@ -2,9 +2,6 @@ import { ImageList } from '@mui/material';
 import React from 'react';
 import ProgressItem from './ProgressItem';
 
-import { create } from '@mui/material/styles/createTransitions';
-
-
 export default function ProgressList ({ setLoading,setShow, form, imageUpload, setImageUpload, setForm}){
   return (
     <>

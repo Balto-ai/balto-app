@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 
 
-export default function UploadImages({isLoading, show, setImageUpload}) {
+export default function UploadImages({isLoading, setImageUpload}) {
 
 
   const handleChange = (e) => {

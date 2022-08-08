@@ -13,13 +13,8 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./AddDogRecord.css"
-import { storage } from '../../firebase/firebase'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { v4 } from 'uuid'
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
-import Box from '@mui/material/Box';
-import ImagePlaceholder from './icon/image (1).png'
 import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
 import ProgressList from '../UploadSingleImage/ProgressList'
 
@@ -60,9 +55,6 @@ export default function AddDogRecord() {
   // state variable for the selected breed, needed for use with the BreedSearchbar component
   // NOTE: may want to simply create an entirely new component for setting breed, but this works
   const [selectedBreed, setSelectedBreed] = React.useState([])
-
-  console.log(imageUpload)
- 
   // form that will be sent to API endpoint
   const [form, setForm] = React.useState({
     name: "", dob: "", size:"", breed:"", sex: "", color: "",
@@ -70,7 +62,6 @@ export default function AddDogRecord() {
     noviceFriendly:false, kidFriendly:false, dogFriendly:false, catFriendly:false, strangerFriendly:false,
     playfulness:0, energyLevel:0, exerciseNeeds:0
   })
-  console.log(form, form.imageUrl, form.imageUrl)
   const handleOnInputChange = (evt) => {
     // update form state var with input value
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))

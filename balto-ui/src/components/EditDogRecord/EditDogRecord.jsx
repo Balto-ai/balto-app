@@ -12,12 +12,8 @@ import Rating from '@mui/material/Rating'
 import { IoPaw, IoPawOutline } from 'react-icons/io5'
 import { BsX } from "react-icons/bs"
 import "./EditDogRecord.css"
-import { storage } from '../../firebase/firebase'
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-import { v4 } from 'uuid'
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
-import Box from '@mui/material/Box';
 import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
 import ProgressList from '../EditSingleImage/ProgressList'
 
@@ -237,9 +233,9 @@ export default function EditDogRecord() {
             <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Upload Image</Form.Label>
             <div className='save-btn-area'>
-              <UploadImageBtn isLoading={isLoading} show={show} setImageUpload={setImageUpload} />
+              <UploadImageBtn isLoading={isLoading} setImageUpload={setImageUpload} />
             </div>
-            {imageUpload && <ProgressList setLoading={setLoading} setShow={setShow} form={form} imageUpload={imageUpload} setImageUpload={setImageUpload} setForm={setForm} />}
+            {imageUpload && <ProgressList setLoading={setLoading} form={form} imageUpload={imageUpload} setImageUpload={setImageUpload} setForm={setForm} />}
             {!form?.image_url ? 
                         <div className='image-preview-container'>
                           {!isLoading ? 
