@@ -10,6 +10,7 @@ import ApiClient from "../../services/ApiClient";
 import DogCard from "../DogCard/DogCard"
 import "./DogSearchPage.css"
 import { useAuthContext } from "../../contexts/auth";
+import { Slider } from "@mui/material";
 
 export default function DogSearchPage() {
   // options that will show up on the filters, not used for anything else
@@ -43,7 +44,7 @@ export default function DogSearchPage() {
     shelterIds: selectedShelters
   }
 
-  setAskForLocation(true)
+  setAskForLocation(true) // when page is rendered, ask for user permission to get location via Geolocation API
 
   // function to handle checking/unchecking checkboxes used in the size, gender, and good with filters
   //    takes a state var and setState var  as params (ex. selectedSizes and setSelectedSizes)
@@ -324,7 +325,6 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 
   function findDistance(lat1,
     lat2, lon1, lon2) {
-
     var radlat1 = Math.PI * lat1 / 180
     var radlat2 = Math.PI * lat2 / 180
     var theta = lon1 - lon2
@@ -357,17 +357,24 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 
 
   React.useEffect(() => {
+    console.log("filters", filters)
     const fetchDogResults = async () => {
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
         setError(null)
       }
+      // if filters has distance, filter results in client to include only dogs within filters?.distance
+      // why? Because distanceBetween is calculated client-side and cannot be queried thru the db
+      if (data?.dogResults && filters?.distance) {
+        const distLimit = parseFloat(filters.distance)
+        const filteredDogResults = dogResults.filter(dog => (dog.distanceBetween <= distLimit))
+        setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
+      }
       if (error) setError(error);
     };
     fetchDogResults()
   }, [filters])
-
 
   return (
     <div className="dog-grid">
