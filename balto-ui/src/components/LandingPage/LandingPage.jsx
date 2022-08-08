@@ -1,7 +1,6 @@
 import React from 'react'
 import "./LandingPage.css"
 import { useState, useEffect } from 'react'
-import {FiArrowRight} from 'react-icons/fi'
 import Hero from "./image/Adopt a pet-amico 2.svg"
 import {useNavigate} from 'react-router-dom'
 import DogCard from '../DogCard/DogCard'
@@ -106,11 +105,14 @@ export function LandingDogGrid(){
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
 
+  console.log("DOGS", dogs)
+
   return(
     <Grid container direction='row' gap={1.5}>
-        {dogs.map((dog)=>{
+        {dogs.map((dog, idx)=>{
+          console.log("SINGLE DOG: ", dog)
           return(
-                  <DogCard  key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
+                  <DogCard  key={idx} dogId={dog.id} name={dog.name} breed={dog.breed} dob={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
     </Grid>
