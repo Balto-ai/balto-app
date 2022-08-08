@@ -10,14 +10,13 @@ import ApiClient from "../../services/ApiClient";
 import DogCard from "../DogCard/DogCard"
 import "./DogSearchPage.css"
 import { useAuthContext } from "../../contexts/auth";
-import { Slider } from "@mui/material";
+import { Slider, Typography } from "@mui/material";
 
 export default function DogSearchPage() {
   // options that will show up on the filters, not used for anything else
   const sizeOptions = ["Small", "Medium", "Large"];
   const genderOptions = ["Male", "Female"];
   const goodWithOptions = ["Kids", "Strangers", "Other dogs", "Cats", "Beginner Owners"];
-  const distanceOptions = [5, 10, 15];
 
   // import auth variables
   const { user, userLocation, askForLocation, setAskForLocation } = useAuthContext()
@@ -183,22 +182,19 @@ export default function DogSearchPage() {
               </Accordion.Header>
               <Accordion.Body>
                 <Form>
-                  <Form.Select
-                    aria-label="distance-select"
-                    // onChange prop updates distance choice
-                    onChange={(evt) => {
-                      setSelectedDistance(evt.target.value);
-                    }}
-                  >
-                    {/* default option to not specify distance constraint */}
-                    <option value={""}>Anywhere</option>
-                    {/* rest of the distance options */}
-                    {distanceOptions.map((option) => (
-                      <option key={option} value={option}>
-                        Within {option} miles
-                      </option>
-                    ))}
-                  </Form.Select>
+                  <Typography id="distance-slider">Show dogs within a radius</Typography>
+                  <br></br>
+                  <Slider 
+                    aria-labelledby="distance-slider"
+                    value={value}
+                    onChangeCommitted={(event) => {console.log(event)}}
+                    step={10}
+                    marks={true}
+                    valueLabelDisplay={"on"}
+                    defaultValue={50}
+                    min={10}
+                    max={100}
+                  />
                 </Form>
               </Accordion.Body>
             </Accordion.Item>
