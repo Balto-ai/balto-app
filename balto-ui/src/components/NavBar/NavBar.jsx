@@ -66,8 +66,8 @@ export function UserLinks({ isLoggedIn, logoutUser, userFirstName }) {
   if (!isLoggedIn) {
     return (
     <Form className="d-flex">
-      <Button variant="outline-success" href="/register">Register</Button>
-      <Button variant="outline-success" href="/login">Login</Button>
+      <Button id='register-btn' href="/register">Register</Button>
+      <Button id='login-btn'  className='shadow-btn' href="/login">Login</Button>
     </Form>
     )
   }

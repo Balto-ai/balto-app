@@ -74,7 +74,7 @@ export default function LoginForm() {
             </FloatingLabel>
           </Form.Group>
         
-          <Button type="submit" className="mb-2 form-item">Login</Button>
+          <Button style={{color:'white'}} type="submit" className="mb-2 form-item">Login</Button>
           <Form.Text>Need an account? <a href="/register">Sign up here.</a></Form.Text>
         </Form>
 
