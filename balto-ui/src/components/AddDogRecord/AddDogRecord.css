@@ -7,11 +7,20 @@
     font-weight: 500;
     font-size: 1.1em;
 }
-.save-btn{
-    float: right;
+.upload-btn{
+    opacity: 1;
+    transition: 'opacity .5s linear',
+}
+.upload-btn:hover{
+    background-color: #908AF8;
+    opacity: 0.85;
+}
+.preview-area{
+    position: absolute;
+    height: 300px;
 }
 .save-btn-area{
-    margin-bottom: 55px;
+    margin-bottom: 25px;
 }
 .update-toast {
     position: fixed;
