@@ -3,9 +3,14 @@ import Accordion from "react-bootstrap/Accordion";
 import Chip from '@mui/material/Chip'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from "react-bootstrap/Form";
-import Container from 'react-bootstrap/Container';
+
+// import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
 import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
 import ShelterSearchbar from "../ShelterSearchbar/ShelterSearchbar";
@@ -43,14 +48,15 @@ export default function DogSearchPage() {
   }
 
   setAskForLocation(true)
-  
-  return (
+
+
+return (
     <div className="dog-search-page primary-container">
-      <Container fluid>
-        <Row>
+
+      <Grid container spacing={3}>
 
           {/* col #1 the filter sidebar */}
-          <Col style={{ minWidth:'200px'}} sm={3}>
+          <Grid item s={12} md={3} sx={{ width: 1,backgroundColor:'red', margin: '0 auto' }}>
             <FilterSidebar 
               selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
               selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
@@ -59,37 +65,23 @@ export default function DogSearchPage() {
               selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
               selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
             />
-          </Col>
+          </Grid>
 
-          {/* col #2 dog grid */}
-          {/* <Col style={{ minWidth:'var(--min-dog-card-width)', backgroundColor: 'red'}}
-            xs={1} 
-          > */}
-          <Col>
-            <Row>
-                <AppliedFilters
-                  selectedBreeds={selectedBreeds}
-                  selectedSizes={selectedSizes}
-                  selectedGenders={selectedGenders}
-                  selectedGoodWith={selectedGoodWith}
-                  selectedDistance={selectedDistance}
-                  selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
-                />
+          <Grid item s={12} md={9}>
+            <AppliedFilters
+              selectedBreeds={selectedBreeds}
+              selectedSizes={selectedSizes}
+              selectedGenders={selectedGenders}
+              selectedGoodWith={selectedGoodWith}
+              selectedDistance={selectedDistance}
+              selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
+            />
+              
+              <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
 
-              <Col style={{backgroundColor:'red'}}>
-                <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
-              </Col>
-            
-            </Row>
-
-            <Row>
               <DogGrid sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} />
-            </Row>
-
-        </Col>
-
-        </Row>
-      </Container>
+          </Grid>
+      </Grid>
     </div>
   )
 }
