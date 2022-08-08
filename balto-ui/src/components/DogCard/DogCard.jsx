@@ -10,8 +10,6 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
   // function to return approximate age in years/months 
   //    TODO: probably want to consider moving this to a context to be used in multiple components
   function calculateAge(dateOfBirth) { 
-    console.log("dateofBirth: ", dateOfBirth) 
-
       const dob = new Date(dateOfBirth)
       const now = new Date()
 

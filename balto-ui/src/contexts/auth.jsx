@@ -43,7 +43,7 @@ export function AuthContextProvider({ children }) {
     const getLocation = async () => {
         const { data, error } = await axios.get('https://geolocation-db.com/json/')
         setUserLocation(data)
-        alert("Using IP address to approximate location.")
+        alert("Notice: using IP address location approximation, so you can find dogs near you 🐶")
     }
 
     React.useEffect(() => {
