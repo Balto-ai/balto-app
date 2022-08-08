@@ -20,8 +20,8 @@ import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
 import Box from '@mui/material/Box';
 import ImagePlaceholder from './icon/image (1).png'
-
-
+import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
+import ProgressList from '../UploadSingleImage/ProgressList'
 
 export default function AddDogRecord() {
 
@@ -33,10 +33,9 @@ export default function AddDogRecord() {
   //  - make sure users can only input dates that are not in the future
   //  - make sure that the shelterEntrance date is THE SAME AS or AFTER dob date
   //  - add guiding comments, maybe those ? icons where the user can hover over it to see more info
-
   const navigate = useNavigate()
   const { addDogRecord } = useDogRecordsContext()
-  const [imageUpload, setImageUpload] = React.useState(null)
+  const [imageUpload, setImageUpload] = React.useState([])
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
   const [isLoading, setLoading] = React.useState(false)
@@ -62,6 +61,8 @@ export default function AddDogRecord() {
   // NOTE: may want to simply create an entirely new component for setting breed, but this works
   const [selectedBreed, setSelectedBreed] = React.useState([])
 
+  console.log(imageUpload)
+ 
   // form that will be sent to API endpoint
   const [form, setForm] = React.useState({
     name: "", dob: "", size:"", breed:"", sex: "", color: "",
@@ -69,7 +70,7 @@ export default function AddDogRecord() {
     noviceFriendly:false, kidFriendly:false, dogFriendly:false, catFriendly:false, strangerFriendly:false,
     playfulness:0, energyLevel:0, exerciseNeeds:0
   })
-
+  console.log(form, form.imageUrl, form.imageUrl)
   const handleOnInputChange = (evt) => {
     // update form state var with input value
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
@@ -98,19 +99,6 @@ export default function AddDogRecord() {
     }
   }
 
-  const uploadImage = () => {
-    if (imageUpload === null) return;
-    
-    let imageName = imageUpload.name + v4();
-    setForm((existingForm) => ({...existingForm, imageName: imageName}))
-    const imageRef = ref(storage, `dogProfileImages/${imageName}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot)=>{
-        getDownloadURL(snapshot.ref).then(async(url)=>{
-          setForm((existingForm) => ({ ...existingForm, imageUrl: url }))
-        })
-      })
-      setLoading(true)
-  }
   const handleOnFormSubmit = async (evt) => {
     setError(null)
     evt.preventDefault()
@@ -238,44 +226,22 @@ export default function AddDogRecord() {
               ))}
             </Form.Group>
             </Row>
-            {/* nonfunctional image upload at the moment, pushed to future sprint */}
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>Upload Image</Form.Label>
-
-                  {!form.imageUrl ? 
-                      <Box className='photo-area' sx={{ borderRadius: '10px', height: 300, width:300, p: 2, border: '1px dashed ', borderColor: '#BDBDBD' }}>
-                        
-
-                      {!isLoading ? 
-                        <div>
-                            <Row className="justify-content-md-center">
-                              <Col> <img className='camera-icon' src={ImagePlaceholder} alt='camera icon'></img></Col>
-                            </Row >
-                            <Row className="justify-content-md-center">
-                              <Col> <p>No image preview available</p></Col>
-                            </Row>
-                          </div>
-                          :
-                          null
-                        }
-                      </Box>  
-                  :
-                    <div className='image-preview-container'>
-                      <img className='dogImage' src={form.imageUrl} alt='preview'></img>
-                    </div>
-                  }
-                  
-
-                
-                <Form.Control type="file" onChange={handleOnImageFileChange} />
-              </Form.Group>    
+            {/* nonfunctional image upload at the moment, pushed to future sprint */}  
+          <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Upload Image</Form.Label>
             <div className='save-btn-area'>
-              <Button style={{color:'white'}} disabled={isLoading} className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
+              <UploadImageBtn isLoading={isLoading} show={show} setImageUpload={setImageUpload} />
             </div>
-           
+            {imageUpload && <ProgressList setLoading={setLoading} setShow={setShow} form={form} imageUpload={imageUpload} setImageUpload={setImageUpload} setForm={setForm} />}
+            {form.imageUrl !== '' && 
+            <div className='image-preview-container'>
+             <img height={300} className='dogImage' src={form.imageUrl} alt='preview'></img>
+             <ShowToast setShow={setShow} show={show}/>
+            </div>}
           </Form.Group>
-  
-          
+          </Form.Group>
+
+
           <h2>Additional Information</h2>
           <p>Let potential adopters know more about this dog</p>
           
@@ -339,7 +305,6 @@ export default function AddDogRecord() {
         </Form>
         
       </div>
-      {show && <ShowToast show={show} setShow={setShow} />}
     </div>
   )
 }

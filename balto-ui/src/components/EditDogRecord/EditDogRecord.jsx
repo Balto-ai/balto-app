@@ -18,7 +18,8 @@ import { v4 } from 'uuid'
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
 import Box from '@mui/material/Box';
-
+import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
+import ProgressList from '../EditSingleImage/ProgressList'
 
 
 
@@ -53,39 +54,8 @@ export default function EditDogRecord() {
     energy_level: "Energy Level",
     exercise_needs: "Exercise Needs"
   }
-  const handleOnImageFileChange = (evt) => {
-    if (evt.target.files[0]){
-      setImageUpload(evt.target.files[0])
-    }
-  }
   function simulateNetworkRequest() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-
-
-  const uploadImage = () => {
-    if (imageUpload === null) return;
-    if (dogRecord.image_name){
-      const oldImageRef = ref(storage, `dogProfileImages/${dogRecord.image_name}`);
-      // Delete the file
-      deleteObject(oldImageRef).then(() => {
-        // File deleted successfully
-        // setImageDeleted(true)
-      }).catch((error) => {
-        // Uh-oh, an error occurred!
-        console.error(error)
-      });
-    }
-    
-    let imageName = imageUpload.name + v4();
-    setForm((existingForm) => ({...existingForm, image_name: imageName}))
-    const imageRef = ref(storage, `dogProfileImages/${imageName}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot)=>{
-        getDownloadURL(snapshot.ref).then(async(url)=>{
-          setForm((existingForm) => ({ ...existingForm, image_url: url }))
-        })
-      })
-      setLoading(true)
   }
   const handleOnInputChange = (evt) => {
     // if the value is different from the original dogRecord value, add the key and value to the form object
@@ -264,10 +234,13 @@ export default function EditDogRecord() {
             </Form.Group>
             </Row>
             {/* nonfunctional image upload at the moment, pushed to future sprint */}
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Upload Image</Form.Label>
-  
-                    {!form?.image_url ? 
+            <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Upload Image</Form.Label>
+            <div className='save-btn-area'>
+              <UploadImageBtn isLoading={isLoading} show={show} setImageUpload={setImageUpload} />
+            </div>
+            {imageUpload && <ProgressList setLoading={setLoading} setShow={setShow} form={form} imageUpload={imageUpload} setImageUpload={setImageUpload} setForm={setForm} />}
+            {!form?.image_url ? 
                         <div className='image-preview-container'>
                           {!isLoading ? 
                           <div className='image-preview-container'>
@@ -284,14 +257,7 @@ export default function EditDogRecord() {
                         <img className='dogImage' src={form.image_url} alt='preview'></img>
                       </div>
                     }
-
-                <Form.Control type="file" onChange={handleOnImageFileChange} />
-              </Form.Group>    
-            <div className='btn-area'>
-                <Button style={{color:'white'}} active className='save-btn' onClick={!isLoading ? uploadImage : null}>{isLoading ? 'Loading...' : 'Upload'}</Button>
-
-            </div>
-           
+          </Form.Group>
           </Form.Group>
 
           <h2>Additional Information</h2>
