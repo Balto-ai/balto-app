@@ -31,7 +31,7 @@ export default function DogProfileContainer() {
 }
 
 export function DogProfile() {
-
+  const [submittedForm, setSubmittedForm] = useState(false)
   const { dogInfo, setDogInfo, error, getAgeGroup, milestones } = useDogProfileContext()
   const { user, userLocation } = useAuthContext()
   const [kidFriendly, setKidFriendly] = useState(false)
@@ -44,7 +44,8 @@ export function DogProfile() {
   const [playfulness, setPlayfulness] = useState(0)
   const [modalShow, setModalShow] = useState(false)
   const [receiptShow, setReceiptShow] = useState(false)
-  const {images} = usePublicImagesContext()
+  const {images, setDogId} = usePublicImagesContext()
+  console.log(images, dogInfo)
   // set the dog attributes to state variables for ratings
   useEffect(() => {
     setKidFriendly(dogInfo.kid_friendly)
@@ -55,6 +56,7 @@ export function DogProfile() {
     setEnergyLevels(dogInfo.energy_level)
     setExerciseNeeds(dogInfo.exercise_needs)
     setPlayfulness(dogInfo.playfulness)
+    setDogId(dogInfo.dog_id)
   })
 
   return (
@@ -65,8 +67,17 @@ export function DogProfile() {
           <Row>
             <Carousel>
               <Carousel.Item>
-                <img src={dogInfo.dog_image_url} className="main-image" />
+                <img src={dogInfo.dog_image_url} className="main-image" alt='main dog images' />
               </Carousel.Item>
+              {images.length > 0 && 
+                (images.map((image, index)=>{
+                  return(
+                    <Carousel.Item key={index}>
+                      <img src={image.image_url} className="main-image" alt='more dog images' />
+                    </Carousel.Item>
+                  )
+                }))
+              }
             </Carousel>
           </Row>
           <Row>
@@ -95,10 +106,11 @@ export function DogProfile() {
               <Button onClick={() => { setModalShow(true) }} variant="secondary" className='btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
                 <BsFillHouseDoorFill /> Adopt Me
               </Button>
-              <AdoptionModal show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
+              <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
 
               { /* Modals for adoption inquiry user story */}
-              <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />
+              {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
+              
           </section>
       </Row>
       <Row>
