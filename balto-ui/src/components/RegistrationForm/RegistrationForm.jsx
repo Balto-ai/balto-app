@@ -167,7 +167,7 @@ export default function RegistrationForm() {
                 <Form.Control.Feedback type="invalid">Please confirm password</Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
-          <Button type="submit" className="mb-2 form-item">Sign Up</Button>
+          <Button style={{color:'white'}} type="submit" className="mb-2 form-item">Sign Up</Button>
           <Form.Text>Already have an account? <a href="/login">Login here</a></Form.Text>
         </Form>
 

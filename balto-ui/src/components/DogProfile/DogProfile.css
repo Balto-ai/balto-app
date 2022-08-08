@@ -1,10 +1,27 @@
 .main-image {
-    max-height: 60vh;
+    height: 100vh;
+    /* height: 150vh; */
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
-
+.dog-profile{
+    height: 100%;
+    padding: 50px;
+}
+.dog-profile-image{
+    /* padding-bottom: 50px; */
+    height: 100%;
+}
+.dog-profile-details{
+    height: 100%;
+}
+.dog-profile-tabs{
+    height: 65vh;
+}
+.shadow-btn{
+    box-shadow: 0px 1px 3px rgb(137, 137, 137);
+}
 .action-btns .btn {
     margin-right: 10px;
     margin-top: 10px;

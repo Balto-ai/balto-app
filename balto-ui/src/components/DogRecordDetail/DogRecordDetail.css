@@ -72,9 +72,6 @@
     justify-content: center;
     align-items: center;
 }
-.columnnnn{
-    background-color: blue;
-}
 .bottom-buttons{
     position: relative;
     top: 50%;
@@ -83,9 +80,6 @@
 }
 .pencil-icon{
     margin-right: 5px;
-}
-.test2{
-    background-color: brown;
 }
 #view-prof-btn, #view-prof-btn:hover{
     color: white;

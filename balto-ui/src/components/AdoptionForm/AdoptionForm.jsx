@@ -10,7 +10,7 @@ import { BsX } from "react-icons/bs"
 // import "./AdoptionInquiryForm.css"
 import ApiClient from '../../services/ApiClient'
 
-export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = () => { } }) {
+export default function AdoptionInquiryForm({ setSubmittedForm ,userId = 0, dogId = 0, onHide = () => { } }) {
 
     const { user } = useAuthContext()
 
@@ -51,6 +51,7 @@ export default function AdoptionInquiryForm({ userId = 0, dogId = 0, onHide = ()
         onHide()
         if (data) {
             setError(null)
+            setSubmittedForm(true)
             return (<Alert variant='secondary'>Your inquiry has been submitted!</Alert>)
         }
         if (error) {
