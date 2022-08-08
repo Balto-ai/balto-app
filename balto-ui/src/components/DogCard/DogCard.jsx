@@ -5,11 +5,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StarButton from '../StarButton/StarButton'
+import defaultImage from '../../assets/default-image.svg'
 import './DogCard.css'
 
 export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="", distancebetween=0 }) { 
 
   const navigate = useNavigate()
+  const imageSrc = imgUrl || defaultImage
 
   // function to return approximate age in years/months 
   //    TODO: probably want to consider moving this to a context to be used in multiple components
@@ -52,22 +54,22 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
 
     return (
       <div className='dog-card'>
-        <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
+        <img src={imageSrc} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
           {/* name, distance, and star button */}
         <Container>
           <Row className='dog-info-topline'>
             {/* name and distance */}
-              <Col className="dog-card-name-distance">
-                <h2 className='dog-name'>{name}</h2>
-                <div className='dog-distance'>
-                  <FiMapPin />
-                  {Math.round(distancebetween) < 500 ? Math.round(distancebetween) : "500+"} mi
-                </div>
-              </Col>
-
-              <Col className="dog-card-star-button-container" xl={4} l={4} m={4} s={4} xs={4} >
-                <StarButton dogId={dogId} dogName={name} className="dog-card-star-button" />
-              </Col>
+            <Col className="dog-card-name-distance">
+              <h2 className='dog-name'>{name}</h2>
+              <div className='dog-distance'>
+                <FiMapPin />
+                {Math.round(distancebetween) < 500 ? Math.round(distancebetween) : "500+"} mi
+              </div>
+            </Col>
+            {/* star button */}
+            <Col className="dog-card-star-button-container" xl={4} l={4} m={4} s={4} xs={4} >
+              <StarButton dogId={dogId} dogName={name} className="dog-card-star-button" />
+            </Col>
           
           </Row>
 

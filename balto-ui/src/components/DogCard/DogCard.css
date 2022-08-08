@@ -74,13 +74,13 @@
 
 /* TEXT CONTENTS BELOW */
 
-/* .dog-card .dog-info-header .dog-distance {
+.dog-card .dog-distance {
     display: flex;
     flex-flow: row nowrap;
     gap: var(--gap-xsmall);
     font-size: 0.9em;
     color: var(--body-text-medium);
-} */
+}
 
 /* .dog-card .dog-name {
     height: 100%;
