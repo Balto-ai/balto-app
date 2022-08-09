@@ -1,7 +1,6 @@
 .dog-card {
     white-space: nowrap;
     background-color: white;
-    /* width: 100%; */
     min-width: var(--min-dog-card-width);
     border-radius: var(--border-radius-small);
     box-shadow: var(--card-box-shadow);
@@ -16,17 +15,40 @@
 }
 
 .dog-card .dog-info {
-    padding: var(--gap-xsmall);
+    padding: var(--gap-medium);
+    padding-top: var(--gap-small);
 }
 
 .dog-card .dog-info-topline {
-    /* background-color: red; */
+    display: flex;
+    flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
+}
+
+.dog-card .dog-info-topline .dog-name-distance {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    gap: var(--gap-small);
+    width: 80%;
+}
+
+.dog-card .dog-info-topline .dog-name-distance .dog-distance {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    gap: var(--gap-xsmall);
 }
 
 .dog-card .dog-info-topline .dog-name {
     font-family: var(--header-font-family);
     font-size: 1.2em;
+    font-weight: 500;
+    max-width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dog-card .dog-info-topline .dog-distance {
