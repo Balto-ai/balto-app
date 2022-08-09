@@ -24,6 +24,11 @@ const baltoMUItheme = createTheme({
       'var(--body-font-family)',
       'sans serif',
     ].join(','),
+  },
+  palette: {
+    primary: {
+      main: '#5d74bb'
+    }
   }
 });
 
