@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Form from "react-bootstrap/Form";
 import Grid from '@mui/material/Grid';
 import { BsX } from "react-icons/bs"
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
 import ShelterSearchbar from "../ShelterSearchbar/ShelterSearchbar";
@@ -100,7 +101,7 @@ export default function DogSearchPage() {
         
 
             <Grid item sx={{ width: 1 }}>
-              <DogGrid itemsPerPage={10} sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} setResultCount={setResultCount} />
+              <DogGrid itemsPerPage={12} sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} setResultCount={setResultCount} />
             </Grid>
 
           </Grid>
@@ -448,13 +449,13 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
         ))}
       </div>
 
-      <ReactPaginate
+      <ReactPaginate className="dog-search-pagination"
         breakLabel="..."
-        nextLabel="next >"
+        nextLabel={<FiChevronRight />}
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel={<FiChevronLeft />}
         renderOnZeroPageCount={null}
       />
 
