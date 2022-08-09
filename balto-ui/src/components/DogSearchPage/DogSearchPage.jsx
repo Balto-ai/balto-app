@@ -362,6 +362,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
+        console.log(1, "data.dogResults", data.dogResults)
         setError(null)
       }
       // if filters has distance, filter results in client to include only dogs within filters?.distance
@@ -369,17 +370,15 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       if (data?.dogResults && filters?.distance) {
         const distLimit = parseFloat(filters.distance)
         dogResults.map(dog => {console.log(199, dog.distanceBetween)})
+        console.log(2, "dogResults", dogResults)
         const filteredDogResults = dogResults.filter(dog => (dog.distanceBetween <= distLimit))
         setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
-        console.log("data[Results]", data["dogResults"])
-        console.log("filteredDogResults", filteredDogResults)
+        console.log(3, "filteredDogResults", filteredDogResults)
       }
       if (error) setError(error);
     };
     fetchDogResults()
   }, [filters])
-
-  console.log("new dog results after filtering", dogResults)
 
   return (
     <div className="dog-grid">
