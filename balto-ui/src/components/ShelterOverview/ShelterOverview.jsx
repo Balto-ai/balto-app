@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Button from 'react-bootstrap/Button'
+import defaultImage from '../../assets/default-image.svg'
 import { Searchbar } from '../CustomDataGrid/CustomDataGrid'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -24,17 +25,10 @@ export default function ShelterOverview() {
 
     const rows = [...dogRecordsToRender]
     const columns = [
-        // { field: 'name', headerName: 'Name', width: 150,
-        //     // renderCell: (params) => <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
-        //     renderCell: (params) =>
-        //     <div className="name-cell" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.rows.id}`)}}>
-        //       <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} />
-        //       <div classname="capitalized dog-name">{params.value}</div>
-        //     </div> },
         { field: 'name', headerName: 'Name', width: 170,
           renderCell: (params) =>
             <>
-              <img className="dog-image-icon" src={params.row.image_url} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+              <img className="dog-image-icon" src={params.row.image_url || defaultImage} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
               <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}>{params.value}</div>
             </>
         }, 

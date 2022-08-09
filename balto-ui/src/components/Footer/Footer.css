@@ -1,3 +1,16 @@
+.footer {
+   background-color: var(--balto-main);
+   border-radius: 0px !important;
+   display: flex;
+   flex-flow: row wrap;
+   gap: 40px;
+}
+
+.copyright-line {
+   border-top: solid 1.5px rgba(255,255,255,0.4);
+   height: 90px;
+}
+
 .dog-icon{
    margin-right: 15px;
  }
@@ -18,5 +31,6 @@
    color:white;
 }
 #footer-links:hover, #footer-link:active{
+   padding-right: 0px !important;
    color: #48457c;
 }
