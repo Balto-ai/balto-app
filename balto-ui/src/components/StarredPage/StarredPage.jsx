@@ -33,7 +33,7 @@ export function StarredPage() {
     <div className="starred-page">
       <div className='starred-page-container primary-container'>
         <div className='header'>
-          <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
+          <h1 className='title'>Favorites ({starredList.length})</h1>
           <DropDownSortMenu className="filter-menu" variant="secondary" />
         </div>
         <div className='dog-grid'>
