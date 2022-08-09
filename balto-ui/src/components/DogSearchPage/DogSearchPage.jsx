@@ -82,21 +82,21 @@ export default function DogSearchPage() {
 
             <Grid item sx={{ width: 1 }}>
               <div className="dog-search-topline">
-                <div>
-                  <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
-                  <AppliedFilters
-                    selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
-                    selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
-                    selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
-                    selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
-                    selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
-                    selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
-                    onClearFilters={clearFilters}
-                  />
-                </div>
-
-                <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+                <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
+                <div><DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" /></div>
               </div>
+            </Grid>
+
+            <Grid item sx={{ width: 1 }} className="mb-3">
+              <AppliedFilters
+                selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
+                selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
+                selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
+                selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
+                selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
+                selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
+                onClearFilters={clearFilters}
+              />
             </Grid>
         
 

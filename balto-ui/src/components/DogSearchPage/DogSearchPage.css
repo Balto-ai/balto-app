@@ -9,12 +9,20 @@
     margin-left: var(--gap-small);
 }
 
+/* flexbox that includes the applied filters and the sort dropdown */
+.dog-search-topline {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--gap-medium);
+}
+
 /* ex. 10 results */
 #result-count-label {
     font-family: var(--body-font-family);
     font-weight: 500;
-    font-size: 20px;
-    margin-bottom: var(--gap-small);
+    font-size: 22px;
 }
 
 /* flexbox that contains all the filter chips + the clear all button */
@@ -38,14 +46,6 @@
     text-decoration: underline;
     font-size: 0.9em;
     cursor: pointer;
-}
-
-/* flexbox that includes the applied filters and the sort dropdown */
-.dog-search-topline {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    margin-bottom: var(--gap-medium);
 }
 
 .dog-search-pagination {
