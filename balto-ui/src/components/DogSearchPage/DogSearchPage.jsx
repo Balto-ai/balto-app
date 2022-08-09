@@ -12,6 +12,7 @@ import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
 import ShelterSearchbar from "../ShelterSearchbar/ShelterSearchbar";
 import ApiClient from "../../services/ApiClient";
 import DogCard from "../DogCard/DogCard"
+import Loading from "../Loading/Loading"
 import "./DogSearchPage.css"
 import { useAuthContext } from "../../contexts/auth";
 
@@ -314,6 +315,8 @@ export function FilterSidebar({
 export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLocation={}, setResultCount=()=>{} }) {
 
   const [dogResults, setDogResults] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [initialized, setInitialized] = React.useState(true)
   const [error, setError] = React.useState(null)
 
   const [currentItems, setCurrentItems] = React.useState([])
@@ -389,16 +392,19 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
   // useEffect to fetch the data and display the correct items for a page
   React.useEffect(() => {
     const fetchDogResults = async () => {
+      setIsLoading(true)
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
         setResultCount(data.dogResults.length)
         setError(null)
       if (error) setError(error)
+      setIsLoading(false)
       }
     }
   
     // first fetch all dog results based on filters (unsorted at this point)
+    setInitialized(false)
     fetchDogResults()
 
     // start sorting afterwards
@@ -424,14 +430,16 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
       }
     }
 
-  const endOffset = itemOffset + itemsPerPage
-  console.log("endOffset:", itemOffset + itemsPerPage)
-  console.log("itemOffset:", itemOffset)
-  // set the items to display using the sorted results
-  setCurrentItems([...sortedDogResults].slice(itemOffset, endOffset))
-  setPageCount(Math.ceil(dogResults.length / itemsPerPage))
+      const endOffset = itemOffset + itemsPerPage
+      console.log("endOffset:", itemOffset + itemsPerPage)
+      console.log("itemOffset:", itemOffset)
+      // set the items to display using the sorted results
+      setCurrentItems([...sortedDogResults].slice(itemOffset, endOffset))
+      setPageCount(Math.ceil(dogResults.length / itemsPerPage))
 
-  }, [itemOffset, itemsPerPage, filters, sortBy])
+      setInitialized(true)
+
+      }, [itemOffset, itemsPerPage, filters, sortBy])
 
 
   // useEffect to reset current page to the first one whenever filters/sorting changes
@@ -448,6 +456,11 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
     setCurrentPage(evt.selected) // update current page
   }
 
+  if (isLoading && !initialized) {
+    return (
+      <Loading />
+    )
+  }
   return (
     <>
       <div className="dog-grid">

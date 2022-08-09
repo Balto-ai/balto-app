@@ -1,7 +1,11 @@
 import React from 'react'
+import Spinner from 'react-bootstrap/Spinner';
+import './Loading.css'
 
 export default function Loading() {
   return (
-    <div>Loading...</div>
+    <div className="loading-spinner">
+      <Spinner animation="border" variant="primary" />
+    </div>
   )
 }
