@@ -4,12 +4,10 @@ import Chip from '@mui/material/Chip'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from "react-bootstrap/Form";
 
-// import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+
+import { BsX } from "react-icons/bs"
 
 import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
@@ -23,6 +21,8 @@ export default function DogSearchPage() {
 
   // import auth variables
   const { user, userLocation, askForLocation, setAskForLocation } = useAuthContext()
+
+  const [resultCount, setResultCount] = React.useState(0);
 
   // states each of the filters
   const [selectedBreeds, setSelectedBreeds] = React.useState([]); // ex. ["Dalmation", "Labrador"]
@@ -47,16 +47,27 @@ export default function DogSearchPage() {
     shelterIds: selectedShelters
   }
 
+  // function that will be used to clear all filters
+  const clearFilters = () => {
+    setSelectedBreeds([])
+    setSelectedSizes([])
+    setSelectedGenders([])
+    setSelectedGoodWith([])
+    setSelectedDistance("")
+    setSelectedShelters([])
+  }
+
   setAskForLocation(true)
 
 
-return (
+  return (
     <div className="dog-search-page primary-container">
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} direction="row" alignItems="flex-start" >
 
           {/* col #1 the filter sidebar */}
-          <Grid item s={12} md={3} sx={{ width: 1,backgroundColor:'red', margin: '0 auto' }}>
+          <Grid item sm={12} md={3} sx={{ width: 1}}>
+
             <FilterSidebar 
               selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
               selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
@@ -67,20 +78,32 @@ return (
             />
           </Grid>
 
-          <Grid item s={12} md={9}>
-            <AppliedFilters
-              selectedBreeds={selectedBreeds}
-              selectedSizes={selectedSizes}
-              selectedGenders={selectedGenders}
-              selectedGoodWith={selectedGoodWith}
-              selectedDistance={selectedDistance}
-              selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
-            />
-              
-              <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+          <Grid item container justifyContent="space-between" spacing={3} sm={12} md={9}>
 
-              <DogGrid sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} />
+            <Grid item sx={{ width: 3/4 }} xs={7} >
+              <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
+              <AppliedFilters
+                selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedShelters}
+                selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
+                selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
+                selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
+                selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
+                selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
+                onClearFilters={clearFilters}
+              />
+            </Grid>
+            
+            <Grid item sx={{ width: 1/4 }} xs={5}>
+              <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+            </Grid>
+        
+
+            <Grid item sx={{ width: 1 }}>
+              <DogGrid sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} setResultCount={setResultCount} />
+            </Grid>
+
           </Grid>
+
       </Grid>
     </div>
   )
@@ -282,7 +305,7 @@ export function FilterSidebar({
 }
 
 // grid of dog cards sorted based on selection in the DogRecord dropdown
-export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) {
+export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {}, setResultCount=()=>{} }) {
 
   const [dogResults, setDogResults] = React.useState([]);
   const [error, setError] = React.useState(null)
@@ -373,6 +396,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
+        setResultCount(data.dogResults.length)
         setError(null)
       }
       if (error) setError(error);
@@ -401,47 +425,68 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 }
 
 // Applief Filters: + all the appropriate chips
-export function AppliedFilters({selectedBreeds=[], selectedGenders=[], selectedDistance="", selectedGoodWith=[], selectedSizes=[], selectedShelters=[], setSelectedShelters=()=>{} }) {
+export function AppliedFilters({
+  selectedBreeds=[], setSelectedBreeds=()=>{},
+  selectedSizes=[], setSelectedSizes=()=>{},
+  selectedGenders=[], setSelectedGenders=()=>{},
+  selectedGoodWith=[], setSelectedGoodWith=()=>{},
+  selectedDistance="", setSelectedDistance=()=>{},
+  selectedShelters=[], setSelectedShelters=()=>{},
+  onClearFilters=()=>{}
+  }) {
+
+  const handleDelete = (itemToDelete, stateArr, setStateArr) => {
+    const newArr = stateArr.filter((item) => item !== itemToDelete)
+    setStateArr(newArr)
+  }
+
 
   return (
-    <>
-    {(selectedBreeds.length > 0 || selectedDistance.length > 0 || selectedGenders.length > 0 || selectedGoodWith.length > 0 || selectedShelters.lenght > 0 || selectedSizes.length > 0) && <h2 className="applied-filters-title">Applied Filters</h2>}
+    <div className="applied-filters">
 
-    <div>
+    {/* {(selectedBreeds.length > 0 || selectedDistance.length > 0 || selectedGenders.length > 0 || selectedGoodWith.length > 0 || selectedShelters.length > 0 || selectedSizes.length > 0) && <h2 className="applied-filters-label">Applied Filters</h2>} */}
+
       {selectedGenders.length > 0 && selectedGenders.map((gender, ind) => {
         return (
-          <Chip className="applied-filters-chip" key={ind} label={gender === 'm' ? 'Male' : 'Female'} name={gender} />
+          <Chip className="applied-filters-chip" key={ind} label={gender === 'm' ? 'Male' : 'Female'} name={gender}
+            onDelete={()=>handleDelete(gender, selectedGenders, setSelectedGenders)} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
       {selectedBreeds.length > 0 && selectedBreeds.map((breed, ind) => {
         return (
-          <Chip className="applied-filters-chip" key={ind} label={breed} name={breed} />
+          <Chip className="applied-filters-chip" key={ind} label={breed} name={breed}
+            onDelete={()=>handleDelete(breed, selectedBreeds, setSelectedBreeds)} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
-      {selectedDistance && <Chip className="applied-filters-chip" label={`${selectedDistance} miles`} name={selectedDistance} />}
+      {selectedDistance && <Chip className="applied-filters-chip" label={`${selectedDistance} miles`} name={selectedDistance}
+        onDelete={()=>setSelectedDistance("")} deleteIcon={<BsX style={{color: "white"}}/>} />}
 
       {selectedGoodWith.length > 0 && selectedGoodWith.map((goodWith, ind) => {
         return (
-          <Chip className="applied-filters-chip" key={ind} label={goodWith} name={goodWith} />
+          <Chip className="applied-filters-chip" key={ind} label={"Good with " + goodWith} name={goodWith}
+            onDelete={()=>handleDelete(goodWith, selectedGoodWith, setSelectedGoodWith)} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
       {selectedSizes.length > 0 && selectedSizes.map((size, ind) => {
         return (
-          <Chip className="applied-filters-chip" key={ind} label={size} name={size} />
+          <Chip className="applied-filters-chip" key={ind} label={size[0].toUpperCase() + size.substring(1)} name={size}
+            onDelete={()=>handleDelete(size, selectedSizes, setSelectedSizes)} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
-      {selectedShelters.length > 0 && <ShelterNames selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters} />
+      {selectedShelters.length > 0 && <ShelterNames selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters} handleDelete={handleDelete} />}
 
-      }
-    </div>
-  </>
+
+    {(selectedBreeds.length > 0 || selectedDistance.length > 0 || selectedGenders.length > 0 || selectedGoodWith.length > 0 || selectedShelters.length > 0 || selectedSizes.length > 0)
+      && <div id="filter-clear-label" onClick={onClearFilters}>Clear All</div>}
+
+  </div>
   )
 }
 
 // dropdown for sorting
 export function DogRecordDropdown({ sortBy, setSortBy }) {
   return (
-    <Dropdown>
+    <Dropdown className="dog-record-dropdown">
       <Dropdown.Toggle variant="secondary" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => { setSortBy("Name (A-Z)") }}>Name (A-Z)</Dropdown.Item>
@@ -457,7 +502,7 @@ export function DogRecordDropdown({ sortBy, setSortBy }) {
 }
 
 // function to return a chip with shelter name, used in Applied Filters
-export function ShelterNames({ selectedShelters = [], setSelectedShelters = () => { } }) {
+export function ShelterNames({ selectedShelters = [], setSelectedShelters = () => {}, handleDelete=()=>{} }) {
   const [shelters, setShelters] = React.useState([])
   const [error, setError] = React.useState(null)
   const [shelter, setShelter] = React.useState({})
@@ -474,7 +519,7 @@ export function ShelterNames({ selectedShelters = [], setSelectedShelters = () =
       if (error) setError(error)
     }
     fetchShelters()
-  }, [])
+  }, [selectedShelters])
 
   if (Object.keys(shelters).length !== 0) {
     result = selectedShelters.map((el) => {
@@ -487,7 +532,8 @@ export function ShelterNames({ selectedShelters = [], setSelectedShelters = () =
     <span>
       {result.length !== 0 && result.map((element) => {
         return (
-          <Chip className="applied-filters-chip" label={element.name} />
+          <Chip className="applied-filters-chip" label={element.name} key={element.id}
+          onDelete={()=>{ console.log(element); handleDelete(element.id, selectedShelters, setSelectedShelters)}} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
     </span>

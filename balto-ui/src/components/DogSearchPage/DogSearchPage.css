@@ -10,26 +10,38 @@
     grid-column-gap: var(--gap-medium);
     grid-row-gap: var(--gap-medium);
 }
-.applied-filters-title{
-    font-size: 18px;
-}
-.search-dog-header{
-    display: flex;
-    flex-direction: row;
-    width: 70vw;
-    margin-bottom: 10px;
-}
-#applied-filters{
-    display:flex;
-    flex-direction: column;
-    width: 66%;
-}
-.applied-filters-chip{
-    margin: 5px;
+
+#result-count-label {
+    font-family: var(--body-font-family);
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: var(--gap-small);
 }
 
-.dog-record-sort {
-    align-self: flex-end;
-    right: 0;
-    position: absolute;
+.applied-filters {
+    display:flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: var(--gap-small);
+
 }
+
+.applied-filters-chip {
+    margin: var(--gap-small) var(--gap-small) var(--gap-small) 0px;
+    font-family: var(--body-font-family) !important;
+    background-color: var(--balto-main) !important;
+    color: white !important;
+    border-radius: var(--border-radius-xsmall) !important;
+}
+
+#filter-clear-label {
+    color: var(--body-text-medium);
+    text-decoration: underline;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+/* .dog-record-dropdown {
+    align-self: flex-end;
+    width: 150px;
+} */
