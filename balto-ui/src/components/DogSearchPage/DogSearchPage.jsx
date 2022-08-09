@@ -274,6 +274,7 @@ export default function DogSearchPage() {
 export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) {
 
   const [dogResults, setDogResults] = React.useState([]);
+  const [filteredDogResults, setFilteredDogResults] = React.useState([]);
   const [error, setError] = React.useState(null)
   // sorting functions
   function sortByNameAsc(a, b) {
@@ -363,6 +364,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
         setDogResults(data.dogResults)
+        setFilteredDogResults(dogResults)
         console.log(1, "data.dogResults", data.dogResults)
         setError(null)
       }
@@ -371,9 +373,9 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       if (data?.dogResults && filters?.distance) {
         const distLimit = parseFloat(filters.distance)
         dogResults.map(dog => {console.log(199, dog.distanceBetween)})
-        const filteredDogResults = dogResults.filter(dog => (dog.distanceBetween <= distLimit))
+        setFilteredDogResults(dogResults.filter(dog => (dog.distanceBetween <= distLimit)))
         console.log(2.5, "filtering...", distLimit, dogResults[0].distanceBetween)
-        setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
+        // setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
         console.log(3, "filteredDogResults", filteredDogResults)
       }
       if (error) setError(error);
@@ -383,10 +385,9 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 
   console.log(2, "dogResults", dogResults)
 
-
   return (
     <div className="dog-grid">
-      {dogResults.map((dogResult, idx) => (
+      {filteredDogResults.map((dogResult, idx) => (
         <DogCard key={dogResult.id || idx}
           dogId={dogResult.dog_id}
           imgUrl={dogResult.image_url}
