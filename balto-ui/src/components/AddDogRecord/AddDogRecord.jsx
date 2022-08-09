@@ -117,7 +117,7 @@ export default function AddDogRecord() {
     <div className="add-record-form primary-container">
 
       <div className="add-record-card">
-        <h1 className="mb-3" id='add-dog-title'>Add a New Dog</h1>
+        <h1 className="add-dog-title" id='add-dog-title'>Add a New Dog</h1>
         <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           
