@@ -64,7 +64,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
           <IconButton aria-label='favorite' onClick={handleOnClick}>{isStarred ? <BsStarFill /> : <BsStar />}</IconButton>
         </Tooltip>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
-        <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />
+        {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
         <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
@@ -85,7 +85,7 @@ export function StarModal(props) {
         </Modal.Header>
         {/* modal body is the form to login the user */}
         <Modal.Body>
-            <LoginForm/>
+            <LoginForm onHide={props.onHide} userLoggedIn={props.userLoggedIn} setUserLoggedIn={props.setUserLoggedIn}/>
         </Modal.Body>
         <Modal.Footer>
           <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>
