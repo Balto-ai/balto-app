@@ -11,6 +11,10 @@
     opacity: 1;
     transition: 'opacity .5s linear',
 }
+#add-dog-title{
+    text-align: center;
+    margin-bottom: 50px;
+}
 .upload-btn:hover{
     background-color: #908AF8;
     opacity: 0.85;
