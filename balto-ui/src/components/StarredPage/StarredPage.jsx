@@ -36,7 +36,7 @@ export function StarredPage() {
           <h1 className='title'>Favorited Dogs ({starredList.length})</h1>
           <DropDownSortMenu className="filter-menu" variant="secondary" />
         </div>
-        <div className='starred-grid'>
+        <div className='dog-grid'>
           {starredList.map(starredDog => {
             return <DogCard key={starredDog.id}
                       dogId={starredDog.id}

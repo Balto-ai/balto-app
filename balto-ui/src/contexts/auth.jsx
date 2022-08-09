@@ -21,7 +21,7 @@ export function AuthContextProvider({ children }) {
         }
     }, [askForLocation])
 
-    console.log("location: ", userLocation)
+    // console.log("location: ", userLocation)
 
 
     function locationFound(position) {
@@ -33,7 +33,7 @@ export function AuthContextProvider({ children }) {
     function locationError(error) {
         const code = error.code;
         const message = error.message;
-        console.log(code, message)
+        // console.log(code, message)
         if (code == 1) {
             getLocation()
         }

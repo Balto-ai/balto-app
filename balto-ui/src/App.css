@@ -1,16 +1,33 @@
 
 .App {
   margin: 0 auto;
+  font-family: var(--body-font-family);
+  
 }
 
 /* GLOBAL VARIABLES */
 :root {
   --light-bg-grey: #f4f4f4;
   --balto-main: #908AF8;
+
   --border-radius-large: 20px;
   --border-radius-medium: 15px;
   --border-radius-small: 10px;
+  --border-radius-xsmall: 5px;
+
+  --gap-medium: 20px;
+  --gap-small: 10px;
+  --gap-xsmall: 4px;
+
+  --body-text-dark: #242424;
+  --body-text-medium: rgb(117, 117, 117);
   --faded-text-grey: #a7a7a7;
+  --body-font-family: 'Albert Sans', sans-serif;
+  --header-font-family: 'Kumbh Sans', sans-serif;
+
+  --card-box-shadow: 0px 0px 12px -5px rgba(68,68,68,0.2);
+
+  --min-dog-card-width: 220px;
 }
 
 /* GLOBAL CLASS STYLINGS */
@@ -18,14 +35,26 @@
   margin: 0 auto;
   padding: 60px;
   min-width: 600px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-large);
   max-width: 100%;
   }
 
 .secondary-container {
   margin: 0 auto;
   padding: 60px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-large);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-font-family);
+}
+
+/* general purpose grid for dog cards */
+.dog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min-dog-card-width), 1fr));
+  grid-column-gap: var(--gap-medium);
+  grid-row-gap: var(--gap-medium);
 }
 
 .capitalized::first-letter {
@@ -43,4 +72,5 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }

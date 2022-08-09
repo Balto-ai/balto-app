@@ -1,43 +1,88 @@
-.filter-sidebar {
-    min-width: 250px;
-    width: 15vw;
-}
-
 .dog-search-page {
     min-height: 600px;
-    background-color: rgb(244, 244, 244);
+    background-color: var(--light-bg-grey);
+    border-radius: 0% !important;
 }
 
-.dog-search-page-container {
-    display: flex;
-    padding: 50px;
-    gap: 50px;
+/* added margin to the badge that indicates the number of active filters */
+.filter-badge {
+    margin-left: var(--gap-small);
 }
 
-#dropdown-menu{
-   /* margin-left: 10%; */
-   /* margin-left: 140px; */
-}
-.dog-grid {
+/* flexbox that includes the applied filters and the sort dropdown */
+.dog-search-topline {
     display: flex;
-    gap: 10px;
-    flex-flow: row wrap;
-    width: 70vw;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--gap-medium);
 }
-.applied-filters-title{
-    font-size: 18px;
+
+/* ex. 10 results */
+#result-count-label {
+    font-family: var(--body-font-family);
+    font-weight: 500;
+    font-size: 22px;
 }
-.search-dog-header{
-    display: flex;
-    flex-direction: row;
-    width: 70vw;
-    margin-bottom: 10px;
-}
-#applied-filters{
+
+/* flexbox that contains all the filter chips + the clear all button */
+.applied-filters {
     display:flex;
-    flex-direction: column;
-    width: 66%;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: var(--gap-small);
+
 }
-.applied-filters-chip{
-    margin: 5px;
+
+.applied-filters-chip {
+    font-family: var(--body-font-family) !important;
+    background-color: var(--balto-main) !important;
+    color: white !important;
+    border-radius: var(--border-radius-small) !important;
 }
+
+#filter-clear-label {
+    color: var(--body-text-medium);
+    text-decoration: underline;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.dog-search-pagination {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+
+/* stylings for pagination */
+
+.dog-search-pagination a {
+    cursor: default;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    color: var(--body-text-medium);
+    text-decoration: none;
+    transition: 0.3s;
+   }
+
+.dog-search-pagination a:hover {
+    cursor: default;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    color: var(--body-text-medium);
+    background-color: var(--balto-main);
+    background-color: rgba(144, 138, 248, 0.2);
+    text-decoration: none;
+   }
+
+.dog-search-pagination li.active-page a {
+    color: #fff;
+    background-color: rgba(144, 138, 248, 0.8);
+    }

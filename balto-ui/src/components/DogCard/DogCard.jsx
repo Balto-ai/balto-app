@@ -1,11 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import StarButton from '../StarButton/StarButton'
+import { FiMapPin } from 'react-icons/fi'
+// import StarButton from '../StarButton/StarButton'
+import defaultImage from '../../assets/default-image.svg'
 import './DogCard.css'
+import StarButtonRect from '../StarButtonRect/StarButtonRect';
 
 export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="", distancebetween=0 }) { 
 
   const navigate = useNavigate()
+  const imageSrc = imgUrl || defaultImage
 
   // function to return approximate age in years/months 
   //    TODO: probably want to consider moving this to a context to be used in multiple components
@@ -46,25 +50,36 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
       }                 
     }
 
-  return (
-    <div className='dog-card'>
-      <img src={imgUrl} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
-      <div className='dog-info'>
-        {/* name, distance, and star button */}
-        <div className='dog-info-topline'>
-          {/* name and distance */}
-          <div className='dog-info-header'>
-            <h2 className='dog-name'>{name}</h2>
-            {/* using placeholder distance here */}
-            <h2 className='dog-distance'>{Math.round(distancebetween)} miles</h2>
+    return (
+      <div className='dog-card'>
+        <img src={imageSrc} className='dog-card-img' alt={`Image of ${name}`}  onClick={()=>{navigate(`/dog/${dogId}`)}}/>
+          {/* name, distance, and star button */}
+        <div className="dog-info">
+          <div className='dog-info-topline' >
+            {/* name and distance */}
+            <div className="dog-name-distance">
+              <div className='dog-name'>{name}</div>
+              <div className='dog-distance'>
+                <FiMapPin />
+                {distancebetween < 500 ? distancebetween.toFixed(1) : "500+"} mi
+              </div>
+            </div>
+
+            {/* star button */}
+            <div className="dog-card-star-button-container">
+              <StarButtonRect dogId={dogId} dogName={name} />
+            </div>
+          
           </div>
-          <StarButton dogId={dogId} dogName={name} />
+
+          <div className="dog-details">
+            <div className='dog-breed'>{breed} </div>
+            <div className='dog-age'> {calculateAge(dob)}</div>
+          </div>
+
         </div>
-        <div className="dog-details">
-          <p className='dog-breed'>{breed}</p>
-          <p className='dog-age'>{calculateAge(dob)}</p>
-        </div>
+          
       </div>
-    </div>
-  )
-}
+    )
+  }
+

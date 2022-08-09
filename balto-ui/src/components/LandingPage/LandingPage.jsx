@@ -106,13 +106,13 @@ export function LandingDogGrid(){
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
 
-  return(
-    <Grid container direction='row' gap={1.5}>
+  return (
+    <div className="dog-grid">
         {dogs.map((dog)=>{
           return(
-                  <DogCard  key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
+            <DogCard key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
-    </Grid>
+    </div>
   )
 }
