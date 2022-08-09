@@ -17,8 +17,7 @@ export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn,
   const [isValidated, setIsValidated] = React.useState(false)
 
   const { user, loginUser, error } = useAuthContext()
-
-  console.log(userLoggedIn, showLoginModal, onHide)             
+          
   const handleOnInputChange = (evt) => {
     // update form state var with input value
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))

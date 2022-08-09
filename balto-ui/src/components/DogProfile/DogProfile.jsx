@@ -52,8 +52,6 @@ export function DogProfile() {
   const [userLoggedIn, setUserLoggedIn] = useState(false)
    //tab variabls and methods
    const [value, setValue] = React.useState('1');
-   console.log(userLoggedIn, showLoginModal)
-  console.log(user)
    const handleChange = (event, newValue) => {
      setValue(newValue);
    };
