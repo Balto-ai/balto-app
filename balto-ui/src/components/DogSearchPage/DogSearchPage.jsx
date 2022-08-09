@@ -13,6 +13,8 @@ import DogCard from "../DogCard/DogCard"
 import "./DogSearchPage.css"
 import { useAuthContext } from "../../contexts/auth";
 
+import ReactPaginate from 'react-paginate';
+
 export default function DogSearchPage() {
 
   // import auth variables
@@ -98,7 +100,7 @@ export default function DogSearchPage() {
         
 
             <Grid item sx={{ width: 1 }}>
-              <DogGrid sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} setResultCount={setResultCount} />
+              <DogGrid itemsPerPage={10} sortBy={sortBy} setSortBy={setSortBy} filters={filters} userLocation={userLocation} setResultCount={setResultCount} />
             </Grid>
 
           </Grid>
@@ -304,10 +306,15 @@ export function FilterSidebar({
 }
 
 // grid of dog cards sorted based on selection in the DogRecord dropdown
-export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {}, setResultCount=()=>{} }) {
+export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLocation={}, setResultCount=()=>{} }) {
 
-  const [dogResults, setDogResults] = React.useState([]);
+  const [dogResults, setDogResults] = React.useState([])
   const [error, setError] = React.useState(null)
+
+  const [currentItems, setCurrentItems] = React.useState([])
+  const [pageCount, setPageCount] = React.useState(0)
+  const [itemOffset, setItemOffset] = React.useState(0)
+
   // sorting functions
   function sortByNameAsc(a, b) {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
@@ -371,25 +378,6 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {}, se
     return dist
   }
 
-
-  // sort dogRecords based on sort criteria
-  if (sortBy === 'Name (A-Z)') {
-    dogResults.sort(sortByNameAsc)
-  } else if (sortBy === 'Name (Z-A)') {
-    dogResults.sort(sortByNameDesc)
-  } else if (sortBy === 'Newest Addition') {
-    dogResults.sort(sortByDateEnteredAsc)
-  } else if (sortBy === 'Oldest Addition') {
-    dogResults.sort(sortByDateEnteredDesc)
-  } else if (sortBy === 'Youngest to Oldest') {
-    dogResults.sort(sortByDOBAsc)
-  } else if (sortBy === 'Oldest to Youngest') {
-    dogResults.sort(sortByDOBDesc)
-  } else if (sortBy === 'Distance (nearest)') {
-    dogResults.sort(sortByLocationAsc)
-  }
-
-
   React.useEffect(() => {
     const fetchDogResults = async () => {
       const { data, error } = await ApiClient.fetchDogs(filters);
@@ -397,17 +385,57 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {}, se
         setDogResults(data.dogResults)
         setResultCount(data.dogResults.length)
         setError(null)
+      if (error) setError(error)
       }
-      if (error) setError(error);
-    };
+    }
+  
+    // first fetch all dog results based on filters (unsorted at this point)
     fetchDogResults()
-  }, [filters])
 
+    // start sorting afterwards
+    //  have to sort in the use effect so that pagination works
+    //  otherwise, it'll sort within each result page rather than across all results
+    var sortedDogResults = [...dogResults]
+
+    if (sortBy !== "") { // if there's a criteria to sort by...
+      if (sortBy === 'Name (A-Z)') {
+        sortedDogResults.sort(sortByNameAsc)
+      } else if (sortBy === 'Name (Z-A)') {
+        sortedDogResults.sort(sortByNameDesc)
+      } else if (sortBy === 'Newest Addition') {
+        sortedDogResults.sort(sortByDateEnteredAsc)
+      } else if (sortBy === 'Oldest Addition') {
+        sortedDogResults.sort(sortByDateEnteredDesc)
+      } else if (sortBy === 'Youngest to Oldest') {
+        sortedDogResults.sort(sortByDOBAsc)
+      } else if (sortBy === 'Oldest to Youngest') {
+        sortedDogResults.sort(sortByDOBDesc)
+      } else if (sortBy === 'Distance (nearest)') {
+        sortedDogResults.sort(sortByLocationAsc)
+      }
+    }
+
+  const endOffset = itemOffset + itemsPerPage
+  // set the items to display using the sorted results
+  setCurrentItems([...sortedDogResults].slice(itemOffset, endOffset))
+  setPageCount(Math.ceil(dogResults.length / itemsPerPage))
+
+  }, [itemOffset, itemsPerPage, filters, sortBy])
+
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % dogResults.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  }
 
   return (
     <>
       <div className="dog-grid">
-        {dogResults.map((dogResult, idx) => (
+        {currentItems.map((dogResult, idx) => (
           <DogCard key={dogResult.dog_id || idx}
             dogId={dogResult.dog_id}
             imgUrl={dogResult.image_url}
@@ -419,6 +447,18 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {}, se
           />
         ))}
       </div>
+
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
+
+
     </>
   )
 }
