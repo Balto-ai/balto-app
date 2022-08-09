@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 import Accordion from "react-bootstrap/Accordion";
 import Chip from '@mui/material/Chip'
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -318,6 +319,9 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
   const [currentItems, setCurrentItems] = React.useState([])
   const [pageCount, setPageCount] = React.useState(0)
   const [itemOffset, setItemOffset] = React.useState(0)
+  const [currentPage, setCurrentPage] = React.useState(0)
+
+  const navigate = useNavigate()
 
   // sorting functions
   function sortByNameAsc(a, b) {
@@ -382,6 +386,7 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
     return dist
   }
 
+  // useEffect to fetch the data and display the correct items for a page
   React.useEffect(() => {
     const fetchDogResults = async () => {
       const { data, error } = await ApiClient.fetchDogs(filters);
@@ -420,6 +425,8 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
     }
 
   const endOffset = itemOffset + itemsPerPage
+  console.log("endOffset:", itemOffset + itemsPerPage)
+  console.log("itemOffset:", itemOffset)
   // set the items to display using the sorted results
   setCurrentItems([...sortedDogResults].slice(itemOffset, endOffset))
   setPageCount(Math.ceil(dogResults.length / itemsPerPage))
@@ -427,13 +434,18 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
   }, [itemOffset, itemsPerPage, filters, sortBy])
 
 
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % dogResults.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
+  // useEffect to reset current page to the first one whenever filters/sorting changes
+  React.useEffect(() => {
+    setItemOffset(0)
+    setCurrentPage(0)
+  }, [filters, sortBy])
+
+
+  // event handler for when a user requests a new page
+  const handlePageClick = (evt) => {
+    const newOffset = (evt.selected * itemsPerPage) % dogResults.length
+    setItemOffset(newOffset) // triggers fetching use effect to update the current items to show
+    setCurrentPage(evt.selected) // update current page
   }
 
   return (
@@ -460,10 +472,11 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
         pageCount={pageCount}
         previousLabel={<FiChevronLeft />}
         renderOnZeroPageCount={null}
+        forcePage={currentPage}
         activeClassName="active-page"
         hrefBuilder={(page, pageCount) =>
-          page >= 1 && page <= pageCount ? `/search/page/${page}` : '#'
-        }
+          page >= 1 && page <= pageCount ? `/search/page/${page}` : '/#'
+          }
         hrefAllControls={true}
       />
 
