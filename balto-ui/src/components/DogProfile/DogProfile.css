@@ -1,3 +1,7 @@
+.dog-profile {
+    padding-bottom: 100px !important;
+}
+
 .main-image {
     height: 100vh;
     /* height: 150vh; */
@@ -5,14 +9,20 @@
     object-fit: cover;
     border-radius: 10px;
 }
-.dog-profile{
-    height: 100%;
-    padding: 50px;
-}
+
 .dog-profile-image{
     /* padding-bottom: 50px; */
     height: 100%;
 }
+
+.dog-profile-chip {
+    font-size: 0.9em !important;
+    background-color: rgba(144, 138, 248, 0.2) !important;
+    color: var(--balto-main-darker) !important;
+    font-weight: 500;
+    border-radius: var(--border-radius-small) !important;
+}
+
 .dog-profile-details{
     height: 100%;
 }
@@ -38,7 +48,11 @@
     border-radius: 10px;
 }
 
-
+.dog-profile-details .dog-name {
+    font-weight: 600;
+    font-size: 2.4em;
+    margin-bottom: var(--gap-medium);
+}
 
 /*
 .profile-page {

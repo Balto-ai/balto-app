@@ -34,7 +34,7 @@ export function AdoptionInquiriesPage() {
       { field: 'dog_name', headerName: 'Dog', width: 160,
         renderCell: (params) =>
           <>
-            <img className="dog-image-icon" src={params.row.dog_image_url || defaultImage} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+            <img className="dog-image-icon" src={params.row.dog_image_url || defaultImage} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}/>
             <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}>{params.value}</div>
           </>
       },

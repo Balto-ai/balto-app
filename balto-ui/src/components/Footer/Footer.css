@@ -4,6 +4,7 @@
    display: flex;
    flex-flow: row wrap;
    gap: 40px;
+   padding-bottom: 0px !important;
 }
 
 .copyright-line {
