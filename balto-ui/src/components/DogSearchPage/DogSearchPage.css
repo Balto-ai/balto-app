@@ -41,6 +41,13 @@
     cursor: pointer;
 }
 
+.dog-search-topline {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: var(--gap-medium);
+}
+
 /* .dog-record-dropdown {
     align-self: flex-end;
     width: 150px;

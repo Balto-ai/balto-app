@@ -78,23 +78,26 @@ export default function DogSearchPage() {
             />
           </Grid>
 
-          <Grid item container justifyContent="space-between" spacing={3} sm={12} md={9}>
+          <Grid item container justifyContent="space-between" sm={12} md={9}>
 
-            <Grid item sx={{ width: 3/4 }} xs={7} sx={{ backgroundColor: 'red'}}>
-              <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
-              <AppliedFilters
-                selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
-                selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
-                selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
-                selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
-                selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
-                selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
-                onClearFilters={clearFilters}
-              />
-            </Grid>
             
-            <Grid item sx={{ width: 1/4 }} xs={5} sx={{ backgroundColor: 'pink'}}>
-              <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+            <Grid item sx={{ width: 1 }}>
+              <div className="dog-search-topline">
+                <div>
+                  <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
+                  <AppliedFilters
+                    selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
+                    selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
+                    selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
+                    selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
+                    selectedDistance={selectedDistance} setSelectedDistance={setSelectedDistance}
+                    selectedShelters={selectedShelters} setSelectedShelters={setSelectedShelters}
+                    onClearFilters={clearFilters}
+                  />
+                </div>
+
+                <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
+              </div>
             </Grid>
         
 
