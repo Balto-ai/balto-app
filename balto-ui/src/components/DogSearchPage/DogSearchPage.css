@@ -6,7 +6,7 @@
 
 /* added margin to the badge that indicates the number of active filters */
 .filter-badge {
-    margin-left: var(--gap-xsmall);
+    margin-left: var(--gap-small);
 }
 
 .dog-grid {
@@ -38,7 +38,7 @@
     font-family: var(--body-font-family) !important;
     background-color: var(--balto-main) !important;
     color: white !important;
-    border-radius: var(--border-radius-xsmall) !important;
+    border-radius: var(--border-radius-small) !important;
 }
 
 #filter-clear-label {
