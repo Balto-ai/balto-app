@@ -80,10 +80,10 @@ export default function DogSearchPage() {
 
           <Grid item container justifyContent="space-between" spacing={3} sm={12} md={9}>
 
-            <Grid item sx={{ width: 3/4 }} xs={7} >
+            <Grid item sx={{ width: 3/4 }} xs={7} sx={{ backgroundColor: 'red'}}>
               <div id="result-count-label">{resultCount} {resultCount === 1 ? "result" : "results"}</div>
               <AppliedFilters
-                selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedShelters}
+                selectedBreeds={selectedBreeds} setSelectedBreeds={setSelectedBreeds}
                 selectedSizes={selectedSizes} setSelectedSizes={setSelectedSizes}
                 selectedGenders={selectedGenders} setSelectedGenders={setSelectedGenders}
                 selectedGoodWith={selectedGoodWith} setSelectedGoodWith={setSelectedGoodWith}
@@ -93,7 +93,7 @@ export default function DogSearchPage() {
               />
             </Grid>
             
-            <Grid item sx={{ width: 1/4 }} xs={5}>
+            <Grid item sx={{ width: 1/4 }} xs={5} sx={{ backgroundColor: 'pink'}}>
               <DogRecordDropdown sortBy={sortBy} setSortBy={setSortBy} className="dog-record-sort" />
             </Grid>
         
@@ -487,7 +487,7 @@ export function AppliedFilters({
 export function DogRecordDropdown({ sortBy, setSortBy }) {
   return (
     <Dropdown className="dog-record-dropdown">
-      <Dropdown.Toggle variant="secondary" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
+      <Dropdown.Toggle variant="secondary" className="sort-by-dropdown" id="dropdown-basic">Sort By: {sortBy}</Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => { setSortBy("Name (A-Z)") }}>Name (A-Z)</Dropdown.Item>
         <Dropdown.Item onClick={() => { setSortBy("Name (Z-A)") }}>Name (Z-A)</Dropdown.Item>
@@ -528,12 +528,13 @@ export function ShelterNames({ selectedShelters = [], setSelectedShelters = () =
     })
   }
 
+
   return (
     <span>
       {result.length !== 0 && result.map((element) => {
         return (
           <Chip className="applied-filters-chip" label={element.name} key={element.id}
-          onDelete={()=>{ console.log(element); handleDelete(element.id, selectedShelters, setSelectedShelters)}} deleteIcon={<BsX style={{color: "white"}}/>} />
+          onDelete={()=>{handleDelete(element.id, selectedShelters, setSelectedShelters)}} deleteIcon={<BsX style={{color: "white"}}/>} />
         )
       })}
     </span>
