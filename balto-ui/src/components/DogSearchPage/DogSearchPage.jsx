@@ -3,12 +3,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Chip from '@mui/material/Chip'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from "react-bootstrap/Form";
-
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-
 import { BsX } from "react-icons/bs"
-
 import Badge from "react-bootstrap/Badge";
 import BreedSearchbar from "../BreedSearchbar/BreedSearchbar";
 import ShelterSearchbar from "../ShelterSearchbar/ShelterSearchbar";
@@ -78,9 +74,9 @@ export default function DogSearchPage() {
             />
           </Grid>
 
+          {/* col #2 filter chips, sort by dropdown, and dog grid */}
           <Grid item container justifyContent="space-between" sm={12} md={9}>
 
-            
             <Grid item sx={{ width: 1 }}>
               <div className="dog-search-topline">
                 <div>
@@ -151,7 +147,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Breed
           {selectedBreeds.length > 0 ? (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               {selectedBreeds.length}
             </Badge>
           ) : null}
@@ -170,7 +166,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Size
           {selectedSizes.length > 0 ? (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               {selectedSizes.length}
             </Badge>
           ) : null}
@@ -199,7 +195,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Gender
           {selectedGenders.length > 0 ? (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               {selectedGenders.length}
             </Badge>
           ) : null}
@@ -228,7 +224,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Good With
           {selectedGoodWith.length > 0 ? (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               {selectedGoodWith.length}
             </Badge>
           ) : null}
@@ -257,7 +253,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Distance
           {selectedDistance && (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               1
             </Badge>
           )}
@@ -289,7 +285,7 @@ export function FilterSidebar({
         <Accordion.Header>
           Shelter
           {selectedShelters.length > 0 ? (
-            <Badge pill bg="primary">
+            <Badge pill bg="primary" className="filter-badge">
               {selectedShelters.length}
             </Badge>
           ) : null}
