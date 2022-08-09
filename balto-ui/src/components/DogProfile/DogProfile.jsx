@@ -68,7 +68,7 @@ export function DogProfile() {
 
   return (
 
-    <Container className='dog-profile'>
+    <Container className='dog-profile primary-container'>
       <Row>
         <Col>
           <Row className='dog-profile-image'>
@@ -91,7 +91,7 @@ export function DogProfile() {
         </Col>
         <Col className='dog-profile-details'>
           <Row>
-            <h1>{dogInfo.dog_name}</h1>
+            <h1 className="dog-name">{dogInfo.dog_name}</h1>
           </Row>
           <Row style={{paddingBottom: 0}} >
             <Container>
@@ -202,7 +202,7 @@ export function DogProfile() {
                 <TabPanel value='3'>
                 <Row>
                   <Container >
-                    <div className="rounded me-auto">
+                    <div className="rounded me-auto shelter-map">
                       <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
                     </div>
                   </Container>
