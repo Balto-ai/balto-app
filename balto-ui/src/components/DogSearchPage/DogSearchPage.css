@@ -57,3 +57,32 @@
     justify-content: center;
     margin: 50px 0px;
 }
+
+
+/* stylings for pagination */
+
+.dog-search-pagination a {
+    cursor: default;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    color: var(--body-text-medium);
+    text-decoration: none;
+    transition: 0.3s;
+   }
+
+.dog-search-pagination a:hover {
+    cursor: default;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    color: var(--body-text-medium);
+    background-color: var(--balto-main);
+    background-color: rgba(144, 138, 248, 0.2);
+    text-decoration: none;
+   }
+
+.dog-search-pagination li.active-page a {
+    color: #fff;
+    background-color: rgba(144, 138, 248, 0.8);
+    }

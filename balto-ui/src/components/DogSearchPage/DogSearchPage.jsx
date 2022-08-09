@@ -460,6 +460,11 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
         pageCount={pageCount}
         previousLabel={<FiChevronLeft />}
         renderOnZeroPageCount={null}
+        activeClassName="active-page"
+        hrefBuilder={(page, pageCount) =>
+          page >= 1 && page <= pageCount ? `/search/page/${page}` : '#'
+        }
+        hrefAllControls={true}
       />
 
 
