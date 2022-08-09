@@ -27,7 +27,6 @@
 }
 
 .applied-filters-chip {
-    margin: var(--gap-small) var(--gap-small) var(--gap-small) 0px;
     font-family: var(--body-font-family) !important;
     background-color: var(--balto-main) !important;
     color: white !important;

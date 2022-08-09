@@ -529,7 +529,7 @@ export function ShelterNames({ selectedShelters = [], setSelectedShelters = () =
 
 
   return (
-    <span>
+    <span className="applied-filters">
       {result.length !== 0 && result.map((element) => {
         return (
           <Chip className="applied-filters-chip" label={element.name} key={element.id}
