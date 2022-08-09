@@ -8,8 +8,8 @@ import Alert from 'react-bootstrap/Alert'
 import { BsX } from "react-icons/bs"
 import "./LoginForm.css"
 
+
 export default function LoginForm() {
-  
   const navigate = useNavigate()
   const [form, setForm] = React.useState( { email: "",
                                             password: ""

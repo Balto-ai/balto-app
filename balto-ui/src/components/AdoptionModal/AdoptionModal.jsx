@@ -1,7 +1,6 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import AdoptionInquiryForm from '../AdoptionForm/AdoptionForm'
-
 // takes in two props: show (a Boolean) and onHide (function)
 // example instance: <AdoptionInquiryModal show={modalShow} onHide={() => setModalShow(false)} />
 //    where show modalShow and setModalShow are state/state-setting vars in the parent component
