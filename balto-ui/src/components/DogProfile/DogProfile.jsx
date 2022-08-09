@@ -101,8 +101,9 @@ export function DogProfile() {
               <Badge pill bg="info">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
             </Container>
           </Row>
-          <Row style={{paddingTop:15, paddingBottom: 60}}>
-            <p>Hello! I'm known for being {dogInfo.desc_1}. I'm looking for someone who {dogInfo.desc_2}</p>
+          <Row style={{paddingTop:15, paddingBottom: 15}}>
+            <span><p>{dogInfo.desc_1 !== "" ? `I'm known for being ${dogInfo.desc_1}.` : ""}</p></span>
+            <span><p>{dogInfo.desc_2 !== "" ? `I'm looking for someone who ${dogInfo.desc_2}.` : ""}</p></span>
           </Row>
           <Row>
             <section className='action-btns'>

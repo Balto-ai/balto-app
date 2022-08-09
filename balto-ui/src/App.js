@@ -13,15 +13,27 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
 import StarredPage from "./components/StarredPage/StarredPage"
+import { createTheme } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import './App.css';
 import './custom.scss';
-import Container from "react-bootstrap/esm/Container"
+
+const baltoMUItheme = createTheme({
+  typography: {
+    fontFamily: [
+      'var(--body-font-family)',
+      'sans serif',
+    ].join(','),
+  }
+});
 
 function AppContainer() {
   return (
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <ThemeProvider theme={baltoMUItheme}>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </ThemeProvider>
   )
 }
 
