@@ -183,8 +183,9 @@ export function FilterSidebar({
                   id={option}
                   label={option}
                   value={option.toLowerCase()}
+                  checked={selectedSizes.includes(option.toLowerCase())}
                   onChange={(evt) => {
-                    handleCheck(evt, selectedSizes, setSelectedSizes);
+                    handleCheck(evt, selectedSizes, setSelectedSizes)
                   }}
                 />
               </div>
@@ -212,8 +213,9 @@ export function FilterSidebar({
                   id={option}
                   label={option}
                   value={option[0].toLowerCase()}
+                  checked={selectedGenders.includes(option[0].toLowerCase())}
                   onChange={(evt) => {
-                    handleCheck(evt, selectedGenders, setSelectedGenders);
+                    handleCheck(evt, selectedGenders, setSelectedGenders)
                   }}
                 />
               </div>
@@ -241,6 +243,7 @@ export function FilterSidebar({
                   id={option}
                   label={option}
                   value={option}
+                  checked={selectedGoodWith.includes(option)}
                   onChange={(evt) => {
                     handleCheck(evt, selectedGoodWith, setSelectedGoodWith);
                   }}
@@ -464,7 +467,7 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
   )
 }
 
-// Applief Filters: + all the appropriate chips
+// Applied Filters: + all the appropriate chips
 export function AppliedFilters({
   selectedBreeds=[], setSelectedBreeds=()=>{},
   selectedSizes=[], setSelectedSizes=()=>{},
