@@ -49,8 +49,10 @@ export function DogProfile() {
   const [receiptShow, setReceiptShow] = useState(false)
   const {images, setDogId} = usePublicImagesContext()
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
    //tab variabls and methods
    const [value, setValue] = React.useState('1');
+   console.log(userLoggedIn, showLoginModal)
   console.log(user)
    const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -119,7 +121,7 @@ export function DogProfile() {
                  ADOPT ME
               </Button>
               <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
-              <LoginModal show={showLoginModal} onHide={() => setShowLoginModal(false)} />
+              <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => {setShowLoginModal(false); setUserLoggedIn(true)}} />
               { /* Modals for adoption inquiry user story */}
               {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
               <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />
@@ -255,7 +257,7 @@ export function LoginModal(props) {
         </Modal.Header>
         {/* modal body is the form to login the user */}
         <Modal.Body>
-            <LoginForm/>
+            <LoginForm showLoginModal={props.showLoginModal}  userLoggedIn={props.userLoggedIn} setUserLoggedIn={props.setUserLoggedIn} onHide={props.onHide} />
         </Modal.Body>
         <Modal.Footer>
           <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>

@@ -9,7 +9,7 @@ import { BsX } from "react-icons/bs"
 import "./LoginForm.css"
 
 
-export default function LoginForm() {
+export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn, showLoginModal, setShowLoginModal}) {
   const navigate = useNavigate()
   const [form, setForm] = React.useState( { email: "",
                                             password: ""
@@ -18,7 +18,7 @@ export default function LoginForm() {
 
   const { user, loginUser, error } = useAuthContext()
 
-
+  console.log(userLoggedIn, showLoginModal)             
   const handleOnInputChange = (evt) => {
     // update form state var with input value
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
@@ -36,8 +36,15 @@ export default function LoginForm() {
       if (user?.email) {
         if (user?.shelterId) {
           navigate("/admin-dashboard")
-        } else {
-          navigate("/")
+        } 
+        else {
+          if (!userLoggedIn || showLoginModal){
+            setUserLoggedIn(true);
+            setShowLoginModal(false);
+            onHide()
+          }else{
+            navigate("/")
+          }
         }
         return null
       }
