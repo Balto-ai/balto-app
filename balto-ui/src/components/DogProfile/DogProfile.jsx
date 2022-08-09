@@ -95,10 +95,10 @@ export function DogProfile() {
           </Row>
           <Row style={{paddingBottom: 0}} >
             <Container className="applied-filters">
-              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.breed} />
-              <Chip className="applied-filters-chip dog-profile-chip" label={getAgeGroup(dogInfo?.dob)} />
-              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.size} />
-              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.sex === 'm' ? 'Male' : 'Female'} />
+              <Chip className="dog-profile-chip" label={dogInfo?.breed} />
+              <Chip className="dog-profile-chip" label={getAgeGroup(dogInfo?.dob)} />
+              <Chip className="dog-profile-chip" label={dogInfo?.size} />
+              <Chip className="dog-profile-chip" label={dogInfo?.sex === 'm' ? 'Male' : 'Female'} />
             </Container>
           </Row>
           <Row style={{paddingTop:15, paddingBottom: 15}}>
