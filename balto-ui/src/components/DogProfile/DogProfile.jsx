@@ -121,7 +121,7 @@ export function DogProfile() {
                  ADOPT ME
               </Button>
               <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
-              <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => {setShowLoginModal(false); setUserLoggedIn(true)}} />
+              {showLoginModal && <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => {setShowLoginModal(false); setUserLoggedIn(true)}} />}
               { /* Modals for adoption inquiry user story */}
               {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
               <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />

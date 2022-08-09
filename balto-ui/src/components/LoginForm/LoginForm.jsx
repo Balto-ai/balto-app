@@ -27,24 +27,20 @@ export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn,
   const handleOnFormSubmit = async (evt) => {
     evt.preventDefault()
     setIsValidated(true)
+    
     const loginForm = evt.currentTarget
     if (loginForm.checkValidity() === false) {
       evt.stopPropagation()
     } else {
       await loginUser(form)
-
+      setUserLoggedIn(true);
+      onHide();
       if (user?.email) {
         if (user?.shelterId) {
           navigate("/admin-dashboard")
         } 
         else {
-          if (!userLoggedIn || showLoginModal){
-            setUserLoggedIn(true);
-            setShowLoginModal(false);
-            onHide()
-          }else{
             navigate("/")
-          }
         }
         return null
       }

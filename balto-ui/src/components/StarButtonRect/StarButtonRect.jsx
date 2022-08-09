@@ -16,7 +16,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
     const [toastShow, setToastShow] = React.useState(false) // shows bottom-right notification that appears when a dog is starred/unstarred
-
+    const [userLoggedIn, setUserLoggedIn] = React.useState(false)
     // useEffect hook gets the user's list of starred dogs and checks if the card's dog is in that list
     //   TODO: for later sprint, create new endpoint that returns a boolean
     React.useEffect(() => {
@@ -64,7 +64,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
           <IconButton aria-label='favorite' onClick={handleOnClick}>{isStarred ? <BsStarFill /> : <BsStar />}</IconButton>
         </Tooltip>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
-        <StarModal show={modalShow} onHide={() => setModalShow(false)} />
+        <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
         <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
