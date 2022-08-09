@@ -13,7 +13,7 @@ export default function LoginToAccess() {
         <Grid justifyContent='center' alignItems='center' textAlign='center'>
           <Grid item>
           
-            <Box>
+            <Box sx={{marginBottom:10}}>
               <h4 className='nf-title'>Access denied</h4>
               <span>
               <Link  href="/login" underline="hover">Login</Link> or <Link  href="/register" underline="hover">sign up</Link> to gain access to this page
