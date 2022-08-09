@@ -431,8 +431,6 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
     }
 
       const endOffset = itemOffset + itemsPerPage
-      console.log("endOffset:", itemOffset + itemsPerPage)
-      console.log("itemOffset:", itemOffset)
       // set the items to display using the sorted results
       setCurrentItems([...sortedDogResults].slice(itemOffset, endOffset))
       setPageCount(Math.ceil(dogResults.length / itemsPerPage))
