@@ -22,32 +22,32 @@ export default function Footer() {
         <Grid container direction='row' justifyContent='space-between'>
 
             {/* Grid container that contains the columns of company info and resources */}
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm="auto">
               <Box textAlign='left' pb={{sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}><img className='dog-icon' src={DogIcon} alt='dog house icon' width='20px' height='20px'></img>BALTO</Box>
               <Box><span className='footer-content'><i className='company-icon'><BsFillHouseDoorFill/></i> New York, NY 10012, US</span></Box>
               <Box><span className='footer-content'><i className='company-icon'><BsFillEnvelopeFill/></i> balto-ai@balto.com</span></Box>
               <Box pb={{xs: 3}}><span className='footer-content'><i className='company-icon'><BsFillTelephoneFill/></i> + 1 (234) 567-8901</span></Box>
             </Grid>
 
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm="auto">
               <Box pb={{sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>OVERVIEW</Box>
               <Box><span className='footer-content'>About Us</span></Box>
               <Box><span className='footer-content'>Privacy Policy</span></Box>
               <Box pb={{xs: 3}}><span className='footer-content'>Terms of Service</span></Box>
             </Grid>
 
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm="auto">
               <Box pb={{sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>SUPPORT</Box>
               <Box><span className='footer-content'>Report an Issue</span></Box>
               <Box><span className='footer-content'>Shelter Support</span></Box>
               <Box pb={{xs: 3}}><span className='footer-content'>FAQ</span></Box>
             </Grid>
 
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm="auto">
               <Box pb={{sm: 1}} className='footer-column' sx={{fontWeight: 700, color: 'white', fontSize: '20px'}}>RESOURCES</Box>
               <Box><Link id='footer-links' className='footer-content' href='/search' color='inherit'>Find A Dog</Link></Box>
               <Box><Link id='footer-links' className='footer-content' href='/search' color='inherit'>Take A Quiz</Link></Box>
-              <Box pb={{xs: 3}}><Link id='footer-links' className='footer-content' href='/register' color='inherit'>Register for Free</Link></Box>
+              <Box><Link id='footer-links' className='footer-content' href='/register' color='inherit'>Register for Free</Link></Box>
             </Grid>
 
         </Grid> 
