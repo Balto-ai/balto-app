@@ -1,6 +1,7 @@
 import React from 'react'
 import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '../../contexts/adoption-inquiries'
 import { useNavigate } from 'react-router-dom'
+import defaultImage from '../../assets/default-image.svg'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './AdoptionInquiriesPage.css'
@@ -31,7 +32,7 @@ export function AdoptionInquiriesPage() {
       { field: 'dog_name', headerName: 'Dog', width: 160,
         renderCell: (params) =>
           <>
-            <img className="dog-image-icon" src={params.row.dog_image_url} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+            <img className="dog-image-icon" src={params.row.dog_image_url || defaultImage} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
             <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}>{params.value}</div>
           </>
       },
