@@ -56,3 +56,9 @@
     color: var(--body-text-medium);
     gap: 30px;
 }
+
+.dog-card .dog-info .dog-details {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
