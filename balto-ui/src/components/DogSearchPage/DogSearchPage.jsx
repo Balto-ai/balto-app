@@ -57,6 +57,12 @@ export default function DogSearchPage() {
     }
     setStateArr(newArr); // updating the stateArr here
   };
+
+  const handleSliderChange = (evt, newValue) => {
+    setSelectedDistance(newValue)
+  }
+
+
   return (
     <div className="dog-search-page">
       <div className="dog-search-page-container">
@@ -100,7 +106,7 @@ export default function DogSearchPage() {
                       <Form.Check
                         type="checkbox"
                         id={option}
-                        label={option}
+                        label={option} 
                         value={option.toLowerCase()}
                         onChange={(evt) => {
                           handleCheck(evt, selectedSizes, setSelectedSizes);
@@ -186,14 +192,12 @@ export default function DogSearchPage() {
                   <br></br>
                   <Slider 
                     aria-labelledby="distance-slider"
-                    value={value}
-                    onChangeCommitted={(event) => {console.log(event)}}
-                    step={10}
+                    onChangeCommitted={handleSliderChange}
+                    step={5}
                     marks={true}
                     valueLabelDisplay={"on"}
-                    defaultValue={50}
                     min={10}
-                    max={100}
+                    max={50}
                   />
                 </Form>
               </Accordion.Body>
@@ -364,13 +368,18 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       // why? Because distanceBetween is calculated client-side and cannot be queried thru the db
       if (data?.dogResults && filters?.distance) {
         const distLimit = parseFloat(filters.distance)
+        dogResults.map(dog => {console.log(199, dog.distanceBetween)})
         const filteredDogResults = dogResults.filter(dog => (dog.distanceBetween <= distLimit))
         setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
+        console.log("data[Results]", data["dogResults"])
+        console.log("filteredDogResults", filteredDogResults)
       }
       if (error) setError(error);
     };
     fetchDogResults()
   }, [filters])
+
+  console.log("new dog results after filtering", dogResults)
 
   return (
     <div className="dog-grid">
