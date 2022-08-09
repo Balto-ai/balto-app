@@ -27,7 +27,7 @@ const baltoMUItheme = createTheme({
   },
   palette: {
     primary: {
-      main: 'var(--balto-main-darker)'
+      main: '#5d74bb'
     }
   }
 });
