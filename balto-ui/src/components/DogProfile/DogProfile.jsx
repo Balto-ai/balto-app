@@ -6,8 +6,8 @@ import { GiPartyPopper } from "react-icons/gi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 
-import { Container, Row, Col, Badge, Button, Carousel, Stack } from 'react-bootstrap'
-import {Box, Tab, Tabs} from '@mui/material'
+import { Container, Row, Col, Button, Carousel, Stack } from 'react-bootstrap'
+import { Box, Tab, Tabs, Chip } from '@mui/material'
 import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { useAuthContext } from '../../contexts/auth';
 import {PublicImagesContextProvider, usePublicImagesContext} from '../../contexts/public-dog-images'
@@ -94,11 +94,11 @@ export function DogProfile() {
             <h1 className="dog-name">{dogInfo.dog_name}</h1>
           </Row>
           <Row style={{paddingBottom: 0}} >
-            <Container>
-              <Badge pill bg="info">{dogInfo.breed}</Badge>{' '}
-              <Badge pill bg="info">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
-              <Badge pill bg="info">{dogInfo.size}</Badge>{' '}
-              <Badge pill bg="info">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
+            <Container className="applied-filters">
+              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.breed} />
+              <Chip className="applied-filters-chip dog-profile-chip" label={getAgeGroup(dogInfo?.dob)} />
+              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.size} />
+              <Chip className="applied-filters-chip dog-profile-chip" label={dogInfo?.sex === 'm' ? 'Male' : 'Female'} />
             </Container>
           </Row>
           <Row style={{paddingTop:15, paddingBottom: 15}}>

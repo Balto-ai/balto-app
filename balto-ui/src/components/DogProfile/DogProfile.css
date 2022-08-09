@@ -14,6 +14,11 @@
     /* padding-bottom: 50px; */
     height: 100%;
 }
+
+.dog-profile-chip {
+    font-size: 1em !important;
+}
+
 .dog-profile-details{
     height: 100%;
 }
