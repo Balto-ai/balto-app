@@ -314,6 +314,7 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
   }
 
   function calcDistForUser() {
+    console.log("calling calcDistForUser")
     const dogArr = dogResults
     // eslint-disable-next-line no-restricted-globals
     const loc = userLocation
@@ -370,8 +371,8 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
       if (data?.dogResults && filters?.distance) {
         const distLimit = parseFloat(filters.distance)
         dogResults.map(dog => {console.log(199, dog.distanceBetween)})
-        console.log(2, "dogResults", dogResults)
         const filteredDogResults = dogResults.filter(dog => (dog.distanceBetween <= distLimit))
+        console.log(2.5, "filtering...", distLimit, dogResults[0].distanceBetween)
         setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
         console.log(3, "filteredDogResults", filteredDogResults)
       }
@@ -379,6 +380,9 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
     };
     fetchDogResults()
   }, [filters])
+
+  console.log(2, "dogResults", dogResults)
+
 
   return (
     <div className="dog-grid">
