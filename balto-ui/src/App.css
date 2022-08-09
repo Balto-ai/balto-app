@@ -49,6 +49,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--header-font-family);
 }
 
+/* general purpose grid for dog cards */
+.dog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min-dog-card-width), 1fr));
+  grid-column-gap: var(--gap-medium);
+  grid-row-gap: var(--gap-medium);
+}
+
 .capitalized::first-letter {
   text-transform:capitalize;
 }

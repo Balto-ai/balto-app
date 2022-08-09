@@ -14,12 +14,6 @@
     margin-top: 2%;
 }
 
-.starred-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
 .cards {
     width: 20%;
     margin: 2%;
