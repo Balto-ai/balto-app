@@ -13,3 +13,9 @@
     margin-left: 5px;
     margin-right: 10px;
 }
+
+.table-cell-trucate {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
