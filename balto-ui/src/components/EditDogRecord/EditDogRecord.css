@@ -7,6 +7,10 @@
     font-weight: 500;
     font-size: 1.1em;
 }
+.edit-dog-title{
+    text-align: center;
+    margin-bottom: 50px;
+}
 .save-btn{
     float: right;
 }

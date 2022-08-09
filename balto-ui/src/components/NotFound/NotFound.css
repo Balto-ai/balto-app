@@ -4,13 +4,8 @@
     margin-top: 5%;
     padding-bottom: 120px;
 }
-.not-found-pic{
-    height: 280px;
-}
-.not-found-title{
-    margin-bottom: 50px;
-}
 .nf-title{
+        /* background-color: green; */
     font-size: 50px;
     vertical-align: top;
 }

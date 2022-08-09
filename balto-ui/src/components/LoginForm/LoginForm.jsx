@@ -47,7 +47,7 @@ export default function LoginForm() {
   return (
     <div className="login-form">
       <div className="login-card">
-        <h2 className="mb-3">Login</h2>
+        <h2 className="login-title">Login</h2>
         <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           <Form.Group controlId="validationCustom01" className="form-item">
