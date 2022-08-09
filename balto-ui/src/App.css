@@ -2,7 +2,7 @@
 .App {
   margin: 0 auto;
   font-family: var(--body-font-family);
-  
+  color: var(--body-text-dark)
 }
 
 /* GLOBAL VARIABLES */
@@ -47,6 +47,7 @@
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--header-font-family);
+  color: var(--body-text-dark);
 }
 
 /* general purpose grid for dog cards */
