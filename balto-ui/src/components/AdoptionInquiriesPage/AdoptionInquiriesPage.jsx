@@ -3,7 +3,6 @@ import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '.
 import { useNavigate } from 'react-router-dom'
 import defaultImage from '../../assets/default-image.svg'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
-import Tooltip from '@mui/material/Tooltip'
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -45,7 +44,6 @@ export function AdoptionInquiriesPage() {
       { field: 'phone_number', headerName: 'Phone Number', width: 130, sortable: false, filterable: false },
       { field: 'zipcode', headerName: 'Zip Code', width: 100 },
       { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false,
-
         renderCell: (params) =>  (
         <OverlayTrigger trigger="hover" placement="right" overlay={
           <Popover>
@@ -56,8 +54,6 @@ export function AdoptionInquiriesPage() {
           <span className="table-cell-trucate">{params.value}</span>
         </OverlayTrigger>
         )
-
-
     },
       { field: 'created_at', headerName: 'Timestamp', width: 160, type: 'dateTime',
         valueFormatter: (params) => (new Date(params.value)).toLocaleString()}
@@ -72,7 +68,3 @@ export function AdoptionInquiriesPage() {
         </div>
     )
 }
-
-
-
-
