@@ -73,8 +73,8 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
           </div>
 
           <div className="dog-details">
-            <span className='dog-breed'>{breed} </span> •
-            <span className='dog-age'> {calculateAge(dob)}</span>
+            <div className='dog-breed'>{breed} </div>
+            <div className='dog-age'> {calculateAge(dob)}</div>
           </div>
 
         </div>
