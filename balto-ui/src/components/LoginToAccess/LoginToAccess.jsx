@@ -10,7 +10,7 @@ import ErrorDog from './image/Error Naughty Dog.svg'
 export default function LoginToAccess() {
 
   return (
-      <LoginForm formHeader={"Login Favorite Dogs"} />
+      <LoginForm formHeader={"Login to Favorite Dogs"} />
   )
 
   // return (
