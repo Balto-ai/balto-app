@@ -395,7 +395,6 @@ export function DogGrid({ itemsPerPage=4, filters={}, setSortBy, sortBy, userLoc
       setIsLoading(true)
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
-        console.log(data?.dogResults)
         setDogResults(data.dogResults)
         setResultCount(data.dogResults.length)
         setError(null)
