@@ -68,18 +68,6 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     border: 0,
     color:
         theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.85)',
-    fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-    ].join(','),
     WebkitFontSmoothing: 'auto',
     letterSpacing: 'normal',
     '& .MuiDataGrid-columnsContainer': {

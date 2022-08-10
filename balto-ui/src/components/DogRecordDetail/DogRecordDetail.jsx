@@ -4,7 +4,8 @@ import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
 import defaultImage from '../../assets/default-image.svg'
 import { Rating} from '@mui/material'
-import { IoPaw } from 'react-icons/io5'
+import EmptyBone from "../Icon/EmptyBone"
+import FilledBone from "../Icon/FilledBone"
 import { BsCheckCircleFill, BsCheckCircle } from 'react-icons/bs'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -214,8 +215,8 @@ export function DogRecordDetail() {
                           <p className="rating-label">{category}</p>
                           <Rating
                             value={ratingCategories[category] || 1}
-                            icon={<IoPaw className="filled-rating-icon" />}
-                            emptyIcon={<IoPaw className="empty-rating-icon" />}
+                            icon={<FilledBone />}
+                            emptyIcon={<EmptyBone />}
                             getLabelText={(value) => `Rating ${value}`}
                             readOnly />
                         </div> )
