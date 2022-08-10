@@ -58,11 +58,11 @@ export default function Footer() {
           <Grid item color='white' textAlign='center'>© 2022 Copyright Balto &nbsp; &nbsp; &nbsp; Graphics courtesy of Storyset</Grid>
 
           <Grid item container justifyContent='right' px={{ xs: 3, sm: 3 }} xs={5} sm={4.75} gap={5} >
-            <Box><a href='facebook' className='socials'><BsFacebook /></a></Box>
-            <Box><a href='twitter' className='socials'><BsTwitter /></a></Box>
-            <Box><a href='google' className='socials'><BsGoogle /></a></Box>
-            <Box><a href='instagram' className='socials'><BsInstagram /></a></Box>
-            <Box><a href='linkedin' className='socials'><BsLinkedin /></a></Box>
+            <Box><a href='#' className='socials'><BsFacebook /></a></Box>
+            <Box><a href='#' className='socials'><BsTwitter /></a></Box>
+            <Box><a href='#' className='socials'><BsGoogle /></a></Box>
+            <Box><a href='#' className='socials'><BsInstagram /></a></Box>
+            <Box><a href='#' className='socials'><BsLinkedin /></a></Box>
             <Box><a href='https://github.com/Balto-ai/balto-app' className='socials'><BsGithub /></a></Box>
           </Grid>
 
