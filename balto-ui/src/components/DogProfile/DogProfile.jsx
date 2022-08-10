@@ -1,19 +1,16 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import './DogProfile.css'
-import { BsFillHouseDoorFill } from "react-icons/bs";
-import { RiCheckboxCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri"
-import { GiPartyPopper } from "react-icons/gi"
+import { RiCheckboxCircleFill } from "react-icons/ri"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { Container, Row, Col, Button, Carousel, Stack } from 'react-bootstrap'
 import { Box, Tab, Tabs, Chip } from '@mui/material'
 
-import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { TabContext, TabPanel } from '@mui/lab'
 import { useAuthContext } from '../../contexts/auth';
 import { PublicImagesContextProvider, usePublicImagesContext } from '../../contexts/public-dog-images'
 import { DogProfileContextProvider, useDogProfileContext } from '../../contexts/dog-profile';
-import ApiClient from '../../services/ApiClient';
 import { Rating, Typography } from '@mui/material'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
@@ -62,6 +59,7 @@ export function DogProfile() {
       setShowLoginModal(true)
     }
   }
+  
   // set the dog attributes to state variables for ratings
   useEffect(() => {
     setKidFriendly(dogInfo.kid_friendly)
@@ -196,9 +194,7 @@ export function DogProfile() {
                           </Stack>
                         </Stack>
                         <br></br>
-                        {/* </div> */}
-                        {/* <Col> */}
-                        {/* <div> */}
+
                         <Typography component="legend" noWrap={true}>Playfulness</Typography>
                         <Rating value={playfulness} readOnly icon={<FilledBone fontSize="inherit" />}
                           emptyIcon={<EmptyBone fontSize="inherit" />} />
@@ -211,8 +207,7 @@ export function DogProfile() {
                         <Rating value={exerciseNeeds} readOnly icon={<FilledBone fontSize="inherit" />}
                           emptyIcon={<EmptyBone fontSize="inherit" />} />
                         <br></br>
-                        {/* </div> */}
-                        {/* </Col> */}
+
                       </Col>
                     </Row>
                   </Box>
