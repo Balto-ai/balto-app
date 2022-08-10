@@ -253,7 +253,7 @@ export function LoginModal(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Login to Balto to add dogs to your Favorites</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Login to submit an Adoption Inquiry</Modal.Title>
         </Modal.Header>
         {/* modal body is the form to login the user */}
         <Modal.Body>
