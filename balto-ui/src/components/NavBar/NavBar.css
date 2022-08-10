@@ -1,11 +1,11 @@
 #register-btn{
-
     box-shadow: none;
-    background-color: transparent;
+    background-color: rgb(234, 234, 234);
     border-style: none;
+    transition: 'opacity .5s linear',
 }
 #login-btn{
-    margin-left: 5px;
+    margin-left: 10px;
     background-color: #908AF8;
     color: white;
     border-style: none;
@@ -13,7 +13,9 @@
     transition: 'opacity .5s linear',
 }
 #register-btn:hover{
-    background-color: rgb(244, 244, 244);
+    background-color: rgb(221, 221, 221);
+    border-style: none;
+    opacity: 0.85;
 }
 #login-btn:hover{
     background-color: #908AF8;
