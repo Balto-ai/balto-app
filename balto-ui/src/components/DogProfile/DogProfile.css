@@ -2,17 +2,17 @@
     padding-bottom: 100px !important;
 }
 
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+  }
+
 .main-image {
-    height: 100vh;
+    height: 70vh;
     /* height: 150vh; */
     width: 100%;
     object-fit: cover;
-    border-radius: 10px;
-}
-
-.dog-profile-image{
-    /* padding-bottom: 50px; */
-    height: 100%;
+    border-radius: 20px;
 }
 
 .dog-profile-chip {
@@ -23,29 +23,16 @@
     border-radius: var(--border-radius-small) !important;
 }
 
-.dog-profile-details{
+.dog-profile-details {
     height: 100%;
 }
-.dog-profile-tabs{
+
+.dog-profile-tabs {
     height: 65vh;
 }
-.shadow-btn{
-    box-shadow: 0px 1px 3px rgb(137, 137, 137);
-}
-.action-btns .btn {
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-    text-decoration: none;
-    font-size: 20px;
-    white-space: nowrap;
-}
 
-.map-panel {
-    border-radius: 10px;
+.shadow-btn {
+    box-shadow: 0px 1px 3px rgb(137, 137, 137);
 }
 
 .dog-profile-details .dog-name {
@@ -53,135 +40,3 @@
     font-size: 2.4em;
     margin-bottom: var(--gap-medium);
 }
-
-/*
-.profile-page {
-    display: flex;
-    flex-direction: column;
-}
-
-.split-pane {
-    display: flex;
-    margin-right: 10%;
-    margin-left: 10%;
-}
-
-.banner {
-    width: 100vw;
-    height: 20vh;
-    background-color: #869DEC;
-}
-
-.profile-pane {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    width: 50%;
-    margin: 0px;
-}
-
-.profile-pane .profile-header {
-    background-color: white;
-    display: flex;
-}
-
-.profile-pane .profile-header .profile-img {
-    width: 200px;
-    height: 200px;
-    align-self: center;
-    border-radius: 100%;
-    margin: 20px;
-    margin-top: -10%;
-    object-fit: cover;
-}
-
-.profile-pane .profile-header .profile-title {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    padding: 10px;
-}
-
-.profile-pane .profile-header .profile-title h1 {
-    font-size: 42px;
-}
-
-.profile-pane .profile-header .profile-title .tags {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    justify-content: left;
-}
-
-.profile-pane .profile-header .profile-title .tags .tag {
-    background-color: grey;
-    margin-right: 10px;
-    margin: 2px;
-    border-radius: 10px;
-    padding: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: white;
-    white-space: nowrap;
-    font-size: 16px;
-}
-
-.profile-pane .about-section {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    padding: 5%;
-}
-
-.profile-pane .about-section p {
-    font-size: large;
-}
-
-.training-pane {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    margin: 0px;
-}
-
-.training-pane .action-btns {
-    display: flex;
-    justify-content: right;
-    padding: 5%;
-}
-
-.training-pane .action-btns .btn {
-    margin-right: 10px;
-    padding: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-    text-decoration: none;
-    font-size: 20px;
-    white-space: nowrap;
-}
-
-.training-pane .progress-bar {
-    display: flex;
-    flex-direction: column;
-}
-
-.training-pane .progress-bar div {
-    width: 80%;
-    height: 30px;
-    align-self: center;
-    border-radius: 10px;
-}
-
-.attributes-list {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2%;
-}
-
-.attributes-list .checkbox-line {
-    display: flex;
-    margin-bottom: 5px;
-}
-
-*/
