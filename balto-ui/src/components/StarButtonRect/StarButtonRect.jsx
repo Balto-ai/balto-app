@@ -19,7 +19,6 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     const [userLoggedIn, setUserLoggedIn] = React.useState(false)
     // useEffect hook gets the user's list of starred dogs and checks if the card's dog is in that list
     //   TODO: for later sprint, create new endpoint that returns a boolean
-    console.log(isStarred)
     React.useEffect(() => {
         const checkIfStarred = async () => {
             const { data, error } = await ApiClient.fetchStarredDogs()
