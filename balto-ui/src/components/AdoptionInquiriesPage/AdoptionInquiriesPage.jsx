@@ -64,6 +64,7 @@ export function AdoptionInquiriesPage() {
             {/* <div className="top-bar">
                 <Searchbar setSearchQuery={setSearchQuery} placeholder={"Search by dog name"} />
             </div> */}
+            <h1 className='dogs-overview-title'>Adoption Inquiries</h1>
             <CustomDataGrid rows={rows} columns={columns} />
         </div>
     )
