@@ -6,7 +6,7 @@ import defaultImage from '../../assets/default-image.svg'
 import './DogCard.css'
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
 
-export default function DogCard({ dogId = 1, name = "", breed = "", dob = null, imgUrl = "", distancebetween=null, onStarPage, setOnStarPage }) {
+export default function DogCard({ dogId = 1, name = "", breed = "", dob = null, imgUrl = "", distancebetween=0, onStarPage, setOnStarPage }) {
 
   const navigate = useNavigate()
   const imageSrc = imgUrl || defaultImage

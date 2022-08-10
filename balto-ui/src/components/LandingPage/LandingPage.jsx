@@ -109,7 +109,7 @@ export function LandingDogGrid(){
     <div className="dog-grid">
         {dogs.map((dog)=>{
           return(
-            <DogCard key={dog.id} dogId={dog.dog_id} name={dog.name} breed={dog.breed} dob={dog.dob} imgUrl={dog.image_url}/>
+            <DogCard key={dog.id} distancebetween={null} dogId={dog.dog_id} name={dog.name} breed={dog.breed} dob={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
     </div>
