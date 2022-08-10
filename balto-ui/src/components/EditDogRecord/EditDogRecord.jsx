@@ -9,7 +9,8 @@ import Alert from 'react-bootstrap/Alert'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Rating from '@mui/material/Rating'
-import { IoPaw, IoPawOutline } from 'react-icons/io5'
+import EmptyBone from "../Icon/EmptyBone"
+import FilledBone from "../Icon/FilledBone"
 import { BsX } from "react-icons/bs"
 import "./EditDogRecord.css"
 import Toast from 'react-bootstrap/Toast';
@@ -284,8 +285,8 @@ export default function EditDogRecord() {
                     name={category}
                     value={form[category] || dogRecord[category]}
                     onChange={handleOnRatingChange}
-                    icon={<IoPaw fontSize="inherit" />}
-                    emptyIcon={<IoPawOutline fontSize="inherit" />}
+                    icon={<FilledBone fontSize="inherit" />}
+                    emptyIcon={<EmptyBone fontSize="inherit" />}
                     getLabelText={(value) => `Rating ${value}`}
                     required />
                 </Form.Group>
