@@ -2,7 +2,7 @@
 .App {
   margin: 0 auto;
   font-family: var(--body-font-family);
-  color: var(--body-text-dark)
+  color: var(--body-text-dark);
 }
 
 /* GLOBAL VARIABLES */
