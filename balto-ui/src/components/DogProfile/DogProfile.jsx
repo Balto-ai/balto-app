@@ -75,13 +75,33 @@ export function DogProfile() {
     setDogId(dogInfo.dog_id)
   })
 
+  let imgArr = [
+    {
+      original: dogInfo.dog_image_url,
+      thumbnail: dogInfo.dog_image_url
+    }
+  ]
+
+  if (images.length > 0) {
+    const additionalImgArr = images.map((image, index) => {
+      return {
+        original: image.image_url,
+        thumbnail: image.image_url
+      }
+    })
+    // append arr with profile img to arr with more imgs
+    imgArr = imgArr.concat(additionalImgArr)
+  }
+
+  console.log("imgArr", imgArr)
+
   return (
 
     <Container className='dog-profile primary-container'>
       <Row>
         <Col class='col-md-6 '>
           <Row className='dog-profile-image'>
-            <Carousel class='carousel-inner' variant="dark">
+            <Carousel class='carousel-inner'>
               <Carousel.Item>
                 <img src={dogInfo.dog_image_url} className="main-image" alt='main dog images' />
               </Carousel.Item>
