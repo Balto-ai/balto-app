@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom"; 
 import Accordion from "react-bootstrap/Accordion";
 import Chip from '@mui/material/Chip'

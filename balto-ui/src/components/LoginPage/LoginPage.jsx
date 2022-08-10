@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from '../../contexts/auth'
 import LoginForm from "../LoginForm/LoginForm"
+import { Container, Row, Col } from 'react-bootstrap'
+import pet from "../../assets/Adopt a pet-cuate.svg"
 
 export default function LoginPage() {
 
@@ -19,6 +21,15 @@ export default function LoginPage() {
   }
 
   return (
-    <LoginForm />
+    <Container>
+      <Row>
+        <Col class='col-6'>
+          <img src={pet} alt='dog licking new adopter' />
+        </Col>
+        <Col class='col-6'>
+          <LoginForm />
+        </Col>
+      </Row>
+    </Container>
   )
 }

@@ -27,3 +27,7 @@
 .form-item {
     width: 100%;
 }
+
+.tip {
+    align-self: center;
+}

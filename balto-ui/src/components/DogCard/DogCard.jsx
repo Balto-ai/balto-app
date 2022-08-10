@@ -69,9 +69,7 @@ export default function DogCard({ dogId=1, name="", breed="", dob=null, imgUrl="
             <div className="dog-card-star-button-container">
               <StarButtonRect dogId={dogId} dogName={name} onStarPage={onStarPage} setOnStarPage={setOnStarPage} />
             </div>
-          
           </div>
-
           <div className="dog-details">
             <div className='dog-breed'>{breed} </div>
             <div className='dog-age'> {calculateAge(dob)}</div>

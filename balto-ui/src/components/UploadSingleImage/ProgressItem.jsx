@@ -1,11 +1,8 @@
-import { BsCheckCircle } from "react-icons/bs";
-import { Box, ImageListItem } from '@mui/material';
-import { IconContext } from "react-icons";
+
 import React, { useEffect, useState } from 'react';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { ref, deleteObject } from 'firebase/storage'
 import { v4 } from 'uuid'
 import { storage } from '../../firebase/firebase'
-import { create } from "@mui/material/styles/createTransitions";
 import uploadFileProgress from "../../firebase/uploadFileProgress";
 // import uploadFileProgress from '../../../firebase/uploadFileProgress';
 // import addDocument from '../../../firebase/addDocument';

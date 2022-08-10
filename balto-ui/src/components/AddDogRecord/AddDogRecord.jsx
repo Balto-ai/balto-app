@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import { useDogRecordsContext } from '../../contexts/dog-records'
-import BreedSearchbar from '../BreedSearchbar/BreedSearchbar'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'

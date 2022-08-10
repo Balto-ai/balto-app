@@ -1,7 +1,8 @@
 import React from 'react'
 import ApiClient from '../../services/ApiClient'
 import { useAuthContext } from '../../contexts/auth'
-import { BsStar, BsStarFill } from 'react-icons/bs'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import ToastContainer from 'react-bootstrap/ToastContainer'
@@ -63,10 +64,10 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
         {/* actual button component that is displayed on the card */}
         {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
         {isStarred ? <Tooltip title="Remove from Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStarFill /></IconButton>
+          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteIcon sx={{ color: 'var(--balto-main)'}} /></IconButton>
         </Tooltip>:
         <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStar /></IconButton>
+          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteBorderIcon sx={{ color: 'gray'}} /></IconButton>
         </Tooltip>}
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
