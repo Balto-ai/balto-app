@@ -79,10 +79,10 @@ export function StarredPage() {
   return (
     <div className="starred-page">
       <div className='primary-container'>
-       <Grid container direction='row' justifyContent='space-between' pb={3}>
+       <Grid container direction='row' justifyContent='space-between' alignItems='center' pb={3}>
         <Grid item>
           <Box>
-            <h1>Favorites ({starredList.length})</h1>
+            <h1 id="favorites-title">Favorites ({starredList.length})</h1>
           </Box>
         </Grid>
         <Grid item>
