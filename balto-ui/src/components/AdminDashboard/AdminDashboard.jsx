@@ -7,6 +7,7 @@ import DogRecordPage from '../DogRecordPage/DogRecordPage'
 import AdoptionInquiriesPage from '../AdoptionInquiriesPage/AdoptionInquiriesPage'
 // import EditDogRecord from '../EditDogRecord/EditDogRecord'
 // import DogRecordDetail from '../DogRecordDetail/DogRecordDetail'
+import AdminDashboardOverview from '../AdminDashboardOverview/AdminDashboardOverview'
 import NotFound from '../NotFound/NotFound'
 import './AdminDashboard.css'
 import { DogRecordDetailContextProvider } from '../../contexts/dog-record-detail'
@@ -25,7 +26,9 @@ export function AdminDashboard() {
     <div className="admin-dashboard">
       <div className="admin-dashboard-container primary-container">
         <Routes>
-          <Route path="/" element={
+        <Route path="/" element={
+            <AdminDashboardOverview />} />
+          <Route path="/dog-record" element={
             <ShelterOverview />} />
           <Route path="/add-record" element={
             <AddDogRecord />} />
