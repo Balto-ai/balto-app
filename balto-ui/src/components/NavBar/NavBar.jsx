@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuthContext } from '../../contexts/auth'
-import { BsLightningCharge, BsStar } from "react-icons/bs"
+import { BsLightningCharge } from "react-icons/bs"
+import { BiHeart } from "react-icons/bi"
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -54,7 +55,7 @@ export function NavLinks({ isShelterAdmin }) {
   return (
     <Nav className="me-auto">
       <Nav.Link href="/search" id="search-navlink"><BsLightningCharge /> Find A Dog</Nav.Link>
-      <Nav.Link href="/star" id="favorites-navlink"><BsStar /> Favorites</Nav.Link>
+      <Nav.Link href="/star" id="favorites-navlink"><BiHeart /> Favorites</Nav.Link>
     </Nav>
   )
 }
