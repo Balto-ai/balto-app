@@ -88,14 +88,14 @@ export function DropDownSortMenu({ setStarredDogs, starredList, starredDogs, set
     const sizeMap = { "small": 1, "medium": 2, "large": 3 }
     const dogA = sizeMap[a.size.toLowerCase()]
     const dogB = sizeMap[b.size.toLowerCase()]
-
+    console.log(dogA, dogB)
     if (dogA < dogB) { return -1 }
     if (dogA > dogB) { return 1 }
     return 0
   }
 
   function sortByAgeAsc(a, b) {
-    return new Date(b.date_entered) - new Date(a.date_entered)
+    return new Date(b.dob) - new Date(a.dob)
   }
 
   // sort based on dropdown selection
