@@ -8,8 +8,8 @@ import Alert from 'react-bootstrap/Alert'
 import { BsX } from "react-icons/bs"
 import "./LoginForm.css"
 
-export default function LoginForm() {
-  
+
+export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn, showLoginModal, setShowLoginModal}) {
   const navigate = useNavigate()
   const [form, setForm] = React.useState( { email: "",
                                             password: ""
@@ -17,8 +17,7 @@ export default function LoginForm() {
   const [isValidated, setIsValidated] = React.useState(false)
 
   const { user, loginUser, error } = useAuthContext()
-
-
+          
   const handleOnInputChange = (evt) => {
     // update form state var with input value
     setForm((existingForm) => ({ ...existingForm, [evt.target.name]: evt.target.value }))
@@ -27,17 +26,20 @@ export default function LoginForm() {
   const handleOnFormSubmit = async (evt) => {
     evt.preventDefault()
     setIsValidated(true)
+    
     const loginForm = evt.currentTarget
     if (loginForm.checkValidity() === false) {
       evt.stopPropagation()
     } else {
       await loginUser(form)
-
+      setUserLoggedIn(true);
+      onHide();
       if (user?.email) {
         if (user?.shelterId) {
           navigate("/admin-dashboard")
-        } else {
-          navigate("/")
+        } 
+        else {
+            navigate("/")
         }
         return null
       }

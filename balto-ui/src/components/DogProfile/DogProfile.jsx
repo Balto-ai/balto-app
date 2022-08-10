@@ -5,9 +5,10 @@ import { RiCheckboxCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri"
 import { GiPartyPopper } from "react-icons/gi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
-
+import Modal from 'react-bootstrap/Modal'
 import { Container, Row, Col, Button, Carousel, Stack } from 'react-bootstrap'
 import { Box, Tab, Tabs, Chip } from '@mui/material'
+
 import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { useAuthContext } from '../../contexts/auth';
 import {PublicImagesContextProvider, usePublicImagesContext} from '../../contexts/public-dog-images'
@@ -20,6 +21,8 @@ import AdoptionModal from "../AdoptionModal/AdoptionModal"
 import AdoptionReceiptModal from '../AdoptionReceiptModal/AdoptionReceiptModal';
 import ShelterMap from '../ShelterMap/ShelterMap';
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
+import LoginForm from '../LoginForm/LoginForm';
+
 
 export default function DogProfileContainer() {
   return (
@@ -46,13 +49,20 @@ export function DogProfile() {
   const [modalShow, setModalShow] = useState(false)
   const [receiptShow, setReceiptShow] = useState(false)
   const {images, setDogId} = usePublicImagesContext()
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
    //tab variabls and methods
    const [value, setValue] = React.useState('1');
-
    const handleChange = (event, newValue) => {
      setValue(newValue);
    };
- 
+   const handleOnClick = () => {
+    if (user?.email){
+      setModalShow(true)
+    }else{
+      setShowLoginModal(true)
+    }
+   }
   // set the dog attributes to state variables for ratings
   useEffect(() => {
     setKidFriendly(dogInfo.kid_friendly)
@@ -107,11 +117,11 @@ export function DogProfile() {
           </Row>
           <Row>
             <section className='action-btns'>
-              <Button onClick={() => { setModalShow(true) }} variant="secondary" className='shadow-btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+              <Button onClick={handleOnClick} variant="secondary" className='shadow-btn' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
                  ADOPT ME
               </Button>
               <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
-
+              {showLoginModal && <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => {setShowLoginModal(false); setUserLoggedIn(true)}} />}
               { /* Modals for adoption inquiry user story */}
               {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
               <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />
@@ -234,3 +244,24 @@ export function DogProfile() {
 }
 
 
+export function LoginModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Login to submit an Adoption Inquiry</Modal.Title>
+        </Modal.Header>
+        {/* modal body is the form to login the user */}
+        <Modal.Body>
+            <LoginForm showLoginModal={props.showLoginModal}  userLoggedIn={props.userLoggedIn} setUserLoggedIn={props.setUserLoggedIn} onHide={props.onHide} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }

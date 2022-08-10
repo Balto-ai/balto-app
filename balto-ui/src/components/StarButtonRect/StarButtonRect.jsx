@@ -16,7 +16,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
     const [toastShow, setToastShow] = React.useState(false) // shows bottom-right notification that appears when a dog is starred/unstarred
-
+    const [userLoggedIn, setUserLoggedIn] = React.useState(false)
     // useEffect hook gets the user's list of starred dogs and checks if the card's dog is in that list
     //   TODO: for later sprint, create new endpoint that returns a boolean
     React.useEffect(() => {
@@ -60,11 +60,14 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         <>
         {/* actual button component that is displayed on the card */}
         {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
+        {isStarred ? <Tooltip title="Remove from Favorites">
+          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStarFill /></IconButton>
+        </Tooltip>:
         <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}>{isStarred ? <BsStarFill /> : <BsStar />}</IconButton>
-        </Tooltip>
+          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStar /></IconButton>
+        </Tooltip>}
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
-        <StarModal show={modalShow} onHide={() => setModalShow(false)} />
+        {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
         <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
@@ -81,11 +84,11 @@ export function StarModal(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Login to Balto to add dogs to your Favorites</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Login to add dogs to your Favorites</Modal.Title>
         </Modal.Header>
         {/* modal body is the form to login the user */}
         <Modal.Body>
-            <LoginForm/>
+            <LoginForm onHide={props.onHide} userLoggedIn={props.userLoggedIn} setUserLoggedIn={props.setUserLoggedIn}/>
         </Modal.Body>
         <Modal.Footer>
           <Button style={{color:'white'}} onClick={props.onHide}>Close</Button>
