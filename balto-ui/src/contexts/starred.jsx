@@ -13,7 +13,7 @@ export function StarredContextProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const { user } = useAuthContext()
+    const { user, setAskForLocation } = useAuthContext()
 
     React.useEffect(() => {
         const fetchedStarredList = async () => {
@@ -32,6 +32,7 @@ export function StarredContextProvider({ children }) {
         }
         setIsLoading(false)
         setInitialized(true)
+        setAskForLocation(true)
     }, [user])
 
     return (
