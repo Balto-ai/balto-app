@@ -9,6 +9,7 @@ import Alert from 'react-bootstrap/Alert'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Rating from '@mui/material/Rating'
+import Typography from '@mui/material/Typography'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
 import { BsX } from "react-icons/bs"
@@ -279,8 +280,8 @@ export default function EditDogRecord() {
             {/* ratings for playfulness,energyLevel, and exerciseNeeds */}
             <Form.Group className="mb-3">
               {Object.keys(ratings).map((category, idx) => (
-                <Form.Group key={idx}>
-                  <Form.Label>{ratings[category]}</Form.Label>
+                <Form.Group key={idx} className="mb-1x">
+                  <Form.Label style={{marginRight: "var(--gap-small)"}}>{ratings[category]}</Form.Label>
                   <Rating
                     name={category}
                     value={form[category] || dogRecord[category]}
