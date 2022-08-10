@@ -92,7 +92,7 @@ export function StarredPage() {
         </Grid>
        </Grid>
        <Grid container>
-        <Grid item>
+        <Grid item width="1">
           <Box>
             <DogGrid setIsLoading={setIsLoading} isLoading={isLoading} setOnStarPage={setOnStarPage} onStarPage={onStarPage} starredDogs={starredDogs} userLocation={userLocation} />
           </Box>
