@@ -125,7 +125,7 @@ export default function EditDogRecord() {
     }
   }, [isLoading])
 
-  if (initialized) {
+  if (initialized && dogRecord.name) {
   return (
     <div className="add-record-form primary-container">
       <div className="add-record-card">
