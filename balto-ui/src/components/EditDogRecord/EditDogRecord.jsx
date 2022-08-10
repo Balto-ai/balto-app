@@ -112,7 +112,7 @@ export default function EditDogRecord() {
       evt.stopPropagation()
     } else {
       await editDogRecord(dogId, form)
-      navigate("/admin-dashboard/dog-record/id/"+dogId)
+      navigate(-1)
     }
   }
 
