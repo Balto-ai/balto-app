@@ -38,6 +38,10 @@ const baltoMUItheme = createTheme({
     },
   },
 
+  shape: {
+    borderRadius: 4,
+  },
+
   components: {
     MuiTooltip: {
       styleOverrides: {
@@ -47,11 +51,6 @@ const baltoMUItheme = createTheme({
           boxShadow: "var(--card-box-shadow)",
           fontSize: "14px"
         }
-      }
-    },
-    MuiButton: {
-      button: {
-        boxShadow: "var(--card-box-shadow)"
       }
     }
   }
