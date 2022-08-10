@@ -88,7 +88,6 @@ export function DropDownSortMenu({ setStarredDogs, starredList, starredDogs, set
     const sizeMap = { "small": 1, "medium": 2, "large": 3 }
     const dogA = sizeMap[a.size.toLowerCase()]
     const dogB = sizeMap[b.size.toLowerCase()]
-    console.log(dogA, dogB)
     if (dogA < dogB) { return -1 }
     if (dogA > dogB) { return 1 }
     return 0
