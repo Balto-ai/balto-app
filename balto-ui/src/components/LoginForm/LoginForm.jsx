@@ -77,7 +77,7 @@ export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn,
           </Form.Group>
         
           <Button style={{color:'white'}} type="submit" className="mb-2 form-item">Login</Button>
-          <Form.Text>Need an account? <a href="/register">Sign up here.</a></Form.Text>
+          <Form.Text className='tip'>Need an account? <a href="/register">Sign up here.</a></Form.Text>
         </Form>
 
       </div>

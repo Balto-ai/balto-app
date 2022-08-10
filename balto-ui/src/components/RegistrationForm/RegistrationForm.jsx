@@ -168,7 +168,7 @@ export default function RegistrationForm() {
             </FloatingLabel>
           </Form.Group>
           <Button style={{color:'white'}} type="submit" className="mb-2 form-item">Sign Up</Button>
-          <Form.Text>Already have an account? <a href="/login">Login here</a></Form.Text>
+          <Form.Text className='tip'>Already have an account? <a href="/login">Login here</a></Form.Text>
         </Form>
 
 
