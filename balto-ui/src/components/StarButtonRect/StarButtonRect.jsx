@@ -139,7 +139,7 @@ export function StarUpdateToastFromStarredPage({setToastShow=()=>{}, toastShow=f
         {/* </strong> */}
       </Toast.Header>
       {/* link to the Favorites page for ease of access */}
-      <Toast.Body>Click <a href="/star">reload</a> to view your updated Favorites</Toast.Body>
+      <Toast.Body>Click <a href="/star">reload</a> to view your newly updated Favorites</Toast.Body>
     </Toast>
   )
   }

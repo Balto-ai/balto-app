@@ -40,7 +40,7 @@ export default function LandingPage() {
           <Grid item xs={5} sm={5} >
             {/* tagline; we can modify later if wanted */}
             <Box>
-              <h1 className='landing-title'>Help Change a Life, </h1>
+              <h1 className='dogs-avail'>Help Change a Life, </h1>
               <h1>One Paw at a Time</h1>
             </Box>
             <Box><p className='landing-para'>You can’t change a dog’s past, but you can rewrite their future</p></Box>
@@ -57,7 +57,7 @@ export default function LandingPage() {
         </Grid>
         <Grid container direction='column' alignItems='center' justifyContent='center' spacing={5}>
           <Grid item>
-            <h1>Dogs Available for Adoption</h1>
+            <h1 className='dogs-avail'>Dogs Available for Adoption</h1>
           </Grid>
           <Grid item>
             <LandingDogGrid/>
