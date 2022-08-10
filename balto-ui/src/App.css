@@ -63,14 +63,6 @@ h1, h2, h3, h4, h5, h6 {
   text-transform:capitalize;
 }
 
-.filled-rating-icon {
-  color: var(--balto-main);
-}
-
-.empty-rating-icon {
-  opacity: 0.5;
-}
-
 * {
   margin: 0;
   padding: 0;

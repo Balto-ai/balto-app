@@ -42,7 +42,7 @@ export function AdoptionInquiriesPage() {
         renderCell: (params) => <div className="capitalized">{params.value}</div> },
       { field: 'email', headerName: 'Email', width: 140 },
       { field: 'phone_number', headerName: 'Phone Number', width: 130, sortable: false, filterable: false },
-      { field: 'zipcode', headerName: 'Zip Code', width: 100 },
+      { field: 'zipcode', headerName: 'Zip Code', width: 80 },
       { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false,
         renderCell: (params) =>  (
         <OverlayTrigger trigger="hover" placement="right" overlay={
@@ -55,7 +55,7 @@ export function AdoptionInquiriesPage() {
         </OverlayTrigger>
         )
     },
-      { field: 'created_at', headerName: 'Timestamp', width: 160, type: 'dateTime',
+      { field: 'created_at', headerName: 'Timestamp', width: 170, type: 'dateTime',
         valueFormatter: (params) => (new Date(params.value)).toLocaleString()}
     ]
 

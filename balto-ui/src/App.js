@@ -25,9 +25,34 @@ const baltoMUItheme = createTheme({
       'sans serif',
     ].join(','),
   },
+
   palette: {
     primary: {
       main: '#5d74bb'
+    },
+  },
+
+  props: {
+    MuiButtonBase: {
+      disableRipple: "true",
+    },
+  },
+
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "#e9e8fe",
+          color: "#5d74bb",
+          boxShadow: "var(--card-box-shadow)",
+          fontSize: "14px"
+        }
+      }
+    },
+    MuiButton: {
+      button: {
+        boxShadow: "var(--card-box-shadow)"
+      }
     }
   }
 });
