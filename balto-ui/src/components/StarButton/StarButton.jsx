@@ -1,9 +1,8 @@
 import React from 'react'
 import ApiClient from '../../services/ApiClient'
 import { useAuthContext } from '../../contexts/auth'
-import { BsStar, BsStarFill } from 'react-icons/bs'
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Toast from 'react-bootstrap/Toast'
@@ -60,7 +59,7 @@ export default function StarButton({ dogId=1, dogName=""}) {
         {/* actual button component that is displayed on the card */}
         <IconButton 
           disableRipple className='starbtn' onClick={handleOnClick} sx={{ transition: '0.3s', bgcolor: 'var(--balto-main)', color:'white'}} aria-label="star" >
-          {isStarred ? <StarIcon /> : <StarBorderIcon />}
+          {isStarred ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         <StarModal show={modalShow} onHide={() => setModalShow(false)} />
