@@ -9,7 +9,6 @@ import Alert from 'react-bootstrap/Alert'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Rating from '@mui/material/Rating'
-import Typography from '@mui/material/Typography'
 import EmptyBone from "../Icon/EmptyBone"
 import FilledBone from "../Icon/FilledBone"
 import { BsX } from "react-icons/bs"
@@ -17,6 +16,7 @@ import "./EditDogRecord.css"
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
 import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
+import Loading from '../Loading/Loading'
 import ProgressList from '../EditSingleImage/ProgressList'
 
 
@@ -124,6 +124,11 @@ export default function EditDogRecord() {
       });
     }
   }, [isLoading])
+
+  // only return the form if the dog record has been fetched and it's not initialized
+  if ((!initialized) || isLoading || (!dogRecord.name)) {
+    return <Loading />
+  }
 
   if (initialized && dogRecord.name) {
   return (
