@@ -28,7 +28,7 @@ export default function StarredPageContainer() {
 export function StarredPage() {
 
   const { starredList, error, isLoading } = useStarredContext()
-
+  const [onStarPage, setOnStarPage] = useState(true)
   return (
     <div className="starred-page">
       <div className='starred-page-container primary-container'>
@@ -43,7 +43,7 @@ export function StarredPage() {
                       name={starredDog.name}
                       breed={starredDog.breed}
                       dob={starredDog.dob}
-                      imgUrl={starredDog.image_url} />
+                      imgUrl={starredDog.image_url} onStarPage={onStarPage} setOnStarPage={setOnStarPage} />
           })}
         </div>
       </div>
