@@ -106,7 +106,7 @@ export default function DogSearchPage() {
                       <Form.Check
                         type="checkbox"
                         id={option}
-                        label={option} 
+                        label={option}
                         value={option.toLowerCase()}
                         onChange={(evt) => {
                           handleCheck(evt, selectedSizes, setSelectedSizes);
@@ -190,7 +190,7 @@ export default function DogSearchPage() {
                 <Form>
                   <Typography id="distance-slider">Show dogs within a radius</Typography>
                   <br></br>
-                  <Slider 
+                  <Slider
                     aria-labelledby="distance-slider"
                     onChangeCommitted={handleSliderChange}
                     step={5}
@@ -274,7 +274,6 @@ export default function DogSearchPage() {
 export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) {
 
   const [dogResults, setDogResults] = React.useState([]);
-  const [filteredDogResults, setFilteredDogResults] = React.useState([]);
   const [error, setError] = React.useState(null)
   // sorting functions
   function sortByNameAsc(a, b) {
@@ -305,9 +304,6 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
     return new Date(a.dob) - new Date(b.dob)
   }
 
-  calcDistForUser() // calculate the distances between user and dog shelter
-  // add distanceBetween attribute to each dog
-
   function sortByLocationAsc(a, b) {
     if (a.distanceBetween < b.distanceBetween) return -1
     if (a.distanceBetween > b.distanceBetween) return 1
@@ -316,13 +312,12 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 
   function calcDistForUser() {
     console.log("calling calcDistForUser")
-    const dogArr = dogResults
     // eslint-disable-next-line no-restricted-globals
     const loc = userLocation
-    dogArr.map((dog) => {
+    dogResults.map((dog) => {
       dog["distanceBetween"] = findDistance(dog.latitude, loc.latitude, dog.longitude, loc.longitude)
     })
-    return dogArr
+    return dogResults
   }
 
   function findDistance(lat1,
@@ -360,34 +355,38 @@ export function DogGrid({ filters = {}, setSortBy, sortBy, userLocation = {} }) 
 
   React.useEffect(() => {
     console.log("filters", filters)
+    let dogArr = []
     const fetchDogResults = async () => {
       const { data, error } = await ApiClient.fetchDogs(filters);
       if (data?.dogResults) {
+        dogArr = data["dogResults"] // saving for next conditional
         setDogResults(data.dogResults)
-        setFilteredDogResults(dogResults)
         console.log(1, "data.dogResults", data.dogResults)
         setError(null)
       }
-      // if filters has distance, filter results in client to include only dogs within filters?.distance
-      // why? Because distanceBetween is calculated client-side and cannot be queried thru the db
+
       if (data?.dogResults && filters?.distance) {
+        dogArr = calcDistForUser()
+        console.log("dogArr: ", dogArr)
         const distLimit = parseFloat(filters.distance)
-        dogResults.map(dog => {console.log(199, dog.distanceBetween)})
-        setFilteredDogResults(dogResults.filter(dog => (dog.distanceBetween <= distLimit)))
-        console.log(2.5, "filtering...", distLimit, dogResults[0].distanceBetween)
+        setDogResults(dogArr.filter(dog => (dog.distanceBetween <= distLimit)))
         // setDogResults(filteredDogResults) // set state var to filtered dog results based on distance
-        console.log(3, "filteredDogResults", filteredDogResults)
       }
+
       if (error) setError(error);
     };
     fetchDogResults()
+    
   }, [filters])
 
   console.log(2, "dogResults", dogResults)
 
+  calcDistForUser() // calculate the distances between user and dog shelter
+  // add distanceBetween attribute to each dog
+
   return (
     <div className="dog-grid">
-      {filteredDogResults.map((dogResult, idx) => (
+      {dogResults.map((dogResult, idx) => (
         <DogCard key={dogResult.id || idx}
           dogId={dogResult.dog_id}
           imgUrl={dogResult.image_url}
