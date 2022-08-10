@@ -40,7 +40,7 @@ export default function LandingPage() {
           <Grid item xs={5} sm={5} >
             {/* tagline; we can modify later if wanted */}
             <Box>
-              <h1 className='landing-title'>Help Change a Life, </h1>
+              <h1 className='dogs-avail'>Help Change a Life, </h1>
               <h1>One Paw at a Time</h1>
             </Box>
             <Box><p className='landing-para'>You can’t change a dog’s past, but you can rewrite their future</p></Box>
@@ -57,7 +57,7 @@ export default function LandingPage() {
         </Grid>
         <Grid container direction='column' alignItems='center' justifyContent='center' spacing={5}>
           <Grid item>
-            <h1>Dogs Near You</h1>
+            <h1 className='dogs-avail'>Dogs Available for Adoption</h1>
           </Grid>
           <Grid item>
             <LandingDogGrid/>
@@ -105,12 +105,12 @@ export function LandingDogGrid(){
   }, [])
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
-
+  var distancebetween = 501;
   return (
     <div className="dog-grid">
         {dogs.map((dog)=>{
           return(
-            <DogCard key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
+            <DogCard key={dog.id} distancebetween={distancebetween} dogId={dog.dog_id} name={dog.name} breed={dog.breed} dob={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
     </div>

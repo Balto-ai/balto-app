@@ -10,8 +10,10 @@ import LoginForm from '../LoginForm/LoginForm'
 import { IconButton } from '@mui/material';
 import "./StarButtonRect.css"
 import Tooltip from '@mui/material/Tooltip';
+import DogIcon from '../AddDogRecord/icon/paw (1).png'
 
-export default function StarButtonRect({ dogId=1, dogName=""}) {
+
+export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnStarPage}) {
     const { user } = useAuthContext()
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
@@ -70,7 +72,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
 
         {/* bottom-right notification that appears when a user stars/unstars a dog */}
-        <StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />
+        {onStarPage ? <StarUpdateToastFromStarredPage setOnStarPage={setOnStarPage} toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} /> :<StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />}
         </>
     )
 }
@@ -101,16 +103,43 @@ export function StarUpdateToast({setToastShow=()=>{}, toastShow=false, dogName="
 return (
     <Toast onClose={() => setToastShow(false)} show={toastShow} delay={5000} autohide className="star-update-toast">
     <Toast.Header>
-      <strong className="me-auto">
+      {/* <strong className="me-auto"> */}
           {/* render appropriate message based on if the user checked/unchecked */}
+          <img
+              src={DogIcon}
+              className="dog-icon-toast"
+              alt="dog paw"
+            />
           {isStarred
            ? <strong className="me-auto">{`Added ${dogName} to Favorites`}</strong>
            : <strong className="me-auto">{`Removed ${dogName} from Favorites`}</strong>
           }
-      </strong>
+      {/* </strong> */}
     </Toast.Header>
     {/* link to the Favorites page for ease of access */}
     <Toast.Body>View your <a href="/star">Favorites</a></Toast.Body>
   </Toast>
 )
 }
+export function StarUpdateToastFromStarredPage({setToastShow=()=>{}, toastShow=false, dogName="", isStarred="true", setOnStarPage}) {
+  return (
+      <Toast onClose={() => {setToastShow(false); setOnStarPage(false)}} show={toastShow} delay={5000} autohide className="star-update-toast">
+      <Toast.Header>
+        {/* <strong className="me-auto"> */}
+            {/* render appropriate message based on if the user checked/unchecked */}
+            <img
+                src={DogIcon}
+                className="dog-icon-toast"
+                alt="dog paw"
+              />
+            {isStarred
+             ? <strong className="me-auto">{`Added ${dogName} to Favorites`}</strong>
+             : <strong className="me-auto">{`Removed ${dogName} from Favorites`}</strong>
+            }
+        {/* </strong> */}
+      </Toast.Header>
+      {/* link to the Favorites page for ease of access */}
+      <Toast.Body>Click <a href="/star">reload</a> to view your newly updated Favorites</Toast.Body>
+    </Toast>
+  )
+  }

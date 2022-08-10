@@ -144,6 +144,7 @@ export function DogProfile() {
               <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
               {showLoginModal && <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => { setShowLoginModal(false); setUserLoggedIn(true) }} />}
               { /* Modals for adoption inquiry user story */}
+
               {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
 
             </section>
@@ -152,6 +153,7 @@ export function DogProfile() {
           <Row style={{ paddingTop: 20 }} className='dog-profile-tabs'>
             <Box sx={{ width: '100%', height: 'auto' }}>
               <TabContext value={value}>
+
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <Tabs
                     value={value}
