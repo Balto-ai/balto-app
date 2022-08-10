@@ -2,13 +2,14 @@
 .App {
   margin: 0 auto;
   font-family: var(--body-font-family);
-  
+  color: var(--body-text-dark)
 }
 
 /* GLOBAL VARIABLES */
 :root {
   --light-bg-grey: #f4f4f4;
   --balto-main: #908AF8;
+  --balto-main-darker: #5d74bb;
 
   --border-radius-large: 20px;
   --border-radius-medium: 15px;
@@ -47,6 +48,7 @@
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--header-font-family);
+  color: var(--body-text-dark);
 }
 
 /* general purpose grid for dog cards */

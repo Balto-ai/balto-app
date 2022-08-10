@@ -6,8 +6,9 @@ import { GiPartyPopper } from "react-icons/gi"
 // import TrainingFeed from '../TrainingFeed/TrainingFeed';
 import React from 'react';
 import Modal from 'react-bootstrap/Modal'
-import { Container, Row, Col, Badge, Button, Carousel, Stack } from 'react-bootstrap'
-import {Box, Tab, Tabs} from '@mui/material'
+import { Container, Row, Col, Button, Carousel, Stack } from 'react-bootstrap'
+import { Box, Tab, Tabs, Chip } from '@mui/material'
+
 import {TabContext, TabList, TabPanel} from '@mui/lab'
 import { useAuthContext } from '../../contexts/auth';
 import {PublicImagesContextProvider, usePublicImagesContext} from '../../contexts/public-dog-images'
@@ -77,7 +78,7 @@ export function DogProfile() {
 
   return (
 
-    <Container className='dog-profile'>
+    <Container className='dog-profile primary-container'>
       <Row>
         <Col>
           <Row className='dog-profile-image'>
@@ -100,18 +101,19 @@ export function DogProfile() {
         </Col>
         <Col className='dog-profile-details'>
           <Row>
-            <h1>{dogInfo.dog_name}</h1>
+            <h1 className="dog-name">{dogInfo.dog_name}</h1>
           </Row>
           <Row style={{paddingBottom: 0}} >
-            <Container>
-              <Badge pill bg="info">{dogInfo.breed}</Badge>{' '}
-              <Badge pill bg="info">{getAgeGroup(dogInfo.dob)}</Badge>{' '}
-              <Badge pill bg="info">{dogInfo.size}</Badge>{' '}
-              <Badge pill bg="info">{dogInfo.sex === 'm' ? 'male' : 'female'}</Badge>{' '}
+            <Container className="applied-filters">
+              <Chip className="dog-profile-chip" label={dogInfo?.breed} />
+              <Chip className="dog-profile-chip" label={getAgeGroup(dogInfo?.dob)} />
+              <Chip className="dog-profile-chip" label={dogInfo?.size} />
+              <Chip className="dog-profile-chip" label={dogInfo?.sex === 'm' ? 'Male' : 'Female'} />
             </Container>
           </Row>
-          <Row style={{paddingTop:15, paddingBottom: 60}}>
-            <p>Hello! I'm known for being {dogInfo.desc_1}. I'm looking for someone who {dogInfo.desc_2}</p>
+          <Row style={{paddingTop:15, paddingBottom: 15}}>
+            <span><p>{dogInfo.desc_1 !== "" ? `I'm known for being ${dogInfo.desc_1}.` : ""}</p></span>
+            <span><p>{dogInfo.desc_2 !== "" ? `I'm looking for someone who ${dogInfo.desc_2}.` : ""}</p></span>
           </Row>
           <Row>
             <section className='action-btns'>
@@ -210,7 +212,7 @@ export function DogProfile() {
                 <TabPanel value='3'>
                 <Row>
                   <Container >
-                    <div className="rounded me-auto">
+                    <div className="rounded me-auto shelter-map">
                       <ShelterMap lat={dogInfo.latitude} lon={dogInfo.longitude} />
                     </div>
                   </Container>

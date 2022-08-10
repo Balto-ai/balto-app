@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
+import defaultImage from '../../assets/default-image.svg'
 import { Rating} from '@mui/material'
 import { IoPaw } from 'react-icons/io5'
 import { BsCheckCircleFill, BsCheckCircle } from 'react-icons/bs'
@@ -106,7 +107,7 @@ export function DogRecordDetail() {
            <Row  xs='auto' md="auto" lg='auto' >
       
               <Col >
-               <Image roundedCircle src={dogRecord.image_url} className="dog-pfp" alt={`Image of ${dogRecord.name}`}></Image>
+               <Image roundedCircle src={dogRecord.image_url || defaultImage} className="dog-pfp" alt={`Image of ${dogRecord.name}`}></Image>
               </Col>
               <Stack>
                <h1 className='dog-name-title'>{dogRecord.name}</h1>

@@ -1,7 +1,10 @@
 import React from 'react'
 import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '../../contexts/adoption-inquiries'
 import { useNavigate } from 'react-router-dom'
+import defaultImage from '../../assets/default-image.svg'
 import CustomDataGrid from '../CustomDataGrid/CustomDataGrid'
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './AdoptionInquiriesPage.css'
 
@@ -31,7 +34,7 @@ export function AdoptionInquiriesPage() {
       { field: 'dog_name', headerName: 'Dog', width: 160,
         renderCell: (params) =>
           <>
-            <img className="dog-image-icon" src={params.row.dog_image_url} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.id}`)}}/>
+            <img className="dog-image-icon" src={params.row.dog_image_url || defaultImage} alt={`${params.value}`} onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}/>
             <div className="capitalized dog-name" onClick={()=>{navigate(`/admin-dashboard/dog-record/id/${params.row.dog_id}`)}}>{params.value}</div>
           </>
       },
@@ -40,7 +43,18 @@ export function AdoptionInquiriesPage() {
       { field: 'email', headerName: 'Email', width: 140 },
       { field: 'phone_number', headerName: 'Phone Number', width: 130, sortable: false, filterable: false },
       { field: 'zipcode', headerName: 'Zip Code', width: 100 },
-      { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false },
+      { field: 'comments', headerName: 'Comments', flex: 1, sortable: false, filterable: false,
+        renderCell: (params) =>  (
+        <OverlayTrigger trigger="hover" placement="right" overlay={
+          <Popover>
+            <Popover.Header as="h3">Comments from {params.row.user_first_name}</Popover.Header>
+            <Popover.Body>{params.value}</Popover.Body>
+          </Popover>
+          }>
+          <span className="table-cell-trucate">{params.value}</span>
+        </OverlayTrigger>
+        )
+    },
       { field: 'created_at', headerName: 'Timestamp', width: 160, type: 'dateTime',
         valueFormatter: (params) => (new Date(params.value)).toLocaleString()}
     ]
@@ -54,7 +68,3 @@ export function AdoptionInquiriesPage() {
         </div>
     )
 }
-
-
-
-
