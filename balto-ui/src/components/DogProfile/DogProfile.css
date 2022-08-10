@@ -2,10 +2,10 @@
     padding-bottom: 100px !important;
 }
 
-.row > [class*='col-'] {
+.row>[class*='col-'] {
     display: flex;
     flex-direction: column;
-  }
+}
 
 .main-image {
     height: 70vh;
@@ -39,4 +39,9 @@
     font-weight: 600;
     font-size: 2.4em;
     margin-bottom: var(--gap-medium);
+}
+
+.dog-name {
+    display: inline-flex;
+    align-items: center;
 }

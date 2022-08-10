@@ -23,6 +23,7 @@ import ShelterMap from '../ShelterMap/ShelterMap';
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
 import LoginForm from '../LoginForm/LoginForm';
 
+import ImageGallery from 'react-image-gallery';
 
 export default function DogProfileContainer() {
   return (
@@ -100,7 +101,7 @@ export function DogProfile() {
         </Col>
         <Col className='dog-profile-details' class='col-md-6'>
           <Row>
-            <h1 className="dog-name">{dogInfo.dog_name}</h1>
+            <h2 className="dog-name" >{dogInfo.dog_name} &nbsp;{<StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />}</h2>
           </Row>
           <Row style={{ paddingBottom: 0 }} >
             <Container className="applied-filters">
@@ -126,7 +127,6 @@ export function DogProfile() {
               { /* Modals for adoption inquiry user story */}
               {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
 
-              <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />
             </section>
           </Row>
 
