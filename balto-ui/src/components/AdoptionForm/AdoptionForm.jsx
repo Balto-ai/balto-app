@@ -135,8 +135,8 @@ export default function AdoptionInquiryForm({ setSubmittedForm ,userId = 0, dogI
                     {showConfirmMsg && (
                         <Alert className="text-center">
                             Are you sure want to submit?&nbsp; &nbsp; &nbsp; 
-                            <Button type="submit" onClick={submitForm} style={{fontWeight: 'bold'}} >Yes</Button>{' '}
-                            <Button onClick={()=> {setShowConfirmMsg(false)}} style={{fontWeight: 'bold'}}>No</Button>
+                            <Button type="submit" onClick={submitForm} style={{fontWeight: 'bold', color:'white'}} >Yes</Button>{' '}
+                            <Button onClick={()=> {setShowConfirmMsg(false)}} style={{fontWeight: 'bold', color:'white'}}>No</Button>
                         </Alert>
                     )}
                 </Form>

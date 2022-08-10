@@ -6,6 +6,7 @@ import { useWindowSize } from '@react-hook/window-size'
 
 export default function AdoptionReceiptModal(props) {
   // get the size of the window using custom hook
+  console.log(props)
   const [ width, height ] = useWindowSize()
   return (
     <>
@@ -39,7 +40,7 @@ export default function AdoptionReceiptModal(props) {
         <i>If you are feeling generous, leave us a tip to help keep Balto free!</i>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide} style={{ fontWeight: 'bold' }}>Close</Button>
+        <Button onClick={props.onHide} style={{ fontWeight: 'bold', color: 'white' }}>Close</Button>
       </Modal.Footer>
     </Modal>
     </>

@@ -123,7 +123,7 @@ export function DogProfile() {
               <AdoptionModal setSubmittedForm={setSubmittedForm} show={modalShow} onHide={() => { setModalShow(false); setReceiptShow(true); }} dogId={dogInfo.dog_id} />
               {showLoginModal && <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => {setShowLoginModal(false); setUserLoggedIn(true)}} />}
               { /* Modals for adoption inquiry user story */}
-              {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
+              {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelter_name} />}
               <StarButtonRect dogId={dogInfo.dog_id} dogName={dogInfo.dog_name} />
           </section>
       </Row>
