@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 2%;
+    margin-bottom: var(--gap-medium);
 }
 
 .cards {
