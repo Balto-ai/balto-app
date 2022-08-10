@@ -6,7 +6,6 @@ import { useWindowSize } from '@react-hook/window-size'
 
 export default function AdoptionReceiptModal(props) {
   // get the size of the window using custom hook
-  console.log(props)
   const [ width, height ] = useWindowSize()
   return (
     <>
