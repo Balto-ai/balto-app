@@ -10,15 +10,13 @@ export default function RegistrationPage() {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col class='col-6'>
           <img src={pet} alt='adopter hugging newly adopted dog' />
         </Col>
-        <Col>
+        <Col class='col-6'>
           <RegistrationForm />
         </Col>
       </Row>
-
-
     </Container>
   )
 }

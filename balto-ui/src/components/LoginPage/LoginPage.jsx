@@ -23,10 +23,10 @@ export default function LoginPage() {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col class='col-6'>
           <img src={pet} alt='dog licking new adopter' />
         </Col>
-        <Col>
+        <Col class='col-6'>
           <LoginForm />
         </Col>
       </Row>
