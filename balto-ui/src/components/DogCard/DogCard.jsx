@@ -6,7 +6,7 @@ import defaultImage from '../../assets/default-image.svg'
 import './DogCard.css'
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
 
-export default function DogCard({ dogId = 1, name = "", breed = "", dob = null, imgUrl = "", distancebetween = 0, onStarPage, setOnStarPage }) {
+export default function DogCard({ dogId = 1, name = "", breed = "", dob = null, imgUrl = "", distancebetween=0, onStarPage, setOnStarPage }) {
 
   const navigate = useNavigate()
   const imageSrc = imgUrl || defaultImage
@@ -66,10 +66,13 @@ export default function DogCard({ dogId = 1, name = "", breed = "", dob = null, 
           <div className='dog-breed'>{breed} </div>
           <div>
           <span className='dog-age'> {calculateAge(dob)}</span>
-          <span className='dog-distance'>
-            <FiMapPin />
-            {distancebetween < 500 ? distancebetween.toFixed(1) : "500+"} miles away
-          </span>
+          {distancebetween
+           ? <span className='dog-distance'>
+              <FiMapPin />
+              {distancebetween < 500 ? distancebetween.toFixed(1) : "500+"} miles away
+            </span>
+            : null
+          }
           </div>
         </div>
       </div>
