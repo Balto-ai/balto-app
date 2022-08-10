@@ -19,6 +19,7 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
     const [userLoggedIn, setUserLoggedIn] = React.useState(false)
     // useEffect hook gets the user's list of starred dogs and checks if the card's dog is in that list
     //   TODO: for later sprint, create new endpoint that returns a boolean
+    console.log(isStarred)
     React.useEffect(() => {
         const checkIfStarred = async () => {
             const { data, error } = await ApiClient.fetchStarredDogs()
@@ -60,11 +61,11 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         <>
         {/* actual button component that is displayed on the card */}
         {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
-        {isStarred ? <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStar /></IconButton>
-        </Tooltip>:
-        <Tooltip title="Remove from Favorites">
+        {isStarred ? <Tooltip title="Remove from Favorites">
           <IconButton aria-label='favorite' onClick={handleOnClick}><BsStarFill /></IconButton>
+        </Tooltip>:
+        <Tooltip title="Add to Favorites">
+          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStar /></IconButton>
         </Tooltip>}
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
