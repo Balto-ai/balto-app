@@ -135,7 +135,7 @@ export function DropDownSortMenu({ setStarredDogs, starredList, setSortBy, sortB
   // sort based on dropdown selection
  
   return (
-    <Dropdown name="sort-dropdown" id="sort-dropdown">
+    <Dropdown name="sort-dropdown" id="sort-dropdown" align="end">
       <Dropdown.Toggle variant="secondary" id="sort-toggle">
         Sort by: {sortBy}
       </Dropdown.Toggle>
