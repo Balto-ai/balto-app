@@ -23,8 +23,6 @@ import ShelterMap from '../ShelterMap/ShelterMap';
 import StarButtonRect from '../StarButtonRect/StarButtonRect';
 import LoginForm from '../LoginForm/LoginForm';
 
-import ImageGallery from 'react-image-gallery';
-
 export default function DogProfileContainer() {
   return (
     <DogProfileContextProvider>
@@ -83,7 +81,7 @@ export function DogProfile() {
       <Row>
         <Col class='col-md-6 '>
           <Row className='dog-profile-image'>
-            <Carousel class='carousel-inner'>
+            <Carousel class='carousel-inner' variant="dark">
               <Carousel.Item>
                 <img src={dogInfo.dog_image_url} className="main-image" alt='main dog images' />
               </Carousel.Item>
@@ -98,6 +96,7 @@ export function DogProfile() {
               }
             </Carousel>
           </Row>
+
         </Col>
         <Col className='dog-profile-details' class='col-md-6'>
           <Row>
