@@ -11,7 +11,7 @@ class Starred {
 
         // merge user_dog_pairings and dogs and shelter to get coordinates
         const query = `
-            SELECT dogs.id AS dog_id, dogs.name, dogs.breed, dogs.dob, dogs.image_url,
+            SELECT dogs.id AS dog_id, dogs.name, dogs.breed, dogs.dob, dogs.image_url, dogs.size,
                 shelters.longitude, shelters.latitude
             FROM user_dog_pairings
             INNER JOIN dogs
