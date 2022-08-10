@@ -105,7 +105,6 @@ export function LandingDogGrid(){
   }, [])
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
-  console.log(dogs)
   return (
     <div className="dog-grid">
         {dogs.map((dog)=>{
