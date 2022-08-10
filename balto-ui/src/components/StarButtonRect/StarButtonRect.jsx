@@ -60,9 +60,12 @@ export default function StarButtonRect({ dogId=1, dogName=""}) {
         <>
         {/* actual button component that is displayed on the card */}
         {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
-        <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}>{isStarred ? <BsStarFill /> : <BsStar />}</IconButton>
-        </Tooltip>
+        {isStarred ? <Tooltip title="Add to Favorites">
+          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStar /></IconButton>
+        </Tooltip>:
+        <Tooltip title="Remove from Favorites">
+          <IconButton aria-label='favorite' onClick={handleOnClick}><BsStarFill /></IconButton>
+        </Tooltip>}
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
 
