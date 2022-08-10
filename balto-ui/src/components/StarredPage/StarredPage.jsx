@@ -36,7 +36,6 @@ export function StarredPage() {
   const [sortBy, setSortBy] = React.useState('')
   const [starredDogs, setStarredDogs] = useState([])
   const [isLoading, setIsLoading] = React.useState(false)
-  console.log(starredList)
   useEffect(()=>{
     if (starredDogs.length === 0){
       setIsLoading(true)
@@ -116,6 +115,7 @@ export function DropDownSortMenu({ setStarredDogs, starredList, starredDogs, set
   )
 }
 export function DogGrid({starredDogs, onStarPage, setOnStarPage, setIsLoading, isLoading}){
+  var distancebetween = 501;
   useEffect(()=>{
   },[starredDogs])
   if (isLoading) {
@@ -125,10 +125,12 @@ export function DogGrid({starredDogs, onStarPage, setOnStarPage, setIsLoading, i
     </div>
     )
   }
+  
   return(
   <div className='dog-grid'>
   {starredDogs.map(starredDog => {
     return <DogCard key={starredDog.id}
+              distancebetween={distancebetween}
               dogId={starredDog.id}
               name={starredDog.name}
               breed={starredDog.breed}
