@@ -107,7 +107,7 @@ export function DropDownSortMenu({ setStarredDogs, starredList, starredDogs, set
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={()=>{setSortBy("Name (A-Z)")}}>Name (A-Z)</Dropdown.Item>
-        <Dropdown.Item onClick={()=>{starredDogs.sort()}}>Distance (Ascending)</Dropdown.Item>
+        {/* <Dropdown.Item onClick={()=>{starredDogs.sort()}}>Distance (Ascending)</Dropdown.Item> */}
         <Dropdown.Item onClick={()=>{setSortBy("Size (Ascending)")}}>Size (Ascending)</Dropdown.Item>
         <Dropdown.Item onClick={()=>{setSortBy("Age (Ascending)")}}>Age (Ascending)</Dropdown.Item>
       </Dropdown.Menu>
