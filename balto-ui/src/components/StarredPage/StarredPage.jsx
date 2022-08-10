@@ -77,6 +77,7 @@ export function StarredPage() {
   calcDistForUser()
 
   return (
+    <div className="starred-page">
       <div className='starred-page-container primary-container'>
        <Grid container direction='row' justifyContent='space-between'>
         <Grid item>
@@ -98,6 +99,7 @@ export function StarredPage() {
         </Grid>
        </Grid>
       </div>
+    </div>
   )
 }
 
