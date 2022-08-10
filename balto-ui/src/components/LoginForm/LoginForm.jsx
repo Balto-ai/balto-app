@@ -9,7 +9,7 @@ import { BsX } from "react-icons/bs"
 import "./LoginForm.css"
 
 
-export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn, showLoginModal, setShowLoginModal}) {
+export default function LoginForm({formHeader="Login", setUserLoggedIn, onHide=()=>{}, userLoggedIn, showLoginModal, setShowLoginModal}) {
   const navigate = useNavigate()
   const [form, setForm] = React.useState( { email: "",
                                             password: ""
@@ -49,7 +49,7 @@ export default function LoginForm({setUserLoggedIn, onHide=()=>{}, userLoggedIn,
   return (
     <div className="login-form">
       <div className="login-card">
-        <h2 className="login-title">Login</h2>
+        <h2 className="login-title">{formHeader}</h2>
         <Form className="form" noValidate validated={isValidated} onSubmit={handleOnFormSubmit}>
           {error ? <Alert className="form-item" variant='danger'><BsX height="32px" /> {error}</Alert> : null}
           <Form.Group controlId="validationCustom01" className="form-item">
