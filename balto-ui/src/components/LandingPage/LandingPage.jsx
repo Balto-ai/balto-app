@@ -57,7 +57,7 @@ export default function LandingPage() {
         </Grid>
         <Grid container direction='column' alignItems='center' justifyContent='center' spacing={5}>
           <Grid item>
-            <h1>Dogs Near You</h1>
+            <h1>Dogs Available for Adoption</h1>
           </Grid>
           <Grid item>
             <LandingDogGrid/>
@@ -105,12 +105,12 @@ export function LandingDogGrid(){
   }, [])
   //variable that stores only 4 dogs for the landing page
   const dogs = dogResults.slice(0,4);
-
+  console.log(dogs)
   return (
     <div className="dog-grid">
         {dogs.map((dog)=>{
           return(
-            <DogCard key={dog.id} dogId={dog.id} name={dog.name} breed={dog.breed} ageGroup={dog.dob} imgUrl={dog.image_url}/>
+            <DogCard key={dog.id} dogId={dog.dog_id} name={dog.name} breed={dog.breed} dob={dog.dob} imgUrl={dog.image_url}/>
           )
         })}
     </div>

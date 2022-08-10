@@ -6,7 +6,11 @@ import { useAuthContext } from '../../contexts/auth'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DogCard from '../DogCard/DogCard'
 import LoginToAccess from '../LoginToAccess/LoginToAccess'
+import { Box } from '@mui/material';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import "./StarredPage.css"
+import Loading from '../Loading/Loading'
 
 export default function StarredPageContainer() {
 
@@ -27,37 +31,54 @@ export default function StarredPageContainer() {
 
 export function StarredPage() {
 
-  const { starredList, error, isLoading } = useStarredContext()
+  const { starredList, error,} = useStarredContext()
   const [onStarPage, setOnStarPage] = useState(true)
+  const [sortBy, setSortBy] = React.useState('')
+  const [starredDogs, setStarredDogs] = useState([])
+  const [isLoading, setIsLoading] = React.useState(false)
+  console.log(starredList)
+  useEffect(()=>{
+    if (starredDogs.length === 0){
+      setIsLoading(true)
+      setStarredDogs(starredList)
+    }
+    setIsLoading(false)
+  },[starredList, isLoading, starredDogs])
   return (
-    <div className="starred-page">
       <div className='starred-page-container primary-container'>
-        <div className='header'>
-          <h1 className='title'>Favorites ({starredList.length})</h1>
-          <DropDownSortMenu className="filter-menu" variant="secondary" />
-        </div>
-        <div className='dog-grid'>
-          {starredList.map(starredDog => {
-            return <DogCard key={starredDog.id}
-                      dogId={starredDog.id}
-                      name={starredDog.name}
-                      breed={starredDog.breed}
-                      dob={starredDog.dob}
-                      imgUrl={starredDog.image_url} onStarPage={onStarPage} setOnStarPage={setOnStarPage} />
-          })}
-        </div>
+       <Grid container direction='row' justifyContent='space-between'>
+        <Grid item>
+          <Box>
+            <h1 className='title'>Favorites ({starredList.length})</h1>
+          </Box>
+        </Grid>
+        <Grid item>
+          <Box>
+            <DropDownSortMenu setStarredDogs={setStarredDogs} starredList={starredList} setSortBy={setSortBy} sortBy={sortBy} starredDogs={starredDogs} className="filter-menu" variant="secondary" />
+          </Box>
+        </Grid>
+       </Grid>
+       <Grid container>
+        <Grid item>
+          <Box>
+            <DogGrid setIsLoading={setIsLoading} isLoading={isLoading} setOnStarPage={setOnStarPage} onStarPage={onStarPage} starredDogs={starredDogs} />
+          </Box>
+        </Grid>
+       </Grid>
       </div>
-    </div>
   )
 }
 
-export function DropDownSortMenu() {
-  const [sort, setSort] = useState("") 
-  const { starredList, error, isLoading } = useStarredContext()
-
+export function DropDownSortMenu({ setStarredDogs, starredList, starredDogs, setSortBy, sortBy}) {
   useEffect(() => {
-  }, [sort])
 
+  }, [sortBy])
+
+  if (sortBy !== ""){
+    if (sortBy === "Name (A-Z)") { setStarredDogs(starredList.sort(sortByNameAsc)) }
+    else if (sortBy === "Size (Ascending)") { setStarredDogs(starredList.sort(sortBySizeAsc)) }
+    else if (sortBy === "Age (Ascending)") { setStarredDogs(starredList.sort(sortByAgeAsc)) }
+  }
   function sortByNameAsc(a, b) {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
@@ -79,21 +100,41 @@ export function DropDownSortMenu() {
   }
 
   // sort based on dropdown selection
-  if (sort == "name") { starredList.sort(sortByNameAsc) }
-  else if (sort == "size") { starredList.sort(sortBySizeAsc) }
-  else if (sort == "age") { starredList.sort(sortByAgeAsc) }
-
+ 
   return (
     <Dropdown name="sort-dropdown" id="sort-dropdown">
       <Dropdown.Toggle variant="secondary" id="sort-toggle">
-        Sort by:
+        Sort by: {sortBy}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={()=>{setSort("name")}}>Name (A-Z)</Dropdown.Item>
-        <Dropdown.Item onClick={()=>{starredList.sort()}}>Distance (Ascending)</Dropdown.Item>
-        <Dropdown.Item onClick={()=>{setSort("size")}}>Size (Ascending)</Dropdown.Item>
-        <Dropdown.Item onClick={()=>{setSort("age")}}>Age (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSortBy("Name (A-Z)")}}>Name (A-Z)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{starredDogs.sort()}}>Distance (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSortBy("Size (Ascending)")}}>Size (Ascending)</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setSortBy("Age (Ascending)")}}>Age (Ascending)</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
+  )
+}
+export function DogGrid({starredDogs, onStarPage, setOnStarPage, setIsLoading, isLoading}){
+  useEffect(()=>{
+  },[starredDogs])
+  if (isLoading) {
+    return (
+    <div className='primary-container'>
+      <Loading />
+    </div>
+    )
+  }
+  return(
+  <div className='dog-grid'>
+  {starredDogs.map(starredDog => {
+    return <DogCard key={starredDog.id}
+              dogId={starredDog.id}
+              name={starredDog.name}
+              breed={starredDog.breed}
+              dob={starredDog.dob}
+              imgUrl={starredDog.image_url} onStarPage={onStarPage} setOnStarPage={setOnStarPage} />
+  })}
+  </div>
   )
 }
