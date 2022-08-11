@@ -3,15 +3,13 @@ import ApiClient from '../../services/ApiClient'
 import { useAuthContext } from '../../contexts/auth'
 import { useComponentContext } from '../../contexts/component'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import Toast from 'react-bootstrap/Toast'
 import LoginForm from '../LoginForm/LoginForm'
 import { IconButton } from '@mui/material';
 import "./StarButtonRect.css"
 import Tooltip from '@mui/material/Tooltip';
-import DogIcon from '../AddDogRecord/icon/paw (1).png'
 
 
 export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnStarPage}) {
@@ -49,15 +47,15 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
                 const { data, error } = await ApiClient.unstarDog(dogId)
                 setIsStarred(false)
             } else {
-                // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.starDog({dogId})
                 setIsStarred(true)
             }
-            
+
+            // show a new toast 
             const headerMessage = isStarred ? (`Removed ${dogName} from Favorites`) : (`Added ${dogName} to Favorites`)
-            const bodyMessage = onStarPage ? (<><a href="/star">Reload</a><span> to view your newly updated Favorites</span></>) : (<><span>View your </span><a href="/star">Favorites</a></>)
+            const bodyMessage = onStarPage ? (<><a href="/star">Reload</a> <span>to view your updated Favorites</span></>) : (<><span>View your </span><a href="/star">Favorites</a></>)
             createNewToast(headerMessage, bodyMessage )
-            // setToastShow(true)
+
         // if no user is signed in, show a modal prompting them to login/signup
         } else {
             setModalShow(true)
@@ -66,19 +64,17 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
 
     return (
         <>
-        {/* actual button component that is displayed on the card */}
-        {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
-        {isStarred ? <Tooltip title="Remove from Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteIcon sx={{ color: 'var(--balto-main)'}} /></IconButton>
-        </Tooltip>:
-        <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteBorderIcon sx={{ color: 'gray'}} /></IconButton>
-        </Tooltip>}
+        {/* actual star button */}
+        {isStarred
+        ? <Tooltip title="Remove from Favorites">
+            <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteIcon sx={{ color: 'var(--balto-main)'}} /></IconButton>
+          </Tooltip>
+        : <Tooltip title="Add to Favorites">
+            <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteBorderIcon sx={{ color: 'gray'}} /></IconButton>
+          </Tooltip>}
+
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
-
-        {/* bottom-right notification that appears when a user stars/unstars a dog */}
-        {/* {onStarPage ? <StarUpdateToastFromStarredPage setOnStarPage={setOnStarPage} toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} /> :<StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />} */}
         </>
     )
 }
