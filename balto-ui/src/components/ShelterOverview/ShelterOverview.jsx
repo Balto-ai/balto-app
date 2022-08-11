@@ -133,7 +133,6 @@ export function RowContextMenu(props) {
     const { createNewToast } = useComponentContext()
     const {rows, dogId, show, onHide} = props;
     const [imageName, setImageName] = useState('')
-    const [selectedDog, setSelectedDog] = useState({})
     const navigate = useNavigate()
     useEffect(()=>{
       if (rows.length === 0)  return;
