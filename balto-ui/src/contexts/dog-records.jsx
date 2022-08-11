@@ -50,7 +50,7 @@ export function DogRecordsContextProvider({ children }) {
         if (error) setError(error)
         if (data) {
             setError(false)
-            setReceivedNewDogRecord(true)
+            window.location.reload()
         }
     }
 
