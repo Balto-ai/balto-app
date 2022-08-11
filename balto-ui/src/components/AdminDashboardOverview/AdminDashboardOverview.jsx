@@ -20,6 +20,8 @@ import TableRow from '@mui/material/TableRow';
 import './AdminDashboardOverview.css'
 import Calendar from '../Calendar/Calendar'
 
+import UpdateFeed from '../UpdateFeed/UpdateFeed'
+
 import { useState, useEffect } from 'react'
 
 export default function AdminDashboardOverviewContainer(){
@@ -71,6 +73,8 @@ export function AdminDashboardOverview() {
         <Grid container columnGap={3} gap={3} sx={{marginBottom:5}}>
           <Grid item>
           <Paper sx={{
+              boxShadow:'var(--card-box-shadow)',
+              borderRadius:'var(--border-radius-small)',
               width: 325,
               height: 150,
               backgroundColor: 'white',
@@ -84,7 +88,7 @@ export function AdminDashboardOverview() {
                 opacity:0.8
             }
             }}
-            elevation={4}
+            elevation={0}
             onClick={()=>{navigate('/admin-dashboard/dog-record')}}
             >
               <Grid container sx={{height:'100%', marginLeft: 2}} direction='row'  alignItems='center' gap={3} >
@@ -103,6 +107,8 @@ export function AdminDashboardOverview() {
           </Grid>
           <Grid item>
           <Paper sx={{
+              boxShadow:'var(--card-box-shadow)',
+              borderRadius:'var(--border-radius-small)',
               width: 325,
               height: 150,
               backgroundColor: 'white',
@@ -116,7 +122,7 @@ export function AdminDashboardOverview() {
                 opacity:0.8
               }
             }}
-            elevation={4}
+            elevation={0}
             onClick={()=>{navigate('/admin-dashboard/adoption-inquiries')}}
             >
               <Grid container sx={{height:'100%', marginLeft: 2}} direction='row'  alignItems='center' gap={3} >
@@ -153,12 +159,11 @@ export function AdminDashboardOverview() {
           <Grid item>
             <Grid container gap={3}>
               <Grid item>
-                <Calendar/>
+                <Calendar className="custom-calendar" />
               </Grid>
-              <Grid item> he</Grid>
-            </Grid>
-            <Grid container gap={3}>
-              <Grid item>hel</Grid>
+              <Grid item>
+                <UpdateFeed updateLimit={5}/>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -196,8 +201,15 @@ export function AdoptionTable({recentInquiries}){
   const rows = [...recentInquiries]
   console.log(rows, recentInquiries)
   return (
-    <TableContainer component={Paper} elevation={4}>
-      <Table sx={{ }} aria-label="simple table">
+    <TableContainer component={Paper} elevation={0}
+      sx={{
+        boxShadow:'var(--card-box-shadow)',
+        borderRadius:'var(--border-radius-small)'
+        }}
+      >
+      <Table
+        sx={{}}
+       aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Dog</TableCell>
@@ -221,10 +233,10 @@ export function AdoptionTable({recentInquiries}){
                 {row.dog_name}
               </TableCell>
               <TableCell align="right" sx={{border:'none'}}>{row.user_first_name}</TableCell>
-              <TableCell align="right" sx={{border:'none'}}>{row.email}</TableCell>
-              <TableCell align="right" sx={{border:'none'}}>{row.phone_number}</TableCell>
-              <TableCell align="right" sx={{border:'none'}}>{row.zipcode}</TableCell>
-              <TableCell align="right" sx={{border:'none'}}>{date !== 'Invalid Date' ? date : null}</TableCell>
+              <TableCell align="left" sx={{border:'none'}}>{row.email}</TableCell>
+              <TableCell align="left" sx={{border:'none'}}>{row.phone_number || "N/A"}</TableCell>
+              <TableCell align="left" sx={{border:'none'}}>{row.zipcode}</TableCell>
+              <TableCell align="left" sx={{border:'none'}}>{date !== 'Invalid Date' ? date : null}</TableCell>
             </TableRow>
           )})}
         </TableBody>

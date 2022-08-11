@@ -8,7 +8,7 @@ import { Grid, Box, Container,Paper } from '@mui/material'
 export default function ReactCalendar(){
     const [date, setDate] = useState(new Date());
     return(
-        <Paper elevation={4}>
+        <Paper elevation={0}>
             <Calendar onChange={setDate} value={date} />
         </Paper>
              
