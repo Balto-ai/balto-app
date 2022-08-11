@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
+import { useComponentContext } from '../../contexts/component'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -33,6 +34,7 @@ export default function EditDogRecord() {
   const [show, setShow] = React.useState(false);
   const [imageUpload, setImageUpload] = React.useState(null)
   const { dogRecord, editDogRecord, error, setError, initialized } = useDogRecordDetailContext()
+  const { createNewToast, setShowToast } = useComponentContext()
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
   const [isValidated, setIsValidated] = React.useState(false)
 
@@ -112,6 +114,7 @@ export default function EditDogRecord() {
       evt.stopPropagation()
     } else {
       await editDogRecord(dogId, form)
+      createNewToast("Balto", `Successfully updated ${dogRecord.name}'s profile!`)
       navigate(-1)
     }
   }
