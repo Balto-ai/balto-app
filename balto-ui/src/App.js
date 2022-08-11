@@ -73,7 +73,6 @@ function AppContainer() {
 function App() {
 
   const { showToast, setShowToast, toastHeader, toastBody } = useComponentContext()
-  console.log("in APP:", showToast, toastHeader, toastBody)
 
   return (
       <div className="App">

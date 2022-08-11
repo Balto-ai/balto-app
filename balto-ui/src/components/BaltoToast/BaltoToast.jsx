@@ -1,7 +1,7 @@
 import Toast from 'react-bootstrap/Toast'
 import DogIcon from '../../assets/paw icon.png'
 
-export default function BaltoToast({ show=false, setShow=()=>{}, header="Balto", body=""}) {
+export default function BaltoToast({ show=false, setShow=()=>{}, header="Balto", body}) {
     
     return (
       <div aria-live="polite" aria-atomic="true">
@@ -11,7 +11,7 @@ export default function BaltoToast({ show=false, setShow=()=>{}, header="Balto",
             <strong className="me-auto">{header}</strong>
             <small className="text-muted">just now</small>
           </Toast.Header>
-          <Toast.Body>{body}</Toast.Body>
+          {body ? <Toast.Body>{body}</Toast.Body> : null }
         </Toast>
       </div>
     );
