@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
+import { useComponentContext } from '../../contexts/component'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -16,6 +17,7 @@ import "./EditDogRecord.css"
 import Toast from 'react-bootstrap/Toast';
 import DogIcon from './icon/paw (1).png'
 import UploadImageBtn from '../UploadImageBtn/UploadImageBtn'
+import Loading from '../Loading/Loading'
 import ProgressList from '../EditSingleImage/ProgressList'
 
 
@@ -32,6 +34,7 @@ export default function EditDogRecord() {
   const [show, setShow] = React.useState(false);
   const [imageUpload, setImageUpload] = React.useState(null)
   const { dogRecord, editDogRecord, error, setError, initialized } = useDogRecordDetailContext()
+  const { createNewToast, setShowToast } = useComponentContext()
   const [form, setForm] = React.useState({}) // form that will be sent to API endpoint to update the dog record
   const [isValidated, setIsValidated] = React.useState(false)
 
@@ -111,7 +114,8 @@ export default function EditDogRecord() {
       evt.stopPropagation()
     } else {
       await editDogRecord(dogId, form)
-      navigate("/admin-dashboard/dog-record/id/"+dogId)
+      createNewToast("Balto", `Successfully updated ${dogRecord.name}'s profile!`)
+      navigate(-1)
     }
   }
 
@@ -124,7 +128,12 @@ export default function EditDogRecord() {
     }
   }, [isLoading])
 
-  if (initialized) {
+  // only return the form if the dog record has been fetched and it's not initialized
+  if ((!initialized) || isLoading || (!dogRecord.name)) {
+    return <Loading />
+  }
+
+  if (initialized && dogRecord.name) {
   return (
     <div className="add-record-form primary-container">
       <div className="add-record-card">
@@ -279,8 +288,8 @@ export default function EditDogRecord() {
             {/* ratings for playfulness,energyLevel, and exerciseNeeds */}
             <Form.Group className="mb-3">
               {Object.keys(ratings).map((category, idx) => (
-                <Form.Group key={idx}>
-                  <Form.Label>{ratings[category]}</Form.Label>
+                <Form.Group key={idx} className="mb-1x">
+                  <Form.Label style={{marginRight: "var(--gap-small)"}}>{ratings[category]}</Form.Label>
                   <Rating
                     name={category}
                     value={form[category] || dogRecord[category]}

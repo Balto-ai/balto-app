@@ -1,21 +1,20 @@
 import React from 'react'
 import ApiClient from '../../services/ApiClient'
 import { useAuthContext } from '../../contexts/auth'
+import { useComponentContext } from '../../contexts/component'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import ToastContainer from 'react-bootstrap/ToastContainer'
-import Toast from 'react-bootstrap/Toast'
 import LoginForm from '../LoginForm/LoginForm'
 import { IconButton } from '@mui/material';
 import "./StarButtonRect.css"
 import Tooltip from '@mui/material/Tooltip';
-import DogIcon from '../AddDogRecord/icon/paw (1).png'
 
 
 export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnStarPage}) {
     const { user } = useAuthContext()
+    const { createNewToast } = useComponentContext()
     const [isStarred, setIsStarred] = React.useState(false) // whether the dog is starred or not, sets the fill of the star
     const [modalShow, setModalShow] = React.useState(false) // shows modal that appears when a non-logged in user attampts to favorite a dog
     const [toastShow, setToastShow] = React.useState(false) // shows bottom-right notification that appears when a dog is starred/unstarred
@@ -34,7 +33,7 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
             }
         }
         // only check if starred if the user is signed into an account since
-        //  we know that non-loggin in users should not have any saved dogs
+        //  we know that non-logged in users should not have any saved dogs
         if (user?.email) {
             checkIfStarred()
         }
@@ -48,11 +47,15 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
                 const { data, error } = await ApiClient.unstarDog(dogId)
                 setIsStarred(false)
             } else {
-                // TODO: may want to add error handling on frontend here
                 const { data, error } = await ApiClient.starDog({dogId})
                 setIsStarred(true)
             }
-            setToastShow(true)
+
+            // show a new toast 
+            const headerMessage = isStarred ? (`Removed ${dogName} from Favorites`) : (`Added ${dogName} to Favorites`)
+            const bodyMessage = onStarPage ? (<><a href="/star">Reload</a> <span>to view your updated Favorites</span></>) : (<><span>View your </span><a href="/star">Favorites</a></>)
+            createNewToast(headerMessage, bodyMessage )
+
         // if no user is signed in, show a modal prompting them to login/signup
         } else {
             setModalShow(true)
@@ -61,19 +64,17 @@ export default function StarButtonRect({ dogId=1, dogName="", onStarPage, setOnS
 
     return (
         <>
-        {/* actual button component that is displayed on the card */}
-        {/* <Button className='btn' onClick={handleOnClick} variant={isStarred ? "info" : "primary"} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>{isStarred ? <BsStarFill /> : <BsStar />} {isStarred ? <span>Favorited</span> : <span>Favorite </span> }</Button> */}
-        {isStarred ? <Tooltip title="Remove from Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteIcon sx={{ color: 'var(--balto-main)'}} /></IconButton>
-        </Tooltip>:
-        <Tooltip title="Add to Favorites">
-          <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteBorderIcon sx={{ color: 'gray'}} /></IconButton>
-        </Tooltip>}
+        {/* actual star button */}
+        {isStarred
+        ? <Tooltip title="Remove from Favorites">
+            <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteIcon sx={{ color: 'var(--balto-main)'}} /></IconButton>
+          </Tooltip>
+        : <Tooltip title="Add to Favorites">
+            <IconButton aria-label='favorite' onClick={handleOnClick}><FavoriteBorderIcon sx={{ color: 'gray'}} /></IconButton>
+          </Tooltip>}
+
         {/* modal that appears and prompts users to login/signup when they attempt to star a dog */}
         {modalShow && <StarModal setUserLoggedIn={setUserLoggedIn} show={modalShow} onHide={() => setModalShow(false)} />}
-
-        {/* bottom-right notification that appears when a user stars/unstars a dog */}
-        {onStarPage ? <StarUpdateToastFromStarredPage setOnStarPage={setOnStarPage} toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} /> :<StarUpdateToast toastShow={toastShow} setToastShow={setToastShow} dogName={dogName} isStarred={isStarred} />}
         </>
     )
 }
@@ -100,47 +101,25 @@ export function StarModal(props) {
     )
   }
 
-export function StarUpdateToast({setToastShow=()=>{}, toastShow=false, dogName="", isStarred="true"}) {
-return (
-    <Toast onClose={() => setToastShow(false)} show={toastShow} delay={5000} autohide className="star-update-toast">
-    <Toast.Header>
-      {/* <strong className="me-auto"> */}
-          {/* render appropriate message based on if the user checked/unchecked */}
-          <img
-              src={DogIcon}
-              className="dog-icon-toast"
-              alt="dog paw"
-            />
-          {isStarred
-           ? <strong className="me-auto">{`Added ${dogName} to Favorites`}</strong>
-           : <strong className="me-auto">{`Removed ${dogName} from Favorites`}</strong>
-          }
-      {/* </strong> */}
-    </Toast.Header>
-    {/* link to the Favorites page for ease of access */}
-    <Toast.Body>View your <a href="/star">Favorites</a></Toast.Body>
-  </Toast>
-)
-}
-export function StarUpdateToastFromStarredPage({setToastShow=()=>{}, toastShow=false, dogName="", isStarred="true", setOnStarPage}) {
-  return (
-      <Toast onClose={() => {setToastShow(false); setOnStarPage(false)}} show={toastShow} delay={5000} autohide className="star-update-toast">
-      <Toast.Header>
-        {/* <strong className="me-auto"> */}
-            {/* render appropriate message based on if the user checked/unchecked */}
-            <img
-                src={DogIcon}
-                className="dog-icon-toast"
-                alt="dog paw"
-              />
-            {isStarred
-             ? <strong className="me-auto">{`Added ${dogName} to Favorites`}</strong>
-             : <strong className="me-auto">{`Removed ${dogName} from Favorites`}</strong>
-            }
-        {/* </strong> */}
-      </Toast.Header>
-      {/* link to the Favorites page for ease of access */}
-      <Toast.Body>Click <a href="/star">reload</a> to view your newly updated Favorites</Toast.Body>
-    </Toast>
-  )
-  }
+// export function StarUpdateToastFromStarredPage({setToastShow=()=>{}, toastShow=false, dogName="", isStarred="true", setOnStarPage}) {
+//   return (
+//       <Toast onClose={() => {setToastShow(false); setOnStarPage(false)}} show={toastShow} delay={5000} autohide className="star-update-toast">
+//       <Toast.Header>
+//         {/* <strong className="me-auto"> */}
+//             {/* render appropriate message based on if the user checked/unchecked */}
+//             <img
+//                 src={DogIcon}
+//                 className="dog-icon-toast"
+//                 alt="dog paw"
+//               />
+//             {isStarred
+//              ? <strong className="me-auto">{`Added ${dogName} to Favorites`}</strong>
+//              : <strong className="me-auto">{`Removed ${dogName} from Favorites`}</strong>
+//             }
+//         {/* </strong> */}
+//       </Toast.Header>
+//       {/* link to the Favorites page for ease of access */}
+//       <Toast.Body>Click <a href="/star">reload</a> to view your newly updated Favorites</Toast.Body>
+//     </Toast>
+//   )
+//   }

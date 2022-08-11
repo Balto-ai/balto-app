@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDogRecordsContext } from '../../contexts/dog-records'
+import { useComponentContext } from '../../contexts/component'
 import { useNavigate } from 'react-router-dom'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -66,12 +67,14 @@ export default function ShelterOverview() {
 // provides both the context menu and the actual data grid
 export function RowContextMenu(props) {
     const [selectedRow, setSelectedRow] = React.useState()
+    const [selectedDogName, setSelectedDogName] = React.useState("")
     const navigate = useNavigate()
     const [contextMenu, setContextMenu] = React.useState(null)
     const {setModalShow, show}= props
     const handleContextMenu = (event) => {
       event.preventDefault();
-      setSelectedRow(Number(event.currentTarget.getAttribute('data-id')));
+      setSelectedRow(Number(event.currentTarget.getAttribute('data-id')))
+      setSelectedDogName(props.rows[event.currentTarget.getAttribute('data-rowindex')]["name"])
       setContextMenu(
         contextMenu === null
           ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }
@@ -120,16 +123,16 @@ export function RowContextMenu(props) {
           {/* delete button here is mockup; should be the delete modal used in the dog record detail page */}
           <MenuItem onClick={()=>{ setModalShow(true); handleClose();}} disableRipple className="context-menu-item" sx={{ color: "red"}}>Delete</MenuItem>
         </Menu>
-        {show &&  <DeleteDogRecordModal rows={props.rows} dogId={selectedRow} show={show} onHide={() => setModalShow(false)} />}
+        {show &&  <DeleteDogRecordModal rows={props.rows} dogId={selectedRow} dogName={selectedDogName} show={show} onHide={() => setModalShow(false)} />}
       </div>
     )
   }
   export function DeleteDogRecordModal(props) {
 
     const { deleteDogRecord } = useDogRecordsContext()
+    const { createNewToast } = useComponentContext()
     const {rows, dogId, show, onHide} = props;
     const [imageName, setImageName] = useState('')
-    const [selectedDog, setSelectedDog] = useState({})
     const navigate = useNavigate()
     useEffect(()=>{
       if (rows.length === 0)  return;
@@ -151,6 +154,7 @@ export function RowContextMenu(props) {
         console.error(error)
       });
       await deleteDogRecord(props.dogId)
+      createNewToast("Balto", `Successfully deleted ${props.dogName}'s profile`)
       navigate('/admin-dashboard')
       onHide()
     }

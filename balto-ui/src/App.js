@@ -1,6 +1,7 @@
 import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthContextProvider } from "./contexts/auth"
+import { ComponentContextProvider, useComponentContext } from "./contexts/component"
 import AdminProtectedRoute from './components/AdminProtectedRoute/AdminProtectedRoute'
 import UserProtectedRoute from './components/UserProtectedRoute/UserProtectedRoute'
 import NavBar from "./components/NavBar/NavBar.jsx"
@@ -13,6 +14,7 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import NotFound from "./components/NotFound/NotFound"
 import Footer from "./components/Footer/Footer"
 import StarredPage from "./components/StarredPage/StarredPage"
+import BaltoToast from "./components/BaltoToast/BaltoToast"
 import { createTheme } from '@mui/material/styles'
 import { ThemeProvider } from '@mui/material/styles'
 import './App.css';
@@ -59,20 +61,21 @@ const baltoMUItheme = createTheme({
 function AppContainer() {
   return (
     <ThemeProvider theme={baltoMUItheme}>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
+      <ComponentContextProvider>
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </ComponentContextProvider>
     </ThemeProvider>
   )
 }
 
 function App() {
+
+  const { showToast, setShowToast, toastHeader, toastBody } = useComponentContext()
+
   return (
       <div className="App">
-        {/* <header className="App-header">
-        <h1>Welcome to Balto</h1>
-      </header> */}
-
         <React.Fragment>{
           <BrowserRouter>
             <NavBar />
@@ -95,10 +98,14 @@ function App() {
                 <NotFound />} />
             </Routes>
             <Footer />
+            <BaltoToast
+              show={showToast}
+              setShow={setShowToast}
+              header={toastHeader}
+              body={toastBody}
+              />
           </BrowserRouter>
         }</React.Fragment>
-
-
       </div>
   );
 }
