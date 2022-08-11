@@ -9,9 +9,6 @@
   font-family: var(--body-font-family);
   line-height: 1.125em;
 
-
-
-  box-shadow: var(--card-box-shadow) !important;
   border-radius: var(--border-radius-small) !important;
 
 
