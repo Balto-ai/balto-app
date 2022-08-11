@@ -9,14 +9,17 @@ class Starred {
             throw new BadRequestError("No userId")
         }
 
-        // merge user_dog_pairings and dogs
+        // merge user_dog_pairings and dogs and shelter to get coordinates
         const query = `
-            SELECT *
+            SELECT dogs.id AS dog_id, dogs.name, dogs.breed, dogs.dob, dogs.image_url, dogs.size,
+                shelters.longitude, shelters.latitude
             FROM user_dog_pairings
             INNER JOIN dogs
-            ON user_dog_pairings.dog_id = dogs.id
+                ON user_dog_pairings.dog_id = dogs.id
+            INNER JOIN shelters
+                ON dogs.shelter_id = shelters.id
             WHERE user_dog_pairings.user_id = $1
-            ORDER BY user_dog_pairings.created_at ASC;
+            ORDER BY user_dog_pairings.created_at DESC;
             `
         const result = await db.query(query, [userId])
         return result.rows

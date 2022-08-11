@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom"
 import ApiClient from '../../services/ApiClient'
 import { useDogRecordsContext } from '../../contexts/dog-records'
+import { useComponentContext } from '../../contexts/component'
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -30,6 +31,7 @@ export default function AddDogRecord() {
   //  - add guiding comments, maybe those ? icons where the user can hover over it to see more info
   const navigate = useNavigate()
   const { addDogRecord } = useDogRecordsContext()
+  const { createNewToast } = useComponentContext()
   const [imageUpload, setImageUpload] = React.useState([])
   const [error, setError] = React.useState(null)
   const [isValidated, setIsValidated] = React.useState(false)
@@ -102,6 +104,7 @@ export default function AddDogRecord() {
       // update form to include the selected breed
       setForm((existingForm) => ({ ...existingForm, breed:selectedBreed[0] }))
       await addDogRecord(form)
+      createNewToast("Balto", `Successfully added ${form.name}!`)
       navigate("/admin-dashboard")
     }
   }

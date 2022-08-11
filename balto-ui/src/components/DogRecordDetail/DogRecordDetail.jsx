@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useDogRecordsContext } from '../../contexts/dog-records'
 import { useDogRecordDetailContext } from '../../contexts/dog-record-detail'
+import { useComponentContext } from '../../contexts/component'
 import defaultImage from '../../assets/default-image.svg'
 import { Rating} from '@mui/material'
 import EmptyBone from "../Icon/EmptyBone"
@@ -123,7 +124,7 @@ export function DogRecordDetail() {
                {/* edit button, redirects to the edit page */}
                
                <Button variant="outline-danger" onClick={()=>{setModalShow(true)}}>Delete</Button>
-                 <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} show={modalShow} onHide={() => setModalShow(false)} />
+                 <DeleteDogRecordModal imageName={dogRecord.image_name} dogId={dogId} dogName={dogRecord.name} show={modalShow} onHide={() => setModalShow(false)} />
                </div>  
               </Stack>
               
@@ -283,6 +284,7 @@ export function DogRecordDetail() {
 export function DeleteDogRecordModal(props) {
 
   const { deleteDogRecord } = useDogRecordsContext()
+  const { createNewToast } = useComponentContext()
   const {imageName} = props;
   const navigate = useNavigate()
 
@@ -297,8 +299,8 @@ export function DeleteDogRecordModal(props) {
       console.error(error)
     });
     await deleteDogRecord(props.dogId)
+    createNewToast("Balto", `Successfully deleted ${props.dogName}'s profile`)
     navigate('/admin-dashboard')
-
   }
 
   return (

@@ -34,27 +34,26 @@
     width: 80%;
 }
 
-.dog-card .dog-info-topline .dog-name-distance .dog-distance {
+.dog-card .dog-distance {
     display: flex;
     align-items: center;
     flex-flow: row nowrap;
     gap: var(--gap-xsmall);
+    font-size: 0.8em;
+    color: var(--body-text-medium);
+    padding-top: 2%;
 }
+
 
 .dog-card .dog-info-topline .dog-name {
     font-family: var(--header-font-family);
     font-size: 1.2em;
     font-weight: 500;
-    max-width: 60%;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.dog-card .dog-info-topline .dog-distance {
-    font-size: 0.8em;
-    color: var(--body-text-medium);
-    gap: 30px;
+    max-width: 100%;
+    white-space: nowrap;
+    display: block;
 }
 
 .dog-card .dog-info .dog-details {
