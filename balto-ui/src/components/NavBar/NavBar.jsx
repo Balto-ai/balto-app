@@ -46,7 +46,8 @@ export function NavLinks({ isShelterAdmin }) {
   if (isShelterAdmin) {
     return (
       <Nav className="me-auto">
-        <Nav.Link href="/admin-dashboard/" id="dog-records-navlink">Dogs</Nav.Link>
+        <Nav.Link href="/admin-dashboard/" id="dog-records-navlink">Dashboard</Nav.Link>
+        <Nav.Link href="/admin-dashboard/dog-record" id="dog-records-navlink">Dogs</Nav.Link>
         <Nav.Link href="/admin-dashboard/adoption-inquiries" id="adoption-inquiries-navlink">Adoption Inquiries</Nav.Link>
       </Nav>
     )
