@@ -1,0 +1,14 @@
+.MuiTableRow-root>*{
+    padding: 10px;
+}
+.MuiTableRow-root.MuiTableRow-head>*{
+    font-weight: bold !important;
+    background-color: rgba(144, 138, 248, 0.2);
+    color: #5d74bb;
+}
+.Table td, th {
+    border: none!important;
+}
+.Table:first-child{
+    border-radius: 0.7rem !important;
+}
