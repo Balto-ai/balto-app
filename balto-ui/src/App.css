@@ -8,6 +8,7 @@
 /* GLOBAL VARIABLES */
 :root {
   --light-bg-grey: #f4f4f4;
+  --balto-main-lighter: #e9e8fe; 
   --balto-main: #908AF8;
   --balto-main-darker: #5d74bb;
   --balto-secondary: #FEC272;

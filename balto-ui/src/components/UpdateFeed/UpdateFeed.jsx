@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '../../contexts/adoption-inquiries'
 import { useDogRecordsContext } from '../../contexts/dog-records'
-import { Stack, Box, Card, CardContent, CardMedia, CardActions, Tooltip, IconButton, Grid } from '@mui/material'
+import { Stack, Card, Divider, Tooltip, IconButton, Grid } from '@mui/material'
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import defaultImage from '../../assets/default-image.svg'
 import adoptionInquiryImage from '../../assets/question icon.svg'
@@ -11,16 +11,15 @@ import './UpdateFeed.css'
 // import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function UpdateFeedContainer({ updateLimit=null }) {
+export default function UpdateFeedContainer({ updateLimit=null, cardColor="#ffffff" }) {
     return (
         <AdoptionInquiriesContextProvider>
-            <UpdateFeed updateLimit={updateLimit} />
+            <UpdateFeed updateLimit={updateLimit} cardColor={cardColor}/>
         </AdoptionInquiriesContextProvider>
     )
 }
 
-export function UpdateFeed({ updateLimit }) {
-
+export function UpdateFeed({ updateLimit, cardColor }) {
 
     const { allAdoptionInquiries } = useAdoptionInquiriesContext()
     const { dogRecords } = useDogRecordsContext()
@@ -56,7 +55,12 @@ export function UpdateFeed({ updateLimit }) {
     const updatesToDisplay = updateLimit ? updates.slice(0, updateLimit) : updates
 
     return (
-        <Stack spacing={2} className="update-feed">
+        <Stack spacing={2}
+            divider={
+                <Divider orientation="horizontal" sx={{ borderColor: "#a6a6a6" }} flexItem />
+            }
+            className="update-feed"
+        >
             {updatesToDisplay.map((update, idx) => (
                 <UpdateCard key={idx}
                     updateType={update.type}
@@ -64,13 +68,14 @@ export function UpdateFeed({ updateLimit }) {
                     dogName={update.name}
                     dogId={update.dogId}
                     imageUrl={update.imageUrl}
+                    cardColor={cardColor}
                 />
                 ))}
         </Stack>
     )
 }
 
-export function UpdateCard({updateType, timestamp, dogName, dogId, imageUrl}) {
+export function UpdateCard({updateType, timestamp, dogName, dogId, imageUrl, cardColor }) {
 
     const navigate = useNavigate()
     let tooltipText = ""
@@ -84,8 +89,6 @@ export function UpdateCard({updateType, timestamp, dogName, dogId, imageUrl}) {
         const daysDifference = Math.round(
           (timestamp - new Date().getTime()) / oneDayInMs,
         )
-
-        console.log(daysDifference)
         
         // if it's been a week or more, show the the date instead (2/2/2022)
         if (daysDifference < -6) {
@@ -116,7 +119,7 @@ export function UpdateCard({updateType, timestamp, dogName, dogId, imageUrl}) {
     return (
 
 
-        <Card className="update-card" sx={{ display: 'flex', height: '80px', borderRadius: 'var(--border-radius-small)', boxShadow: 'var(--card-box-shadow)' }}>
+        <Card className="update-card" sx={{ display: 'flex', backgroundColor: (cardColor), borderRadius: 'var(--border-radius-small)', boxShadow: 'none' }}>
 
             <Grid container direction="row" justifyContent="space-between" alignItems="center">
 

@@ -72,15 +72,15 @@ export function AdminDashboardOverview() {
     <Stack gap={3}>
       
       {/* item 1 in the page stack */}
-      <h1 className="area-header">Dashboard</h1>
+      <h1 className="dashboard-header">Dashboard</h1>
 
       {/* item 2 in the page stack; everything under the dashboard header */}
         {/* width="1" to fill out stack container */}
       <Grid container spacing={5} xs={12} width="1">
         
         {/* column 1: navigation cards and recent adoption inquiries contained in a Stack */}
-        <Grid item xs={12} sm={8}>
-          <Stack spacing={3}>
+        <Grid item sm={12} md={8}>
+          <Stack spacing={5}>
             
             {/* item 1 in column 1; "Dogs" and "Adoption Inquiries" cards */}
             <Grid container item spacing={2}>
@@ -112,7 +112,10 @@ export function AdminDashboardOverview() {
             {/* item 2 in column 1; Recent adoption inquiries table */}
             <Grid item>
               <Stack spacing={2}>
-                <h4 className="dashboard-subheader">Recent Adoption Inquiries</h4>
+                <span className="dashboard-subheader-group">
+                  <h4 className="dashboard-subheader">Adoption Inquiries</h4>
+                  <h4 className="dashboard-subheader-detail">since last week</h4>
+                </span>
                 <AdoptionTable recentInquiries={recentInquiries} />
               </Stack>
             </Grid>
@@ -124,7 +127,7 @@ export function AdminDashboardOverview() {
 
         {/* ---- column 2: calendar and updates area ---- */}
         <Grid item xs={12} sm={4}>
-          <Stack spacing={6}>
+          <Stack spacing={5}>
 
             {/* item 2 in column 2; calendar */}
             <Calendar className="custom-calendar" />
@@ -132,7 +135,22 @@ export function AdminDashboardOverview() {
             {/* item 2 in column 2; updateFeed */}
             <Stack spacing={2}>
               <h4 className="dashboard-subheader">Updates</h4>
-              <UpdateFeed updateLimit={5} />
+              <Box className="update-feed"
+                sx={{
+                  backgroundColor: "white",
+                  borderRadius: "var(--border-radius-small)",
+                  boxShadow: "var(--card-box-shadow)",
+                  padding: "var(--gap-medium)",
+                  mb: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 300,
+                  overflow: "hidden",
+                  overflowY: "scroll"
+                }}
+              >
+                <UpdateFeed updateLimit={10} cardColor="#ffffff" />
+              </Box>
             </Stack>
           </Stack>
         </Grid>
@@ -188,7 +206,7 @@ export function NavigationCard({ imageUrl, accentColor, label, numberCount, redi
   }
 
   return (
-    <Paper sx={paperStyle} elevation={0} onClick={() => {navigate(redirectLink);}}>
+    <Paper sx={paperStyle} className="navigation-card" elevation={0} onClick={() => {navigate(redirectLink);}}>
     {/* body of the card */}
     <Grid container item sx={{ height: "100%", marginLeft: 2 }} direction="row" alignItems="center"gap={3}>
       
@@ -199,7 +217,7 @@ export function NavigationCard({ imageUrl, accentColor, label, numberCount, redi
           {label}
         </Box>
         {/* Count */}
-        <Box item>{numberCount}</Box>
+        <Box item className="number-count">{numberCount}</Box>
       </Grid>
 
       {/* Dog icon */}
@@ -229,6 +247,7 @@ export function AdoptionTable({ recentInquiries }) {
       sx={{
         boxShadow: "var(--card-box-shadow)",
         borderRadius: "var(--border-radius-small)",
+        minHeight: "445px"
       }}
     >
       <Table sx={{}} aria-label="simple table">
@@ -253,7 +272,7 @@ export function AdoptionTable({ recentInquiries }) {
                 <TableCell component="th" scope="row">
                   {row.dog_name}
                 </TableCell>
-                <TableCell align="right" sx={{ border: "none" }}>
+                <TableCell align="left" sx={{ border: "none" }}>
                   {row.user_first_name}
                 </TableCell>
                 <TableCell align="left" sx={{ border: "none" }}>
