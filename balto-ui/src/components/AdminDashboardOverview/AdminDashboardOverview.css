@@ -42,21 +42,22 @@
 /* scrollbar styling for update page */
 /* Firefox */
 .update-feed {
-scrollbar-width: auto;
-scrollbar-color: var(--balto-main-lighter);
+    scrollbar-width: auto;
+    scrollbar-color: var(--balto-main-lighter);
 }
 
 /* Chrome, Edge, and Safari */
 .update-feed::-webkit-scrollbar {
-width: 14px;
+    width: 14px;
 }
 
 .update-feed::-webkit-scrollbar-track {
-background: white;
+    opacity: 0;
+    height: 90%;
 }
 
 .update-feed::-webkit-scrollbar-thumb {
-background-color: rgb(185, 185, 185);
-border-radius: 10px;
-border: 5px solid white;
+    background-color: rgb(185, 185, 185);
+    border-radius: 10px;
+    border: 5px solid white;
 }
