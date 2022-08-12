@@ -91,7 +91,6 @@ export function DogProfile() {
     imgArr = imgArr.concat(additionalImgArr)
   }
 
-  console.log("imgArr", imgArr)
 
   return (
 
@@ -143,7 +142,7 @@ export function DogProfile() {
               {showLoginModal && <LoginModal userLoggedIn={userLoggedIn} showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} setUserLoggedIn={setUserLoggedIn} show={showLoginModal} onHide={() => { setShowLoginModal(false); setUserLoggedIn(true) }} />}
               { /* Modals for adoption inquiry user story */}
 
-              {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelterName} />}
+              {submittedForm && <AdoptionReceiptModal show={receiptShow} onHide={() => { setReceiptShow(false) }} dogName={dogInfo.dog_name} shelterName={dogInfo.shelter_name} />}
 
             </section>
           </Row>
