@@ -34,6 +34,7 @@ export default function AdminDashboardOverviewContainer() {
 }
 
 export function AdminDashboardOverview() {
+  const navigate = useNavigate();
   const { allAdoptionInquiries } = useAdoptionInquiriesContext();
   const { dogRecords } = useDogRecordsContext();
   const [recentInquiries, setRecentInquiries] = useState([]);
@@ -113,7 +114,7 @@ export function AdminDashboardOverview() {
             <Grid item>
               <Stack spacing={2}>
                 <span className="dashboard-subheader-group">
-                  <h4 className="dashboard-subheader">Adoption Inquiries</h4>
+                  <h4 onClick={()=>navigate("/admin-dashboard/adoption-inquiries")} className="dashboard-subheader" id="adoption-inquiries-subheader">Adoption Inquiries</h4>
                   <h4 className="dashboard-subheader-detail">since last week</h4>
                 </span>
                 <AdoptionTable recentInquiries={recentInquiries} />
