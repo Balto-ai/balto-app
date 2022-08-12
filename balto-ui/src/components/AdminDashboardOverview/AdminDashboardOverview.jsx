@@ -134,7 +134,7 @@ export function AdminDashboardOverview() {
 
             {/* item 2 in column 2; updateFeed */}
             <Stack spacing={2}>
-              <h4 className="dashboard-subheader">Updates</h4>
+              <h4 className="dashboard-subheader">Recent Updates</h4>
               <Box className="update-feed"
                 sx={{
                   backgroundColor: "white",
