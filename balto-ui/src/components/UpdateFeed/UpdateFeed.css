@@ -1,16 +1,23 @@
 .update-card-image {
-    margin: auto 15px;
+    /* margin: auto 15px 15px auto; */
+    margin-right: 15px;
     height: 50px;
     max-width: 50px;
     border-radius: 15%;
 }
 
+.update-card-text {
+    width: 60%;
+}
+
 .update-card-header {
     font-weight: 600;
-    font-size: 1.05em;
+    line-height: 135%;
+    font-size: 1em;
 }
 
 .update-card-timestamp {
     font-size: 0.9em;
+    margin-top: 2%;
     color: var(--body-text-medium);
 }

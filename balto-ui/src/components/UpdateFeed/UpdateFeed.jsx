@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AdoptionInquiriesContextProvider, useAdoptionInquiriesContext } from '../../contexts/adoption-inquiries'
 import { useDogRecordsContext } from '../../contexts/dog-records'
-import { Stack, Card, Divider, Tooltip, IconButton, Grid } from '@mui/material'
+import { Stack, Card, Divider, Tooltip, IconButton, Box } from '@mui/material'
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import defaultImage from '../../assets/default-image.svg'
 import adoptionInquiryImage from '../../assets/question icon.svg'
@@ -121,84 +121,36 @@ export function UpdateCard({updateType, timestamp, dogName, dogId, imageUrl, car
 
         <Card className="update-card" sx={{ display: 'flex', backgroundColor: (cardColor), borderRadius: 'var(--border-radius-small)', boxShadow: 'none' }}>
 
-            <Grid container direction="row" justifyContent="space-between" alignItems="center">
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{width: 1}}>
 
-
-                <Grid item sx={{  display: 'flex', alignItems: 'center'}}>
+                <Box sx={{  display: 'flex', alignItems: 'flex-start'}}>
                     <img src={imageUrl} className="update-card-image" />
-
                     <div className="update-card-text">
                         <div className="update-card-header">
                             {updateType==="dog-record-edit" ? `Edited ${dogName}'s profile` : null}
                             {updateType==="dog-record-creation" ? `Added ${dogName}` : null}
-                            {updateType==="adoption-inquiry" ? `Adoption inquiry received for ${dogName}` : null}
+                            {updateType==="adoption-inquiry" ? `Adoption inquiry for ${dogName}` : null}
                         </div>
                         <div className="update-card-timestamp">
                             {timeAgo(new Date(timestamp))}
                         </div>
                     </div>
 
-                </Grid>
+                </Box>
 
 
-                <Grid item>
+                <Box>
                     {/* set tooltip, if it's an adoption inquiry */}
                     <Tooltip title={tooltipText}>
-                        <IconButton aria-label="View More" onClick={handleOnClick} sx={{ marginRight: "15px" }}>
+                        <IconButton aria-label="View More" onClick={handleOnClick}>
                             <HiOutlineChevronRight />
                         </IconButton>
                     </Tooltip>
-                </Grid>
+                </Box>
             
-            </Grid>
+            </Stack>
 
       </Card>
     )
-
-
-    // return (
-
-    //     // this one is custom
-    //     // <Card className="update-card" sx={{ display: 'flex', height: '80px', borderRadius: 'var(--border-radius-small)', boxShadow: 'var(--card-box-shadow)' }}>
-
-    //     // this one matches current dashboard i think
-    //     <Card className="update-card" flexDirection="row" sx={{ display: 'flex' }}>
-
-    //         <CardMedia
-    //             component="img"
-    //             image={imageUrl}
-    //             alt="Update card image"
-    //             className="update-card-image"
-    //         />
-
-
-    //         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-
-
-    //             <CardContent sx={{ flex: '1 0 auto' }}>
-
-    //                 <div className="update-card-header">
-    //                     {updateType==="dog-record-edit" ? `Edited ${dogName}'s profile` : null}
-    //                     {updateType==="dog-record-creation" ? `Added ${dogName}` : null}
-    //                     {updateType==="adoption-inquiry" ? `Adoption inquiry received for ${dogName}` : null}
-    //                 </div>
-    //                 <div className="update-card-timestamp">
-    //                     {timeAgo(new Date(timestamp))}
-    //                 </div>
-
-    //             </CardContent>
-
-    //             <CardActions>
-    //                 {/* set tooltip, if it's an adoption inquiry */}
-    //                 <Tooltip title={tooltipText}>
-    //                     <IconButton aria-label="View More" onClick={handleOnClick}>
-    //                         <HiOutlineChevronRight />
-    //                     </IconButton>
-    //                 </Tooltip>
-    //             </CardActions>
-
-    //         </Box>
-    //   </Card>
-    // )
 }
     
