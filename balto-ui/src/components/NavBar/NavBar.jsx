@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function NavBar() {
 
-  const { user, logoutUser } = useAuthContext()
+  const { user, logoutUser, isProcessing } = useAuthContext()
   const isLoggedIn = user?.email
   const isShelterAdmin = user?.shelterId
 
@@ -21,11 +21,14 @@ export default function NavBar() {
     <Navbar bg="light" id="navbar">
       <Container>
         <Logo isShelterAdmin={isShelterAdmin}/>
-        <NavLinks isShelterAdmin={isShelterAdmin} />
-        <UserLinks
-          isLoggedIn={isLoggedIn}
-          logoutUser={logoutUser}
-          userFirstName={user?.firstName} />
+        {isProcessing ? null :
+          <NavLinks isShelterAdmin={isShelterAdmin} />}
+        {isProcessing ? null :
+          <UserLinks
+            isLoggedIn={isLoggedIn}
+            logoutUser={logoutUser}
+            userFirstName={user?.firstName} />
+        }
       </Container>
     </Navbar >
   )
