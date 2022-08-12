@@ -145,7 +145,7 @@ export function AdminDashboardOverview() {
                   mb: 2,
                   display: "flex",
                   flexDirection: "column",
-                  height: 300,
+                  height: 400,
                   overflow: "hidden",
                   overflowY: "scroll"
                 }}
@@ -248,7 +248,7 @@ export function AdoptionTable({ recentInquiries }) {
       sx={{
         boxShadow: "var(--card-box-shadow)",
         borderRadius: "var(--border-radius-small)",
-        minHeight: "445px"
+        minHeight: "547px"
       }}
     >
       <Table sx={{}} aria-label="simple table">
