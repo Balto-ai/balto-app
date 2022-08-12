@@ -47,10 +47,16 @@ export function AuthContextProvider({ children }) {
     }
 
     React.useEffect(() => {
+
+        setInitialized(false)
+        setIsProcessing(true)
+        
         const fetchUser = async () => {
             const { data, error } = await ApiClient.fetchUserFromToken()
             if (data?.user) {
                 setUser(data.user)
+                setInitialized(true)
+                setIsProcessing(false)
                 setError(null)
             }
             if (error) setError(error)
@@ -59,12 +65,12 @@ export function AuthContextProvider({ children }) {
         const token = localStorage.getItem("balto_token")
         if (token) {
             ApiClient.setToken(token)
-            setIsProcessing(true)
             setError(null)
             fetchUser()
+        } else {
+            setInitialized(true)
+            setIsProcessing(false)
         }
-        setIsProcessing(false)
-        setInitialized(true)
 
     }, [isAuthed])
 

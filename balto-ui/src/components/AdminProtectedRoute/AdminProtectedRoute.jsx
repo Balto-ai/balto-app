@@ -4,16 +4,16 @@ import Loading from "../Loading/Loading"
 import AccessForbidden from "../AccessForbidden/AccessForbidden"
 
 export default function AdminProtectedRoute( {element} ) {
-  const { initialized, user } = useAuthContext()
+  const { initialized, isProcessing, user } = useAuthContext()
 
   // if no user and application is not currently loading
-  if (!initialized) {
+  if (!initialized || isProcessing) {
     return (
       <Loading />
     )
     } else if (initialized && user?.email && user?.shelterId) {
-  return (
-    element
+    return (
+      element
   )} else {
     return (
       <AccessForbidden />
