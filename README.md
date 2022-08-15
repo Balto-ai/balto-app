@@ -12,7 +12,7 @@ Here are some figures about the current state of shelter dogs in the US:
 - 670,000 dogs are euthanized each year
 - 9 out of 10 euthanized shelter dogs were healthy and adoptable
 
-Source: American Society for the Prevention of Cruelty to Animals (ASPCA)
+*Source: American Society for the Prevention of Cruelty to Animals (ASPCA)*
 
 Balto aims to address these problems by increasing the dog adoption rate at shelters and ultimately, decreasing the number of shelter dogs euthanized each year. 
 
