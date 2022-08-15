@@ -1,6 +1,8 @@
 # BALTO
 **You can’t change a dog’s past, but you can rewrite its future**
 
+Annesa Tran, Christy Xiong, Charles Xu
+
 ## Visit our website:
 
 **Deployed Website**: https://balto.surge.sh
@@ -16,9 +18,13 @@ Source: American Society for the Prevention of Cruelty to Animals (ASPCA)
 
 Balto aims to address these problems by increasing the dog adoption rate at shelters and ultimately, decreasing the number of shelter dogs euthanized each year. 
 
-Our full-stack web application is designed to address a missing market in the dog adoption space: a cross-platform website combining the accessibility of online marketplaces (ex. Craigslist, FB Marketplace) with the legitimacy of dog shelters.
+Our full-stack web application is designed to address a missing market in the dog adoption space: a cross-platform website combining the accessibility of online marketplaces (ex. Craigslist, FB Marketplace) with the legitimacy of dog shelters. The site consists of both a user-facing platform to explore and adopt dogs as well as an admin-only dashboard for shelters to manage dogs and adoption inquiries.
 
-Our site consists of both a user-facing platform to explore and adopt dogs as well as an admin-only dashboard for shelters to manage dogs and adoption inquiries.
+## Technologies Used
+
+- **Front-end:** React, Bootstrap, Material UI
+- **Back-end:** PostgreSQL, Node.js, Express, Firebase for Image Uploading
+- **Security:** Bcrypt for password hashing, JSON Web Tokens for user authentication
 
 ## Walkthrough
 
